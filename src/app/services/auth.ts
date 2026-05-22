@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { LoginRequest } from '../models/login-request.model';
 import { Observable } from 'rxjs';
+import { LoginResponse } from '../models/login-response.model';
 
 @Injectable({
   providedIn: 'root',
@@ -21,9 +22,27 @@ export class AuthService {
    * @param request données login
    * @return réponse backend
    */
-  login(request: LoginRequest): Observable<any> {
+  login(request: LoginRequest): Observable<LoginResponse> {
 
-    return this.http.post(`${this.apiUrl}/login`, request);
+    return this.http.post<LoginResponse>(`${this.apiUrl}/login`, request);
+  }
+
+  /**
+   * Sauvegarde utilisateur connecté
+   */
+  saveUser(user: LoginResponse): void {
+
+    localStorage.setItem('user', JSON.stringify(user));
+  }
+
+  /**
+   * Retourne utilisateur connecté
+   */
+  getUser(): LoginResponse | null {
+
+    const user = localStorage.getItem('user');
+
+    return user ? JSON.parse(user) : null;
   }
 
   /**
@@ -58,5 +77,7 @@ export class AuthService {
   logout(): void {
 
     localStorage.removeItem('token');
+
+    localStorage.removeItem('user');
   }
 }

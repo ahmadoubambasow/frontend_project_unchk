@@ -70,24 +70,21 @@ export class LoginComponent {
 
         next: (response) => {
 
-          console.log("Response :", response)
           this.authService.saveToken(response.token);
 
-console.log('NAVIGATION');
+          this.authService.saveUser(response);
 
-this.router.navigateByUrl('/dashboard')
-  .then(success => {
+          this.router.navigateByUrl('/dashboard')
+                  
+          },
 
-    console.log('SUCCESS ?', success);
-  });        },
+          error: (error) => {
 
-        error: (error) => {
+            console.log('ERROR', error);
 
-          console.log('ERROR', error);
-
-          this.errorMessage =
-            'Email ou mot de passe incorrect';
-        }
+            this.errorMessage =
+              'Email ou mot de passe incorrect';
+          }
       });
   }
 }
