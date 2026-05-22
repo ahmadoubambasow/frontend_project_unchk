@@ -1,0 +1,138 @@
+<div class="login-page">
+
+  <!-- Left Side -->
+  <div class="login-left">
+
+    <div class="overlay"></div>
+
+    <div class="left-content">
+
+      <!-- Logo -->
+      <div class="brand">
+
+        <div class="logo-circle">
+          U
+        </div>
+
+        <div>
+
+          <h1>
+            Université Cheikh Hamidou Kane
+          </h1>
+
+          <p>
+            Plateforme de gestion universitaire moderne.
+          </p>
+
+        </div>
+
+      </div>
+
+      <!-- Text -->
+      <div class="hero-text">
+
+        <h2>
+          Gestion académique intelligente
+        </h2>
+
+        <p>
+          Administration, pédagogie et suivi académique
+          dans une plateforme moderne et centralisée.
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- Right Side -->
+  <div class="login-right">
+
+    <mat-card class="login-card">
+
+      <!-- Title -->
+      <div class="login-header">
+
+        <h2>Connexion</h2>
+
+        <p>
+          Connectez-vous à votre espace
+        </p>
+
+      </div>
+
+      <!-- Form -->
+      <form
+        [formGroup]="loginForm"
+        (ngSubmit)="onSubmit()">
+
+        <!-- Email -->
+        <mat-form-field appearance="outline">
+
+          <mat-label>Email</mat-label>
+
+          <input
+            matInput
+            type="email"
+            formControlName="email">
+
+          <mat-icon matSuffix>
+            person
+          </mat-icon>
+
+        </mat-form-field>
+
+        <!-- Password -->
+        <mat-form-field appearance="outline">
+
+          <mat-label>Mot de passe</mat-label>
+
+          <input
+            matInput
+            type="password"
+            formControlName="password">
+
+          <mat-icon matSuffix>
+            lock
+          </mat-icon>
+
+        </mat-form-field>
+
+        <!-- Remember -->
+        <div class="remember-row">
+
+          <mat-checkbox>
+            Se souvenir de moi
+          </mat-checkbox>
+
+          <a href="#">
+            Mot de passe oublié ?
+          </a>
+
+        </div>
+
+        <!-- Submit -->
+        <button
+          mat-raised-button
+          color="primary"
+          type="submit">
+
+          Se connecter
+
+        </button>
+
+        <!-- Error -->
+        <p class="error-message">
+
+          {{ errorMessage }}
+
+        </p>
+
+      </form>
+
+    </mat-card>
+
+  </div>
+
+</div>

@@ -1,0 +1,87 @@
+.dashboard-grid {
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(auto-fit, minmax(240px, 1fr));
+
+  gap: 20px;
+}
+
+/* Cards */
+.stat-card {
+
+  background: white;
+
+  border-radius: 20px;
+
+  padding: 25px;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 18px;
+
+  box-shadow:
+    0 5px 20px rgba(0,0,0,0.05);
+}
+
+.stat-card h2 {
+
+  font-size: 28px;
+
+  font-weight: 700;
+}
+
+.stat-card p {
+
+  color: #64748b;
+}
+
+/* Icons */
+.icon {
+
+  width: 65px;
+
+  height: 65px;
+
+  border-radius: 18px;
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  color: white;
+}
+
+.icon mat-icon {
+
+  font-size: 32px;
+
+  width: 32px;
+
+  height: 32px;
+}
+
+.blue {
+
+  background: #2563eb;
+}
+
+.green {
+
+  background: #16a34a;
+}
+
+.orange {
+
+  background: #f59e0b;
+}
+
+.purple {
+
+  background: #9333ea;
+}
