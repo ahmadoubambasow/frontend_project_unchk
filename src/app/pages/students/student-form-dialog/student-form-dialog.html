@@ -1,0 +1,134 @@
+<div class="dialog-container">
+
+  <!-- Header -->
+  <div class="dialog-header">
+
+    <h2>
+      Ajouter étudiant
+    </h2>
+
+    <p>
+      Créer un nouvel étudiant
+    </p>
+
+  </div>
+
+  <!-- Form -->
+  <form
+    [formGroup]="studentForm">
+
+    <!-- First Name -->
+    <mat-form-field appearance="outline">
+
+      <mat-label>Prénom</mat-label>
+
+      <input
+        matInput
+        formControlName="firstName">
+
+    </mat-form-field>
+
+    <!-- Last Name -->
+    <mat-form-field appearance="outline">
+
+      <mat-label>Nom</mat-label>
+
+      <input
+        matInput
+        formControlName="lastName">
+
+    </mat-form-field>
+
+    <!-- Email -->
+    <mat-form-field appearance="outline">
+
+      <mat-label>Email</mat-label>
+
+      <input
+        matInput
+        formControlName="email">
+
+    </mat-form-field>
+
+    <!-- Phone -->
+    <mat-form-field appearance="outline">
+
+      <mat-label>Téléphone</mat-label>
+
+      <input
+        matInput
+        formControlName="phone">
+
+    </mat-form-field>
+
+    <!-- Gender -->
+    <mat-form-field appearance="outline">
+
+      <mat-label>Genre</mat-label>
+
+      <mat-select
+        formControlName="gender">
+
+        <mat-option value="MALE">
+          Homme
+        </mat-option>
+
+        <mat-option value="FEMALE">
+          Femme
+        </mat-option>
+
+      </mat-select>
+
+    </mat-form-field>
+
+    <!-- Birth -->
+    <mat-form-field appearance="outline">
+
+      <mat-label>Date naissance</mat-label>
+
+      <input
+        matInput
+        type="date"
+        formControlName="birthDate">
+
+    </mat-form-field>
+
+    <!-- Address -->
+    <mat-form-field appearance="outline">
+
+      <mat-label>Adresse</mat-label>
+
+      <textarea
+        matInput
+        rows="3"
+        formControlName="address">
+      </textarea>
+
+    </mat-form-field>
+
+  </form>
+
+  <!-- Actions -->
+  <div class="dialog-actions">
+
+    <button
+      mat-stroked-button
+      (click)="dialogRef.close()">
+
+      Annuler
+
+    </button>
+
+    <button
+      mat-raised-button
+      color="primary"
+      [disabled]="loading"
+      (click)="submit()">
+
+      {{ loading ? 'Création...' :  'Ajouter' }}
+
+    </button>
+
+  </div>
+
+</div>

@@ -1,0 +1,141 @@
+<div class="students-page">
+
+  <!-- Header -->
+  <div class="page-header">
+
+    <div>
+
+      <h1>
+        Étudiants
+      </h1>
+
+      <p>
+        Gestion des étudiants inscrits
+      </p>
+
+    </div>
+
+    <!-- Add Button -->
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="openCreateDialog()"  
+    >
+
+      <mat-icon>
+        add
+      </mat-icon>
+
+      Ajouter étudiant
+
+    </button>
+
+  </div>
+
+  <!-- Table -->
+  <div class="table-container">
+
+    <table
+      mat-table
+      [dataSource]="students">
+
+      <!-- Matricule -->
+      <ng-container matColumnDef="matricule">
+
+        <th mat-header-cell *matHeaderCellDef>
+          Matricule
+        </th>
+
+        <td mat-cell *matCellDef="let student">
+
+          {{ student.matricule }}
+
+        </td>
+
+      </ng-container>
+
+      <!-- Nom -->
+      <ng-container matColumnDef="fullName">
+
+        <th mat-header-cell *matHeaderCellDef>
+          Nom complet
+        </th>
+
+        <td mat-cell *matCellDef="let student">
+
+          {{ student.firstName }}
+          {{ student.lastName }}
+
+        </td>
+
+      </ng-container>
+
+      <!-- Email -->
+      <ng-container matColumnDef="email">
+
+        <th mat-header-cell *matHeaderCellDef>
+          Email
+        </th>
+
+        <td mat-cell *matCellDef="let student">
+
+          {{ student.email }}
+
+        </td>
+
+      </ng-container>
+
+      <!-- Phone -->
+      <ng-container matColumnDef="phone">
+
+        <th mat-header-cell *matHeaderCellDef>
+          Téléphone
+        </th>
+
+        <td mat-cell *matCellDef="let student">
+
+          {{ student.phone }}
+
+        </td>
+
+      </ng-container>
+
+      <!-- Status -->
+      <ng-container matColumnDef="status">
+
+        <th mat-header-cell *matHeaderCellDef>
+          Statut
+        </th>
+
+        <td mat-cell *matCellDef="let student">
+
+          <span class="status active">
+
+            {{ student.status }}
+
+          </span>
+
+        </td>
+
+      </ng-container>
+
+      <!-- Header -->
+      <tr
+        mat-header-row
+        *matHeaderRowDef="displayedColumns">
+      </tr>
+
+      <!-- Rows -->
+      <tr
+        mat-row
+        *matRowDef="
+          let row;
+          columns: displayedColumns;
+        ">
+      </tr>
+
+    </table>
+
+  </div>
+
+</div>
