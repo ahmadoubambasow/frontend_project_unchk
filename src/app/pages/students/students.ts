@@ -1,13 +1,15 @@
-import { ChangeDetectorRef, Component } from '@angular/core';
+import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
 import {StudentService } from '../../services/student';
 import { Student } from '../../models/student.model';
 import { MatIcon, MatIconModule } from "@angular/material/icon";
-import { MatTableModule } from '@angular/material/table';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { StudentFormDialog } from './student-form-dialog/student-form-dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatInputModule } from '@angular/material/input';
 
 
 @Component({
@@ -18,7 +20,9 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatTableModule,
     MatButtonModule,
     MatDialogModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatPaginatorModule,
+    MatInputModule
   ],
   templateUrl: './students.html',
   styleUrl: './students.scss',
@@ -28,7 +32,10 @@ export class Students {
   /**
    * Liste étudiants
    */
-  students: Student[] = [];
+  dataSource = new MatTableDataSource<Student> ();
+
+  @ViewChild(MatPaginator)
+  paginator!: MatPaginator;
 
   /**
    * Colonnes table
@@ -38,7 +45,8 @@ export class Students {
     'fullName',
     'email',
     'phone',
-    'status'
+    'status',
+    'actions'
   ];
 
   constructor(
@@ -65,7 +73,9 @@ export class Students {
       next: (response) => {
         console.log(response);
 
-        this.students = response;
+        this.dataSource.data = response;
+
+        this.dataSource.paginator = this.paginator;
 
         this.cdr.detectChanges();
       },
@@ -96,5 +106,14 @@ export class Students {
       // Refresh liste
       this.loadStudents();
     })
+  }
+
+  /**
+   * Filtre étudiants
+   */
+  applyFilter(event: Event) {
+
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 }
