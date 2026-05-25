@@ -1,13 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { StudentService } from '../../../services/student';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { CommonModule } from '@angular/common';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { Student } from '../../../models/student.model';
 
 @Component({
   selector: 'app-student-form-dialog',
@@ -30,6 +31,7 @@ export class StudentFormDialog {
    */
   loading = false;
 
+
   /**
    * Formulaire étudiant
    */
@@ -42,7 +44,10 @@ export class StudentFormDialog {
 
     public dialogRef: MatDialogRef<StudentFormDialog>,
 
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+
+    @Inject(MAT_DIALOG_DATA) public data: Student
+
   ) {
 
     this.studentForm = this.fb.group({
@@ -61,6 +66,29 @@ export class StudentFormDialog {
 
       address: ['']
     });
+
+    /**
+     * Mode édition
+     */
+    if (this.data) {
+
+      this.studentForm.patchValue({
+
+        firstName: this.data.firstName,
+
+        lastName: this.data.lastName,
+
+        email: this.data.email,
+
+        phone: this.data.phone,
+
+        gender: this.data.gender,
+
+        birthDate: this.data.birthDate,
+
+        address: this.data.address
+      });
+    }
   }
 
   /**
@@ -74,6 +102,63 @@ export class StudentFormDialog {
     }
 
     this.loading = true;
+
+     /**
+     * MODE UPDATE
+     */
+    if (this.data) {
+
+      this.studentService.updateStudent(
+
+        this.data.id,
+
+        this.studentForm.value
+
+      ).subscribe({
+
+        next: () => {
+
+          this.loading = false;
+
+          this.snackBar.open(
+
+            'Étudiant modifié avec succès',
+
+            'Fermer',
+
+            {
+              duration: 3000
+            }
+          );
+
+          this.dialogRef.close(true);
+        },
+
+        error: (error) => {
+
+          this.loading = false;
+
+          console.error(error);
+
+          this.snackBar.open(
+
+            'Erreur lors de la modification',
+
+            'Fermer',
+
+            {
+              duration: 3000
+            }
+          );
+        }
+      });
+
+      return;
+    }
+
+    /**
+     * MODE CREATE
+     */
 
     this.studentService.createStudent(this.studentForm.value).subscribe({
 

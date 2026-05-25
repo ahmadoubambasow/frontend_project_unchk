@@ -4,7 +4,7 @@
   <div class="dialog-header">
 
     <h2>
-      Ajouter étudiant
+      {{ data ? 'Modifier étudiant' : 'Ajouter étudiant' }}
     </h2>
 
     <p>
@@ -125,7 +125,16 @@
       [disabled]="loading"
       (click)="submit()">
 
-      {{ loading ? 'Création...' :  'Ajouter' }}
+      {{ loading 
+            ? (
+              data ? 'Modification...' : 'Création...'
+            ) 
+
+            : (
+              data ? 'Modifier' : 'Ajouter'
+            )
+
+      }}
 
     </button>
 

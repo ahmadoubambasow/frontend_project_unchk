@@ -32,4 +32,33 @@ export class StudentService {
 
     return this.http.post<Student>(this.apiUrl, request);
   }
+
+  /**
+   * Suppression étudiant
+   */
+  deleteStudent(
+    id: number
+  ): Observable<void> {
+
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  }
+
+  /**
+ * Mise à jour étudiant.
+ */
+updateStudent(
+
+    id: number,
+
+    request: StudentRequest
+
+  ): Observable<Student> {
+
+    return this.http.put<Student>(
+
+      `${this.apiUrl}/${id}`,
+
+      request
+    );
+  }
 }

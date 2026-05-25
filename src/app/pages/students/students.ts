@@ -7,10 +7,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { StudentFormDialog } from './student-form-dialog/student-form-dialog';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatInputModule } from '@angular/material/input';
-
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-students',
@@ -20,7 +19,6 @@ import { MatInputModule } from '@angular/material/input';
     MatTableModule,
     MatButtonModule,
     MatDialogModule,
-    MatSnackBarModule,
     MatPaginatorModule,
     MatInputModule
   ],
@@ -52,7 +50,8 @@ export class Students {
   constructor(
     private studentService: StudentService,
     private dialog: MatDialog,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private snackBar: MatSnackBar
   ) {}
 
   /**
@@ -115,5 +114,81 @@ export class Students {
 
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  /**
+   * Suppression étudiant
+   */
+  deleteStudent(student: Student): void {
+
+    const confirmed = confirm(
+      `Confirmer la suppression de l'etudiant ${student.firstName} ${student.lastName}`
+    );
+    
+    if (!confirmed) {
+      return;
+    }
+
+    this.studentService.deleteStudent(student.id).subscribe({
+      next: () => {
+
+        // Notification
+        this.snackBar.open(
+          'Etudiant supprimé avec succès',
+          'Fermer',
+          {
+            duration: 3000
+          }
+        );
+
+        this.loadStudents();
+      },
+      error: (err) => {
+
+        console.error(err);
+
+        this.snackBar.open(
+          'Une erreur est survenue',
+          'Fermer',
+          {
+            duration: 3000
+          }
+        );
+      }
+    });
+  }
+
+  /**
+ * Ouvre dialog modification.
+ */
+openEditDialog(
+    student: Student
+  ): void {
+
+    console.log(student);
+
+    const dialogRef =
+      this.dialog.open(
+
+        StudentFormDialog,
+
+        {
+          width: '550px',
+
+          height: '90%',
+
+          data: student
+        }
+      );
+
+    dialogRef.afterClosed()
+
+      .subscribe(result => {
+
+        if (result) {
+
+          this.loadStudents();
+        }
+      });
   }
 }
