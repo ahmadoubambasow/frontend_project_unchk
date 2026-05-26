@@ -135,7 +135,7 @@
 
         <td mat-cell *matCellDef="let formation">
 
-          <button mat-icon-button>
+          <button mat-icon-button (click)="openEditDialog(formation)">
 
             <mat-icon color="primary">
               edit
@@ -143,7 +143,7 @@
 
           </button>
 
-          <button mat-icon-button>
+          <button mat-icon-button (click)="deleteFormation(formation)">
 
             <mat-icon color="warn">
               delete

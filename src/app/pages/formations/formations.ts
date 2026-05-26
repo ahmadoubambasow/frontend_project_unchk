@@ -123,4 +123,66 @@ export class Formations {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
+
+  /**
+   * Ouvre dialog modification
+   */
+  openEditDialog(formation: Formation): void {
+
+    const dialogRef = this.dialog.open(FormationFormDialog, {
+
+      width: '550px',
+      height: '90%',
+      data: formation
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.loadFormations();
+      }
+    });
+  }
+
+  /**
+   * Suppression formation
+   */
+  deleteFormation(formation: Formation): void {
+
+    const confirmed = confirm(
+      `Confirmer la suppression de la formation ${formation.name}`
+    );
+
+    if (!confirmed) {
+      return;
+    }
+
+    this.formationService.deleteFormation(formation.id).subscribe({
+      
+      next: () => {
+
+        // Notification
+        this.snackBar.open(
+          'Formation supprimée avec succès',
+          'Fermer',
+          {
+            duration: 3000
+          }
+        );
+
+        this.loadFormations();
+      },
+      error: (err) => {
+
+        console.error(err);
+
+        this.snackBar.open(
+          'Une erreur est survenue',
+          'Fermer',
+          {
+            duration: 3000
+          }
+        );
+      }
+    })
+  }
 }
