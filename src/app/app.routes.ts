@@ -4,6 +4,7 @@ import { Dashboard } from './pages/dashboard/dashboard/dashboard';
 import { authGuard } from './guards/auth-guard';
 import { MainLayout } from './layout/main-layout/main-layout';
 import { Students } from './pages/students/students';
+import { Formations } from './pages/formations/formations';
 
 export const routes: Routes = [
     
@@ -32,6 +33,10 @@ export const routes: Routes = [
             {
                 path: 'students',
                 component: Students
+            },
+            {
+                path: 'formations',
+                component: Formations
             }
         ]
     },

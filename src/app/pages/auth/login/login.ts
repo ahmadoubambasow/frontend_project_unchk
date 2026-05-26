@@ -70,6 +70,7 @@ export class LoginComponent {
 
         next: (response) => {
 
+          console.log('SUCCESS', response);
           this.authService.saveToken(response.token);
 
           this.authService.saveUser(response);
