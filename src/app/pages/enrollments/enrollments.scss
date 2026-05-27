@@ -1,0 +1,94 @@
+.enrollments-page {
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 25px;
+}
+
+/* Header */
+.page-header {
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+}
+
+.page-header h1 {
+
+  font-size: 28px;
+
+  font-weight: 700;
+}
+
+.page-header p {
+
+  color: #64748b;
+}
+
+/* Search */
+.search-container {
+
+  width: 350px;
+}
+
+.search-container mat-form-field {
+
+  width: 100%;
+}
+
+/* Table */
+.table-container {
+
+  background: white;
+
+  border-radius: 20px;
+
+  padding: 20px;
+
+  box-shadow:
+    0 5px 20px rgba(0,0,0,0.05);
+
+  overflow-x: auto;
+}
+
+table {
+
+  width: 100%;
+}
+
+/* Header */
+th {
+
+  font-weight: 600;
+
+  color: #0f172a;
+}
+
+/* Rows */
+td {
+
+  padding: 18px 0;
+}
+
+/* Status */
+.status {
+
+  padding: 6px 12px;
+
+  border-radius: 20px;
+
+  font-size: 13px;
+
+  font-weight: 600;
+}
+
+.active {
+
+  background: #dcfce7;
+
+  color: #15803d;
+}

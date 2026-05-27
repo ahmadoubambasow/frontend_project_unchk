@@ -1,0 +1,122 @@
+<div class="dialog-container">
+
+  <!-- Header -->
+  <div class="dialog-header">
+
+    <h2>
+      Nouvelle inscription
+    </h2>
+
+    <p>
+      Inscrire un étudiant à une formation
+    </p>
+
+  </div>
+
+  <!-- Form -->
+  <form
+    [hidden]="dataLoaded"
+    [formGroup]="enrollmentForm">
+
+    <!-- Student -->
+    <mat-form-field appearance="outline">
+
+      <mat-label>
+        Étudiant
+      </mat-label>
+
+      <mat-select
+        formControlName="studentId">
+
+        <mat-option
+
+          *ngFor="let student of students"
+
+          [value]="student.id">
+
+          {{ student.firstName }}
+          {{ student.lastName }}
+
+          -
+          {{ student.matricule }}
+
+        </mat-option>
+
+      </mat-select>
+
+    </mat-form-field>
+
+    <!-- Formation -->
+    <mat-form-field appearance="outline">
+
+      <mat-label>
+        Formation
+      </mat-label>
+
+      <mat-select
+        formControlName="formationId">
+
+        <mat-option
+
+          *ngFor="
+            let formation of formations
+          "
+
+          [value]="formation.id">
+
+          {{ formation.name }}
+
+          -
+          {{ formation.code }}
+
+        </mat-option>
+
+      </mat-select>
+
+    </mat-form-field>
+
+    <!-- Academic Year -->
+    <mat-form-field appearance="outline">
+
+      <mat-label>
+        Année académique
+      </mat-label>
+
+      <input
+        matInput
+        formControlName="academicYear"
+        placeholder="2025-2026">
+
+    </mat-form-field>
+
+  </form>
+
+  <!-- Actions -->
+  <div class="dialog-actions">
+
+    <button
+      mat-stroked-button
+      (click)="dialogRef.close()">
+
+      Annuler
+
+    </button>
+
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="submit()"
+      [disabled]="loading"
+      >
+
+      {{
+        loading
+          ? 'Création...'
+          : 'Ajouter'
+      }}
+
+    </button>
+
+  </div>
+
+</div>
