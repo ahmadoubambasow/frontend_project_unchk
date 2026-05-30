@@ -6,6 +6,7 @@ import { MainLayout } from './layout/main-layout/main-layout';
 import { Students } from './pages/students/students';
 import { Formations } from './pages/formations/formations';
 import { Enrollments } from './pages/enrollments/enrollments';
+import { Trainers } from './pages/trainers/trainers';
 
 export const routes: Routes = [
     
@@ -44,6 +45,11 @@ export const routes: Routes = [
             {
                 path: 'enrollments',
                 component: Enrollments
+            },
+
+            {
+                path: 'trainers',
+                component: Trainers
             }
         ]
     },

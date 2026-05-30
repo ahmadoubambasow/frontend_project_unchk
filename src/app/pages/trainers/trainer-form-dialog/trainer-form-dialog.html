@@ -1,0 +1,123 @@
+<div class="dialog-container">
+
+  <div class="dialog-header">
+
+    <h2>
+      {{ data ? 'Modifier formateur' : 'Nouveau formateur' }}
+    </h2>
+
+    <p>
+      Gestion des enseignants, tuteurs et responsables
+    </p>
+
+  </div>
+
+  <form
+    [formGroup]="trainerForm"
+    (ngSubmit)="submit()">
+
+    <mat-form-field appearance="outline">
+      <mat-label>Prénom</mat-label>
+      <input
+        matInput
+        formControlName="firstName">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Nom</mat-label>
+      <input
+        matInput
+        formControlName="lastName">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Email</mat-label>
+      <input
+        matInput
+        type="email"
+        formControlName="email">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Téléphone</mat-label>
+      <input
+        matInput
+        formControlName="phone">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Spécialité</mat-label>
+      <input
+        matInput
+        formControlName="speciality">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Grade</mat-label>
+      <input
+        matInput
+        formControlName="grade">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Type</mat-label>
+
+      <mat-select
+        formControlName="type">
+
+        <mat-option
+          *ngFor="let type of trainerTypes"
+          [value]="type">
+
+          {{ type }}
+
+        </mat-option>
+
+      </mat-select>
+
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Formation</mat-label>
+
+      <mat-select
+        formControlName="formationId">
+
+        <mat-option
+          *ngFor="let formation of formations"
+          [value]="formation.id">
+
+          {{ formation.name }}
+
+        </mat-option>
+
+      </mat-select>
+
+    </mat-form-field>
+
+    <div class="dialog-actions">
+
+      <button
+        type="button"
+        mat-stroked-button
+        (click)="dialogRef.close()">
+
+        Annuler
+
+      </button>
+
+      <button
+        type="submit"
+        mat-raised-button
+        color="primary"
+        [disabled]="loading">
+
+        {{ loading ? 'Enregistrement...' : 'Enregistrer' }}
+
+      </button>
+
+    </div>
+
+  </form>
+
+</div>
