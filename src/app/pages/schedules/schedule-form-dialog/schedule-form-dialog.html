@@ -1,0 +1,180 @@
+<div class="dialog-container">
+
+  <div class="dialog-header">
+
+    <h2>
+      {{ data ? 'Modifier séance' : 'Nouvelle séance' }}
+    </h2>
+
+    <p>
+      Gestion des emplois du temps
+    </p>
+
+  </div>
+
+  <form
+    [formGroup]="scheduleForm"
+    (ngSubmit)="submit()">
+
+    <!-- Intitulé -->
+    <mat-form-field appearance="outline">
+
+      <mat-label>
+        Intitulé du cours
+      </mat-label>
+
+      <input
+        matInput
+        formControlName="title">
+
+    </mat-form-field>
+
+    <!-- Type -->
+    <mat-form-field appearance="outline">
+
+      <mat-label>
+        Type de séance
+      </mat-label>
+
+      <mat-select
+        formControlName="sessionType">
+
+        <mat-option
+          *ngFor="let type of sessionTypes"
+          [value]="type">
+
+          {{ type }}
+
+        </mat-option>
+
+      </mat-select>
+
+    </mat-form-field>
+
+    <!-- Formation -->
+    <mat-form-field appearance="outline">
+
+      <mat-label>
+        Formation
+      </mat-label>
+
+      <mat-select
+        formControlName="formationId">
+
+        <mat-option
+          *ngFor="let formation of formations"
+          [value]="formation.id">
+
+          {{ formation.name }}
+
+        </mat-option>
+
+      </mat-select>
+
+    </mat-form-field>
+
+    <!-- Formateur -->
+    <mat-form-field appearance="outline">
+
+      <mat-label>
+        Formateur
+      </mat-label>
+
+      <mat-select
+        formControlName="trainerId">
+
+        <mat-option
+          *ngFor="let trainer of trainers"
+          [value]="trainer.id">
+
+          {{ trainer.firstName }}
+          {{ trainer.lastName }}
+
+        </mat-option>
+
+      </mat-select>
+
+    </mat-form-field>
+
+    <!-- Date -->
+    <mat-form-field appearance="outline">
+
+      <mat-label>
+        Date
+      </mat-label>
+
+      <input
+        matInput
+        type="date"
+        formControlName="date">
+
+    </mat-form-field>
+
+    <!-- Heure début -->
+    <mat-form-field appearance="outline">
+
+      <mat-label>
+        Heure début
+      </mat-label>
+
+      <input
+        matInput
+        type="time"
+        formControlName="startTime">
+
+    </mat-form-field>
+
+    <!-- Heure fin -->
+    <mat-form-field appearance="outline">
+
+      <mat-label>
+        Heure fin
+      </mat-label>
+
+      <input
+        matInput
+        type="time"
+        formControlName="endTime">
+
+    </mat-form-field>
+
+    <!-- Salle -->
+    <mat-form-field appearance="outline">
+
+      <mat-label>
+        Salle
+      </mat-label>
+
+      <input
+        matInput
+        formControlName="room">
+
+    </mat-form-field>
+
+    <!-- Actions -->
+    <div class="dialog-actions">
+
+      <button
+        type="button"
+        mat-stroked-button
+        (click)="dialogRef.close()">
+
+        Annuler
+
+      </button>
+
+      <button
+        type="submit"
+        mat-raised-button
+        color="primary"
+        [disabled]="loading">
+
+        {{ loading ? 'Enregistrement...' : 'Enregistrer' }}
+
+      </button>
+
+    </div>
+
+  </form>
+
+</div>

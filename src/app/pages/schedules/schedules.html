@@ -1,0 +1,242 @@
+<div class="schedules-page">
+
+  <!-- Header -->
+  <div class="page-header">
+
+    <div>
+
+      <h1>
+        Emplois du temps
+      </h1>
+
+      <p>
+        Gestion des cours, TD, TP et examens
+      </p>
+
+    </div>
+
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="openCreateDialog()">
+
+      <mat-icon>
+        add
+      </mat-icon>
+
+      Ajouter séance
+
+    </button>
+
+  </div>
+
+  <!-- Recherche -->
+  <div class="search-container">
+
+    <mat-form-field appearance="outline">
+
+      <mat-label>
+        Rechercher
+      </mat-label>
+
+      <input
+        matInput
+        placeholder="Cours, formation, formateur..."
+        (keyup)="applyFilter($event)">
+
+      <mat-icon matSuffix>
+        search
+      </mat-icon>
+
+    </mat-form-field>
+
+  </div>
+
+  <!-- Table -->
+  <div class="table-container">
+
+    <table
+      mat-table
+      [dataSource]="dataSource">
+
+      <!-- Titre -->
+      <ng-container matColumnDef="title">
+
+        <th mat-header-cell *matHeaderCellDef>
+          Cours
+        </th>
+
+        <td mat-cell *matCellDef="let schedule">
+
+          {{ schedule.title }}
+
+        </td>
+
+      </ng-container>
+
+      <!-- Formation -->
+      <ng-container matColumnDef="formation">
+
+        <th mat-header-cell *matHeaderCellDef>
+          Formation
+        </th>
+
+        <td mat-cell *matCellDef="let schedule">
+
+          {{ schedule.formationName }}
+
+        </td>
+
+      </ng-container>
+
+      <!-- Formateur -->
+      <ng-container matColumnDef="trainer">
+
+        <th mat-header-cell *matHeaderCellDef>
+          Formateur
+        </th>
+
+        <td mat-cell *matCellDef="let schedule">
+
+          {{ schedule.trainerName }}
+
+        </td>
+
+      </ng-container>
+
+      <!-- Type -->
+      <ng-container matColumnDef="sessionType">
+
+        <th mat-header-cell *matHeaderCellDef>
+          Type
+        </th>
+
+        <td mat-cell *matCellDef="let schedule">
+
+          {{ schedule.sessionType }}
+
+        </td>
+
+      </ng-container>
+
+      <!-- Date -->
+      <ng-container matColumnDef="date">
+
+        <th mat-header-cell *matHeaderCellDef>
+          Date
+        </th>
+
+        <td mat-cell *matCellDef="let schedule">
+
+          {{ schedule.date | date:'dd/MM/yyyy' }}
+
+        </td>
+
+      </ng-container>
+
+      <!-- Début -->
+      <ng-container matColumnDef="startTime">
+
+        <th mat-header-cell *matHeaderCellDef>
+          Début
+        </th>
+
+        <td mat-cell *matCellDef="let schedule">
+
+          {{ schedule.startTime }}
+
+        </td>
+
+      </ng-container>
+
+      <!-- Fin -->
+      <ng-container matColumnDef="endTime">
+
+        <th mat-header-cell *matHeaderCellDef>
+          Fin
+        </th>
+
+        <td mat-cell *matCellDef="let schedule">
+
+          {{ schedule.endTime }}
+
+        </td>
+
+      </ng-container>
+
+      <!-- Salle -->
+      <ng-container matColumnDef="room">
+
+        <th mat-header-cell *matHeaderCellDef>
+          Salle
+        </th>
+
+        <td mat-cell *matCellDef="let schedule">
+
+          {{ schedule.room }}
+
+        </td>
+
+      </ng-container>
+
+      <!-- Actions -->
+      <ng-container matColumnDef="actions">
+
+        <th mat-header-cell *matHeaderCellDef>
+          Actions
+        </th>
+
+        <td mat-cell *matCellDef="let schedule">
+
+          <button
+            mat-icon-button
+            (click)="openEditDialog(schedule)">
+
+            <mat-icon color="primary">
+              edit
+            </mat-icon>
+
+          </button>
+
+          <button
+            mat-icon-button
+            (click)="deleteSchedule(schedule)">
+
+            <mat-icon color="warn">
+              delete
+            </mat-icon>
+
+          </button>
+
+        </td>
+
+      </ng-container>
+
+      <tr
+        mat-header-row
+        *matHeaderRowDef="displayedColumns">
+      </tr>
+
+      <tr
+        mat-row
+        *matRowDef="
+          let row;
+          columns: displayedColumns;
+        ">
+      </tr>
+
+    </table>
+
+    <mat-paginator
+
+      [pageSize]="5"
+
+      [pageSizeOptions]="[5,10,20]"
+
+      showFirstLastButtons>
+
+    </mat-paginator>
+
+  </div>
+
+</div>

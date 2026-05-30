@@ -1,0 +1,63 @@
+.dialog-container {
+  padding: 24px;
+}
+
+.dialog-header {
+  margin-bottom: 20px;
+
+  h2 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 600;
+  }
+
+  p {
+    margin-top: 6px;
+    color: #6b7280;
+    font-size: 14px;
+  }
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+.dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+button[mat-raised-button] {
+  min-width: 140px;
+}
+
+button[mat-stroked-button] {
+  min-width: 120px;
+}
+
+@media (max-width: 768px) {
+
+  .dialog-container {
+    padding: 16px;
+  }
+
+  .dialog-header h2 {
+    font-size: 20px;
+  }
+
+  .dialog-actions {
+    flex-direction: column-reverse;
+  }
+
+  .dialog-actions button {
+    width: 100%;
+  }
+}

@@ -7,6 +7,7 @@ import { Students } from './pages/students/students';
 import { Formations } from './pages/formations/formations';
 import { Enrollments } from './pages/enrollments/enrollments';
 import { Trainers } from './pages/trainers/trainers';
+import { Schedules } from './pages/schedules/schedules';
 
 export const routes: Routes = [
     
@@ -50,6 +51,11 @@ export const routes: Routes = [
             {
                 path: 'trainers',
                 component: Trainers
+            },
+
+            {
+                path: 'schedules',
+                component: Schedules
             }
         ]
     },
