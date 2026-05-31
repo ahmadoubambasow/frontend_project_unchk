@@ -49,14 +49,16 @@ from '../../../services/enrollment';
 import { StudentService }
 from '../../../services/student';
 
-import { FormationService }
-from '../../../services/formation';
+import { PromotionService } from '../../../services/promotion';
+
+import { StudentGroupService } from '../../../services/student-group';
+
+import { Promotion } from '../../../models/promotion.model';
+
+import {StudentGroup } from '../../../models/student-group.model';
 
 import { Student }
 from '../../../models/student.model';
-
-import { Formation }
-from '../../../models/formation.model';
 
 import { Enrollment }
 from '../../../models/enrollment.model';
@@ -110,9 +112,15 @@ implements OnInit {
   students: Student[] = [];
 
   /**
-   * Liste formations.
+   *  Promotion.
    */
-  formations: Formation[] = [];
+  promotions: Promotion[] = [];
+
+  /**
+   * Groupe
+   */
+  groups: StudentGroup[] = [];
+  
 
   constructor(
 
@@ -124,8 +132,9 @@ implements OnInit {
     private studentService:
       StudentService,
 
-    private formationService:
-      FormationService,
+    private promotionService: PromotionService,
+
+    private studentGroupService: StudentGroupService,
 
     private snackBar: MatSnackBar,
 
@@ -148,13 +157,13 @@ implements OnInit {
         Validators.required
       ],
 
-      formationId: [
+      promotionId: [
         null,
         Validators.required
       ],
 
-      academicYear: [
-        '',
+      groupId: [
+        null,
         Validators.required
       ]
     });
@@ -170,8 +179,8 @@ implements OnInit {
       students:
         this.studentService.getStudents(),
 
-      formations:
-        this.formationService.getFormations()
+      promotions:
+        this.promotionService.getPromotions()
 
     }).subscribe({
 
@@ -180,49 +189,36 @@ implements OnInit {
         this.students =
           response.students;
 
-        this.formations =
-          response.formations;
+        this.promotions =
+          response.promotions;
 
         /**
          * Mode édition.
          */
         if (this.data) {
 
-          const student =
-            this.students.find(
-
-              s =>
-
-                `${s.firstName} ${s.lastName}`
-
-                ===
-
-                this.data?.studentName
-            );
-
-          const formation =
-            this.formations.find(
-
-              f =>
-
-                f.name
-
-                ===
-
-                this.data?.formationName
-            );
+          this.onPromotionChange(
+            this.data.promotionId
+          );
 
           this.enrollmentForm.patchValue({
 
             studentId:
-              student?.id,
+              this.data.studentId,
 
-            formationId:
-              formation?.id,
-
-            academicYear:
-              this.data.academicYear
+            promotionId:
+              this.data.promotionId
           });
+
+          setTimeout(() => {
+
+            this.enrollmentForm.patchValue({
+
+              groupId:
+                this.data?.groupId
+            });
+
+          }, 300);
         }
 
         setTimeout(() => {
@@ -241,6 +237,35 @@ implements OnInit {
           this.dataLoaded = true;
 
         });
+      }
+    });
+  }
+
+
+  /**
+   * Chargement des groupes selon la promotion
+   */
+  onPromotionChange(promotionId: number): void {
+
+    if (!promotionId) {
+
+      this.groups = [];
+
+      this.enrollmentForm.patchValue({ groupId: null });
+
+      return;
+    }
+
+    this.studentGroupService.getGroupsByPromotion(promotionId).subscribe({
+
+      next: (response) => {
+
+        this.groups = response;
+      }, 
+
+      error: (error) => {
+
+        console.error(error);
       }
     });
   }

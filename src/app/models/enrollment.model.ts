@@ -4,21 +4,32 @@
 
 export interface Enrollment {
 
-    id: number;
+  id: number;
 
-    studentName: string;
+  studentId: number;
+  
+  studentName: string;
 
   matricule: string;
+
+  formationId: number;
 
   formationName: string;
 
   formationCode: string;
 
-  enrollmentDate: string;
+  promotionId: number;
 
-  academicYear: string;
+  promotionName: string;
+
+  groupId: number;
+
+  groupName: string;
+
+  enrollmentDate: string;
 
   status: string;
 
   createdAt: string;
+
 }

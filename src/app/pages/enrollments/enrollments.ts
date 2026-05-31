@@ -94,7 +94,9 @@ implements OnInit {
 
     'formation',
 
-    'academicYear',
+    'promotion',
+
+    'group',
 
     'status',
 
@@ -118,6 +120,38 @@ implements OnInit {
   ngOnInit(): void {
 
     this.loadEnrollments();
+
+    this.dataSource.filterPredicate = (
+
+      data: Enrollment,
+
+      filter: string
+    ) => {
+
+      const searchText = (
+
+        data.studentName +
+
+        ' ' +
+
+        data.matricule +
+
+        ' ' +
+
+        data.formationName +
+
+        ' ' +
+
+        data.promotionName +
+
+        ' ' +
+
+        data.groupName
+
+      ).toLowerCase();
+
+      return searchText.includes(filter);
+    }
   }
 
   /**

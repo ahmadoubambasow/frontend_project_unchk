@@ -7,15 +7,15 @@
 
       {{
         data
-          ? 'Modifier inscription'
-          : 'Nouvelle inscription'
+          ? 'Modifier promotion'
+          : 'Nouvelle promotion'
       }}
 
     </h2>
 
     <p>
 
-      Affecter un étudiant à une promotion et un groupe
+      Gestion des promotions académiques
 
     </p>
 
@@ -23,96 +23,82 @@
 
   <!-- Form -->
   <form
-    [formGroup]="enrollmentForm">
+    [formGroup]="promotionForm">
 
-    <!-- Student -->
+    <!-- Nom -->
     <mat-form-field appearance="outline">
 
       <mat-label>
 
-        Étudiant
+        Nom de la promotion
+
+      </mat-label>
+
+      <input
+        matInput
+        formControlName="name"
+        placeholder="L3 INFO 2025-2026">
+
+    </mat-form-field>
+
+    <!-- Année -->
+    <mat-form-field appearance="outline">
+
+      <mat-label>
+
+        Année académique
+
+      </mat-label>
+
+      <input
+        matInput
+        formControlName="academicYear"
+        placeholder="2025-2026">
+
+    </mat-form-field>
+
+    <!-- Capacité -->
+    <mat-form-field appearance="outline">
+
+      <mat-label>
+
+        Capacité
+
+      </mat-label>
+
+      <input
+        matInput
+        type="number"
+        formControlName="capacity">
+
+    </mat-form-field>
+
+    <!-- Formation -->
+    <mat-form-field appearance="outline">
+
+      <mat-label>
+
+        Formation
 
       </mat-label>
 
       <mat-select
-        formControlName="studentId">
+        formControlName="formationId">
 
         <mat-option
 
-          *ngFor="let student of students"
+          *ngFor="
+            let formation
+            of formations
+          "
 
-          [value]="student.id">
+          [value]="formation.id">
 
-          {{ student.firstName }}
-          {{ student.lastName }}
+          {{ formation.name }}
 
           -
 
-          {{ student.matricule }}
-
-        </mat-option>
-
-      </mat-select>
-
-    </mat-form-field>
-
-    <!-- Promotion -->
-    <mat-form-field appearance="outline">
-
-      <mat-label>
-
-        Promotion
-
-      </mat-label>
-
-      <mat-select
-
-        formControlName="promotionId"
-
-        (selectionChange)="
-          onPromotionChange(
-            $event.value
-          )
-        ">
-
-        <mat-option
-
-          *ngFor="
-            let promotion
-            of promotions
-          "
-
-          [value]="promotion.id">
-
-          {{ promotion.name }}
-
-        </mat-option>
-
-      </mat-select>
-
-    </mat-form-field>
-
-    <!-- Groupe -->
-    <mat-form-field appearance="outline">
-
-      <mat-label>
-
-        Groupe
-
-      </mat-label>
-
-      <mat-select
-        formControlName="groupId">
-
-        <mat-option
-
-          *ngFor="
-            let group of groups
-          "
-
-          [value]="group.id">
-
-          {{ group.name }}
+          {{ formation.code }}
 
         </mat-option>
 
@@ -143,7 +129,7 @@
 
       [disabled]="
         loading ||
-        enrollmentForm.invalid
+        promotionForm.invalid
       ">
 
       {{

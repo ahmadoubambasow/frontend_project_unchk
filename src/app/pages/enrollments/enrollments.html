@@ -104,16 +104,31 @@
 
       </ng-container>
 
-      <!-- Academic Year -->
-      <ng-container matColumnDef="academicYear">
+      <!-- Promotion -->
+      <ng-container matColumnDef="promotion">
 
         <th mat-header-cell *matHeaderCellDef>
-          Année académique
+          Promotion
         </th>
 
         <td mat-cell *matCellDef="let enrollment">
 
-          {{ enrollment.academicYear }}
+          {{ enrollment.promotionName }}
+
+        </td>
+
+      </ng-container>
+
+      <!-- Groupe -->
+      <ng-container matColumnDef="group">
+
+        <th mat-header-cell *matHeaderCellDef>
+          Groupe
+        </th>
+
+        <td mat-cell *matCellDef="let enrollment">
+
+          {{ enrollment.groupName }}
 
         </td>
 
@@ -128,7 +143,12 @@
 
         <td mat-cell *matCellDef="let enrollment">
 
-          <span class="status active">
+          <span
+            class="status"
+            [ngClass]="{
+              'active': enrollment.status === 'ACTIVE',
+              'inactive': enrollment.status !== 'ACTIVE'
+            }">
 
             {{ enrollment.status }}
 
