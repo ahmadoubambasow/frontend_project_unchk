@@ -1,0 +1,64 @@
+.subjects-page {
+  padding: 24px;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+
+  h1 {
+    margin: 0;
+    font-size: 28px;
+    font-weight: 600;
+  }
+
+  p {
+    margin-top: 4px;
+    color: #666;
+  }
+}
+
+.search-container {
+  margin-bottom: 20px;
+
+  mat-form-field {
+    width: 100%;
+  }
+}
+
+.table-container {
+  overflow: auto;
+  background: #fff;
+  border-radius: 12px;
+}
+
+table {
+  width: 100%;
+}
+
+.mat-mdc-header-cell {
+  font-weight: 600;
+}
+
+.mat-mdc-row:hover {
+  background: #f8f9fa;
+}
+
+@media (max-width: 768px) {
+
+  .subjects-page {
+    padding: 12px;
+  }
+
+  .page-header {
+    flex-direction: column;
+    gap: 16px;
+    align-items: stretch;
+  }
+
+  table {
+    min-width: 900px;
+  }
+}
