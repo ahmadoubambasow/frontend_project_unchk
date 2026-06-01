@@ -1,0 +1,217 @@
+<div class="dialog-container">
+
+  <!-- Header -->
+  <div class="dialog-header">
+
+    <h2>
+
+      Nouvelle affectation
+
+    </h2>
+
+    <p>
+
+      Affecter un enseignant à une matière
+
+    </p>
+
+  </div>
+
+  <!-- Form -->
+  <form
+    [formGroup]="assignmentForm">
+
+    <!-- Filière -->
+    <mat-form-field appearance="outline">
+
+      <mat-label>
+
+        Filière
+
+      </mat-label>
+
+      <mat-select
+
+        formControlName="filiereId"
+
+        (selectionChange)="
+          onFiliereChange(
+            $event.value
+          )
+        ">
+
+        <mat-option
+
+          *ngFor="
+            let filiere
+            of filieres
+          "
+
+          [value]="filiere.id">
+
+          {{ filiere.name }}
+
+        </mat-option>
+
+      </mat-select>
+
+    </mat-form-field>
+
+    <!-- Formation -->
+    <mat-form-field appearance="outline">
+
+      <mat-label>
+
+        Formation
+
+      </mat-label>
+
+      <mat-select
+
+        formControlName="formationId"
+
+        [disabled]="
+          !assignmentForm
+            .get('filiereId')
+            ?.value
+        "
+
+        (selectionChange)="
+          onFormationChange(
+            $event.value
+          )
+        ">
+
+        <mat-option
+
+          *ngFor="
+            let formation
+            of formations
+          "
+
+          [value]="formation.id">
+
+          {{ formation.name }}
+
+          -
+
+          {{ formation.code }}
+
+        </mat-option>
+
+      </mat-select>
+
+    </mat-form-field>
+
+    <!-- Matière -->
+    <mat-form-field appearance="outline">
+
+      <mat-label>
+
+        Matière
+
+      </mat-label>
+
+      <mat-select
+
+        formControlName="subjectId"
+
+        [disabled]="
+          !assignmentForm
+            .get('formationId')
+            ?.value
+        ">
+
+        <mat-option
+
+          *ngFor="
+            let subject
+            of subjects
+          "
+
+          [value]="subject.id">
+
+          {{ subject.name }}
+
+        </mat-option>
+
+      </mat-select>
+
+    </mat-form-field>
+
+    <!-- Enseignant -->
+    <mat-form-field appearance="outline">
+
+      <mat-label>
+
+        Enseignant
+
+      </mat-label>
+
+      <mat-select
+        formControlName="trainerId">
+
+        <mat-option
+
+          *ngFor="
+            let trainer
+            of trainers
+          "
+
+          [value]="trainer.id">
+
+          {{ trainer.firstName }}
+          {{ trainer.lastName }}
+
+          -
+
+          {{ trainer.speciality }}
+
+        </mat-option>
+
+      </mat-select>
+
+    </mat-form-field>
+
+  </form>
+
+  <!-- Actions -->
+  <div class="dialog-actions">
+
+    <button
+
+      mat-stroked-button
+
+      (click)="dialogRef.close()">
+
+      Annuler
+
+    </button>
+
+    <button
+
+      mat-raised-button
+
+      color="primary"
+
+      [disabled]="
+        loading ||
+        assignmentForm.invalid
+      "
+
+      (click)="submit()">
+
+      {{
+
+        loading
+
+          ? 'Affectation...'
+
+          : 'Affecter'
+      }}
+
+    </button>
+
+  </div>
+
+</div>

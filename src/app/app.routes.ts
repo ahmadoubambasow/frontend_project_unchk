@@ -12,6 +12,7 @@ import { Promotions } from './pages/promotions/promotions';
 import { Groups } from './pages/groups/groups';
 import { Filieres } from './pages/filieres/filieres';
 import { Subjects } from './pages/subjects/subjects';
+import { TrainerSubjects } from './pages/trainer-subjects/trainer-subjects';
 
 export const routes: Routes = [
     
@@ -80,6 +81,11 @@ export const routes: Routes = [
             {
                 path: 'subjects',
                 component: Subjects
+            },
+
+            {
+                path: 'trainer-subjects',
+                component: TrainerSubjects
             }
         ]
     },

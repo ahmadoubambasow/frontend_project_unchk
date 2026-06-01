@@ -90,8 +90,6 @@ export class TrainerFormDialog {
       speciality: [''],
 
       grade: [''],
-
-      formationId: [null, Validators.required]
       
     });
   }
@@ -133,7 +131,6 @@ export class TrainerFormDialog {
             
             grade: this.data.grade,
             
-            formationId: this.data.formationId
           });
         }
       },

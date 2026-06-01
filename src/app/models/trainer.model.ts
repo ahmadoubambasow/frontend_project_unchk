@@ -16,7 +16,4 @@ export interface Trainer {
 
     type: string;
 
-    formationId: string;
-
-    formationName: string;
 }

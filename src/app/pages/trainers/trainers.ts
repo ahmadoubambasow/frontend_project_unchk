@@ -48,7 +48,6 @@ export class Trainers implements OnInit {
     'speciality',
     'grade',
     'type',
-    'formation',
     'actions'
   ];
 

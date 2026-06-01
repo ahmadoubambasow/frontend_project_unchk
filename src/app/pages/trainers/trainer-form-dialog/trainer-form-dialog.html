@@ -77,24 +77,6 @@
 
     </mat-form-field>
 
-    <mat-form-field appearance="outline">
-      <mat-label>Formation</mat-label>
-
-      <mat-select
-        formControlName="formationId">
-
-        <mat-option
-          *ngFor="let formation of formations"
-          [value]="formation.id">
-
-          {{ formation.name }}
-
-        </mat-option>
-
-      </mat-select>
-
-    </mat-form-field>
-
     <div class="dialog-actions">
 
       <button
