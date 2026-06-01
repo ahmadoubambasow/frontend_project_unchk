@@ -6,10 +6,6 @@ export interface StudentGroup {
 
   capacity: number;
 
-  promotionId: number;
-
-  promotionName: string;
-
   formationId: number;
 
   formationName: string;

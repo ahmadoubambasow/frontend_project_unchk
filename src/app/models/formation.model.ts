@@ -1,19 +1,22 @@
-/**
- * Modèle formation
- */
 export interface Formation {
 
-    id: number;
+  id: number;
 
-    code: string;
+  code: string;
 
-    name: string;
+  name: string;
 
-    description: string;
+  description: string;
 
-    duration: number;
+  duration: number;
 
-    status: string;
+  status: string;
 
-    createdAt: string;
+  createdAt: string;
+
+  filiereId: number;
+
+  filiereName: string;
+
+  filiereCode: string;
 }

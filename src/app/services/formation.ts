@@ -35,6 +35,14 @@ export class FormationService {
   }
 
   /**
+   * Formations d'une filière
+   */
+  getFormationsByFiliere(filiereId: number): Observable<Formation[]> {
+
+    return this.http.get<Formation[]>(`${this.apiUrl}/filiere/${filiereId}`);
+  }
+
+  /**
    * Modification formation
    */
   updateFormation(id: number, request: FormationRequest): Observable<Formation> {

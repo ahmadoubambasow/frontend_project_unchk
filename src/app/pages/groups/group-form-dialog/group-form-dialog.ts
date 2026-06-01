@@ -7,13 +7,13 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { StudentGroup } from '../../../models/student-group.model';
+import { StudentGroupService } from '../../../services/student-group';
 import { Formation } from '../../../models/formation.model';
 import { FormationService } from '../../../services/formation';
-import { PromotionService } from '../../../services/promotion';
-import { Promotion } from '../../../models/promotion.model';
 
 @Component({
-  selector: 'app-promotion-form-dialog',
+  selector: 'app-group-form-dialog',
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -24,10 +24,10 @@ import { Promotion } from '../../../models/promotion.model';
     MatButtonModule,
     MatSnackBarModule
   ],
-  templateUrl: './promotion-form-dialog.html',
-  styleUrl: './promotion-form-dialog.scss',
+  templateUrl: './group-form-dialog.html',
+  styleUrl: './group-form-dialog.scss',
 })
-export class PromotionFormDialog implements OnInit {
+export class GroupFormDialog implements OnInit {
 
   /**
    * Loading
@@ -37,80 +37,54 @@ export class PromotionFormDialog implements OnInit {
   /**
    * Form
    */
-  promotionForm!: FormGroup;
+  groupForm!: FormGroup;
 
   /**
-   * Formation
+   * Formations
    */
   formations: Formation[] = [];
 
+  
+
   constructor(
+    
     private fb: FormBuilder,
+
 
     private formationService: FormationService,
 
-    private promotionService: PromotionService,
+    private groupService: StudentGroupService,
 
     private snackBar: MatSnackBar,
 
-    public dialogRef: MatDialogRef<PromotionFormDialog>,
+    public dialogRef: MatDialogRef<GroupFormDialog>,
 
-    @Inject(MAT_DIALOG_DATA) public data: Promotion | null
+    @Inject(MAT_DIALOG_DATA)
+    public data: StudentGroup
+  ) { 
 
-  ) {
+    this.groupForm = this.fb.group({
 
-    this.promotionForm =
+      name: [
+        '',
+        Validators.required
+      ],
 
-      this.fb.group({
+      capacity: [
+        null,
+        Validators.required
+      ],
 
-        name: [
-
-          '',
-
-          Validators.required
-        ],
-
-        academicYear: [
-
-          '',
-
-          Validators.required
-        ],
-
-        capacity: [
-
-          null,
-
-          Validators.required
-        ],
-
-        /*formationId: [
-
-          null,
-
-          Validators.required
-        ] */
-      }
-    );    
+      formationId: [
+        null,
+        Validators.required
+      ]
+    });
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void { 
 
     this.loadFormations();
-
-    if (this.data) {
-
-      this.promotionForm.patchValue({
-
-        name: this.data.name,
-
-        academicYear: this.data.academicYear,
-
-        capacity: this.data.capacity,
-
-        //formationId: this.data.formationId
-      });
-    }
   }
 
   /**
@@ -118,25 +92,44 @@ export class PromotionFormDialog implements OnInit {
    */
   loadFormations(): void {
 
-    this.formationService.getFormations().subscribe({
+  this.formationService
+
+    .getFormations()
+
+    .subscribe({
 
       next: (response) => {
 
         this.formations = response;
+
+        if (this.data) {
+
+          this.groupForm.patchValue({
+
+            name: this.data.name,
+
+            capacity: this.data.capacity,
+
+            formationId:
+              this.data.formationId
+          });
+        }
       },
+
       error: (error) => {
 
         console.error(error);
       }
     });
-  }
+}
 
+  
   /**
    * Submit
    */
   submit(): void {
 
-    if (this.promotionForm.invalid) {
+    if (this.groupForm.invalid) {
 
       return;
     }
@@ -145,79 +138,73 @@ export class PromotionFormDialog implements OnInit {
 
     if (this.data) {
       
-      this.updatePromotion();
+      this.updateGroup();
     }
     else {
       
-      this.createPromotion();
+      this.createGroup();
     }
   }
 
   /**
-   * Create promotion
+   * Create group
    */
-  createPromotion(): void {
-
-    this.promotionService.createPromotion(this.promotionForm.value).subscribe({
+  createGroup(): void {
+   
+    this.groupService.createGroup(this.groupForm.value).subscribe({
    
       next: () => {
 
         this.loading = false;
-
+   
         this.snackBar.open(
-          'Promotion crée avec succès',
-          'Fermer',
+          'Groupe créé avec succès', 
+          'Fermer', 
           {
+   
             duration: 3000
           }
         );
-
+   
         this.dialogRef.close(true);
       },
       error: (error) => {
-
-        this.loading = false;
-
+   
         console.error(error);
-
-        this.snackBar.open(
-          'Une erreur est survenue',
-          'Fermer',
-          {
-            duration: 3000
-          }
-        );
+   
+        this.loading = false;
       }
     });
   }
 
   /**
-   * Update promotion
+   * Update group
    */
-  updatePromotion(): void {
-
-    this.promotionService.updatePromotion(this.data!.id, this.promotionForm.value).subscribe({
-
+  updateGroup(): void {
+   
+    this.groupService.updateGroup(this.data.id, this.groupForm.value).subscribe({
+   
       next: () => {
 
         this.loading = false;
-
+   
         this.snackBar.open(
-          'Promotion modifiée avec succès',
-          'Fermer',
+          'Groupe modifiée avec succès', 
+          'Fermer', 
           {
+   
             duration: 3000
           }
         );
-
+   
         this.dialogRef.close(true);
       },
       error: (error) => {
-
-        this.loading = false;
-
+   
         console.error(error);
+   
+        this.loading = false;
       }
-    })
+    });
   }
 }

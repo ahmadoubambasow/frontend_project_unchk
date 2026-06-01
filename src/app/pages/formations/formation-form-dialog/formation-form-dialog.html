@@ -4,13 +4,11 @@
   <div class="dialog-header">
 
     <h2>
-
       {{
         data
           ? 'Modifier formation'
           : 'Ajouter formation'
       }}
-
     </h2>
 
     <p>
@@ -20,10 +18,9 @@
   </div>
 
   <!-- Form -->
-  <form
-    [formGroup]="formationForm">
+  <form [formGroup]="formationForm">
 
-    <!-- Name -->
+    <!-- Nom -->
     <mat-form-field appearance="outline">
 
       <mat-label>
@@ -51,7 +48,7 @@
 
     </mat-form-field>
 
-    <!-- Duration -->
+    <!-- Durée -->
     <mat-form-field appearance="outline">
 
       <mat-label>
@@ -62,6 +59,30 @@
         matInput
         type="number"
         formControlName="duration">
+
+    </mat-form-field>
+
+    <!-- Filière -->
+    <mat-form-field appearance="outline">
+
+      <mat-label>
+        Filière
+      </mat-label>
+
+      <mat-select
+        formControlName="filiereId">
+
+        <mat-option
+          *ngFor="let filiere of filieres"
+          [value]="filiere.id">
+
+          {{ filiere.name }}
+          -
+          {{ filiere.code }}
+
+        </mat-option>
+
+      </mat-select>
 
     </mat-form-field>
 
@@ -81,18 +102,16 @@
     <button
       mat-raised-button
       color="primary"
-      [disabled]="loading"
-      (click)="submit()">
+      (click)="submit()"
+      [disabled]="loading || formationForm.invalid">
 
       {{
         loading
-
           ? (
               data
                 ? 'Modification...'
                 : 'Création...'
             )
-
           : (
               data
                 ? 'Modifier'

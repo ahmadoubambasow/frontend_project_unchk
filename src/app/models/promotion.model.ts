@@ -8,7 +8,4 @@ export interface Promotion {
 
   capacity: number;
 
-  formationId: number;
-
-  formationName: string;
 }

@@ -1,0 +1,56 @@
+.dialog-container {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+}
+
+.dialog-header {
+  margin-bottom: 20px;
+
+  h2 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 600;
+  }
+
+  p {
+    margin-top: 6px;
+    color: #666;
+    font-size: 14px;
+  }
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+.dialog-actions {
+  margin-top: 24px;
+
+  display: flex;
+
+  justify-content: flex-end;
+
+  gap: 12px;
+}
+
+@media (max-width: 768px) {
+
+  .dialog-container {
+    padding: 16px;
+  }
+
+  .dialog-actions {
+    flex-direction: column;
+  }
+
+  .dialog-actions button {
+    width: 100%;
+  }
+}

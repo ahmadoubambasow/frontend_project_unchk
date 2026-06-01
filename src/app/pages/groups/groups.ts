@@ -6,28 +6,32 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { Promotion } from '../../models/promotion.model';
+import { StudentGroup } from '../../models/student-group.model';
+import { V } from '@angular/cdk/keycodes';
+import { StudentGroupService } from '../../services/student-group';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { PromotionService } from '../../services/promotion';
-import { PromotionFormDialog } from './promotion-form-dialog/promotion-form-dialog';
+import { GroupFormDialog } from './group-form-dialog/group-form-dialog';
 
 @Component({
-  selector: 'app-promotions',
+  selector: 'app-groups',
   imports: [
     CommonModule,
     MatTableModule,
     MatPaginatorModule,
-    MatDialogModule,
     MatButtonModule,
+    MatDialogModule,
     MatIconModule,
     MatInputModule
   ],
-  templateUrl: './promotions.html',
-  styleUrl: './promotions.scss',
+  templateUrl: './groups.html',
+  styleUrl: './groups.scss',
 })
-export class Promotions implements OnInit {
+export class Groups implements OnInit {
 
-  dataSource = new MatTableDataSource<Promotion>([]);
+  /**
+   * 
+   */
+  dataSource = new MatTableDataSource<StudentGroup>([]);
 
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
@@ -36,9 +40,9 @@ export class Promotions implements OnInit {
 
     'name',
 
-    'formation',
+    'promotion',
 
-    'academicYear',
+    'formation',
 
     'capacity',
 
@@ -47,7 +51,7 @@ export class Promotions implements OnInit {
 
   constructor(
 
-    private promotionService: PromotionService,
+    private groupService: StudentGroupService,
 
     private dialog: MatDialog,
 
@@ -56,18 +60,26 @@ export class Promotions implements OnInit {
 
   ngOnInit(): void {
 
-    this.loadPromotions();
+    this.loadGroups();
 
     this.dataSource.filterPredicate = (
-      data: Promotion,
-      filter: string
+
+      data,
+
+      filter
     ) => {
+
       const search = (
+
         data.name +
+
+        ' '+
+
+        data.formationName +
 
         ' ' +
 
-        data.academicYear
+        data.formationName
       ).toLowerCase();
 
       return search.includes(filter);
@@ -75,11 +87,11 @@ export class Promotions implements OnInit {
   }
 
   /**
-   * Chargement des promotions
+   * Load groups
    */
-  loadPromotions(): void {
+  loadGroups(): void {
 
-    this.promotionService.getPromotions().subscribe({
+    this.groupService.getGroups().subscribe({
 
       next: (response) => {
 
@@ -90,8 +102,6 @@ export class Promotions implements OnInit {
       error: (error) => {
 
         console.error(error);
-
-        this.snackBar.open('Une erreur est survenue', 'Fermer');
       }
     });
   }
@@ -101,79 +111,79 @@ export class Promotions implements OnInit {
    */
   applyFilter(event: Event): void {
 
-    const filterValue = (event.target as HTMLInputElement).value;
+    const value = (event.target as HTMLInputElement).value;
 
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+    this.dataSource.filter = value.trim().toLowerCase();
   }
 
   /**
-   * Ajouter une promotion
+   * Open dialog
    */
   openCreateDialog(): void {
 
-    const dialogRef = this.dialog.open(PromotionFormDialog, {
+    const dialogRef = this.dialog.open(GroupFormDialog, 
 
-      width: '550px',
-      height: '90%'
-    });
+      {
+        width: '550px',
+        height: '90%'
+      }
+    );
 
     dialogRef.afterClosed().subscribe((result) => {
 
       if (result) {
 
-        this.loadPromotions();
+        this.loadGroups();
       }
     });
   }
 
   /**
-   * Open update dialog
+   * Open edit dialog
    */
-  openEditDialog(promotion: Promotion): void {
+  openEditDialog(group: StudentGroup): void {
 
-    const dialogRef = this.dialog.open(PromotionFormDialog, 
+    const dialogRef = this.dialog.open(GroupFormDialog,
 
       {
         width: '550px',
         height: '90%',
-
-        data: promotion
+        data: group
       }
     );
 
-      dialogRef.afterClosed().subscribe((result) => {
+    dialogRef.afterClosed().subscribe((result) => {
 
-        if (result) {
+      if (result) {
 
-          this.loadPromotions();
-        }
+        this.loadGroups();
       }
-    );
+    });
   }
 
   /**
-   * Delete promotion
+   *  Suppression
    */
-  deletePromotion(promotion: Promotion): void {
+  deleteGroup(group: StudentGroup): void {
 
-    const confirmed = confirm('Confirmer la suppression de cette promotion ?');
+    const confirmed = confirm('Confirmer la suppression de ce groupe ?');
 
     if (!confirmed) {
 
       return;
     }
 
-    this.promotionService.deletePromotion(promotion.id).subscribe({
+    this.groupService.deleteGroup(group.id).subscribe({
 
       next: () => {
 
-        this.snackBar.open('Promotion supprimée avec succès', 'Fermer', {
+        this.snackBar.open('Groupe supprimée avec succès', 'Fermer', {
 
           duration: 3000
         });
 
-        this.loadPromotions();
-    },
+        this.loadGroups();
+      },
       error: (error) => {
 
         console.error(error);

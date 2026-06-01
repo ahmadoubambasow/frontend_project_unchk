@@ -9,6 +9,8 @@ import { Enrollments } from './pages/enrollments/enrollments';
 import { Trainers } from './pages/trainers/trainers';
 import { Schedules } from './pages/schedules/schedules';
 import { Promotions } from './pages/promotions/promotions';
+import { Groups } from './pages/groups/groups';
+import { Filieres } from './pages/filieres/filieres';
 
 export const routes: Routes = [
     
@@ -62,6 +64,16 @@ export const routes: Routes = [
             {
                 path: 'promotions',
                 component: Promotions
+            },
+
+            {
+                path: 'groups',
+                component: Groups
+            },
+
+            {
+                path: 'filieres',
+                component: Filieres
             }
         ]
     },

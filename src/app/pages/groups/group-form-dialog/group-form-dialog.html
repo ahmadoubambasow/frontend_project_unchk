@@ -1,59 +1,40 @@
 <div class="dialog-container">
 
-  <!-- Header -->
   <div class="dialog-header">
 
     <h2>
 
       {{
         data
-          ? 'Modifier promotion'
-          : 'Nouvelle promotion'
+          ? 'Modifier groupe'
+          : 'Nouveau groupe'
       }}
 
     </h2>
 
     <p>
 
-      Gestion des promotions académiques
+      Gestion des groupes pédagogiques
 
     </p>
 
   </div>
 
-  <!-- Form -->
-  <form
-    [formGroup]="promotionForm">
+  <form [formGroup]="groupForm">
 
     <!-- Nom -->
     <mat-form-field appearance="outline">
 
       <mat-label>
 
-        Nom de la promotion
+        Nom du groupe
 
       </mat-label>
 
       <input
         matInput
         formControlName="name"
-        placeholder="L3 INFO 2025-2026">
-
-    </mat-form-field>
-
-    <!-- Année -->
-    <mat-form-field appearance="outline">
-
-      <mat-label>
-
-        Année académique
-
-      </mat-label>
-
-      <input
-        matInput
-        formControlName="academicYear"
-        placeholder="2025-2026">
+        placeholder="L3-A">
 
     </mat-form-field>
 
@@ -73,7 +54,7 @@
 
     </mat-form-field>
 
-    <!-- Formation
+    <!-- Formation -->
     <mat-form-field appearance="outline">
 
       <mat-label>
@@ -104,11 +85,10 @@
 
       </mat-select>
 
-    </mat-form-field> -->
-
+    </mat-form-field>
+    
   </form>
 
-  <!-- Actions -->
   <div class="dialog-actions">
 
     <button
@@ -129,7 +109,7 @@
 
       [disabled]="
         loading ||
-        promotionForm.invalid
+        groupForm.invalid
       ">
 
       {{

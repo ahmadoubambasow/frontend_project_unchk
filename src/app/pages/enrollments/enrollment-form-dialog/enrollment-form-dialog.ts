@@ -46,6 +46,9 @@ import { forkJoin } from 'rxjs';
 import { EnrollmentService }
 from '../../../services/enrollment';
 
+import { FormationService }
+from '../../../services/formation';
+
 import { StudentService }
 from '../../../services/student';
 
@@ -55,6 +58,8 @@ import { StudentGroupService } from '../../../services/student-group';
 
 import { Promotion } from '../../../models/promotion.model';
 
+import { Formation } from '../../../models/formation.model';
+
 import {StudentGroup } from '../../../models/student-group.model';
 
 import { Student }
@@ -62,6 +67,8 @@ from '../../../models/student.model';
 
 import { Enrollment }
 from '../../../models/enrollment.model';
+import { Filiere } from '../../../models/filiere.model';
+import { FiliereService } from '../../../services/filiere';
 
 /**
  * Dialog création / modification inscription.
@@ -117,6 +124,17 @@ implements OnInit {
   promotions: Promotion[] = [];
 
   /**
+   * Filières
+   */
+  filieres: Filiere[] = [];
+
+  /**
+   * Formation.
+   */
+  formations: Formation[] = [];
+   
+
+  /**
    * Groupe
    */
   groups: StudentGroup[] = [];
@@ -129,8 +147,13 @@ implements OnInit {
     private enrollmentService:
       EnrollmentService,
 
+    private filiereService: FiliereService,
+
     private studentService:
       StudentService,
+
+    private formationService:
+      FormationService,
 
     private promotionService: PromotionService,
 
@@ -162,6 +185,16 @@ implements OnInit {
         Validators.required
       ],
 
+      filiereId: [
+        null,
+        Validators.required
+      ],
+
+      formationId: [
+        null,
+        Validators.required
+      ],
+
       groupId: [
         null,
         Validators.required
@@ -180,7 +213,13 @@ implements OnInit {
         this.studentService.getStudents(),
 
       promotions:
-        this.promotionService.getPromotions()
+        this.promotionService.getPromotions(),
+
+      formations:
+        this.formationService.getFormations(),
+
+      filieres:
+        this.filiereService.getFilieres(),
 
     }).subscribe({
 
@@ -192,13 +231,19 @@ implements OnInit {
         this.promotions =
           response.promotions;
 
+        this.formations =
+          response.formations;
+
+        this.filieres =
+          response.filieres;
+
         /**
          * Mode édition.
          */
         if (this.data) {
 
-          this.onPromotionChange(
-            this.data.promotionId
+          this.onFormationChange(
+            this.data.formationId
           );
 
           this.enrollmentForm.patchValue({
@@ -207,7 +252,13 @@ implements OnInit {
               this.data.studentId,
 
             promotionId:
-              this.data.promotionId
+              this.data.promotionId,
+
+            filiereId:
+              this.data.filiereId,
+
+            formationId:
+              this.data.formationId
           });
 
           setTimeout(() => {
@@ -241,34 +292,61 @@ implements OnInit {
     });
   }
 
+  onFiliereChange(filiereId: number): void {
+
+    this.enrollmentForm.patchValue({
+
+      formationId: null,
+
+      groupId: null
+    });
+
+    this.groups = [];
+
+    this.formations = [];
+
+    this.formationService.getFormationsByFiliere(filiereId).subscribe({
+
+      next: (response) => {
+
+        this.formations = response;
+      }
+    });
+  }
 
   /**
-   * Chargement des groupes selon la promotion
+   * Chargement des groupes selon la formation.
    */
-  onPromotionChange(promotionId: number): void {
+  onFormationChange(
+  formationId: number
+): void {
 
-    if (!promotionId) {
+ 
+    this.enrollmentForm.patchValue({
 
-      this.groups = [];
+      groupId: null
+    });
 
-      this.enrollmentForm.patchValue({ groupId: null });
 
-      return;
-    }
+  this.studentGroupService
 
-    this.studentGroupService.getGroupsByPromotion(promotionId).subscribe({
+    .getGroupsByFormation(
+      formationId
+    )
+
+    .subscribe({
 
       next: (response) => {
 
         this.groups = response;
-      }, 
+      },
 
       error: (error) => {
 
         console.error(error);
       }
     });
-  }
+}
 
   /**
    * Soumission formulaire.

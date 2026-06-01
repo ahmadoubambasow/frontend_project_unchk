@@ -1,0 +1,116 @@
+<div class="dialog-container">
+
+  <div class="dialog-header">
+
+    <h2>
+
+      {{
+        data
+          ? 'Modifier filière'
+          : 'Nouvelle filière'
+      }}
+
+    </h2>
+
+    <p>
+
+      Gestion des filières académiques
+
+    </p>
+
+  </div>
+
+  <form
+    [formGroup]="filiereForm">
+
+    <!-- Nom -->
+    <mat-form-field appearance="outline">
+
+      <mat-label>
+
+        Nom
+
+      </mat-label>
+
+      <input
+
+        matInput
+
+        formControlName="name"
+
+        placeholder="Informatique">
+
+    </mat-form-field>
+
+    
+    <!-- Description -->
+    <mat-form-field appearance="outline">
+
+      <mat-label>
+
+        Description
+
+      </mat-label>
+
+      <textarea
+
+        matInput
+
+        rows="4"
+
+        formControlName="description">
+
+      </textarea>
+
+    </mat-form-field>
+
+  </form>
+
+  <div class="dialog-actions">
+
+    <button
+
+      mat-stroked-button
+
+      (click)="dialogRef.close()">
+
+      Annuler
+
+    </button>
+
+    <button
+
+      mat-raised-button
+
+      color="primary"
+
+      (click)="submit()"
+
+      [disabled]="
+        loading ||
+        filiereForm.invalid
+      ">
+
+      {{
+
+        loading
+
+          ? (
+              data
+                ? 'Modification...'
+                : 'Création...'
+            )
+
+          : (
+              data
+                ? 'Modifier'
+                : 'Ajouter'
+            )
+
+      }}
+
+    </button>
+
+  </div>
+
+</div>

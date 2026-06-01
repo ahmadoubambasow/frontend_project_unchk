@@ -92,6 +92,8 @@ implements OnInit {
 
     'student',
 
+    'filiere',
+
     'formation',
 
     'promotion',
@@ -130,27 +132,31 @@ implements OnInit {
 
       const searchText = (
 
-        data.studentName +
+        (data.studentName ?? '') +
 
         ' ' +
 
-        data.matricule +
+        (data.matricule ?? '') +
 
         ' ' +
 
-        data.formationName +
+        (data.promotionName ?? '') +
 
-        ' ' +
+      ' ' +
 
-        data.promotionName +
+      (data.formationName ?? '') +
 
-        ' ' +
+      ' ' +
 
-        data.groupName
+      (data.groupName ?? '') +
+
+      ' ' +
+
+      (data.status ?? '')
 
       ).toLowerCase();
 
-      return searchText.includes(filter);
+      return searchText.includes(filter.toLowerCase());
     }
   }
 

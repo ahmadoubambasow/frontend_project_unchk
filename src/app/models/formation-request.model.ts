@@ -8,4 +8,6 @@ export interface FormationRequest {
   description: string;
 
   duration: number;
+
+  filiereId: number;
 }
