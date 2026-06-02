@@ -14,161 +14,236 @@
 
     <p>
 
-      Gestion des comptes rendus
+      Gestion des comptes rendus et documents
 
     </p>
 
   </div>
 
-  <form [formGroup]="communicationForm">
+  <form
+    [formGroup]="communicationForm">
 
-    <mat-form-field appearance="outline">
+    <!-- Informations générales -->
 
-      <mat-label>
+    <div class="section">
 
-        Titre
+      <h3>
 
-      </mat-label>
+        Informations générales
 
-      <input
-        matInput
-        formControlName="title">
+      </h3>
 
-    </mat-form-field>
+      <div class="form-grid">
 
-    <mat-form-field appearance="outline">
+        <mat-form-field appearance="outline">
 
-      <mat-label>
+          <mat-label>
 
-        Type
+            Titre
 
-      </mat-label>
+          </mat-label>
 
-      <mat-select
-        formControlName="type">
+          <input
+            matInput
+            formControlName="title">
 
-        <mat-option
+        </mat-form-field>
 
-          *ngFor="
-            let type
-            of communicationTypes
-          "
+        <mat-form-field appearance="outline">
 
-          [value]="type">
+          <mat-label>
 
-          {{ type }}
+            Type
 
-        </mat-option>
+          </mat-label>
 
-      </mat-select>
+          <mat-select
+            formControlName="type">
 
-    </mat-form-field>
+            <mat-option
 
-    <mat-form-field appearance="outline">
+              *ngFor="
+                let type
+                of communicationTypes
+              "
 
-      <mat-label>
+              [value]="type">
+
+              {{ type }}
+
+            </mat-option>
+
+          </mat-select>
+
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+
+          <mat-label>
+
+            Date
+
+          </mat-label>
+
+          <input
+            matInput
+            type="datetime-local"
+            formControlName="eventDate">
+
+        </mat-form-field>
+
+      </div>
+
+    </div>
+
+    <!-- Description -->
+
+    <div class="section">
+
+      <h3>
 
         Description
 
-      </mat-label>
+      </h3>
 
-      <textarea
-        matInput
-        rows="3"
-        formControlName="description">
-      </textarea>
+      <mat-form-field
+        appearance="outline"
+        class="full-width">
 
-    </mat-form-field>
+        <mat-label>
 
-    <mat-form-field appearance="outline">
+          Description
 
-      <mat-label>
+        </mat-label>
+
+        <textarea
+
+          matInput
+
+          rows="3"
+
+          formControlName="description">
+
+        </textarea>
+
+      </mat-form-field>
+
+    </div>
+
+    <!-- Compte rendu -->
+
+    <div class="section">
+
+      <h3>
 
         Compte rendu
 
-      </mat-label>
+      </h3>
 
-      <textarea
-        matInput
-        rows="5"
-        formControlName="report">
-      </textarea>
+      <mat-form-field
+        appearance="outline"
+        class="full-width">
 
-    </mat-form-field>
+        <mat-label>
 
-    <mat-form-field appearance="outline">
+          Contenu du compte rendu
 
-      <mat-label>
+        </mat-label>
 
-        Date
+        <textarea
 
-      </mat-label>
+          matInput
 
-      <input
-        matInput
-        type="datetime-local"
-        formControlName="eventDate">
+          rows="6"
 
-    </mat-form-field>
+          formControlName="report">
 
-    <div class="file-upload">
+        </textarea>
 
-  <label class="upload-label">
+      </mat-form-field>
 
-    Document associé
+    </div>
 
-  </label>
+    <!-- Document -->
 
-  <input
-    type="file"
-    accept=".pdf,.doc,.docx,.xls,.xlsx,.png,.jpg,.jpeg"
-    (change)="onFileSelected($event)"
-  >
+    <div class="section">
 
-  <div
-    class="selected-file"
-    *ngIf="selectedFileName">
+      <h3>
 
-    {{ selectedFileName }}
+        Document associé
 
-  </div>
+      </h3>
 
-</div>
+      <div class="upload-container">
 
-    <mat-form-field appearance="outline">
+        <input
 
-      <mat-label>
+          type="file"
 
-        Rôle d'accès
+          accept=".pdf,.doc,.docx,.xls,.xlsx,.png,.jpg,.jpeg"
 
-      </mat-label>
+          (change)="onFileSelected($event)">
 
-      <mat-select
-        formControlName="accessRole">
+        <div
 
-        <mat-option
+          class="selected-file"
 
-          *ngFor="
-            let role
-            of accessRoles
-          "
+          *ngIf="selectedFileName">
 
-          [value]="role.value">
+          📎 {{ selectedFileName }}
 
-          {{ role.label }}
+        </div>
 
-        </mat-option>
+      </div>
 
-      </mat-select>
+    </div>
 
-    </mat-form-field>
+    <!-- Diffusion -->
+
+    <div class="section">
+
+      <h3>
+
+        Diffusion
+
+      </h3>
+
+      <mat-form-field
+        appearance="outline"
+        class="full-width">
+
+        <mat-label>
+
+          Rôle d'accès
+
+        </mat-label>
+
+        <mat-select
+          formControlName="accessRole"
+          panelClass="role-select-panel">
+
+          <mat-option
+            *ngFor="let role of accessRoles"
+            [value]="role.value">
+
+            {{ role.label }}
+
+          </mat-option>
+
+        </mat-select>
+
+      </mat-form-field>
+
+    </div>
 
   </form>
 
   <div class="dialog-actions">
 
     <button
+
       mat-stroked-button
+
       (click)="dialogRef.close()">
 
       Annuler
@@ -176,15 +251,23 @@
     </button>
 
     <button
+
       mat-raised-button
+
       color="primary"
+
       [disabled]="loading"
+
       (click)="submit()">
 
       {{
+
         loading
+
           ? 'Enregistrement...'
+
           : 'Enregistrer'
+
       }}
 
     </button>

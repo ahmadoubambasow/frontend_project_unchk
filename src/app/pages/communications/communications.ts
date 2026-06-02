@@ -97,7 +97,9 @@ export class Communications implements OnInit {
     const dialogRef = this.dialog.open(CommunicationFormDialog, {
 
       width: '900px',
-      height: '90%'
+      maxWidth: '95vw',
+      maxHeight: '90vh',
+      autoFocus: false
     });
 
     dialogRef.afterClosed().subscribe((result) => {
