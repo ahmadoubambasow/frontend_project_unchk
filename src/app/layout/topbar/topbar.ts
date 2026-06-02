@@ -64,8 +64,6 @@ implements OnInit, OnDestroy {
 
   notifications: Notification[] = [];
 
-  showNotifications = false;
-
   unreadCount = 0;
 
   private refreshSubscription?: Subscription;
@@ -85,8 +83,6 @@ implements OnInit, OnDestroy {
 
     this.loadNotifications();
 
-    this.loadUnreadCount();
-
     this.refreshSubscription =
 
       interval(30000)
@@ -94,8 +90,6 @@ implements OnInit, OnDestroy {
         .subscribe(() => {
 
           this.loadNotifications();
-
-          this.loadUnreadCount();
         });
   }
 
@@ -117,7 +111,19 @@ implements OnInit, OnDestroy {
 
         next: (response) => {
 
-          this.notifications = response;
+          this.notifications = [...response]
+
+            .sort((a, b) =>
+
+              new Date(b.createdAt).getTime()
+
+              -
+
+              new Date(a.createdAt).getTime()
+
+            );
+
+          this.updateUnreadCount();
         },
 
         error: (error) => {
@@ -128,26 +134,17 @@ implements OnInit, OnDestroy {
   }
 
   /**
-   * Nombre non lues
+   * Calcul nombre non lues
    */
-  loadUnreadCount(): void {
+  updateUnreadCount(): void {
 
-    this.notificationService
+    this.unreadCount =
 
-      .getUnreadCount()
+      this.notifications.filter(
 
-      .subscribe({
+        notification => !notification.isRead
 
-        next: (count) => {
-
-          this.unreadCount = count;
-        },
-
-        error: (error) => {
-
-          console.error(error);
-        }
-      });
+      ).length;
   }
 
   /**
@@ -174,7 +171,7 @@ implements OnInit, OnDestroy {
 
           notification.isRead = true;
 
-          this.loadUnreadCount();
+          this.updateUnreadCount();
         },
 
         error: (error) => {
@@ -182,6 +179,22 @@ implements OnInit, OnDestroy {
           console.error(error);
         }
       });
+  }
+
+  /**
+   * Tout marquer comme lu
+   */
+  markAllAsRead(): void {
+
+    this.notifications.forEach(
+
+      notification =>
+
+        notification.isRead = true
+
+    );
+
+    this.updateUnreadCount();
   }
 
   /**
