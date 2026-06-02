@@ -4,7 +4,9 @@
   <div class="topbar-left">
 
     <h2>
+
       Tableau de bord
+
     </h2>
 
   </div>
@@ -16,7 +18,9 @@
     <div class="search-box">
 
       <mat-icon>
+
         search
+
       </mat-icon>
 
       <input
@@ -26,21 +30,117 @@
     </div>
 
     <!-- Notifications -->
-    <button mat-icon-button>
 
-      <mat-icon>
+    <button
+      mat-icon-button
+
+      [matMenuTriggerFor]="notificationMenu">
+
+      <mat-icon
+
+        [matBadge]="unreadCount"
+
+        matBadgeColor="warn"
+
+        [matBadgeHidden]="
+          unreadCount === 0
+        ">
+
         notifications
+
       </mat-icon>
 
     </button>
 
+    <mat-menu
+      #notificationMenu="matMenu">
+
+      <div
+        class="notification-header">
+
+        Notifications
+
+      </div>
+
+      <ng-container
+        *ngIf="notifications.length">
+
+        <button
+
+          mat-menu-item
+
+          *ngFor="
+            let notification
+            of notifications
+          "
+
+          (click)="
+            markAsRead(
+              notification
+            )
+          ">
+
+          <div
+
+            class="notification-item"
+
+            [class.unread]="
+              !notification.isRead
+            ">
+
+            <strong>
+
+              {{ notification.title }}
+
+            </strong>
+
+            <small>
+
+              {{ notification.message }}
+
+            </small>
+
+            <span
+              class="notification-date">
+
+              {{
+                notification.createdAt
+
+                  | date:'dd/MM/yyyy HH:mm'
+              }}
+
+            </span>
+
+          </div>
+
+        </button>
+
+      </ng-container>
+
+      <div
+
+        *ngIf="
+          !notifications.length
+        "
+
+        class="empty-notification">
+
+        Aucune notification
+
+      </div>
+
+    </mat-menu>
+
     <!-- Logout -->
+
     <button
       mat-icon-button
       (click)="logout()">
 
       <mat-icon>
+
         logout
+
       </mat-icon>
 
     </button>

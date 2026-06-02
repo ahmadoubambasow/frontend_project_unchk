@@ -1,0 +1,40 @@
+.dialog-container {
+  width: 100%;
+  min-width: 600px;
+}
+
+.dialog-header {
+  margin-bottom: 20px;
+}
+
+.dialog-header h2 {
+  margin: 0;
+}
+
+.dialog-header p {
+  color: #64748b;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+.dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+@media (max-width: 768px) {
+
+  .dialog-container {
+    min-width: 100%;
+  }
+}

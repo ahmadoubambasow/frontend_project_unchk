@@ -13,6 +13,7 @@ import { Groups } from './pages/groups/groups';
 import { Filieres } from './pages/filieres/filieres';
 import { Subjects } from './pages/subjects/subjects';
 import { TrainerSubjects } from './pages/trainer-subjects/trainer-subjects';
+import { Communications } from './pages/communications/communications';
 
 export const routes: Routes = [
     
@@ -86,6 +87,11 @@ export const routes: Routes = [
             {
                 path: 'trainer-subjects',
                 component: TrainerSubjects
+            },
+
+            {
+                path: 'communications',
+                component: Communications
             }
         ]
     },
