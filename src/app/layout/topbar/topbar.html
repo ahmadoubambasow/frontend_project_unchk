@@ -34,17 +34,16 @@
     <button
       mat-icon-button
 
-      [matMenuTriggerFor]="notificationMenu">
-
-      <mat-icon
-
-        [matBadge]="unreadCount"
+      [matMenuTriggerFor]="notificationMenu"
+    
+      [matBadge]="unreadCount"
 
         matBadgeColor="warn"
 
-        [matBadgeHidden]="
-          unreadCount === 0
-        ">
+        [matBadgeHidden]="unreadCount === 0"
+    >
+
+      <mat-icon>
 
         notifications
 
@@ -130,6 +129,68 @@
       </div>
 
     </mat-menu>
+    <div class="notification-container">
+
+  <button
+    class="notification-button"
+    (click)="showNotifications = !showNotifications">
+
+    <mat-icon>
+      notifications
+    </mat-icon>
+
+    <span
+      class="notification-badge"
+      *ngIf="unreadCount > 0">
+
+      {{ unreadCount }}
+
+    </span>
+
+  </button>
+
+  <div
+    class="notification-dropdown"
+
+    *ngIf="showNotifications">
+
+    <div
+      *ngIf="notifications.length">
+
+      <div
+
+        *ngFor="let notification of notifications"
+
+        class="notification-item"
+
+        (click)="markAsRead(notification)">
+
+        <strong>
+
+          {{ notification.title }}
+
+        </strong>
+
+        <small>
+
+          {{ notification.message }}
+
+        </small>
+
+      </div>
+
+    </div>
+
+    <div
+      *ngIf="!notifications.length">
+
+      Aucune notification
+
+    </div>
+
+  </div>
+
+</div>
 
     <!-- Logout -->
 

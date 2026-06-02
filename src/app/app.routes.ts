@@ -14,6 +14,7 @@ import { Filieres } from './pages/filieres/filieres';
 import { Subjects } from './pages/subjects/subjects';
 import { TrainerSubjects } from './pages/trainer-subjects/trainer-subjects';
 import { Communications } from './pages/communications/communications';
+import { Users } from './pages/utilisateurs/utilisateurs';
 
 export const routes: Routes = [
     
@@ -37,6 +38,11 @@ export const routes: Routes = [
             {
                 path: 'dashboard',
                 component: Dashboard
+            },
+
+            {
+                path: 'users',
+                component: Users
             },
 
             {
@@ -92,6 +98,19 @@ export const routes: Routes = [
             {
                 path: 'communications',
                 component: Communications
+            },
+
+            {
+                path: 'archives',
+                loadComponent: () => 
+
+                    import(
+                        './pages/communications/archives/archives'
+                    )
+                    .then(
+                        m => m.Archives
+                    )
+                
             }
         ]
     },

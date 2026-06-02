@@ -52,7 +52,7 @@ import { Notification } from '../../models/notification.model';
     MatButtonModule,
     MatIconModule,
     MatMenuModule,
-    MatBadgeModule
+    MatBadgeModule,
   ],
 
   templateUrl: './topbar.html',
@@ -63,6 +63,8 @@ export class Topbar
 implements OnInit, OnDestroy {
 
   notifications: Notification[] = [];
+
+  showNotifications = false;
 
   unreadCount = 0;
 

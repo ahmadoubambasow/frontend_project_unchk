@@ -1,0 +1,44 @@
+.dialog-container {
+
+  width: 100%;
+
+  min-width: 500px;
+}
+
+.dialog-header {
+
+  margin-bottom: 20px;
+}
+
+form {
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 16px;
+}
+
+mat-form-field {
+
+  width: 100%;
+}
+
+.dialog-actions {
+
+  display: flex;
+
+  justify-content: flex-end;
+
+  gap: 12px;
+
+  margin-top: 24px;
+}
+
+@media (max-width: 768px) {
+
+  .dialog-container {
+
+    min-width: 100%;
+  }
+}

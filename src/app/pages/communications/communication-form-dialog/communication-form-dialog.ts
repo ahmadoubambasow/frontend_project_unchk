@@ -50,15 +50,15 @@ export class CommunicationFormDialog implements OnInit{
 
     'MEETING',
 
-    'ENCOUNTER',
+  'ENCOUNTER',
 
-    'SEMINAR',
+  'SEMINAR',
 
-    'WEBINAR',
+  'WEBINAR',
 
-    'UNIVERSITY_COUNCIL',
+  'UNIVERSITY_COUNCIL',
 
-    'CIRCULAR'
+  'CIRCULAR'
   ];
 
   /**
@@ -66,17 +66,50 @@ export class CommunicationFormDialog implements OnInit{
    */
   accessRoles = [
 
-    'ADMIN',
+    {
+      value: 'ADMIN',
+      label: 'Administrateur'
+    },
 
-    'ADMINISTRATIVE',
+    {
+      value: 'ADMINISTRATIF',
+      label: 'Personnel administratif'
+    },
 
-    'TEACHER',
+    {
+      value: 'ENSEIGNANT',
+      label: 'Enseignant'
+    },
 
-    'TUTOR',
+    {
+      value: 'ENSEIGNANT_ASSOCIE',
+      label: 'Enseignant associé'
+    },
 
-    'STUDENT',
+    {
+      value: 'RESPONSABLE_FORMATION',
+      label: 'Responsable de formation'
+    },
 
-    'ALL'
+    {
+      value: 'TUTEUR',
+      label: 'Tuteur'
+    },
+
+    {
+      value: 'APPUI_INSERTION',
+      label: 'Appui insertion'
+    },
+
+    {
+      value: 'ETUDIANT',
+      label: 'Étudiant'
+    },
+
+    {
+      value: 'ALL',
+      label: 'Tous les utilisateurs'
+    }
   ];
 
   constructor(
@@ -289,6 +322,8 @@ submit(): void {
 private saveCommunication(
   payload: any
 ): void {
+
+  console.log(payload);
 
   this.communicationService
 

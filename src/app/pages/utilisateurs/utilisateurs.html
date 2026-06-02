@@ -1,0 +1,103 @@
+<div class="page-header">
+
+  <h2>
+
+    Utilisateurs
+
+  </h2>
+
+  <button
+
+    mat-raised-button
+
+    color="primary"
+
+    (click)="createUser()">
+
+    Ajouter
+
+  </button>
+
+</div>
+
+<table>
+
+  <thead>
+
+    <tr>
+
+      <th>Nom</th>
+
+      <th>Email</th>
+
+      <th>Rôle</th>
+
+      <th>Actions</th>
+
+    </tr>
+
+  </thead>
+
+  <tbody>
+
+    <tr
+      *ngFor="let user of users">
+
+      <td>
+
+        {{ user.fullName }}
+
+      </td>
+
+      <td>
+
+        {{ user.email }}
+
+      </td>
+
+      <td>
+
+        {{ user.roleName }}
+
+      </td>
+
+      <td>
+
+        <button
+          mat-icon-button
+
+          (click)="
+            editUser(user)
+          ">
+
+          <mat-icon>
+
+            edit
+
+          </mat-icon>
+
+        </button>
+
+        <button
+          mat-icon-button
+          color="warn"
+
+          (click)="
+            deleteUser(user)
+          ">
+
+          <mat-icon>
+
+            delete
+
+          </mat-icon>
+
+        </button>
+
+      </td>
+
+    </tr>
+
+  </tbody>
+
+</table>

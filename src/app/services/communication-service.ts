@@ -64,4 +64,14 @@ export class CommunicationService {
       }
     );
   }
+
+  /**
+   * Archives
+   */
+  getArchives(): Observable<Communication[]> {
+
+    return this.http.get<Communication[]>(`${this.apiUrl}/archives`);
+  }
+
+  
 }

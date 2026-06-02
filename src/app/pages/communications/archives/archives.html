@@ -1,0 +1,181 @@
+<div class="archives-page">
+
+  <div class="page-header">
+
+    <div>
+
+      <h2>
+
+        Archives documentaires
+
+      </h2>
+
+      <p>
+
+        Documents accessibles selon votre rôle
+
+      </p>
+
+    </div>
+
+  </div>
+
+  <div class="search-box">
+
+    <input
+
+      type="text"
+
+      [(ngModel)]="search"
+
+      placeholder="Rechercher un document...">
+
+  </div>
+
+  <div
+
+    class="loading"
+
+    *ngIf="loading">
+
+    Chargement...
+
+  </div>
+
+  <div
+
+    class="archives-grid"
+
+    *ngIf="!loading && filteredArchives.length">
+
+    <mat-card
+
+      class="archive-card"
+
+      *ngFor="
+        let archive
+        of filteredArchives
+      ">
+
+      <div class="archive-header">
+
+        <mat-icon>
+
+          {{
+            getDocumentIcon(
+              archive.documentType
+            )
+          }}
+
+        </mat-icon>
+
+        <span>
+
+          {{ archive.documentName }}
+
+        </span>
+
+      </div>
+
+      <h3>
+
+        {{ archive.title }}
+
+      </h3>
+
+      <p>
+
+        {{ archive.description }}
+
+      </p>
+
+      <div class="archive-info">
+
+        <span>
+
+          {{ archive.type }}
+
+        </span>
+
+        <span>
+
+          {{ archive.eventDate | date:'dd/MM/yyyy' }}
+
+        </span>
+
+      </div>
+
+      <div class="archive-actions">
+
+        <button
+
+          mat-stroked-button
+
+          (click)="
+            previewDocument(
+              archive
+            )
+          ">
+
+          <mat-icon>
+
+            visibility
+
+          </mat-icon>
+
+          Consulter
+
+        </button>
+
+        <button
+
+          mat-raised-button
+
+          color="primary"
+
+          (click)="
+            downloadDocument(
+              archive
+            )
+          ">
+
+          <mat-icon>
+
+            download
+
+          </mat-icon>
+
+          Télécharger
+
+        </button>
+
+      </div>
+
+    </mat-card>
+
+  </div>
+
+  <div
+
+    class="empty-state"
+
+    *ngIf="
+      !loading &&
+      !filteredArchives.length
+    ">
+
+    <mat-icon>
+
+      folder_open
+
+    </mat-icon>
+
+    <p>
+
+      Aucun document archivé
+
+    </p>
+
+  </div>
+
+</div>

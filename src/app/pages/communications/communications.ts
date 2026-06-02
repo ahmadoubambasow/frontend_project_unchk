@@ -96,7 +96,7 @@ export class Communications implements OnInit {
 
     const dialogRef = this.dialog.open(CommunicationFormDialog, {
 
-      width: '550px',
+      width: '900px',
       height: '90%'
     });
 
