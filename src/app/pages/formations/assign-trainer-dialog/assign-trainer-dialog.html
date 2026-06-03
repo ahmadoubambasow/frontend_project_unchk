@@ -1,0 +1,67 @@
+<div class="dialog-container">
+
+  <h2>
+
+    Affecter un formateur
+
+  </h2>
+
+  <form
+    [formGroup]="form">
+
+    <mat-form-field
+      appearance="outline">
+
+      <mat-label>
+
+        Formateur
+
+      </mat-label>
+
+      <mat-select
+        formControlName="trainerId">
+
+        <mat-option
+
+          *ngFor="
+            let trainer
+            of trainers
+          "
+
+          [value]="trainer.id">
+
+          {{ trainer.fullName }}
+
+          ({{ trainer.role }})
+
+        </mat-option>
+
+      </mat-select>
+
+    </mat-form-field>
+
+  </form>
+
+  <div class="actions">
+
+    <button
+      mat-stroked-button
+      (click)="dialogRef.close()">
+
+      Annuler
+
+    </button>
+
+    <button
+      mat-raised-button
+      color="primary"
+      [disabled]="loading"
+      (click)="submit()">
+
+      Affecter
+
+    </button>
+
+  </div>
+
+</div>

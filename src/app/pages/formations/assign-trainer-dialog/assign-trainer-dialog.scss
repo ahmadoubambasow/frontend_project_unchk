@@ -1,0 +1,22 @@
+.dialog-container {
+
+  padding: 24px;
+
+  min-width: 450px;
+}
+
+mat-form-field {
+
+  width: 100%;
+}
+
+.actions {
+
+  display: flex;
+
+  justify-content: flex-end;
+
+  gap: 12px;
+
+  margin-top: 24px;
+}

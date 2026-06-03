@@ -74,4 +74,10 @@ export class UserService {
       `${this.apiUrl}/${id}`
     );
   }
+
+  getTrainers() {
+
+    return this.http.get<any[]>(
+      `${this.apiUrl}/trainers`)
+  }
 }

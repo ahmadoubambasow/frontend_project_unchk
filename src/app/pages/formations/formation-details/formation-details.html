@@ -1,114 +1,57 @@
-<div
-  class="details-page"
-  *ngIf="formation as f">
+<div class="details-page" *ngIf="formation as f">
 
   <div class="header">
-
-    <h1>
-
-      {{ f.name }}
-
-    </h1>
-
-    <p>
-
-      {{ f.formationType }}
-      •
-      {{ f.level }}
-
-    </p>
-
+    <h1>{{ f.name }}</h1>
+    <p>{{ f.formationType }} • {{ f.level }}</p>
   </div>
 
   <mat-card>
-
     <mat-card-content>
-
-      <p>
-
-        <strong>Début :</strong>
-
-        {{ f.startDate }}
-
-      </p>
-
-      <p>
-
-        <strong>Fin :</strong>
-
-        {{ f.endDate }}
-
-      </p>
-
-      <p>
-
-        <strong>Financement :</strong>
-
-        {{ f.fundingAmount }}
-
-        FCFA
-
-      </p>
-
-      <p>
-
-        <strong>Type :</strong>
-
-        {{ f.fundingType }}
-
-      </p>
-
-      <p>
-
-        <strong>Description :</strong>
-
-        {{ f.description }}
-
-      </p>
-
+      <p><strong>Début :</strong> {{ f.startDate }}</p>
+      <p><strong>Fin :</strong> {{ f.endDate }}</p>
+      <p><strong>Financement :</strong> {{ f.fundingAmount }} FCFA</p>
+      <p><strong>Type :</strong> {{ f.fundingType }}</p>
+      <p><strong>Description :</strong> {{ f.description }}</p>
     </mat-card-content>
-
   </mat-card>
 
   <mat-card>
-
     <mat-card-header>
-
-      <mat-card-title>
-
-        Formateurs
-
-      </mat-card-title>
-
+      <mat-card-title>Formateurs</mat-card-title>
     </mat-card-header>
-
     <mat-card-content>
+      <div *ngFor="let trainer of trainers">
+        <h3>{{ trainer.fullName }}</h3>
+        <p>{{ trainer.email }}</p>
+        <small>{{ trainer.role }}</small>
 
-      <div
-        *ngFor="let trainer of f.trainers">
+        <button
 
-        <h3>
+          mat-icon-button
 
-          {{ trainer.fullName }}
+          color="warn"
 
-        </h3>
+          (click)="removeTrainer(trainer)">
 
-        <p>
+          <mat-icon>
 
-          {{ trainer.email }}
+            delete
 
-        </p>
+          </mat-icon>
 
-        <small>
-
-          {{ trainer.role }}
-
-        </small>
-
+        </button>
       </div>
+      
 
+      <p *ngIf="trainers.length === 0">Aucun formateur affecté pour le moment.</p>
     </mat-card-content>
+  </mat-card>
 
+  <mat-card>
+    <button mat-raised-button color="primary" (click)="openAssignTrainerDialog()">
+      <mat-icon>person_add</mat-icon>
+      Affecter un formateur
+    </button>
   </mat-card>
 
 </div>
