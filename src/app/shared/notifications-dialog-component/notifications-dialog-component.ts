@@ -5,7 +5,7 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { MatCard, MatCardContent } from "@angular/material/card";
 import { MatDialog } from '@angular/material/dialog';
 import { NotificationView } from '../notification-view/notification-view';
-import { MatIcon } from "@angular/material/icon";
+import { MatIcon, MatIconModule } from "@angular/material/icon";
 
 @Component({
   selector: 'app-notifications-dialog-component',
@@ -14,7 +14,7 @@ import { MatIcon } from "@angular/material/icon";
     DatePipe,
     MatCard,
     MatCardContent,
-    MatIcon
+    MatIconModule
 ],
   templateUrl: './notifications-dialog-component.html',
   styleUrl: './notifications-dialog-component.scss',

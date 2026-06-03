@@ -26,28 +26,25 @@ export class FormationService {
     return this.http.get<Formation[]>(this.apiUrl);
   }
 
+  getById(id: number): Observable<Formation> {
+
+    return this.http.get<Formation>(`${this.apiUrl}/${id}`);
+  }
+
   /**
    * Création formation
    */
-  createFormation(request: FormationRequest): Observable<Formation> {
+  createFormation(request: Formation): Observable<Formation> {
 
     return this.http.post<Formation>(this.apiUrl, request);
   }
 
   /**
-   * Formations d'une filière
-   */
-  getFormationsByFiliere(filiereId: number): Observable<Formation[]> {
-
-    return this.http.get<Formation[]>(`${this.apiUrl}/filiere/${filiereId}`);
-  }
-
-  /**
    * Modification formation
    */
-  updateFormation(id: number, request: FormationRequest): Observable<Formation> {
+  updateFormation(id: number, formation: any): Observable<Formation> {
 
-    return this.http.put<Formation>(`${this.apiUrl}/${id}`, request);
+    return this.http.put<Formation>(`${this.apiUrl}/${id}`, formation);
   }
 
   /**

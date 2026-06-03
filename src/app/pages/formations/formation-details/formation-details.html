@@ -1,0 +1,114 @@
+<div
+  class="details-page"
+  *ngIf="formation as f">
+
+  <div class="header">
+
+    <h1>
+
+      {{ f.name }}
+
+    </h1>
+
+    <p>
+
+      {{ f.formationType }}
+      •
+      {{ f.level }}
+
+    </p>
+
+  </div>
+
+  <mat-card>
+
+    <mat-card-content>
+
+      <p>
+
+        <strong>Début :</strong>
+
+        {{ f.startDate }}
+
+      </p>
+
+      <p>
+
+        <strong>Fin :</strong>
+
+        {{ f.endDate }}
+
+      </p>
+
+      <p>
+
+        <strong>Financement :</strong>
+
+        {{ f.fundingAmount }}
+
+        FCFA
+
+      </p>
+
+      <p>
+
+        <strong>Type :</strong>
+
+        {{ f.fundingType }}
+
+      </p>
+
+      <p>
+
+        <strong>Description :</strong>
+
+        {{ f.description }}
+
+      </p>
+
+    </mat-card-content>
+
+  </mat-card>
+
+  <mat-card>
+
+    <mat-card-header>
+
+      <mat-card-title>
+
+        Formateurs
+
+      </mat-card-title>
+
+    </mat-card-header>
+
+    <mat-card-content>
+
+      <div
+        *ngFor="let trainer of f.trainers">
+
+        <h3>
+
+          {{ trainer.fullName }}
+
+        </h3>
+
+        <p>
+
+          {{ trainer.email }}
+
+        </p>
+
+        <small>
+
+          {{ trainer.role }}
+
+        </small>
+
+      </div>
+
+    </mat-card-content>
+
+  </mat-card>
+
+</div>

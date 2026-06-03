@@ -1,44 +1,70 @@
 .dialog-container {
 
-  width: 500px;
-
-  padding: 10px;
+  padding: 24px;
 }
 
-/* Header */
 .dialog-header {
 
-  margin-bottom: 25px;
+  margin-bottom: 24px;
+
+  h2 {
+
+    margin: 0;
+
+    font-size: 28px;
+
+    font-weight: 700;
+  }
+
+  p {
+
+    color: #6b7280;
+
+    margin-top: 8px;
+  }
 }
 
-.dialog-header h2 {
+.section {
 
-  font-size: 26px;
+  margin-bottom: 24px;
 
-  font-weight: 700;
+  h3 {
+
+    margin-bottom: 12px;
+
+    color: #1f2937;
+
+    font-size: 16px;
+  }
 }
 
-.dialog-header p {
+.grid {
 
-  color: #64748b;
+  display: grid;
+
+  grid-template-columns:
+    repeat(
+      auto-fit,
+      minmax(250px, 1fr)
+    );
+
+  gap: 16px;
 }
 
-/* Form */
-form {
-
-  display: flex;
-
-  flex-direction: column;
-
-  gap: 18px;
-}
-
-mat-form-field {
+.full-width {
 
   width: 100%;
 }
 
-/* Actions */
+.total {
+
+  margin-top: 12px;
+
+  font-weight: 600;
+
+  color: #2563eb;
+}
+
 .dialog-actions {
 
   display: flex;
@@ -47,5 +73,18 @@ mat-form-field {
 
   gap: 12px;
 
-  margin-top: 20px;
+  margin-top: 24px;
+}
+
+@media (max-width: 768px) {
+
+  .dialog-container {
+
+    padding: 16px;
+  }
+
+  .grid {
+
+    grid-template-columns: 1fr;
+  }
 }

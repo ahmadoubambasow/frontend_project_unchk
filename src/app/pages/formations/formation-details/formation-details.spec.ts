@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SubjectsFormDialog } from './subjects-form-dialog';
+import { FormationDetails } from './formation-details';
 
-describe('SubjectsFormDialog', () => {
-  let component: SubjectsFormDialog;
-  let fixture: ComponentFixture<SubjectsFormDialog>;
+describe('FormationDetails', () => {
+  let component: FormationDetails;
+  let fixture: ComponentFixture<FormationDetails>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SubjectsFormDialog],
+      imports: [FormationDetails],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(SubjectsFormDialog);
+    fixture = TestBed.createComponent(FormationDetails);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });

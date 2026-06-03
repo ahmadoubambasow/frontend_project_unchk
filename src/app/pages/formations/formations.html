@@ -1,187 +1,288 @@
 <div class="formations-page">
 
   <!-- Header -->
+
   <div class="page-header">
 
     <div>
 
       <h1>
+
         Formations
+
       </h1>
 
       <p>
-        Gestion des formations académiques
+
+        Gestion des formations et des formateurs
+
       </p>
 
     </div>
 
-    <!-- Add -->
     <button
       mat-raised-button
       color="primary"
-      (click)="openCreateDialog()"
-    >
+      (click)="openCreateDialog()">
 
       <mat-icon>
+
         add
+
       </mat-icon>
 
-      Ajouter formation
+      Nouvelle formation
 
     </button>
 
   </div>
 
-  <!-- Search -->
-  <div class="search-container">
+  <!-- Stats -->
 
-    <mat-form-field
-      appearance="outline">
+  <div class="stats-grid">
+
+    <div class="stat-card">
+
+      <span class="stat-value">
+
+        {{ totalFormations }}
+
+      </span>
+
+      <span class="stat-label">
+
+        Formations
+
+      </span>
+
+    </div>
+
+    <div class="stat-card">
+
+      <span class="stat-value">
+
+        {{
+          dataSource.data.reduce(
+            (sum, f) =>
+              sum +
+              (f.maleCount || 0) +
+              (f.femaleCount || 0),
+            0
+          )
+        }}
+
+      </span>
+
+      <span class="stat-label">
+
+        Apprenants
+
+      </span>
+
+    </div>
+
+  </div>
+
+  <!-- Recherche -->
+
+  <div class="search-section">
+
+    <mat-form-field appearance="outline">
 
       <mat-label>
-        Rechercher formation
+
+        Rechercher une formation
+
       </mat-label>
 
       <input
         matInput
-        (keyup)="applyFilter($event)"
-        placeholder="Code, nom...">
+        (keyup)="applyFilter($event)">
 
       <mat-icon matSuffix>
+
         search
+
       </mat-icon>
 
     </mat-form-field>
 
   </div>
 
-  <!-- Table -->
-  <div class="table-container">
+  <!-- Loading -->
 
-    <table
-      mat-table
-      [dataSource]="dataSource">
+  <div
+    class="loading"
+    *ngIf="loading">
 
-      <!-- Code -->
-      <ng-container matColumnDef="code">
+    Chargement...
 
-        <th mat-header-cell *matHeaderCellDef>
-          Code
-        </th>
+  </div>
 
-        <td mat-cell *matCellDef="let formation">
+  <!-- Cards -->
 
-          {{ formation.code }}
+  <div
+    class="formations-grid"
 
-        </td>
+    *ngIf="!loading">
 
-      </ng-container>
+    <div
 
-      <!-- Name -->
-      <ng-container matColumnDef="name">
+      class="formation-card"
 
-        <th mat-header-cell *matHeaderCellDef>
-          Formation
-        </th>
+      *ngFor="let formation of dataSource.filteredData">
 
-        <td mat-cell *matCellDef="let formation">
+      <div class="card-header">
+
+        <h3>
 
           {{ formation.name }}
 
-        </td>
+        </h3>
 
-      </ng-container>
+      </div>
 
-      <!-- Duration -->
-      <ng-container matColumnDef="duration">
+      <div class="card-content">
 
-        <th mat-header-cell *matHeaderCellDef>
-          Durée
-        </th>
+        <div class="badge-row">
 
-        <td mat-cell *matCellDef="let formation">
+          <span class="badge">
 
-          {{ formation.duration }} mois
-
-        </td>
-
-      </ng-container>
-
-      <!-- Status -->
-      <ng-container matColumnDef="status">
-
-        <th mat-header-cell *matHeaderCellDef>
-          Statut
-        </th>
-
-        <td mat-cell *matCellDef="let formation">
-
-          <span class="status active">
-
-            {{ formation.status }}
+            {{ formation.formationType }}
 
           </span>
 
-        </td>
+          <span class="badge level" 
+          
+          [ngClass]="{
 
-      </ng-container>
+              'master': formation.level === 'MASTER',
 
-      <!-- Actions -->
-      <ng-container matColumnDef="actions">
+              'licence': formation.level === 'LICENCE',
 
-        <th mat-header-cell *matHeaderCellDef>
-          Actions
-        </th>
+              'doctorat': formation.level === 'DOCTORAT'
 
-        <td mat-cell *matCellDef="let formation">
+            }"
+          >
 
-          <button mat-icon-button (click)="openEditDialog(formation)">
+            {{ formation.level }}
 
-            <mat-icon color="primary">
-              edit
-            </mat-icon>
+          </span>
 
-          </button>
+        </div>
 
-          <button mat-icon-button (click)="deleteFormation(formation)">
+        <div class="info">
 
-            <mat-icon color="warn">
-              delete
-            </mat-icon>
+          <strong>
 
-          </button>
+            Période
 
-        </td>
+          </strong>
 
-      </ng-container>
+          <span>
 
-      <!-- Header -->
-      <tr
-        mat-header-row
-        *matHeaderRowDef="displayedColumns">
-      </tr>
+            {{ formation.startDate }}
+            →
+            {{ formation.endDate }}
 
-      <!-- Rows -->
-      <tr
-        mat-row
-        *matRowDef="
-          let row;
-          columns: displayedColumns;
-        ">
-      </tr>
+          </span>
 
-    </table>
+        </div>
 
-    <!-- Pagination -->
-    <mat-paginator
+        <div class="info">
 
-      [pageSize]="5"
+          <strong>
 
-      [pageSizeOptions]="[5, 10, 20]"
+            Formateurs
 
-      showFirstLastButtons>
+          </strong>
 
-    </mat-paginator>
+          <span>
+
+            {{ getTrainerCount(formation) }}
+
+            formateur(s)
+
+          </span>
+
+        </div>
+
+        <div class="info">
+
+          <strong>
+
+            Effectif
+
+          </strong>
+
+          <span>
+
+            {{
+              (formation.maleCount || 0)
+              +
+              (formation.femaleCount || 0)
+            }}
+
+            apprenants
+
+          </span>
+
+        </div>
+
+      </div>
+
+      <div class="card-actions">
+
+        <button
+          mat-icon-button
+
+          color="accent"
+
+          (click)="viewFormation(formation)">
+
+          <mat-icon>
+
+            visibility
+
+          </mat-icon>
+
+        </button>
+
+        <button
+
+          mat-icon-button
+
+          color="primary"
+
+          (click)="openEditDialog(formation)">
+
+          <mat-icon>
+
+            edit
+
+          </mat-icon>
+
+        </button>
+
+        <button
+
+          mat-icon-button
+
+          color="warn"
+
+          (click)="deleteFormation(formation)">
+
+          <mat-icon>
+
+            delete
+
+          </mat-icon>
+
+        </button>
+
+      </div>
+
+    </div>
 
   </div>
 

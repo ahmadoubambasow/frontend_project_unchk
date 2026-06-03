@@ -5,16 +5,14 @@ import { authGuard } from './guards/auth-guard';
 import { MainLayout } from './layout/main-layout/main-layout';
 import { Students } from './pages/students/students';
 import { Formations } from './pages/formations/formations';
-import { Enrollments } from './pages/enrollments/enrollments';
 import { Trainers } from './pages/trainers/trainers';
 import { Schedules } from './pages/schedules/schedules';
 import { Promotions } from './pages/promotions/promotions';
 import { Groups } from './pages/groups/groups';
 import { Filieres } from './pages/filieres/filieres';
-import { Subjects } from './pages/subjects/subjects';
-import { TrainerSubjects } from './pages/trainer-subjects/trainer-subjects';
 import { Communications } from './pages/communications/communications';
 import { Users } from './pages/utilisateurs/utilisateurs';
+import { FormationDetails } from './pages/formations/formation-details/formation-details';
 
 export const routes: Routes = [
     
@@ -66,8 +64,8 @@ export const routes: Routes = [
             },
 
             {
-                path: 'enrollments',
-                component: Enrollments
+                path: 'formations/:id',
+                component: FormationDetails,
             },
 
             {
@@ -93,16 +91,6 @@ export const routes: Routes = [
             {
                 path: 'filieres',
                 component: Filieres
-            },
-
-            {
-                path: 'subjects',
-                component: Subjects
-            },
-
-            {
-                path: 'trainer-subjects',
-                component: TrainerSubjects
             },
 
             {

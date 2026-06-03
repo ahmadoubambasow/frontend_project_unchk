@@ -1,0 +1,33 @@
+.dialog-container {
+
+  padding: 24px;
+
+  min-width: 350px;
+}
+
+h2 {
+
+  margin: 0 0 16px;
+
+  color: #111827;
+
+  font-weight: 700;
+}
+
+p {
+
+  color: #6b7280;
+
+  line-height: 1.6;
+
+  margin-bottom: 24px;
+}
+
+.actions {
+
+  display: flex;
+
+  justify-content: flex-end;
+
+  gap: 12px;
+}

@@ -1,18 +1,65 @@
-import { CommonModule } from '@angular/common';
-import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
-import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { MatIconModule } from '@angular/material/icon';
-import { MatInputModule } from '@angular/material/input';
-import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
-import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { Formation } from '../../models/formation.model';
-import { FormationService } from '../../services/formation';
-import { FormationFormDialog } from './formation-form-dialog/formation-form-dialog';
+import {
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  OnInit,
+  ViewChild
+} from '@angular/core';
 
+import {
+  CommonModule
+} from '@angular/common';
+
+import {
+  MatTableDataSource,
+  MatTableModule
+} from '@angular/material/table';
+
+import {
+  MatPaginator,
+  MatPaginatorModule
+} from '@angular/material/paginator';
+
+import {
+  MatDialog,
+  MatDialogModule
+} from '@angular/material/dialog';
+
+import {
+  MatSnackBar,
+  MatSnackBarModule
+} from '@angular/material/snack-bar';
+
+import {
+  MatInputModule
+} from '@angular/material/input';
+
+import {
+  MatButtonModule
+} from '@angular/material/button';
+
+import {
+  MatIconModule
+} from '@angular/material/icon';
+
+import {
+  Formation
+} from '../../models/formation.model';
+
+import {
+  FormationService
+} from '../../services/formation';
+
+import {
+  FormationFormDialog
+} from './formation-form-dialog/formation-form-dialog';
+
+import { Router } from '@angular/router';
+
+import { ConfirmDialog } from '../../shared/dialogs/confirm-dialog/confirm-dialog';
 @Component({
   selector: 'app-formations',
+
   imports: [
     CommonModule,
     MatTableModule,
@@ -23,15 +70,29 @@ import { FormationFormDialog } from './formation-form-dialog/formation-form-dial
     MatButtonModule,
     MatIconModule
   ],
+
   templateUrl: './formations.html',
+
   styleUrl: './formations.scss',
 })
-export class Formations {
+export class Formations
+implements OnInit, AfterViewInit {
 
   /**
-   * Data source table
+   * Source de données
    */
-  dataSource = new MatTableDataSource<Formation>();
+  dataSource =
+    new MatTableDataSource<Formation>();
+
+  /**
+   * Chargement
+   */
+  loading = false;
+
+  /**
+   * Nombre total
+   */
+  totalFormations = 0;
 
   /**
    * Paginator
@@ -40,33 +101,39 @@ export class Formations {
   paginator!: MatPaginator;
 
   /**
-   * Colonnes table
+   * Colonnes affichées
    */
   displayedColumns = [
 
-    'code',
-
     'name',
 
-    'duration',
+    'formationType',
 
-    'status',
+    'level',
+
+    'period',
+
+    'trainers',
 
     'actions'
   ];
 
   constructor(
+
     private formationService: FormationService,
 
     private dialog: MatDialog,
 
     private cdr: ChangeDetectorRef,
 
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+
+    private router: Router
+
   ) {}
 
   /**
-   * Initialisation composant
+   * Initialisation
    */
   ngOnInit(): void {
 
@@ -74,115 +141,269 @@ export class Formations {
   }
 
   /**
+   * Pagination
+   */
+  ngAfterViewInit(): void {
+
+    this.dataSource.paginator =
+      this.paginator;
+  }
+
+  /**
    * Chargement formations
    */
   loadFormations(): void {
 
-    this.formationService.getFormations().subscribe({
+    this.loading = true;
 
-      next: (response) => {
-        console.log(response);
+    this.formationService
 
-        this.dataSource.data = response;
+      .getFormations()
 
-        this.dataSource.paginator = this.paginator;
+      .subscribe({
 
-        this.cdr.detectChanges();
-      },
-      error: (err) => {
+        next: (response) => {
 
-        console.error(err);
-      }
-    });
+          this.dataSource.data =
+            response;
+
+          this.totalFormations =
+            response.length;
+
+          this.loading = false;
+
+          this.cdr.detectChanges();
+        },
+
+        error: (error) => {
+
+          console.error(error);
+
+          this.loading = false;
+
+          this.snackBar.open(
+
+            'Erreur lors du chargement des formations',
+
+            'Fermer',
+
+            {
+              duration: 3000
+            }
+          );
+        }
+      });
   }
 
   /**
-   * Ouvrir dialof création
+   * Recherche
+   */
+  applyFilter(
+    event: Event
+  ): void {
+
+    const filterValue =
+
+      (event.target as HTMLInputElement)
+
+        .value;
+
+    this.dataSource.filter =
+
+      filterValue
+
+        .trim()
+
+        .toLowerCase();
+  }
+
+  /**
+   * Création
    */
   openCreateDialog(): void {
 
-    const dialogRef = this.dialog.open(FormationFormDialog, {
+    const dialogRef =
 
-      width: '550px',
-      height: '90%'
-      }
-    );
+      this.dialog.open(
 
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
+        FormationFormDialog,
 
-        this.loadFormations();
-      }
-    });
-  }
-  /**
-   * Filtre formations
-   */
-  applyFilter(event: Event): void {
+        {
 
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-  }
+          width: '900px',
 
-  /**
-   * Ouvre dialog modification
-   */
-  openEditDialog(formation: Formation): void {
+          maxWidth: '95vw',
 
-    const dialogRef = this.dialog.open(FormationFormDialog, {
+          maxHeight: '90vh',
 
-      width: '550px',
-      height: '90%',
-      data: formation
-    });
+          autoFocus: false
+        }
+      );
 
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
-        this.loadFormations();
-      }
-    });
+    dialogRef
+
+      .afterClosed()
+
+      .subscribe(result => {
+
+        if (result) {
+
+          this.loadFormations();
+        }
+      });
   }
 
   /**
-   * Suppression formation
+   * Modification
    */
-  deleteFormation(formation: Formation): void {
+  openEditDialog(
+    formation: Formation
+  ): void {
 
-    const confirmed = confirm(
-      `Confirmer la suppression de la formation ${formation.name}`
-    );
+    const dialogRef =
+
+      this.dialog.open(
+
+        FormationFormDialog,
+
+        {
+
+          width: '900px',
+
+          maxWidth: '95vw',
+
+          maxHeight: '90vh',
+
+          autoFocus: false,
+
+          data: formation
+        }
+      );
+
+    dialogRef
+
+      .afterClosed()
+
+      .subscribe(result => {
+
+        if (result) {
+
+          this.loadFormations();
+        }
+      });
+  }
+
+  /**
+   * Déatils formation
+   */
+  viewFormation(
+    formation: Formation
+  ): void {
+
+    this.router.navigate(
+      ['/formations', formation.id]
+    )
+  }
+
+  /**
+   * Suppression
+   */
+  deleteFormation(
+    formation: Formation
+  ): void {
+
+    const dialogRef = this.dialog.open(
+
+  ConfirmDialog,
+
+  {
+
+    width: '450px',
+
+    data: {
+
+      title: 'Suppression',
+
+      message:
+        `Voulez-vous vraiment supprimer la formation "${formation.name}" ?`,
+
+      confirmText: 'Supprimer',
+
+      cancelText: 'Annuler'
+    }
+  }
+);
+
+dialogRef.afterClosed().subscribe(
+
+  confirmed => {
 
     if (!confirmed) {
+
       return;
     }
 
-    this.formationService.deleteFormation(formation.id).subscribe({
-      
-      next: () => {
+    this.formationService
 
-        // Notification
-        this.snackBar.open(
-          'Formation supprimée avec succès',
-          'Fermer',
-          {
-            duration: 3000
-          }
-        );
+      .deleteFormation(
+        formation.id
+      )
 
-        this.loadFormations();
-      },
-      error: (err) => {
+      .subscribe({
 
-        console.error(err);
+        next: () => {
 
-        this.snackBar.open(
-          'Une erreur est survenue',
-          'Fermer',
-          {
-            duration: 3000
-          }
-        );
-      }
-    })
+          this.snackBar.open(
+
+            'Formation supprimée avec succès',
+
+            'Fermer',
+
+            {
+              duration: 3000
+            }
+          );
+
+          this.loadFormations();
+        },
+
+        error: (error) => {
+
+          console.error(error);
+
+          this.snackBar.open(
+
+            'Erreur lors de la suppression',
+
+            'Fermer',
+
+            {
+              duration: 3000
+            }
+          );
+        }
+      });
+  }
+);
+  }
+
+  /**
+   * Nombre de formateurs
+   */
+  getTrainerCount(
+    formation: Formation
+  ): number {
+
+    return formation.trainers?.length || 0;
+  }
+
+  /**
+   * Période formatée
+   */
+  getPeriod(
+    formation: Formation
+  ): string {
+
+    return `${formation.startDate} → ${formation.endDate}`;
   }
 }

@@ -1,0 +1,42 @@
+<div class="dialog-container">
+
+  <h2>
+
+    {{ data.title }}
+
+  </h2>
+
+  <p>
+
+    {{ data.message }}
+
+  </p>
+
+  <div class="actions">
+
+    <button
+      mat-stroked-button
+      (click)="cancel()">
+
+      {{
+        data.cancelText
+        || 'Annuler'
+      }}
+
+    </button>
+
+    <button
+      mat-raised-button
+      color="warn"
+      (click)="confirm()">
+
+      {{
+        data.confirmText
+        || 'Confirmer'
+      }}
+
+    </button>
+
+  </div>
+
+</div>

@@ -1,9 +1,12 @@
-import { CommonModule } from '@angular/common';
 import {
   Component,
   Inject,
   OnInit
 } from '@angular/core';
+
+import {
+  CommonModule
+} from '@angular/common';
 
 import {
   FormBuilder,
@@ -14,21 +17,37 @@ import {
 
 import {
   MAT_DIALOG_DATA,
-  MatDialogModule,
   MatDialogRef
 } from '@angular/material/dialog';
 
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatSelectModule } from '@angular/material/select';
-import { MatButtonModule } from '@angular/material/button';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import {
+  MatFormFieldModule
+} from '@angular/material/form-field';
 
-import { Formation } from '../../../models/formation.model';
-import { Filiere } from '../../../models/filiere.model';
+import {
+  MatInputModule
+} from '@angular/material/input';
 
-import { FormationService } from '../../../services/formation';
-import { FiliereService } from '../../../services/filiere';
+import {
+  MatButtonModule
+} from '@angular/material/button';
+
+import {
+  MatSelectModule
+} from '@angular/material/select';
+
+import {
+  MatSnackBar,
+  MatSnackBarModule
+} from '@angular/material/snack-bar';
+
+import {
+  Formation
+} from '../../../models/formation.model';
+
+import {
+  FormationService
+} from '../../../services/formation';
 
 @Component({
   selector: 'app-formation-form-dialog',
@@ -38,19 +57,26 @@ import { FiliereService } from '../../../services/filiere';
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    MatDialogModule,
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    MatSelectModule
+    MatSelectModule,
+    MatSnackBarModule
   ],
 
-  templateUrl: './formation-form-dialog.html',
+  templateUrl:
+    './formation-form-dialog.html',
 
-  styleUrl: './formation-form-dialog.scss'
+  styleUrl:
+    './formation-form-dialog.scss'
 })
 export class FormationFormDialog
 implements OnInit {
+
+  /**
+   * Formulaire
+   */
+  form!: FormGroup;
 
   /**
    * Loading
@@ -58,14 +84,46 @@ implements OnInit {
   loading = false;
 
   /**
-   * Liste des filières
+   * Types de formation
    */
-  filieres: Filiere[] = [];
+  formationTypes = [
+
+    'CERTIFIANTE',
+
+    'DIPLOMANTE',
+
+    'CONTINUE',
+
+    'PRIVEE'
+  ];
 
   /**
-   * Formulaire
+   * Niveaux
    */
-  formationForm!: FormGroup;
+  formationLevels = [
+
+    'LICENCE',
+
+    'MASTER',
+
+    'DOCTORAT',
+
+    'CERTIFICAT'
+  ];
+
+  /**
+   * Types de financement
+   */
+  fundingTypes = [
+
+    'ETAT',
+
+    'PRIVE',
+
+    'PARTENAIRE',
+
+    'AUTOFINANCEMENT'
+  ];
 
   constructor(
 
@@ -73,9 +131,6 @@ implements OnInit {
 
     private formationService:
       FormationService,
-
-    private filiereService:
-      FiliereService,
 
     private snackBar:
       MatSnackBar,
@@ -88,125 +143,212 @@ implements OnInit {
     public data:
       Formation | null
 
-  ) {
+  ) {}
 
-    this.formationForm = this.fb.group({
+  ngOnInit(): void {
+
+    this.initForm();
+
+    if (this.data) {
+
+      this.patchForm();
+    }
+  }
+
+  /**
+   * Initialisation formulaire
+   */
+  initForm(): void {
+
+    this.form = this.fb.group({
 
       name: [
+
         '',
+
         Validators.required
       ],
 
-      description: [''],
+      formationType: [
 
-      duration: [
-        null,
+        '',
+
         Validators.required
       ],
 
-      filiereId: [
-        null,
+      level: [
+
+        '',
+
         Validators.required
+      ],
+
+      startDate: [
+
+        '',
+
+        Validators.required
+      ],
+
+      endDate: [
+
+        '',
+
+        Validators.required
+      ],
+
+      fundingAmount: [
+
+        0
+      ],
+
+      fundingType: [
+
+        ''
+      ],
+
+      maleCount: [
+
+        0
+      ],
+
+      femaleCount: [
+
+        0
+      ],
+
+      description: [
+
+        ''
       ]
     });
   }
 
-  ngOnInit(): void {
-
-    this.loadFilieres();
-  }
-
   /**
-   * Chargement des filières
+   * Pré-remplissage édition
    */
-  loadFilieres(): void {
+  patchForm(): void {
 
-    this.filiereService
+    this.form.patchValue({
 
-      .getFilieres()
+      name:
+        this.data?.name,
 
-      .subscribe({
+      formationType:
+        this.data?.formationType,
 
-        next: (response) => {
+      level:
+        this.data?.level,
 
-          this.filieres = response;
+      startDate:
+        this.data?.startDate,
 
-          if (this.data) {
+      endDate:
+        this.data?.endDate,
 
-            this.formationForm.patchValue({
+      fundingAmount:
+        this.data?.fundingAmount,
 
-              name:
-                this.data.name,
+      fundingType:
+        this.data?.fundingType,
 
-              description:
-                this.data.description,
+      maleCount:
+        this.data?.maleCount,
 
-              duration:
-                this.data.duration,
+      femaleCount:
+        this.data?.femaleCount,
 
-              filiereId:
-                this.data.filiereId
-            });
-          }
-        },
-
-        error: (error) => {
-
-          console.error(error);
-
-          this.snackBar.open(
-
-            'Erreur chargement des filières',
-
-            'Fermer',
-
-            {
-              duration: 3000
-            }
-          );
-        }
-      });
+      description:
+        this.data?.description
+    });
   }
 
   /**
-   * Soumission
+   * Création / Modification
    */
   submit(): void {
 
-    if (
-      this.formationForm.invalid
-    ) {
+    if (this.form.invalid) {
+
+      this.form.markAllAsTouched();
 
       return;
     }
 
     this.loading = true;
 
+    const payload =
+
+      this.form.value;
+
+    /**
+     * Modification
+     */
     if (this.data) {
 
-      this.updateFormation();
+      this.formationService
+
+        .updateFormation(
+          this.data.id,
+          payload
+        )
+
+        .subscribe({
+
+          next: (response) => {
+
+            this.loading = false;
+
+            this.snackBar.open(
+
+              'Formation modifiée avec succès',
+
+              'Fermer',
+
+              {
+                duration: 3000
+              }
+            );
+
+            this.dialogRef.close(
+              response
+            );
+          },
+
+          error: (error) => {
+
+            console.error(error);
+
+            this.loading = false;
+
+            this.snackBar.open(
+
+              'Erreur lors de la modification',
+
+              'Fermer',
+
+              {
+                duration: 3000
+              }
+            );
+          }
+        });
 
       return;
     }
 
-    this.createFormation();
-  }
-
-  /**
-   * Création
-   */
-  createFormation(): void {
-
-    console.log(this.formationForm.value);
+    /**
+     * Création
+     */
     this.formationService
 
       .createFormation(
-        this.formationForm.value
+        payload
       )
 
       .subscribe({
 
-        next: () => {
+        next: (response) => {
 
           this.loading = false;
 
@@ -222,75 +364,19 @@ implements OnInit {
           );
 
           this.dialogRef.close(
-            true
+            response
           );
         },
 
         error: (error) => {
 
-          this.loading = false;
-
           console.error(error);
+
+          this.loading = false;
 
           this.snackBar.open(
 
             'Erreur lors de la création',
-
-            'Fermer',
-
-            {
-              duration: 3000
-            }
-          );
-        }
-      });
-  }
-
-  /**
-   * Modification
-   */
-  updateFormation(): void {
-
-    this.formationService
-
-      .updateFormation(
-
-        this.data!.id,
-
-        this.formationForm.value
-      )
-
-      .subscribe({
-
-        next: () => {
-
-          this.loading = false;
-
-          this.snackBar.open(
-
-            'Formation modifiée avec succès',
-
-            'Fermer',
-
-            {
-              duration: 3000
-            }
-          );
-
-          this.dialogRef.close(
-            true
-          );
-        },
-
-        error: (error) => {
-
-          this.loading = false;
-
-          console.error(error);
-
-          this.snackBar.open(
-
-            'Erreur lors de la modification',
 
             'Fermer',
 
