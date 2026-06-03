@@ -1,0 +1,100 @@
+<div class="notifications-page">
+
+  <div class="page-header">
+
+    <div>
+
+      <h2>
+        Notifications
+      </h2>
+
+      <p class="subtitle">
+
+        {{ notifications.length }}
+        notification(s)
+
+      </p>
+
+    </div>
+
+  </div>
+
+  <ng-container *ngIf="notifications.length > 0; else emptyState">
+
+    <mat-card
+
+      *ngFor="let notification of notifications"
+
+      class="notification-card"
+
+      [class.unread]="!notification.isRead"
+
+      (click)="openNotification(notification)">
+
+      <mat-card-content>
+
+        <div class="notification-header">
+
+          <div class="notification-info">
+
+            <h3>
+
+              {{ notification.title }}
+
+            </h3>
+
+            <span
+              *ngIf="!notification.isRead"
+              class="unread-badge">
+
+              Nouveau
+
+            </span>
+
+          </div>
+
+          <small class="notification-date">
+
+            {{ notification.createdAt | date:'dd/MM/yyyy HH:mm' }}
+
+          </small>
+
+        </div>
+
+        <p class="notification-message">
+
+          {{ notification.message }}
+
+        </p>
+
+      </mat-card-content>
+
+    </mat-card>
+
+  </ng-container>
+
+  <ng-template #emptyState>
+
+    <div class="empty-state">
+
+      <mat-icon>
+
+        notifications_off
+
+      </mat-icon>
+
+      <h3>
+        Aucune notification
+      </h3>
+
+      <p>
+
+        Vous n'avez aucune notification pour le moment.
+
+      </p>
+
+    </div>
+
+  </ng-template>
+
+</div>

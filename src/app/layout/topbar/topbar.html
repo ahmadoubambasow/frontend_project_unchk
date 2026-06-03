@@ -55,8 +55,8 @@
 
         <button
           mat-menu-item
-          *ngFor="let notification of notifications"
-          (click)="markAsRead(notification)">
+          *ngFor="let notification of recentNotifications"
+          (click)="openNotification(notification)">
 
           <div
             class="notification-item"
@@ -79,6 +79,20 @@
           </div>
 
         </button>
+
+        <div
+            class="notification-footer"
+            *ngIf="notifications.length > 3">
+
+            <button
+              mat-button
+              (click)="openNotificationsPage()">
+
+              Voir toutes les notifications
+
+            </button>
+
+          </div>
 
       </ng-container>
 

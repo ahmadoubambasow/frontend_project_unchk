@@ -41,6 +41,9 @@ import { AuthService } from '../../services/auth';
 import { NotificationService } from '../../services/notification-service';
 
 import { Notification } from '../../models/notification.model';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { NotificationView } from '../../shared/notification-view/notification-view';
+import { NotificationsDialogComponent } from '../../shared/notifications-dialog-component/notifications-dialog-component';
 
 @Component({
   selector: 'app-topbar',
@@ -53,6 +56,7 @@ import { Notification } from '../../models/notification.model';
     MatIconModule,
     MatMenuModule,
     MatBadgeModule,
+    MatDialogModule
   ],
 
   templateUrl: './topbar.html',
@@ -68,14 +72,20 @@ implements OnInit, OnDestroy {
 
   private refreshSubscription?: Subscription;
 
+  get recentNotifications(): Notification[] {
+
+    return this.notifications.slice(0, 3);
+  }
+
   constructor(
 
     private authService: AuthService,
 
     private router: Router,
 
-    private notificationService:
-      NotificationService
+    private notificationService: NotificationService,
+
+    private dialog: MatDialog
 
   ) {}
 
@@ -133,6 +143,7 @@ implements OnInit, OnDestroy {
       });
   }
 
+
   /**
    * Calcul nombre non lues
    */
@@ -172,6 +183,13 @@ implements OnInit, OnDestroy {
           notification.isRead = true;
 
           this.updateUnreadCount();
+
+          if (notification.targetUrl) {
+
+            this.router.navigateByUrl(
+              notification.targetUrl
+            );
+          }
         },
 
         error: (error) => {
@@ -195,6 +213,32 @@ implements OnInit, OnDestroy {
     );
 
     this.updateUnreadCount();
+  }
+
+  openNotification(
+    notification: Notification
+  ): void {
+
+    this.markAsRead(notification);
+
+    this.dialog.open(
+      NotificationView,
+      {
+
+        width: '500px',
+
+        maxWidth: '95vw',
+
+        data: notification
+      }
+    );
+  }
+
+  openNotificationsPage(): void {
+
+    this.router.navigate([
+      '/notifications'
+    ]);
   }
 
   /**

@@ -41,6 +41,16 @@ export const routes: Routes = [
             },
 
             {
+                path: 'notifications',
+                loadComponent: () =>
+                    import(
+                    './pages/dashboard/notifications/notifications'
+                    ).then(
+                    m => m.Notifications
+                 )
+            },
+            
+            {
                 path: 'users',
                 component: Users
             },
