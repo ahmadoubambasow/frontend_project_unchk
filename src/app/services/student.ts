@@ -11,6 +11,7 @@ import {
 import {
   Student
 } from '../models/student.model';
+import { StudentGroup } from '../models/student-group.model';
 
 @Injectable({
   providedIn: 'root'
@@ -68,6 +69,15 @@ export class StudentService {
 
     return this.http.delete(
       `${this.apiUrl}/${id}`
+    );
+  }
+
+  getStudentsByGroup(
+    groupId: number
+  ) {
+
+    return this.http.get<Student[]>(
+      `${this.apiUrl}/group/${groupId}`
     );
   }
 }

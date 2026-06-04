@@ -13,15 +13,12 @@ export class StudentGroupService {
    * API URL
    */
   private apiUrl =
-    'http://localhost:8080/api/groups';
+    'http://localhost:8080/api/student-groups';
 
   constructor(
     private http: HttpClient
   ) {}
 
-  /**
-   * Liste des groupes
-   */
   getGroups():
     Observable<StudentGroup[]> {
 
@@ -30,54 +27,42 @@ export class StudentGroupService {
     );
   }
 
-  /**
-   * Groupes d'une formation
-   */
-  getGroupsByFormation(
-    formationId: number
-  ): Observable<StudentGroup[]> {
+  getGroupById(
+    id: number
+  ) {
 
-    return this.http.get<StudentGroup[]>(
+    return this.http.get<StudentGroup>(
 
-      `${this.apiUrl}/formation/${formationId}`
+      `${this.apiUrl}/${id}`
     );
   }
 
-  /**
-   * Création groupe
-   */
-  createGroup(
-    group: any
+  create(
+    request: any
   ): Observable<StudentGroup> {
 
     return this.http.post<StudentGroup>(
       this.apiUrl,
-      group
+      request
     );
   }
 
-  /**
-   * Mise à jour groupe
-   */
-  updateGroup(
+  update(
     id: number,
-    group: any
+    request: any
   ): Observable<StudentGroup> {
 
     return this.http.put<StudentGroup>(
       `${this.apiUrl}/${id}`,
-      group
+      request
     );
   }
 
-  /**
-   * Suppression groupe
-   */
-  deleteGroup(
+  delete(
     id: number
-  ): Observable<void> {
+  ) {
 
-    return this.http.delete<void>(
+    return this.http.delete(
       `${this.apiUrl}/${id}`
     );
   }

@@ -1,0 +1,247 @@
+<div class="groups-page">
+
+  <!-- HEADER -->
+
+  <div class="page-header">
+
+    <div>
+
+      <h1>
+
+        Groupes & Promotions
+
+      </h1>
+
+      <p>
+
+        Gestion des groupes d'étudiants
+
+      </p>
+
+    </div>
+
+    <button
+
+      mat-raised-button
+
+      color="primary"
+
+      (click)="openCreateDialog()">
+
+      <mat-icon>
+
+        add
+
+      </mat-icon>
+
+      Nouveau groupe
+
+    </button>
+
+  </div>
+
+  <!-- SEARCH -->
+
+  <div class="search-section">
+
+    <mat-form-field appearance="outline">
+
+      <mat-label>
+
+        Rechercher un groupe
+
+      </mat-label>
+
+      <input
+
+        matInput
+
+        (keyup)="applyFilter($event)">
+
+      <mat-icon matSuffix>
+
+        search
+
+      </mat-icon>
+
+    </mat-form-field>
+
+  </div>
+
+  <!-- LOADING -->
+
+  <div
+
+    class="loading"
+
+    *ngIf="loading">
+
+    Chargement...
+  </div>
+
+  <!-- EMPTY -->
+
+  <div
+
+    *ngIf="
+      !loading &&
+      filteredGroups.length === 0
+    "
+
+    class="empty-state">
+
+    <mat-icon>
+
+      groups
+
+    </mat-icon>
+
+    <h3>
+
+      Aucun groupe trouvé
+
+    </h3>
+
+  </div>
+
+  <!-- GRID -->
+
+  <div
+
+    class="groups-grid"
+
+    *ngIf="
+      !loading &&
+      filteredGroups.length > 0
+    ">
+
+    <div
+
+      class="group-card"
+
+      *ngFor="
+        let group
+        of filteredGroups
+      ">
+
+      <div class="group-header-card">
+
+        <h3>
+
+          {{ group.name }}
+
+        </h3>
+
+      </div>
+
+      <div class="badges">
+
+        <span class="badge promotion">
+
+          {{ group.promotion }}
+
+        </span>
+
+        <span class="badge year">
+
+          {{ group.academicYear }}
+
+        </span>
+
+      </div>
+
+      <div class="group-info">
+
+        <div class="info-row">
+
+          <span>
+
+            Formation
+
+          </span>
+
+          <strong>
+
+            {{ group.formationName }}
+
+          </strong>
+
+        </div>
+
+        <div class="info-row">
+
+          <span>
+
+            Effectif
+
+          </span>
+
+          <strong>
+
+            {{ group.studentCount }}
+
+            étudiants
+
+          </strong>
+
+        </div>
+
+      </div>
+
+      <div class="actions">
+
+        <button
+
+          mat-icon-button
+
+          color="primary"
+
+          (click)="openDetails(group)">
+
+          <mat-icon>
+
+            visibility
+
+          </mat-icon>
+
+        </button>
+
+        <button
+
+          mat-icon-button
+
+          color="accent"
+
+          (click)="openEditDialog(group)">
+
+          <mat-icon>
+
+            edit
+
+          </mat-icon>
+
+        </button>
+
+        <button
+
+          mat-icon-button
+
+          color="warn"
+
+          (click)="deleteGroup(group)">
+
+          <mat-icon>
+
+            delete
+
+          </mat-icon>
+
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

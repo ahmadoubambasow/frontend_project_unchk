@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { Groups } from './groups';
+import { StudentGroupFormDialog } from './student-group-form-dialog';
 
-describe('Groups', () => {
-  let component: Groups;
-  let fixture: ComponentFixture<Groups>;
+describe('StudentGroupFormDialog', () => {
+  let component: StudentGroupFormDialog;
+  let fixture: ComponentFixture<StudentGroupFormDialog>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Groups],
+      imports: [StudentGroupFormDialog],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(Groups);
+    fixture = TestBed.createComponent(StudentGroupFormDialog);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });

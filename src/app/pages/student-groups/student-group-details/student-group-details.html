@@ -1,0 +1,164 @@
+<div
+  class="group-page"
+
+  *ngIf="!loading && group">
+
+  <!-- HEADER -->
+
+  <div class="group-header">
+
+    <div>
+
+      <h1>
+
+        {{ group.name }}
+
+      </h1>
+
+      <p>
+
+        {{ group.formationName }}
+
+      </p>
+
+    </div>
+
+  </div>
+
+  <!-- STATS -->
+
+  <div class="stats-grid">
+
+    <div class="stat-card">
+
+      <span class="label">
+
+        Promotion
+
+      </span>
+
+      <span class="value">
+
+        {{ group.promotion }}
+
+      </span>
+
+    </div>
+
+    <div class="stat-card">
+
+      <span class="label">
+
+        Année académique
+
+      </span>
+
+      <span class="value">
+
+        {{ group.academicYear }}
+
+      </span>
+
+    </div>
+
+    <div class="stat-card">
+
+      <span class="label">
+
+        Étudiants
+
+      </span>
+
+      <span class="value">
+
+        {{ students.length }}
+
+      </span>
+
+    </div>
+
+  </div>
+
+  <!-- ETUDIANTS -->
+
+  <mat-card class="students-card">
+
+    <div class="card-header">
+
+      <h2>
+
+        Étudiants du groupe
+
+      </h2>
+
+    </div>
+
+    <div
+
+      *ngIf="students.length === 0"
+
+      class="empty-state">
+
+      <mat-icon>
+
+        groups
+
+      </mat-icon>
+
+      <p>
+
+        Aucun étudiant affecté à ce groupe
+
+      </p>
+
+    </div>
+
+    <div
+
+      *ngFor="let student of students"
+
+      class="student-row">
+
+      <div class="student-info">
+
+        <div class="student-name">
+
+          {{ student.firstName }}
+
+          {{ student.lastName }}
+
+        </div>
+
+        <div class="student-ine">
+
+          {{ student.ine }}
+
+        </div>
+
+      </div>
+
+      <button
+        mat-icon-button
+        color="primary" (click)="openStudentDetails(student)">
+
+        <mat-icon>
+
+          visibility
+
+        </mat-icon>
+
+      </button>
+
+    </div>
+
+  </mat-card>
+
+</div>
+
+<div
+  class="loading"
+
+  *ngIf="loading">
+
+  Chargement...
+</div>

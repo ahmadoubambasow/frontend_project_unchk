@@ -4,9 +4,13 @@ export interface StudentGroup {
 
   name: string;
 
-  capacity: number;
+  promotion: string;
 
-  formationId: number;
+  academicYear: number;
 
   formationName: string;
+
+  studentCount: number;
+
+  formationId: number
 }

@@ -8,12 +8,13 @@ import { Formations } from './pages/formations/formations';
 import { Trainers } from './pages/trainers/trainers';
 import { Schedules } from './pages/schedules/schedules';
 import { Promotions } from './pages/promotions/promotions';
-import { Groups } from './pages/groups/groups';
 import { Filieres } from './pages/filieres/filieres';
 import { Communications } from './pages/communications/communications';
 import { Users } from './pages/utilisateurs/utilisateurs';
 import { FormationDetails } from './pages/formations/formation-details/formation-details';
 import { StudentDetails } from './pages/students/student-details/student-details';
+import { StudentGroupDetails } from './pages/student-groups/student-group-details/student-group-details';
+import { StudentGroups } from './pages/student-groups/student-groups';
 
 export const routes: Routes = [
     
@@ -65,6 +66,16 @@ export const routes: Routes = [
             },
 
             {
+                path: 'student-groups',
+                component: StudentGroups
+            },
+
+            {
+                path: 'student-groups/:id',
+                component: StudentGroupDetails
+            },
+
+            {
                 path: 'formations',
                 component: Formations
             },
@@ -87,11 +98,6 @@ export const routes: Routes = [
             {
                 path: 'promotions',
                 component: Promotions
-            },
-
-            {
-                path: 'groups',
-                component: Groups
             },
 
             {
