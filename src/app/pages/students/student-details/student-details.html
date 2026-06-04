@@ -1,0 +1,229 @@
+<div class="student-details-page">
+
+  <div
+    class="loading"
+
+    *ngIf="loading">
+
+    Chargement...
+  </div>
+
+  <ng-container *ngIf="!loading && student">
+
+    <!-- Header -->
+
+    <div class="page-header">
+
+      <div class="student-profile">
+
+        <div class="avatar">
+
+          {{
+            student.firstName?.charAt(0)
+          }}
+
+          {{
+            student.lastName?.charAt(0)
+          }}
+
+        </div>
+
+        <div>
+
+          <h1>
+
+            {{ student.firstName }}
+
+            {{ student.lastName }}
+
+          </h1>
+
+          <p>
+
+            {{ student.ine }}
+
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Informations générales -->
+
+    <mat-card class="details-card">
+
+      <mat-card-header>
+
+        <mat-card-title>
+
+          Informations générales
+
+        </mat-card-title>
+
+      </mat-card-header>
+
+      <mat-card-content>
+
+        <div class="info-grid">
+
+          <div class="info-item">
+
+            <label>
+
+              Formation
+
+            </label>
+
+            <span>
+
+              {{ student.formationName }}
+
+            </span>
+
+          </div>
+
+          <div class="info-item">
+
+            <label>
+
+              Promotion
+
+            </label>
+
+            <span>
+
+              {{ student.promotion }}
+
+            </span>
+
+          </div>
+
+          <div class="info-item">
+
+            <label>
+
+              Date de naissance
+
+            </label>
+
+            <span>
+
+              {{ student.birthDate }}
+
+            </span>
+
+          </div>
+
+          <div class="info-item">
+
+            <label>
+
+              Année d'entrée
+
+            </label>
+
+            <span>
+
+              {{ student.startYear }}
+
+            </span>
+
+          </div>
+
+          <div class="info-item">
+
+            <label>
+
+              Année de sortie
+
+            </label>
+
+            <span>
+
+              {{ student.graduationYear }}
+
+            </span>
+
+          </div>
+
+        </div>
+
+      </mat-card-content>
+
+    </mat-card>
+
+    <!-- Diplômes -->
+
+    <mat-card class="details-card">
+
+      <mat-card-header>
+
+        <mat-card-title>
+
+          Diplômes obtenus
+
+        </mat-card-title>
+
+      </mat-card-header>
+
+      <mat-card-content>
+
+        <div
+          class="empty"
+
+          *ngIf="!student.diplomas">
+
+          Aucun diplôme renseigné
+
+        </div>
+
+        <p *ngIf="student.diplomas">
+
+          {{ student.diplomas }}
+
+        </p>
+
+      </mat-card-content>
+
+    </mat-card>
+
+    <!-- Autres formations -->
+
+    <mat-card class="details-card">
+
+      <mat-card-header>
+
+        <mat-card-title>
+
+          Autres formations
+
+        </mat-card-title>
+
+      </mat-card-header>
+
+      <mat-card-content>
+
+        <div
+          class="empty"
+
+          *ngIf="!student.otherTrainings">
+
+          Aucune formation complémentaire
+
+        </div>
+
+        <p *ngIf="student.otherTrainings">
+
+          {{ student.otherTrainings }}
+
+        </p>
+
+      </mat-card-content>
+
+    </mat-card>
+
+  </ng-container>
+
+</div>

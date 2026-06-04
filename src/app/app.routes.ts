@@ -13,6 +13,7 @@ import { Filieres } from './pages/filieres/filieres';
 import { Communications } from './pages/communications/communications';
 import { Users } from './pages/utilisateurs/utilisateurs';
 import { FormationDetails } from './pages/formations/formation-details/formation-details';
+import { StudentDetails } from './pages/students/student-details/student-details';
 
 export const routes: Routes = [
     
@@ -56,6 +57,11 @@ export const routes: Routes = [
             {
                 path: 'students',
                 component: Students
+            },
+
+            {
+                path: 'students/:id',   
+                component: StudentDetails
             },
 
             {

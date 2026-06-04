@@ -1,28 +1,26 @@
-/**
- * Modèle étudiant
- */
-
 export interface Student {
 
-    id: number;
+  id: number;
 
-    matricule: string;
+  ine: string;
 
-    firstName: string;
+  firstName: string;
 
-    lastName: string;
+  lastName: string;
 
-    email: string;
+  birthDate: string;
 
-    phone: string;
+  promotion: string;
 
-    gender: string;
+  startYear: number;
 
-    birthDate: string;
+  graduationYear: number;
 
-    address: string;
+  diplomas: string;
 
-    status: string;
+  otherTrainings: string;
 
-    createdAt: string;
+  formationName: string;
+
+  formationId: number;
 }

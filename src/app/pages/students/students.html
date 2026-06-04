@@ -1,204 +1,139 @@
 <div class="students-page">
 
-  <!-- Header -->
   <div class="page-header">
 
     <div>
 
       <h1>
+
         Étudiants
+
       </h1>
 
       <p>
-        Gestion des étudiants inscrits
+
+        Gestion des étudiants
+
       </p>
 
     </div>
 
-    <!-- Add Button -->
     <button
       mat-raised-button
       color="primary"
-      (click)="openCreateDialog()"  
-    >
+      (click)="openCreateDialog()">
 
       <mat-icon>
+
         add
+
       </mat-icon>
 
-      Ajouter étudiant
+      Nouvel étudiant
 
     </button>
 
   </div>
 
-  <!-- Search -->
-<div class="search-container">
-
   <mat-form-field
     appearance="outline">
 
     <mat-label>
-      Rechercher étudiant
+
+      Rechercher
+
     </mat-label>
 
     <input
       matInput
-      (keyup)="applyFilter($event)"
-      placeholder="Nom, email, matricule...">
-
-    <mat-icon matSuffix>
-      search
-    </mat-icon>
+      (keyup)="applyFilter($event)">
 
   </mat-form-field>
 
+  <div
+    class="students-grid">
+
+    <div
+
+      class="student-card"
+
+      *ngFor="
+        let student
+        of filteredStudents
+      ">
+
+      <div class="student-header">
+
+  <div>
+
+    <h3 class="student-name">
+      {{ student.firstName }}
+      {{ student.lastName }}
+    </h3>
+
+    <div class="student-ine">
+      {{ student.ine }}
+    </div>
+
+  </div>
+
 </div>
 
-  <!-- Table -->
-  <div class="table-container">
+<div class="badges">
 
-    <table
-      mat-table
-      [dataSource]="dataSource">
+  <span class="badge badge-formation">
+    {{ student.formationName }}
+  </span>
 
-      <!-- Matricule -->
-      <ng-container matColumnDef="matricule">
+  <span class="badge badge-promotion">
+    {{ student.promotion }}
+  </span>
 
-        <th mat-header-cell *matHeaderCellDef>
-          Matricule
-        </th>
+</div>
 
-        <td mat-cell *matCellDef="let student">
+      <div
+        class="actions">
 
-          {{ student.matricule }}
+        <button
+          mat-icon-button
+            (click)="openDetails(student)"
+        >
 
-        </td>
+          <mat-icon>
 
-      </ng-container>
+            visibility
 
-      <!-- Nom -->
-      <ng-container matColumnDef="fullName">
+          </mat-icon>
 
-        <th mat-header-cell *matHeaderCellDef>
-          Nom complet
-        </th>
+        </button>
 
-        <td mat-cell *matCellDef="let student">
+        <button
+          mat-icon-button
+          color="primary" (click)="openEditDialog(student)">
 
-          {{ student.firstName }}
-          {{ student.lastName }}
+          <mat-icon>
 
-        </td>
+            edit
 
-      </ng-container>
+          </mat-icon>
 
-      <!-- Email -->
-      <ng-container matColumnDef="email">
+        </button>
 
-        <th mat-header-cell *matHeaderCellDef>
-          Email
-        </th>
+        <button
+          mat-icon-button
+          color="warn" (click)="deleteStudent(student)">
 
-        <td mat-cell *matCellDef="let student">
+          <mat-icon>
 
-          {{ student.email }}
+            delete
 
-        </td>
+          </mat-icon>
 
-      </ng-container>
+        </button>
 
-      <!-- Phone -->
-      <ng-container matColumnDef="phone">
+      </div>
 
-        <th mat-header-cell *matHeaderCellDef>
-          Téléphone
-        </th>
-
-        <td mat-cell *matCellDef="let student">
-
-          {{ student.phone }}
-
-        </td>
-
-      </ng-container>
-
-      <!-- Status -->
-      <ng-container matColumnDef="status">
-
-        <th mat-header-cell *matHeaderCellDef>
-          Statut
-        </th>
-
-        <td mat-cell *matCellDef="let student">
-
-          <span class="status active">
-
-            {{ student.status }}
-
-          </span>
-
-        </td>
-
-      </ng-container>
-
-      <!-- Actions -->
-      <ng-container matColumnDef="actions">
-
-        <th mat-header-cell *matHeaderCellDef>
-
-          Actions
-
-        </th>
-
-        <td mat-cell *matCellDef="let student">
-
-          <button mat-icon-button (click)="openEditDialog(student)">
-
-            <mat-icon color="primary">
-              edit
-            </mat-icon>
-
-          </button>
-
-          <button mat-icon-button>
-
-            <mat-icon (click)="deleteStudent(student)" color="warn">
-              delete
-            </mat-icon>
-
-          </button>
-
-        </td>
-
-      </ng-container>
-
-      <!-- Header -->
-      <tr
-        mat-header-row
-        *matHeaderRowDef="displayedColumns">
-      </tr>
-
-      <!-- Rows -->
-      <tr
-        mat-row
-        *matRowDef="
-          let row;
-          columns: displayedColumns;
-        ">
-      </tr>
-
-    </table>
-
-    <mat-paginator
-
-      [pageSize]="5"
-
-      [pageSizeOptions]="[5, 10, 20]"
-
-      showFirstLastButtons>
-
-    </mat-paginator>
+    </div>
 
   </div>
 

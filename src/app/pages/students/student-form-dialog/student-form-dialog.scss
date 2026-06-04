@@ -1,34 +1,49 @@
 .dialog-container {
 
-  width: 500px;
+  padding: 24px;
 
-  padding: 10px;
+  overflow-y: auto;
+
+  max-height: calc(90vh - 50px);
 }
 
-/* Header */
 .dialog-header {
 
-  margin-bottom: 25px;
+  margin-bottom: 24px;
 }
 
 .dialog-header h2 {
 
-  font-size: 26px;
+  margin: 0;
+
+  font-size: 30px;
 
   font-weight: 700;
 }
 
 .dialog-header p {
 
-  color: #64748b;
+  margin-top: 6px;
+
+  color: #6b7280;
 }
 
-/* Form */
-form {
+.student-form {
 
   display: flex;
 
   flex-direction: column;
+}
+
+.form-grid {
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(
+      2,
+      minmax(0, 1fr)
+    );
 
   gap: 18px;
 }
@@ -38,7 +53,13 @@ mat-form-field {
   width: 100%;
 }
 
-/* Actions */
+.full-width {
+
+  width: 100%;
+
+  margin-top: 10px;
+}
+
 .dialog-actions {
 
   display: flex;
@@ -47,5 +68,24 @@ mat-form-field {
 
   gap: 12px;
 
-  margin-top: 20px;
+  margin-top: 24px;
+
+  padding-top: 20px;
+
+  border-top: 1px solid #e5e7eb;
+}
+
+@media (max-width: 992px) {
+
+  .dialog-container {
+
+    min-width: auto;
+
+    width: 95vw;
+  }
+
+  .form-grid {
+
+    grid-template-columns: 1fr;
+  }
 }

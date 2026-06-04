@@ -1,62 +1,98 @@
-import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
-import {StudentService } from '../../services/student';
+import {
+  ChangeDetectorRef,
+  Component,
+  OnInit
+} from '@angular/core';
+
+import {
+  CommonModule
+} from '@angular/common';
+
+import {
+  MatDialog,
+  MatDialogModule
+} from '@angular/material/dialog';
+
+import {
+  MatSnackBar,
+  MatSnackBarModule
+} from '@angular/material/snack-bar';
+
+import {
+  MatButtonModule
+} from '@angular/material/button';
+
+import {
+  MatIconModule
+} from '@angular/material/icon';
+
+import {
+  MatInputModule
+} from '@angular/material/input';
+
 import { Student } from '../../models/student.model';
-import { MatIcon, MatIconModule } from "@angular/material/icon";
-import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { MatButtonModule } from '@angular/material/button';
-import { CommonModule } from '@angular/common';
-import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+
+import { StudentService } from '../../services/student';
+
 import { StudentFormDialog } from './student-form-dialog/student-form-dialog';
-import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
-import { MatInputModule } from '@angular/material/input';
-import { MatSnackBar } from '@angular/material/snack-bar';
+
+import { ConfirmDialog } from '../../shared/dialogs/confirm-dialog/confirm-dialog';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-students',
+
+  standalone: true,
+
   imports: [
     CommonModule,
-    MatIconModule,
-    MatTableModule,
-    MatButtonModule,
     MatDialogModule,
-    MatPaginatorModule,
+    MatSnackBarModule,
+    MatButtonModule,
+    MatIconModule,
     MatInputModule
   ],
+
   templateUrl: './students.html',
-  styleUrl: './students.scss',
+
+  styleUrl: './students.scss'
 })
-export class Students {
+export class Students implements OnInit {
 
   /**
-   * Liste étudiants
+   * Liste complète
    */
-  dataSource = new MatTableDataSource<Student> ();
-
-  @ViewChild(MatPaginator)
-  paginator!: MatPaginator;
+  students: Student[] = [];
 
   /**
-   * Colonnes table
+   * Liste filtrée
    */
-  displayedColumns = [
-    'matricule',
-    'fullName',
-    'email',
-    'phone',
-    'status',
-    'actions'
-  ];
+  filteredStudents: Student[] = [];
+
+  /**
+   * Loading
+   */
+  loading = false;
+
+  /**
+   * Statistiques
+   */
+  totalStudents = 0;
 
   constructor(
+
     private studentService: StudentService,
+
     private dialog: MatDialog,
+
+    private snackBar: MatSnackBar,
+
     private cdr: ChangeDetectorRef,
-    private snackBar: MatSnackBar
+
+    private router: Router
+
   ) {}
 
-  /**
-   * Initiaisation composant
-   */
   ngOnInit(): void {
 
     this.loadStudents();
@@ -67,121 +103,126 @@ export class Students {
    */
   loadStudents(): void {
 
-    this.studentService.getStudents().subscribe({
-      
-      next: (response) => {
-        console.log(response);
+    this.loading = true;
 
-        this.dataSource.data = response;
+    this.studentService
 
-        this.dataSource.paginator = this.paginator;
+      .getStudents()
 
-        this.cdr.detectChanges();
-      },
-      error: (err) => {
+      .subscribe({
 
-        console.error(err);
-      }
-    });
+        next: (response) => {
 
+          console.log(response);
+
+          this.students = response;
+
+          this.filteredStudents = response;
+
+          this.totalStudents = response.length;
+
+          this.loading = false;
+
+          this.cdr.detectChanges();
+        },
+
+        error: (error) => {
+
+          console.error(error);
+
+          this.loading = false;
+
+          this.snackBar.open(
+
+            'Erreur lors du chargement',
+
+            'Fermer',
+
+            {
+              duration: 3000
+            }
+          );
+        }
+      });
   }
 
   /**
-   * Ouvrir dialog création étudiant
+   * Filtre
+   */
+  applyFilter(
+    event: Event
+  ): void {
+
+    const value =
+
+      (
+        event.target as HTMLInputElement
+      )
+
+      .value
+
+      .toLowerCase()
+
+      .trim();
+
+    this.filteredStudents =
+
+      this.students.filter(
+
+        student =>
+
+          student.firstName
+            ?.toLowerCase()
+            .includes(value)
+
+          ||
+
+          student.lastName
+            ?.toLowerCase()
+            .includes(value)
+
+          ||
+
+          student.ine
+            ?.toLowerCase()
+            .includes(value)
+
+          ||
+
+          student.formationName
+            ?.toLowerCase()
+            .includes(value)
+
+          ||
+
+          student.promotion
+            ?.toLowerCase()
+            .includes(value)
+      );
+  }
+
+  /**
+   * Création
    */
   openCreateDialog(): void {
 
-    const dialogRef = this.dialog.open(
-      StudentFormDialog,
-
-      {
-        width: '550px',
-        height: '90%'
-      }
-    );
-
-    dialogRef.afterClosed().subscribe((result) => {
-      
-      // Refresh liste
-      this.loadStudents();
-    })
-  }
-
-  /**
-   * Filtre étudiants
-   */
-  applyFilter(event: Event) {
-
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-  }
-
-  /**
-   * Suppression étudiant
-   */
-  deleteStudent(student: Student): void {
-
-    const confirmed = confirm(
-      `Confirmer la suppression de l'etudiant ${student.firstName} ${student.lastName}`
-    );
-    
-    if (!confirmed) {
-      return;
-    }
-
-    this.studentService.deleteStudent(student.id).subscribe({
-      next: () => {
-
-        // Notification
-        this.snackBar.open(
-          'Etudiant supprimé avec succès',
-          'Fermer',
-          {
-            duration: 3000
-          }
-        );
-
-        this.loadStudents();
-      },
-      error: (err) => {
-
-        console.error(err);
-
-        this.snackBar.open(
-          'Une erreur est survenue',
-          'Fermer',
-          {
-            duration: 3000
-          }
-        );
-      }
-    });
-  }
-
-  /**
- * Ouvre dialog modification.
- */
-openEditDialog(
-    student: Student
-  ): void {
-
-    console.log(student);
-
     const dialogRef =
+
       this.dialog.open(
 
         StudentFormDialog,
 
         {
-          width: '550px',
 
-          height: '90%',
+          width: '800px',
 
-          data: student
+          maxWidth: '95vw'
         }
       );
 
-    dialogRef.afterClosed()
+    dialogRef
+
+      .afterClosed()
 
       .subscribe(result => {
 
@@ -190,5 +231,162 @@ openEditDialog(
           this.loadStudents();
         }
       });
+  }
+
+  /**
+   * Modification
+   */
+  openEditDialog(
+    student: Student
+  ): void {
+
+    const dialogRef =
+
+      this.dialog.open(
+
+        StudentFormDialog,
+
+        {
+
+          width: '900px',
+          maxWidth: '95vw',
+          maxHeight: '90vh',
+
+          data: student
+        }
+      );
+
+    dialogRef
+
+      .afterClosed()
+
+      .subscribe(result => {
+
+        if (result) {
+
+          this.loadStudents();
+        }
+      });
+  }
+
+  /**
+   * Détail
+   */
+  openDetails(
+    student: Student
+  ): void {
+
+    console.log(
+      'Détail étudiant',
+      student
+    );
+
+    this.router.navigate([
+      '/students',
+      student.id
+    ])
+  }
+
+  /**
+   * Suppression
+   */
+  deleteStudent(
+    student: Student
+  ): void {
+
+    const dialogRef =
+
+      this.dialog.open(
+
+        ConfirmDialog,
+
+        {
+
+          width: '450px',
+
+          data: {
+
+            title: 'Suppression',
+
+            message:
+
+              `Supprimer l'étudiant "${student.firstName} ${student.lastName}" ?`,
+
+            confirmText: 'Supprimer',
+
+            cancelText: 'Annuler'
+          }
+        }
+      );
+
+    dialogRef
+
+      .afterClosed()
+
+      .subscribe(
+
+        confirmed => {
+
+          if (!confirmed) {
+
+            return;
+          }
+
+          this.studentService
+
+            .delete(
+              student.id
+            )
+
+            .subscribe({
+
+              next: () => {
+
+                this.snackBar.open(
+
+                  'Étudiant supprimé',
+
+                  'Fermer',
+
+                  {
+                    duration: 3000
+                  }
+                );
+
+                this.loadStudents();
+              },
+
+              error: (error) => {
+
+                console.error(error);
+
+                this.snackBar.open(
+
+                  'Erreur lors de la suppression',
+
+                  'Fermer',
+
+                  {
+                    duration: 3000
+                  }
+                );
+              }
+            });
+        }
+      );
+  }
+
+  /**
+   * Répartition H/F
+   * Préparation dashboard futur
+   */
+  getMaleCount(): number {
+
+    return 0;
+  }
+
+  getFemaleCount(): number {
+
+    return 0;
   }
 }
