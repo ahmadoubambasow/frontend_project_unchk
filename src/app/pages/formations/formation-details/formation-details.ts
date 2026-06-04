@@ -32,6 +32,9 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { AssignTrainerDialog } from '../assign-trainer-dialog/assign-trainer-dialog';
 import { ConfirmDialog } from '../../../shared/dialogs/confirm-dialog/confirm-dialog';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { TrainingModule } from '../../../models/training-module.model';
+import { TrainingModuleService } from '../../../services/training-module';
+import { ModuleFormDialog } from '../training-modules/module-form-dialog/module-form-dialog';
 
 @Component({
   selector: 'app-formation-details',
@@ -64,6 +67,8 @@ implements OnInit {
 
   trainers: TrainerResponse[] = [];
 
+  modules: TrainingModule[] = [];
+
   constructor(
 
     private route:
@@ -73,6 +78,8 @@ implements OnInit {
       FormationService,
     
     private formationTrainerService: FormationTrainerService,
+
+    private trainingModuleService: TrainingModuleService,
 
     private dialog: MatDialog,
 
@@ -113,11 +120,10 @@ implements OnInit {
           console.log('Réponse reçue', response);
           this.formation =
             response;
-
-             console.log('this.formation =', this.formation);
-  console.log('typeof =', typeof this.formation);
-
+    
           this.loadTrainers();
+
+          this.loadModules();
 
           this.loading = false;
 
@@ -153,6 +159,156 @@ implements OnInit {
         error: console.error
       });
   }
+
+  loadModules(): void {
+
+  if (!this.formation) {
+
+    return;
+  }
+
+  this.trainingModuleService
+
+    .getByFormation(
+      this.formation.id
+    )
+
+    .subscribe({
+
+      next: (response) => {
+
+        this.modules =
+          response;
+
+        this.cdr.detectChanges();
+      },
+
+      error: console.error
+    });
+}
+
+openModuleDialog(
+  module?: TrainingModule
+): void {
+
+  const dialogRef =
+
+    this.dialog.open(
+
+      ModuleFormDialog,
+
+      {
+
+        width: '700px',
+
+        maxWidth: '95vw',
+
+        data: {
+
+          formationId:
+            this.formation!.id,
+
+          module
+        }
+      }
+    );
+
+  dialogRef.afterClosed()
+
+    .subscribe(result => {
+
+      if (result) {
+
+        this.loadModules();
+      }
+    });
+}
+
+deleteModule(
+  module: TrainingModule
+): void {
+
+  const dialogRef =
+
+    this.dialog.open(
+
+      ConfirmDialog,
+
+      {
+
+        width: '450px',
+
+        data: {
+
+          title: 'Suppression',
+
+          message:
+
+            `Supprimer le module "${module.title}" ?`,
+
+          confirmText: 'Supprimer',
+
+          cancelText: 'Annuler'
+        }
+      }
+    );
+
+  dialogRef
+
+    .afterClosed()
+
+    .subscribe(
+
+      confirmed => {
+
+        if (!confirmed) {
+
+          return;
+        }
+
+        this.trainingModuleService
+
+          .delete(
+            module.id
+          )
+
+          .subscribe({
+
+            next: () => {
+
+              this.snackBar.open(
+
+                'Module supprimé',
+
+                'Fermer',
+
+                {
+                  duration: 3000
+                }
+              );
+
+              this.loadModules();
+            },
+
+            error: (error) => {
+
+              console.error(error);
+
+              this.snackBar.open(
+
+                'Erreur lors de la suppression',
+
+                'Fermer',
+
+                {
+                  duration: 3000
+                }
+              );
+            }
+          });
+      }
+    );
+}
 
   /**
    * Open Assign Trainer Dialog

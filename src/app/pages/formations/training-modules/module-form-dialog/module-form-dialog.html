@@ -1,0 +1,106 @@
+<div class="dialog-container">
+
+  <div class="dialog-header">
+
+    <h2>
+
+      {{
+        data.module
+          ? 'Modifier module'
+          : 'Nouveau module'
+      }}
+
+    </h2>
+
+    <p>
+
+      Gestion des modules pédagogiques
+
+    </p>
+
+  </div>
+
+  <form
+    [formGroup]="form">
+
+    <mat-form-field
+      appearance="outline">
+
+      <mat-label>
+
+        Titre
+
+      </mat-label>
+
+      <input
+        matInput
+        formControlName="title">
+
+    </mat-form-field>
+
+    <mat-form-field
+      appearance="outline">
+
+      <mat-label>
+
+        Nombre d'heures
+
+      </mat-label>
+
+      <input
+        matInput
+        type="number"
+        formControlName="hours">
+
+    </mat-form-field>
+
+    <mat-form-field
+      appearance="outline"
+      class="full-width">
+
+      <mat-label>
+
+        Description
+
+      </mat-label>
+
+      <textarea
+        matInput
+        rows="5"
+        formControlName="description">
+
+      </textarea>
+
+    </mat-form-field>
+
+  </form>
+
+  <div class="dialog-actions">
+
+    <button
+      mat-stroked-button
+      (click)="dialogRef.close()">
+
+      Annuler
+
+    </button>
+
+    <button
+      mat-raised-button
+      color="primary"
+      [disabled]="loading"
+      (click)="submit()">
+
+      {{
+        loading
+          ? 'Enregistrement...'
+          : data.module
+              ? 'Modifier'
+              : 'Créer'
+      }}
+
+    </button>
+
+  </div>
+
+</div>

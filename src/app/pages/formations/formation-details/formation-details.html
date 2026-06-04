@@ -47,6 +47,139 @@
     </mat-card-content>
   </mat-card>
 
+  <mat-card class="modules-card">
+
+  <div class="section-header">
+
+    <div>
+
+      <h2>
+
+        Modules pédagogiques
+
+      </h2>
+
+      <p>
+
+        Gestion des matières et unités d'enseignement
+
+      </p>
+
+    </div>
+
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="openModuleDialog()">
+
+      <mat-icon>
+
+        add
+
+      </mat-icon>
+
+      Ajouter
+
+    </button>
+
+  </div>
+
+  <div
+    class="empty-state"
+
+    *ngIf="modules.length === 0">
+
+    <mat-icon>
+
+      menu_book
+
+    </mat-icon>
+
+    <h3>
+
+      Aucun module enregistré
+
+    </h3>
+
+    <p>
+
+      Commencez par ajouter un module pédagogique.
+
+    </p>
+
+  </div>
+
+  <div
+    class="module-card"
+
+    *ngFor="let module of modules">
+
+    <div class="module-content">
+
+      <h3>
+
+        {{ module.title }}
+
+      </h3>
+
+      <p>
+
+        {{ module.description }}
+
+      </p>
+
+      <div class="module-meta">
+
+        <span>
+
+          {{ module.hours }} heures
+
+        </span>
+
+      </div>
+
+    </div>
+
+    <div class="module-actions">
+
+      <button
+
+        mat-icon-button
+
+        color="primary"
+
+        (click)="openModuleDialog(module)">
+
+        <mat-icon>
+
+          edit
+
+        </mat-icon>
+
+      </button>
+
+      <button
+
+        mat-icon-button
+
+        color="warn"
+
+        (click)="deleteModule(module)">
+
+        <mat-icon>
+
+          delete
+
+        </mat-icon>
+
+      </button>
+
+    </div>
+
+  </div>
+
+</mat-card>
+
   <mat-card>
     <button mat-raised-button color="primary" (click)="openAssignTrainerDialog()">
       <mat-icon>person_add</mat-icon>
