@@ -25,4 +25,6 @@ export interface Student {
   formationId: number;
 
   groupName: string;
+
+  groupId: number;
 }

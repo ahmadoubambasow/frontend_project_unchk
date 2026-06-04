@@ -41,12 +41,12 @@ import {
 } from '@angular/material/snack-bar';
 
 import { Student } from '../../../models/student.model';
+import { Formation } from '../../../models/formation.model';
+import { StudentGroup } from '../../../models/student-group.model';
 
 import { StudentService } from '../../../services/student';
-
-import { Formation } from '../../../models/formation.model';
-
 import { FormationService } from '../../../services/formation';
+import { StudentGroupService } from '../../../services/student-group';
 
 @Component({
   selector: 'app-student-form-dialog',
@@ -77,6 +77,8 @@ implements OnInit {
 
   formations: Formation[] = [];
 
+  groups: StudentGroup[] = [];
+
   constructor(
 
     private fb: FormBuilder,
@@ -86,6 +88,9 @@ implements OnInit {
 
     private formationService:
       FormationService,
+
+    private studentGroupService:
+      StudentGroupService,
 
     private snackBar:
       MatSnackBar,
@@ -104,6 +109,8 @@ implements OnInit {
     this.buildForm();
 
     this.loadFormations();
+
+    this.loadGroups();
 
     if (this.data) {
 
@@ -130,7 +137,12 @@ implements OnInit {
         Validators.required
       ],
 
-      promotion: [
+      formationId: [
+        '',
+        Validators.required
+      ],
+
+      groupId: [
         '',
         Validators.required
       ],
@@ -147,12 +159,7 @@ implements OnInit {
 
       diplomas: [''],
 
-      otherTrainings: [''],
-
-      formationId: [
-        '',
-        Validators.required
-      ]
+      otherTrainings: ['']
     });
   }
 
@@ -174,6 +181,24 @@ implements OnInit {
       });
   }
 
+  loadGroups(): void {
+
+    this.studentGroupService
+
+      .getGroups()
+
+      .subscribe({
+
+        next: response => {
+
+          this.groups =
+            response;
+        },
+
+        error: console.error
+      });
+  }
+
   patchForm(): void {
 
     this.form.patchValue({
@@ -187,8 +212,11 @@ implements OnInit {
       birthDate:
         this.data?.birthDate,
 
-      promotion:
-        this.data?.promotion,
+      formationId:
+        this.data?.formationId,
+
+      groupId:
+        this.data?.groupId,
 
       startYear:
         this.data?.startYear,
@@ -200,10 +228,7 @@ implements OnInit {
         this.data?.diplomas,
 
       otherTrainings:
-        this.data?.otherTrainings,
-
-      formationId:
-        this.data?.formationId
+        this.data?.otherTrainings
     });
   }
 
@@ -234,11 +259,8 @@ implements OnInit {
             this.loading = false;
 
             this.snackBar.open(
-
               'Étudiant modifié',
-
               'Fermer',
-
               {
                 duration: 3000
               }
@@ -271,11 +293,8 @@ implements OnInit {
           this.loading = false;
 
           this.snackBar.open(
-
             'Étudiant créé',
-
             'Fermer',
-
             {
               duration: 3000
             }

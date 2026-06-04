@@ -91,6 +91,7 @@ implements OnInit {
 
         next: response => {
 
+        console.log(response);
           this.student =
             response;
 
