@@ -1,0 +1,200 @@
+<div class="page-container">
+
+  <div class="page-header">
+
+    <div>
+
+      <h1>
+
+        Réunions
+
+      </h1>
+
+      <p>
+
+        Gestion des réunions pédagogiques
+
+      </p>
+
+    </div>
+
+    <button
+
+      mat-raised-button
+
+      color="primary"
+
+      (click)="openCreateDialog()">
+
+      <mat-icon>
+
+        add
+
+      </mat-icon>
+
+      Nouvelle réunion
+
+    </button>
+
+  </div>
+
+  <div class="search-bar">
+
+    <input
+
+      matInput
+
+      placeholder="Rechercher..."
+
+      (input)="applyFilter($event)">
+  </div>
+
+  <div
+    class="loading"
+
+    *ngIf="loading">
+
+    Chargement...
+  </div>
+
+  <div
+    class="meetings-grid"
+
+    *ngIf="!loading">
+
+    <div
+
+      class="meeting-card"
+
+      *ngFor="
+        let meeting
+        of filteredMeetings
+      ">
+
+      <div class="meeting-header">
+
+        <h3>
+
+          {{ meeting.title }}
+
+        </h3>
+
+        <span class="status">
+
+          {{ meeting.status }}
+
+        </span>
+
+      </div>
+
+      <div class="meeting-body">
+
+        <p>
+
+          <strong>Type :</strong>
+
+          {{ getTypeLabel(meeting.type) }}
+
+        </p>
+
+        <p>
+
+          <strong>Date :</strong>
+
+          {{ meeting.meetingDate }}
+
+        </p>
+
+        <p>
+
+          <strong>Horaire :</strong>
+
+          {{ meeting.startTime }}
+
+          -
+
+          {{ meeting.endTime }}
+
+        </p>
+
+        <p>
+
+          <strong>Organisateur :</strong>
+
+          {{ meeting.organizerName }}
+
+        </p>
+
+        <p *ngIf="meeting.groupName">
+
+          <strong>Groupe :</strong>
+
+          {{ meeting.groupName }}
+
+        </p>
+
+      </div>
+
+        <div class="meeting-actions">
+
+            <button
+
+            mat-button
+
+            color="primary"
+
+            (click)="openDetails(meeting)">
+
+            <mat-icon>
+
+            visibility
+
+            </mat-icon>
+
+            Détails
+
+            </button>
+
+            <button
+
+                mat-button
+
+                color="accent"
+
+                (click)="openEditDialog(meeting)">
+
+                <mat-icon>
+
+                edit
+
+                </mat-icon>
+
+                Modifier
+
+            </button>
+
+            <button
+
+                mat-button
+
+                color="warn"
+
+                (click)="deleteMeeting(meeting)">
+
+                <mat-icon>
+
+                delete
+
+                </mat-icon>
+
+                Supprimer
+
+            </button>
+
+        </div>
+
+    </div>
+
+  </div>
+
+</div>

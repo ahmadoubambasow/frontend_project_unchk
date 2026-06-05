@@ -1,0 +1,329 @@
+<div class="dialog-container">
+
+  <div class="dialog-header">
+
+    <h2>
+
+      {{
+        data
+          ? 'Modifier réunion'
+          : 'Nouvelle réunion'
+      }}
+
+    </h2>
+
+  </div>
+
+  <form
+    [formGroup]="form">
+
+    <div class="form-grid">
+
+      <mat-form-field appearance="outline">
+
+        <mat-label>
+
+          Titre
+
+        </mat-label>
+
+        <input
+          matInput
+          formControlName="title">
+
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+
+        <mat-label>
+
+          Type
+
+        </mat-label>
+
+        <mat-select
+          formControlName="type">
+
+          <mat-option value="TUTORAT">
+
+            Tutorat
+
+          </mat-option>
+
+          <mat-option
+            value="PREPARATION_COURS">
+
+            Préparation cours
+
+          </mat-option>
+
+          <mat-option
+            value="PREPARATION_EVALUATION">
+
+            Préparation évaluation
+
+          </mat-option>
+
+        </mat-select>
+
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+
+        <mat-label>
+
+          Statut
+
+        </mat-label>
+
+        <mat-select
+          formControlName="status">
+
+          <mat-option value="PLANIFIEE">
+
+            Planifiée
+
+          </mat-option>
+
+          <mat-option value="EN_COURS">
+
+            En cours
+
+          </mat-option>
+
+          <mat-option value="TERMINEE">
+
+            Terminée
+
+          </mat-option>
+
+          <mat-option value="ANNULEE">
+
+            Annulée
+
+          </mat-option>
+
+        </mat-select>
+
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+
+        <mat-label>
+
+          Date
+
+        </mat-label>
+
+        <input
+
+          matInput
+
+          type="date"
+
+          formControlName="meetingDate">
+
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+
+        <mat-label>
+
+          Début
+
+        </mat-label>
+
+        <input
+
+          matInput
+
+          type="time"
+
+          formControlName="startTime">
+
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+
+        <mat-label>
+
+          Fin
+
+        </mat-label>
+
+        <input
+
+          matInput
+
+          type="time"
+
+          formControlName="endTime">
+
+      </mat-form-field>
+
+      <!-- Organisateur -->
+<mat-form-field appearance="outline">
+
+  <mat-label>
+
+    Organisateur
+
+  </mat-label>
+
+  <mat-select
+    formControlName="organizerId">
+
+    <mat-option
+      *ngFor="let user of users"
+      [value]="user.id">
+
+      {{ user.fullName }}
+
+    </mat-option>
+
+  </mat-select>
+
+</mat-form-field>
+
+<!-- Participants -->
+<mat-form-field appearance="outline">
+
+  <mat-label>
+
+    Participants
+
+  </mat-label>
+
+  <mat-select
+
+    multiple
+
+    formControlName="participantIds">
+
+    <mat-option
+      *ngFor="let user of users"
+      [value]="user.id">
+
+      {{ user.fullName }}
+
+    </mat-option>
+
+  </mat-select>
+
+</mat-form-field>
+
+<!-- Participants -->
+
+
+      <mat-form-field appearance="outline">
+
+        <mat-label>
+
+          Groupe
+
+        </mat-label>
+
+        <mat-select
+          formControlName="groupId">
+
+          <mat-option
+            [value]="null">
+
+            Aucun
+
+          </mat-option>
+
+          <mat-option
+
+            *ngFor="
+              let group
+              of groups
+            "
+
+            [value]="group.id">
+
+            {{ group.name }}
+
+          </mat-option>
+
+        </mat-select>
+
+      </mat-form-field>
+
+    </div>
+
+    <mat-form-field
+      appearance="outline"
+      class="full-width">
+
+      <mat-label>
+
+        Description
+
+      </mat-label>
+
+      <textarea
+
+        matInput
+
+        rows="5"
+
+        formControlName="description">
+
+      </textarea>
+
+    </mat-form-field>
+
+    <mat-form-field
+      appearance="outline"
+      class="full-width">
+
+      <mat-label>
+
+        Compte rendu
+
+      </mat-label>
+
+      <textarea
+
+        matInput
+
+        rows="5"
+
+        formControlName="report">
+
+      </textarea>
+
+    </mat-form-field>
+
+  </form>
+
+  <div class="dialog-actions">
+
+    <button
+      mat-stroked-button
+      (click)="dialogRef.close()">
+
+      Annuler
+
+    </button>
+
+    <button
+
+      mat-raised-button
+
+      color="primary"
+
+      (click)="submit()">
+
+      {{
+        data
+          ? 'Modifier'
+          : 'Créer'
+      }}
+
+    </button>
+
+  </div>
+
+</div>

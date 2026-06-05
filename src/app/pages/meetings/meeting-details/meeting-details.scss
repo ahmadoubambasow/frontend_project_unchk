@@ -1,0 +1,221 @@
+.details-page {
+
+  max-width: 1200px;
+
+  margin: auto;
+
+  padding: 24px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 24px;
+}
+
+.header-card {
+
+  background: linear-gradient(
+    135deg,
+    #2563eb,
+    #1e40af
+  );
+
+  border-radius: 20px;
+
+  padding: 30px;
+
+  color: white;
+
+  box-shadow: 0 10px 30px rgba(0,0,0,.12);
+}
+
+.header-content {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 20px;
+}
+
+.meeting-icon {
+
+  width: 70px;
+
+  height: 70px;
+
+  border-radius: 50%;
+
+  background: rgba(255,255,255,.15);
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  font-size: 32px;
+}
+
+.header-content h1 {
+
+  margin: 0;
+
+  font-size: 30px;
+
+  font-weight: 700;
+}
+
+.badges {
+
+  margin-top: 10px;
+
+  display: flex;
+
+  gap: 10px;
+
+  flex-wrap: wrap;
+}
+
+.badge {
+
+  padding: 6px 14px;
+
+  border-radius: 30px;
+
+  font-size: 12px;
+
+  font-weight: 600;
+}
+
+.badge.type {
+
+  background: rgba(255,255,255,.15);
+
+  color: white;
+}
+
+.badge.status {
+
+  background: white;
+
+  color: #111827;
+}
+
+.badge.planifiee {
+
+  color: #2563eb;
+}
+
+.badge.en_cours {
+
+  color: #f59e0b;
+}
+
+.badge.terminee {
+
+  color: #16a34a;
+}
+
+.badge.annulee {
+
+  color: #dc2626;
+}
+
+.info-grid {
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(auto-fit,minmax(250px,1fr));
+
+  gap: 20px;
+}
+
+.info-item {
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 6px;
+}
+
+.label {
+
+  font-size: 13px;
+
+  color: #64748b;
+
+  text-transform: uppercase;
+
+  font-weight: 600;
+}
+
+.value {
+
+  font-size: 16px;
+
+  font-weight: 600;
+
+  color: #0f172a;
+}
+
+.section-card {
+
+  border-radius: 18px;
+}
+
+.participants {
+
+  display: flex;
+
+  flex-wrap: wrap;
+
+  gap: 10px;
+}
+
+.participant-chip {
+
+  background: #eff6ff;
+
+  color: #2563eb;
+
+  padding: 8px 14px;
+
+  border-radius: 20px;
+
+  font-size: 14px;
+
+  font-weight: 500;
+}
+
+.section-card p {
+
+  line-height: 1.7;
+
+  color: #334155;
+
+  white-space: pre-wrap;
+}
+
+@media (max-width: 768px) {
+
+  .details-page {
+
+    padding: 16px;
+  }
+
+  .header-content {
+
+    flex-direction: column;
+
+    text-align: center;
+  }
+
+  .header-content h1 {
+
+    font-size: 24px;
+  }
+}

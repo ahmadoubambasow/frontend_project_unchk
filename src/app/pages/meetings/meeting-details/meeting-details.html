@@ -1,0 +1,235 @@
+<div
+  *ngIf="meeting"
+  class="details-page">
+
+  <div class="header-card">
+
+    <div class="header-content">
+
+      <div class="meeting-icon">
+
+        📅
+
+      </div>
+
+      <div>
+
+        <h1>
+
+          {{ meeting.title }}
+
+        </h1>
+
+        <div class="badges">
+
+          <span
+            class="badge type">
+
+            {{ meeting.type }}
+
+          </span>
+
+          <span
+            class="badge status"
+            [ngClass]="meeting.status.toLowerCase()">
+
+            {{ meeting.status }}
+
+          </span>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="info-grid">
+
+    <mat-card>
+
+      <mat-card-content>
+
+        <div class="info-item">
+
+          <span class="label">
+
+            Date
+
+          </span>
+
+          <span class="value">
+
+            {{ meeting.meetingDate }}
+
+          </span>
+
+        </div>
+
+      </mat-card-content>
+
+    </mat-card>
+
+    <mat-card>
+
+      <mat-card-content>
+
+        <div class="info-item">
+
+          <span class="label">
+
+            Horaire
+
+          </span>
+
+          <span class="value">
+
+            {{ meeting.startTime }}
+
+            -
+
+            {{ meeting.endTime }}
+
+          </span>
+
+        </div>
+
+      </mat-card-content>
+
+    </mat-card>
+
+    <mat-card>
+
+      <mat-card-content>
+
+        <div class="info-item">
+
+          <span class="label">
+
+            Organisateur
+
+          </span>
+
+          <span class="value">
+
+            {{ meeting.organizerName }}
+
+          </span>
+
+        </div>
+
+      </mat-card-content>
+
+    </mat-card>
+
+    <mat-card>
+
+      <mat-card-content>
+
+        <div class="info-item">
+
+          <span class="label">
+
+            Groupe
+
+          </span>
+
+          <span class="value">
+
+            {{ meeting.groupName || '-' }}
+
+          </span>
+
+        </div>
+
+      </mat-card-content>
+
+    </mat-card>
+
+  </div>
+
+  <mat-card class="section-card">
+
+    <mat-card-header>
+
+      <mat-card-title>
+
+        Participants
+
+      </mat-card-title>
+
+    </mat-card-header>
+
+    <mat-card-content>
+
+      <div class="participants">
+
+        <span
+
+          class="participant-chip"
+
+          *ngFor="
+            let participant
+            of meeting.participantNames
+          ">
+
+          {{ participant }}
+
+        </span>
+
+      </div>
+
+    </mat-card-content>
+
+  </mat-card>
+
+  <mat-card class="section-card">
+
+    <mat-card-header>
+
+      <mat-card-title>
+
+        Description
+
+      </mat-card-title>
+
+    </mat-card-header>
+
+    <mat-card-content>
+
+      <p>
+
+        {{ meeting.description || '-' }}
+
+      </p>
+
+    </mat-card-content>
+
+  </mat-card>
+
+  <mat-card class="section-card">
+
+    <mat-card-header>
+
+      <mat-card-title>
+
+        Compte rendu
+
+      </mat-card-title>
+
+    </mat-card-header>
+
+    <mat-card-content>
+
+      <p>
+
+        {{ meeting.report || '-' }}
+
+      </p>
+
+    </mat-card-content>
+
+  </mat-card>
+
+</div>
