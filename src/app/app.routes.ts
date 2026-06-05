@@ -15,6 +15,7 @@ import { FormationDetails } from './pages/formations/formation-details/formation
 import { StudentDetails } from './pages/students/student-details/student-details';
 import { StudentGroupDetails } from './pages/student-groups/student-group-details/student-group-details';
 import { StudentGroups } from './pages/student-groups/student-groups';
+import { ScheduleCalendar } from './pages/schedules/calendar/schedule-calendar/schedule-calendar';
 
 export const routes: Routes = [
     
@@ -93,6 +94,23 @@ export const routes: Routes = [
             {
                 path: 'schedules',
                 component: Schedules
+            },
+
+            {
+                path: 'calendar',
+                component: ScheduleCalendar
+            },
+
+            {
+                path: 'schedules/calendar',
+                loadComponent: () =>
+
+                    import(
+                            './pages/schedules/schedule-calendar/schedule-calendar'
+                )
+                .then(
+                    m => m.ScheduleCalendar
+                )
             },
 
             {

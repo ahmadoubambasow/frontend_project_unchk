@@ -1,192 +1,245 @@
-import { CommonModule } from '@angular/common';
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
-import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { MatIconModule } from '@angular/material/icon';
-import { MatInputModule } from '@angular/material/input';
-import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
-import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { ScheduleService } from '../../services/schedule';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { Schedule } from '../../models/schedule.model';
-import { ScheduleFormDialog } from './schedule-form-dialog/schedule-form-dialog';
+import {
+  ChangeDetectorRef,
+  Component,
+  OnInit
+} from '@angular/core';
+
+import {
+  CommonModule
+} from '@angular/common';
+
+import {
+  MatButtonModule
+} from '@angular/material/button';
+
+import {
+  MatIconModule
+} from '@angular/material/icon';
+
+import {
+  MatDialog
+} from '@angular/material/dialog';
+
+import {
+  MatSnackBar
+} from '@angular/material/snack-bar';
+
+import {
+  Schedule
+} from '../../models/schedule.model';
+
+import {
+  ScheduleService
+} from '../../services/schedule';
+
+import {
+  ScheduleFormDialog
+} from './schedule-form-dialog/schedule-form-dialog';
+
+import {
+  ConfirmDialog
+} from '../../shared/dialogs/confirm-dialog/confirm-dialog';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-schedules',
+
+  standalone: true,
+
   imports: [
     CommonModule,
-    MatTableModule,
-    MatPaginatorModule,
     MatButtonModule,
     MatIconModule,
-    MatInputModule,
-    MatDialogModule
+    RouterModule
   ],
-  templateUrl: './schedules.html',
-  styleUrl: './schedules.scss',
+
+  templateUrl:
+    './schedules.html',
+
+  styleUrl:
+    './schedules.scss'
 })
-export class Schedules implements OnInit {
+export class Schedules
+implements OnInit {
 
-  /**
-   * Data source
-   */
-  dataSource = new MatTableDataSource<Schedule>();
+  schedules: Schedule[] = [];
 
-  /**
-   * Paginator
-   */
-  @ViewChild(MatPaginator)
-  paginator!: MatPaginator;
-
-  /**
-   * Colonnes
-   */
-  displayedColumns = [
-
-    'title',
-
-    'formation',
-
-    'trainer',
-
-    'sessionType',
-
-    'date',
-
-    'startTime',
-
-    'endTime',
-
-    'room',
-
-    'actions'
-  ];
+  loading = false;
 
   constructor(
 
-    private scheduleService: ScheduleService,
+    private scheduleService:
+      ScheduleService,
 
-    private dialog: MatDialog,
+    private dialog:
+      MatDialog,
 
-    private snackBar: MatSnackBar
-  ) { }
+    private snackBar:
+      MatSnackBar,
 
-  /**
-   * Initialisation
-   */
+      private cdr: ChangeDetectorRef
+  ) {}
+
   ngOnInit(): void {
 
     this.loadSchedules();
   }
 
-  /**
-   * Chargement séances
-   */
   loadSchedules(): void {
 
-    this.scheduleService.getSchedules().subscribe({
+    this.loading = true;
 
-      next: (response) => {
+    this.scheduleService
 
-        console.log(response);
+      .getMySchedule()
 
-        this.dataSource.data = response;
+      .subscribe({
 
-        this.dataSource.paginator = this.paginator;
-      },
+        next: response => {
 
-      error: (error) => {
+          this.schedules =
+            response;
 
-        console.error(error);
-      }
-    });
+          this.loading = false;
+
+          this.cdr.detectChanges();
+        },
+
+        error: error => {
+
+          console.error(error);
+
+          this.loading = false;
+        }
+      });
   }
 
-  /**
-   * Filtre
-   */
-  applyFilter(event: Event): void {
-
-    const filterValue = (event.target as HTMLInputElement).value;
-
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-  }
-
-  /**
-   * Création
-   */
   openCreateDialog(): void {
 
-    const dialogRef = this.dialog.open(ScheduleFormDialog, {
+    const dialogRef =
 
-      width: '550px',
-      height: '90%'
-    });
+      this.dialog.open(
 
-    dialogRef.afterClosed().subscribe(result => {
+        ScheduleFormDialog,
 
-      if (result) {
+        {
 
-        this.loadSchedules();
-      }
-    });
+          width: '850px',
+
+          maxWidth: '95vw'
+        }
+      );
+
+    dialogRef.afterClosed()
+
+      .subscribe(result => {
+
+        if (result) {
+
+          this.loadSchedules();
+        }
+      });
   }
 
-  /**
-   * Modification
-   */
-  openEditDialog(schedule: Schedule): void {
+  openEditDialog(
+    schedule: Schedule
+  ): void {
 
-    const dialogRef = this.dialog.open(ScheduleFormDialog, {
+    const dialogRef =
 
-      width: '550px',
-      height: '90%',
+      this.dialog.open(
 
-      data: schedule
-    });
+        ScheduleFormDialog,
 
-    dialogRef.afterClosed().subscribe(result => {
+        {
 
-      if (result) {
+          width: '850px',
 
-        this.loadSchedules();
-      }
-    });
+          maxWidth: '95vw',
+
+          data: schedule
+        }
+      );
+
+    dialogRef.afterClosed()
+
+      .subscribe(result => {
+
+        if (result) {
+
+          this.loadSchedules();
+        }
+      });
   }
 
-  /** 
-   * Suppression
-   */
-  deleteSchedule(schedule: Schedule): void {
+  deleteSchedule(
+    schedule: Schedule
+  ): void {
 
-    const confirmed = confirm('Confirmer la suppression de cette séance ?');
+    const dialogRef =
 
-    if (!confirmed) {
+      this.dialog.open(
 
-      return;
-    }
+        ConfirmDialog,
 
-    this.scheduleService.deleteSchedule(schedule.id).subscribe({
+        {
 
-      next: () => {
+          width: '450px',
 
-        this.snackBar.open(
-          'Séance supprimée avec succès', 
-          'Fermer', 
-          
-          {
+          data: {
 
-            duration: 3000
+            title:
+              'Suppression',
+
+            message:
+
+              `Supprimer le cours "${schedule.moduleName}" ?`,
+
+            confirmText:
+              'Supprimer',
+
+            cancelText:
+              'Annuler'
           }
-        );
+        }
+      );
 
-        this.loadSchedules();
-      },
+    dialogRef.afterClosed()
 
-      error: (error) => {
+      .subscribe(
 
-        console.error(error);
-      }
-    })
+        confirmed => {
+
+          if (!confirmed) {
+
+            return;
+          }
+
+          this.scheduleService
+
+            .delete(
+              schedule.id
+            )
+
+            .subscribe({
+
+              next: () => {
+
+                this.snackBar.open(
+
+                  'Créneau supprimé',
+
+                  'Fermer',
+
+                  {
+                    duration: 3000
+                  }
+                );
+
+                this.loadSchedules();
+              }
+            });
+        }
+      );
   }
 }

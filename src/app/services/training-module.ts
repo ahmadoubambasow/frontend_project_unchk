@@ -17,6 +17,15 @@ export class TrainingModuleService {
     private http: HttpClient
   ) {}
 
+  getModules():
+    Observable<TrainingModule[]> {
+
+      return this.http.get<TrainingModule[]>(
+
+        this.apiUrl
+      );
+  }
+
   getByFormation(
     formationId: number
   ): Observable<TrainingModule[]> {

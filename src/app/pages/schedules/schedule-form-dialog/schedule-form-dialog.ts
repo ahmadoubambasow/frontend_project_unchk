@@ -1,276 +1,424 @@
-import { CommonModule } from '@angular/common';
-import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MatButtonModule } from '@angular/material/button';
-import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatSelectModule } from '@angular/material/select';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
-import { Formation } from '../../../models/formation.model';
-import { Trainer } from '../../../models/trainer.model';
-import { FormationService } from '../../../services/formation';
-import { TrainerService } from '../../../services/trainer';
+import {
+  Component,
+  Inject,
+  OnInit
+} from '@angular/core';
+
+import {
+  CommonModule
+} from '@angular/common';
+
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators
+} from '@angular/forms';
+
+import {
+  MAT_DIALOG_DATA,
+  MatDialogRef
+} from '@angular/material/dialog';
+
+import {
+  MatFormFieldModule
+} from '@angular/material/form-field';
+
+import {
+  MatInputModule
+} from '@angular/material/input';
+
+import {
+  MatButtonModule
+} from '@angular/material/button';
+
+import {
+  MatSelectModule
+} from '@angular/material/select';
+
+import {
+  MatSnackBar
+} from '@angular/material/snack-bar';
+
+import { Schedule } from '../../../models/schedule.model';
+
 import { ScheduleService } from '../../../services/schedule';
+
+import { StudentGroup } from '../../../models/student-group.model';
+import { StudentGroupService } from '../../../services/student-group';
+
+import { TrainingModule } from '../../../models/training-module.model';
+import { TrainingModuleService } from '../../../services/training-module';
+
+import { User } from '../../../models/user.model';
+import { UserService } from '../../../services/user-service';
 
 @Component({
   selector: 'app-schedule-form-dialog',
+
+  standalone: true,
+
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    MatDialogModule,
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    MatSelectModule,
-    MatSnackBarModule
+    MatSelectModule
   ],
-  templateUrl: './schedule-form-dialog.html',
-  styleUrl: './schedule-form-dialog.scss',
+
+  templateUrl:
+    './schedule-form-dialog.html',
+
+  styleUrl:
+    './schedule-form-dialog.scss'
 })
-export class ScheduleFormDialog implements OnInit {
+export class ScheduleFormDialog
+implements OnInit {
+
+  form!: FormGroup;
 
   loading = false;
 
-  scheduleForm!: FormGroup;
+  groups: StudentGroup[] = [];
 
-  formations: Formation[] = [];
+  trainers: User[] = [];
 
-  trainers: Trainer[] = [];
+  filteredModules: TrainingModule[] = [];
 
-  sessionTypes = [
+  readonly days = [
 
-    'COURSE',
-
-    'TD',
-
-    'TP',
-
-    'EXAM'
+    'MONDAY',
+    'TUESDAY',
+    'WEDNESDAY',
+    'THURSDAY',
+    'FRIDAY',
+    'SATURDAY'
   ];
-  
+
   constructor(
 
     private fb: FormBuilder,
 
-    private formationService: FormationService,
+    private scheduleService:
+      ScheduleService,
 
-    private trainerService: TrainerService,
+    private groupService:
+      StudentGroupService,
 
-    private scheduleService: ScheduleService,
+    private moduleService:
+      TrainingModuleService,
 
-    private snackBar: MatSnackBar,
+    private userService: UserService,
 
-    public dialogRef: MatDialogRef<ScheduleFormDialog>,
+    private snackBar:
+      MatSnackBar,
 
-    @Inject(MAT_DIALOG_DATA) public data: any
-  ) { 
+    public dialogRef:
+      MatDialogRef<ScheduleFormDialog>,
 
-    this.scheduleForm = this.fb.group({
+    @Inject(MAT_DIALOG_DATA)
 
-      title: ['', Validators.required],
+    public data?: Schedule
 
-      sessionType: ['', Validators.required],
-
-      date: ['', Validators.required],
-
-      startTime: ['', Validators.required],
-
-      endTime: ['', Validators.required],
-
-      room: [''],
-
-      formationId: [null, Validators.required],
-
-      trainerId: [null, Validators.required]
-    });
-  }
+  ) {}
 
   ngOnInit(): void {
 
-    this.loadFormations();
+    this.buildForm();
+
+    this.loadGroups();
 
     this.loadTrainers();
+
+    this.loadGroupListener();
   }
 
-  /**
-   * Chargement formations
-   */
-  loadFormations(): void {
+  buildForm(): void {
 
-    this.formationService.getFormations().subscribe({
+    this.form = this.fb.group({
 
-      next: (response) => {
+      groupId: [
+        '',
+        Validators.required
+      ],
 
-        this.formations = response;
-      },
-      error: (error) => {
+      trainingModuleId: [
+        '',
+        Validators.required
+      ],
 
-        console.error(error);
-      }
+      trainerId: [
+        '',
+        Validators.required
+      ],
+
+      dayOfWeek: [
+        '',
+        Validators.required
+      ],
+
+      startTime: [
+        '',
+        Validators.required
+      ],
+
+      endTime: [
+        '',
+        Validators.required
+      ],
+
+      room: [
+        '',
+        Validators.required
+      ],
+
+      color: [
+        '#2563eb',
+        Validators.required
+      ]
     });
   }
 
-  /**
-   * Chargement formateurs
-   */
+  loadGroups(): void {
+
+    this.groupService
+
+      .getGroups()
+
+      .subscribe({
+
+        next: response => {
+
+          this.groups = response;
+
+          if (this.data) {
+
+            this.patchForm();
+          }
+        },
+
+        error: console.error
+      });
+  }
+
   loadTrainers(): void {
 
-    this.trainerService.getTrainers().subscribe({
+    this.userService
 
-      next: (response) => {
+      .getTrainers()
 
-        this.trainers = response;
+      .subscribe({
 
-        if (this.data) {
+        next: response => {
 
-          this.patchForm();
-        }
-      },
-      error: (error) => {
+          this.trainers = response;
+        },
 
-        console.error(error);
-      }
-    });
+        error: console.error
+      });
   }
 
-  /**
-   * Pré-remplissage
-   */
+  loadGroupListener(): void {
+
+    this.form
+
+      .get('groupId')
+
+      ?.valueChanges
+
+      .subscribe(groupId => {
+
+        if (!groupId) {
+
+          this.filteredModules = [];
+
+          return;
+        }
+
+        const selectedGroup =
+
+          this.groups.find(
+
+            group =>
+
+              group.id === groupId
+          );
+
+        if (!selectedGroup) {
+
+          return;
+        }
+
+        this.moduleService
+
+          .getByFormation(
+            selectedGroup.formationId
+          )
+
+          .subscribe({
+
+            next: response => {
+
+              this.filteredModules =
+                response;
+            },
+
+            error: console.error
+          });
+      });
+  }
+
   patchForm(): void {
 
-    this.scheduleForm.patchValue({
-
-      title: this.data?.title,
-
-      sessionType: this.data?.sessionType,
-
-      date: this.data?.date,
-
-      startTime: this.data?.startTime,
-
-      endTime: this.data?.endTime,
-
-      room: this.data?.room,
-
-      formationId: this.data?.formationId,
-
-      trainerId: this.data?.trainerId
-    })
-  }
-
-  /**
-   * Soumission
-   */
-  submit(): void {
-
-    if (this.scheduleForm.invalid) {
+    if (!this.data) {
 
       return;
     }
 
-    const start = this.scheduleForm.value.startTime;
+    this.form.patchValue({
 
-    const end = this.scheduleForm.value.endTime;
+      groupId:
+        this.data.groupId,
 
-    if (start >= end) {
+      trainingModuleId:
+        this.data.moduleId,
 
-      this.snackBar.open(
-        'Heures de début invalide',
-        'Fermer',
-        {
-          duration: 3000
-        }
+      trainerId:
+        this.data.trainerId,
+
+      dayOfWeek:
+        this.data.dayOfWeek,
+
+      startTime:
+        this.data.startTime,
+
+      endTime:
+        this.data.endTime,
+
+      room:
+        this.data.room,
+
+      color:
+        this.data.color
+    });
+
+    const group =
+
+      this.groups.find(
+
+        g =>
+
+          g.id ===
+          this.data?.groupId
       );
+
+    if (!group) {
+
+      return;
+    }
+
+    this.moduleService
+
+      .getByFormation(
+        group.formationId
+      )
+
+      .subscribe({
+
+        next: response => {
+
+          this.filteredModules =
+            response;
+        },
+
+        error: console.error
+      });
+  }
+
+  submit(): void {
+
+    if (this.form.invalid) {
+
+      this.form.markAllAsTouched();
 
       return;
     }
 
     this.loading = true;
 
-    if (this.data) {
+    const request = this.form.value;
 
-      this.ubdateSchedule();
+    if (this.data?.id) {
+
+      this.scheduleService
+
+        .update(
+          this.data.id,
+          request
+        )
+
+        .subscribe({
+
+          next: () => {
+
+            this.loading = false;
+
+            this.snackBar.open(
+
+              'Créneau modifié',
+
+              'Fermer',
+
+              {
+                duration: 3000
+              }
+            );
+
+            this.dialogRef.close(true);
+          },
+
+          error: error => {
+
+            console.error(error);
+
+            this.loading = false;
+          }
+        });
 
       return;
     }
 
-    this.createSchedule();
-  }
+    this.scheduleService
 
-  /**
-   * Création
-   */
-  createSchedule(): void {
+      .create(request)
 
-    this.scheduleService.createSchedule(this.scheduleForm.value).subscribe({
+      .subscribe({
 
-      next: () => {
+        next: () => {
 
-        this.loading = false;
+          this.loading = false;
 
-        this.snackBar.open(
-          'Séance créé avec succès',
-          'Fermer',
-          {
-            duration: 3000
-          }
-        );
+          this.snackBar.open(
 
-        this.dialogRef.close(true);
-      },
-      error: (error) => {
+            'Créneau créé',
 
-        this.loading = false;
+            'Fermer',
 
-        console.error(error);
+            {
+              duration: 3000
+            }
+          );
 
-        this.snackBar.open(
-          'Une erreur est survenue',
-          'Fermer',
-          {
-            duration: 3000
-          }
-        );
-      }
-    });
-  }
+          this.dialogRef.close(true);
+        },
 
-  /**
-   * Modification
-   */
-  ubdateSchedule(): void {
+        error: error => {
 
-    this.scheduleService.updateSchedule(this.data.id, this.scheduleForm.value).subscribe({
+          console.error(error);
 
-      next: () => {
-
-        this.loading = false;
-
-        this.snackBar.open(
-          'Séance modifiée avec succès',
-          'Fermer',
-          {
-            duration: 3000
-          }
-        );
-
-        this.dialogRef.close(true);
-      },
-      error: (error) => {
-
-        this.loading = false;
-
-        console.error(error);
-
-        this.snackBar.open(
-          'Une erreur est survenue',
-          'Fermer',
-          {
-            duration: 3000
-          }
-        );
-      }
-    });
+          this.loading = false;
+        }
+      });
   }
 }

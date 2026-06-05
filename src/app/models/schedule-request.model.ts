@@ -1,18 +1,10 @@
-export interface Schedule {
-
-  id: number;
+export interface ScheduleRequest {
 
   groupId: number;
 
-  groupName: string;
-
-  moduleId: number;
-
-  moduleName: string;
+  trainingModuleId: number;
 
   trainerId: number;
-
-  trainerName: string;
 
   dayOfWeek: string;
 

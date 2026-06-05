@@ -1,241 +1,171 @@
-<div class="schedules-page">
+<div class="page-container">
 
-  <!-- Header -->
   <div class="page-header">
 
     <div>
 
       <h1>
-        Emplois du temps
+
+        Emplois du Temps
+
       </h1>
 
       <p>
-        Gestion des cours, TD, TP et examens
+
+        Gestion des créneaux pédagogiques
+
       </p>
 
     </div>
 
     <button
+
       mat-raised-button
+
       color="primary"
+
       (click)="openCreateDialog()">
 
       <mat-icon>
+
         add
+
       </mat-icon>
 
-      Ajouter séance
+      Nouveau créneau
+
+    </button>
+
+    <button
+
+      mat-stroked-button
+
+      color="primary"
+
+      routerLink="/schedules/calendar">
+
+      <mat-icon>
+
+        calendar_month
+
+      </mat-icon>
+
+      Calendrier
 
     </button>
 
   </div>
 
-  <!-- Recherche -->
-  <div class="search-container">
+  <div
+    class="loading"
+    *ngIf="loading">
 
-    <mat-form-field appearance="outline">
-
-      <mat-label>
-        Rechercher
-      </mat-label>
-
-      <input
-        matInput
-        placeholder="Cours, formation, formateur..."
-        (keyup)="applyFilter($event)">
-
-      <mat-icon matSuffix>
-        search
-      </mat-icon>
-
-    </mat-form-field>
-
+    Chargement...
   </div>
 
-  <!-- Table -->
-  <div class="table-container">
+  <div
+    class="schedule-grid"
 
-    <table
-      mat-table
-      [dataSource]="dataSource">
+    *ngIf="!loading">
 
-      <!-- Titre -->
-      <ng-container matColumnDef="title">
+    <div
 
-        <th mat-header-cell *matHeaderCellDef>
-          Cours
-        </th>
+      class="schedule-card"
 
-        <td mat-cell *matCellDef="let schedule">
+      *ngFor="
+        let schedule
+        of schedules
+      ">
 
-          {{ schedule.title }}
+      <div
 
-        </td>
+        class="color-bar"
 
-      </ng-container>
-
-      <!-- Formation -->
-      <ng-container matColumnDef="formation">
-
-        <th mat-header-cell *matHeaderCellDef>
-          Formation
-        </th>
-
-        <td mat-cell *matCellDef="let schedule">
-
-          {{ schedule.formationName }}
-
-        </td>
-
-      </ng-container>
-
-      <!-- Formateur -->
-      <ng-container matColumnDef="trainer">
-
-        <th mat-header-cell *matHeaderCellDef>
-          Formateur
-        </th>
-
-        <td mat-cell *matCellDef="let schedule">
-
-          {{ schedule.trainerName }}
-
-        </td>
-
-      </ng-container>
-
-      <!-- Type -->
-      <ng-container matColumnDef="sessionType">
-
-        <th mat-header-cell *matHeaderCellDef>
-          Type
-        </th>
-
-        <td mat-cell *matCellDef="let schedule">
-
-          {{ schedule.sessionType }}
-
-        </td>
-
-      </ng-container>
-
-      <!-- Date -->
-      <ng-container matColumnDef="date">
-
-        <th mat-header-cell *matHeaderCellDef>
-          Date
-        </th>
-
-        <td mat-cell *matCellDef="let schedule">
-
-          {{ schedule.date | date:'dd/MM/yyyy' }}
-
-        </td>
-
-      </ng-container>
-
-      <!-- Début -->
-      <ng-container matColumnDef="startTime">
-
-        <th mat-header-cell *matHeaderCellDef>
-          Début
-        </th>
-
-        <td mat-cell *matCellDef="let schedule">
-
-          {{ schedule.startTime }}
-
-        </td>
-
-      </ng-container>
-
-      <!-- Fin -->
-      <ng-container matColumnDef="endTime">
-
-        <th mat-header-cell *matHeaderCellDef>
-          Fin
-        </th>
-
-        <td mat-cell *matCellDef="let schedule">
-
-          {{ schedule.endTime }}
-
-        </td>
-
-      </ng-container>
-
-      <!-- Salle -->
-      <ng-container matColumnDef="room">
-
-        <th mat-header-cell *matHeaderCellDef>
-          Salle
-        </th>
-
-        <td mat-cell *matCellDef="let schedule">
-
-          {{ schedule.room }}
-
-        </td>
-
-      </ng-container>
-
-      <!-- Actions -->
-      <ng-container matColumnDef="actions">
-
-        <th mat-header-cell *matHeaderCellDef>
-          Actions
-        </th>
-
-        <td mat-cell *matCellDef="let schedule">
-
-          <button
-            mat-icon-button
-            (click)="openEditDialog(schedule)">
-
-            <mat-icon color="primary">
-              edit
-            </mat-icon>
-
-          </button>
-
-          <button
-            mat-icon-button
-            (click)="deleteSchedule(schedule)">
-
-            <mat-icon color="warn">
-              delete
-            </mat-icon>
-
-          </button>
-
-        </td>
-
-      </ng-container>
-
-      <tr
-        mat-header-row
-        *matHeaderRowDef="displayedColumns">
-      </tr>
-
-      <tr
-        mat-row
-        *matRowDef="
-          let row;
-          columns: displayedColumns;
+        [style.background]="
+          schedule.color
         ">
-      </tr>
 
-    </table>
+      </div>
 
-    <mat-paginator
+      <h3>
 
-      [pageSize]="5"
+        {{ schedule.moduleName }}
 
-      [pageSizeOptions]="[5,10,20]"
+      </h3>
 
-      showFirstLastButtons>
+      <p>
 
-    </mat-paginator>
+        {{ schedule.groupName }}
+
+      </p>
+
+      <p>
+
+        {{ schedule.trainerName }}
+
+      </p>
+
+      <p>
+
+        {{ schedule.dayOfWeek }}
+
+      </p>
+
+      <p>
+
+        {{ schedule.startTime }}
+
+        -
+
+        {{ schedule.endTime }}
+
+      </p>
+
+      <p>
+
+        Salle
+
+        {{ schedule.room }}
+
+      </p>
+
+      <div class="actions">
+
+        <button
+
+          mat-icon-button
+
+          color="primary"
+
+          (click)="openEditDialog(schedule)">
+
+          <mat-icon>
+
+            edit
+
+          </mat-icon>
+
+        </button>
+
+        <button
+
+          mat-icon-button
+
+          color="warn"
+
+          (click)="deleteSchedule(schedule)">
+
+          <mat-icon>
+
+            delete
+
+          </mat-icon>
+
+        </button>
+
+      </div>
+
+    </div>
 
   </div>
 

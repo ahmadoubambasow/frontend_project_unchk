@@ -1,51 +1,120 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Schedule } from '../models/schedule.model';
-import { Observable } from 'rxjs';
+import {
+  Injectable
+} from '@angular/core';
+
+import {
+  HttpClient
+} from '@angular/common/http';
+
+import {
+  Observable
+} from 'rxjs';
+
+import {
+  Schedule
+} from '../models/schedule.model';
+
+import {
+  ScheduleRequest
+} from '../models/schedule-request.model';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class ScheduleService {
 
-  /**
-   * URL de l'API
-   */
-  private apiUrl = 'http://localhost:8080/api/schedules'
+  private apiUrl =
+    'http://localhost:8080/api/schedules';
 
   constructor(
-    private http: HttpClient
+
+    private http:
+      HttpClient
+
   ) {}
 
-  /**
-   * Liste séances
-   */
-  getSchedules(): Observable<Schedule[]> {
+  getSchedules():
+  Observable<Schedule[]> {
 
-    return this.http.get<Schedule[]>(this.apiUrl);
+    return this.http.get<Schedule[]>(
+      this.apiUrl
+    );
   }
 
-  /**
-   * Création
-   */
-  createSchedule(request: any): Observable<Schedule> {
+  getMySchedule()
+  : Observable<Schedule[]> {
 
-    return this.http.post<Schedule>(this.apiUrl, request);
+    return this.http.get<Schedule[]>(
+
+      `${this.apiUrl}/my-schedule`
+    );
   }
 
-  /**
-   * Modification
-   */
-  updateSchedule(id: number, request: any): Observable<Schedule> {
+  getById(
+    id: number
+  ): Observable<Schedule> {
 
-    return this.http.put<Schedule>(`${this.apiUrl}/${id}`, request);
+    return this.http.get<Schedule>(
+
+      `${this.apiUrl}/${id}`
+    );
   }
 
-  /**
-   * Suppression
-   */
-  deleteSchedule(id: number): Observable<void> {
+  getGroupSchedules(
+    groupId: number
+  ): Observable<Schedule[]> {
 
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+    return this.http.get<Schedule[]>(
+
+      `${this.apiUrl}/group/${groupId}`
+    );
+  }
+
+  getTrainerSchedules(
+    trainerId: number
+  ): Observable<Schedule[]> {
+
+    return this.http.get<Schedule[]>(
+
+      `${this.apiUrl}/trainer/${trainerId}`
+    );
+  }
+
+  create(
+    request: ScheduleRequest
+  ): Observable<Schedule> {
+
+    return this.http.post<Schedule>(
+
+      this.apiUrl,
+
+      request
+    );
+  }
+
+  update(
+
+    id: number,
+
+    request: ScheduleRequest
+
+  ): Observable<Schedule> {
+
+    return this.http.put<Schedule>(
+
+      `${this.apiUrl}/${id}`,
+
+      request
+    );
+  }
+
+  delete(
+    id: number
+  ): Observable<void> {
+
+    return this.http.delete<void>(
+
+      `${this.apiUrl}/${id}`
+    );
   }
 }

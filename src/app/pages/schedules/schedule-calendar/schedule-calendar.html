@@ -1,0 +1,137 @@
+<div class="calendar-page">
+
+  <div class="page-header">
+
+    <h1>
+
+      Emploi du temps
+
+    </h1>
+
+    <p>
+
+      Vue hebdomadaire
+
+    </p>
+
+  </div>
+
+  <div
+    *ngIf="loading"
+    class="loading">
+
+    Chargement...
+  </div>
+
+  <div
+    *ngIf="!loading"
+    class="calendar-container">
+
+    <!-- Colonne heures -->
+
+    <div class="hours-column">
+
+      <div class="header-cell">
+
+        Heure
+
+      </div>
+
+      <div
+        class="hour-cell"
+
+        *ngFor="
+          let hour
+          of hours
+        ">
+
+        {{ hour }}
+
+      </div>
+
+    </div>
+
+    <!-- Colonnes jours -->
+
+    <div
+
+      class="day-column"
+
+      *ngFor="
+        let day
+        of days
+      ">
+
+      <div class="header-cell">
+
+        {{ getDayLabel(day) }}
+
+      </div>
+
+      <div
+        class="hour-slot"
+
+        *ngFor="
+          let hour
+          of hours
+        ">
+      </div>
+
+      <div
+
+        class="schedule-card"
+
+        *ngFor="
+          let schedule
+          of getSchedulesByDay(day)
+        "
+
+        [style.grid-row]="
+          getGridRow(schedule)
+        "
+
+        [style.background]="
+          schedule.color
+        ">
+
+        <strong>
+
+          {{ schedule.moduleName }}
+
+        </strong>
+
+        <span>
+
+          {{ schedule.startTime }}
+
+          -
+
+          {{ schedule.endTime }}
+
+        </span>
+
+        <span>
+
+          {{ schedule.groupName }}
+
+        </span>
+
+        <span>
+
+          {{ schedule.room }}
+
+        </span>
+
+        <small>
+
+          {{ schedule.trainerName }}
+
+        </small>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
