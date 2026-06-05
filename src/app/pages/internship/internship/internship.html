@@ -1,0 +1,126 @@
+<div class="page-container">
+
+  <div class="page-header">
+
+    <div>
+
+      <h1>
+
+        Stages
+
+      </h1>
+
+      <p>
+
+        Gestion des stages étudiants
+
+      </p>
+
+    </div>
+
+    <button
+
+      mat-raised-button
+
+      color="primary"
+
+      (click)="openCreateDialog()">
+
+      <mat-icon>
+
+        add
+
+      </mat-icon>
+
+      Nouveau stage
+
+    </button>
+
+  </div>
+
+  <div class="search-bar">
+
+    <input
+
+      matInput
+
+      placeholder="Rechercher..."
+
+      (input)="applyFilter($event)">
+  </div>
+
+  <div
+    class="internships-grid">
+
+    <div
+
+      class="internship-card"
+
+      *ngFor="
+        let internship
+        of filteredInternships
+      ">
+
+      <h3>
+
+        {{ internship.studentName }}
+
+      </h3>
+
+      <p>
+
+        {{ internship.partnerName }}
+
+      </p>
+
+      <span class="status">
+
+        {{ internship.status }}
+
+      </span>
+
+      <div class="actions">
+
+        <button
+
+          mat-button
+
+          color="primary"
+
+          (click)="openDetails(internship)">
+
+          Détails
+
+        </button>
+
+        <button
+
+          mat-button
+
+          color="accent"
+
+          (click)="openEditDialog(internship)">
+
+          Modifier
+
+        </button>
+
+        <button
+
+          mat-button
+
+          color="warn"
+
+          (click)="deleteInternship(internship)">
+
+          Supprimer
+
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

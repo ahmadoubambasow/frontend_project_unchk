@@ -1,0 +1,114 @@
+<div class="page-container">
+
+  <div class="page-header">
+
+    <div>
+
+      <h1>
+
+        Partenaires
+
+      </h1>
+
+      <p>
+
+        Gestion des partenaires
+
+      </p>
+
+    </div>
+
+    <button
+
+      mat-raised-button
+
+      color="primary"
+
+      (click)="openCreateDialog()">
+
+      <mat-icon>
+
+        add
+
+      </mat-icon>
+
+      Nouveau partenaire
+
+    </button>
+
+  </div>
+
+  <div class="partners-grid">
+
+    <div
+
+      class="partner-card"
+
+      *ngFor="
+        let partner
+        of filteredPartners
+      ">
+
+      <h3>
+
+        {{ partner.name }}
+
+      </h3>
+
+      <p>
+
+        {{ partner.sector }}
+
+      </p>
+
+      <p>
+
+        {{ partner.contactPerson }}
+
+      </p>
+
+      <div class="card-footer">
+
+  <button
+
+    mat-button
+
+    color="primary"
+
+    (click)="openDetails(partner)">
+
+    Détails
+
+  </button>
+
+  <button
+
+    mat-stroked-button
+
+    color="primary"
+
+    (click)="openEditDialog(partner)">
+
+    Modifier
+
+  </button>
+
+  <button
+
+    mat-stroked-button
+
+    color="warn"
+
+    (click)="deletePartner(partner)">
+
+    Supprimer
+
+  </button>
+
+</div>
+
+    </div>
+
+  </div>
+
+</div>

@@ -1,0 +1,245 @@
+<div class="internship-details-page">
+
+  <div
+    class="loading"
+    *ngIf="loading">
+
+    Chargement...
+  </div>
+
+  <ng-container
+    *ngIf="!loading && internship">
+
+    <div class="page-header">
+
+      <div class="internship-profile">
+
+        <div class="avatar">
+
+          {{
+            internship.studentName
+              ?.charAt(0)
+          }}
+
+        </div>
+
+        <div>
+
+          <h1>
+
+            {{ internship.studentName }}
+
+          </h1>
+
+          <p>
+
+            {{ internship.partnerName }}
+
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Informations générales -->
+
+    <mat-card class="details-card">
+
+      <mat-card-header>
+
+        <mat-card-title>
+
+          Informations générales
+
+        </mat-card-title>
+
+      </mat-card-header>
+
+      <mat-card-content>
+
+        <div class="info-grid">
+
+          <div class="info-item">
+
+            <label>
+
+              Étudiant
+
+            </label>
+
+            <span>
+
+              {{ internship.studentName }}
+
+            </span>
+
+          </div>
+
+          <div class="info-item">
+
+            <label>
+
+              Partenaire
+
+            </label>
+
+            <span>
+
+              {{ internship.partnerName }}
+
+            </span>
+
+          </div>
+
+          <div class="info-item">
+
+            <label>
+
+              Encadreur
+
+            </label>
+
+            <span>
+
+              {{ internship.supervisor }}
+
+            </span>
+
+          </div>
+
+          <div class="info-item">
+
+            <label>
+
+              Statut
+
+            </label>
+
+            <span
+              class="status">
+
+              {{
+                getStatusLabel(
+                  internship.status
+                )
+              }}
+
+            </span>
+
+          </div>
+
+          <div class="info-item">
+
+            <label>
+
+              Date début
+
+            </label>
+
+            <span>
+
+              {{ internship.startDate }}
+
+            </span>
+
+          </div>
+
+          <div class="info-item">
+
+            <label>
+
+              Date fin
+
+            </label>
+
+            <span>
+
+              {{ internship.endDate }}
+
+            </span>
+
+          </div>
+
+        </div>
+
+      </mat-card-content>
+
+    </mat-card>
+
+    <!-- Evaluation -->
+
+    <mat-card class="details-card">
+
+      <mat-card-header>
+
+        <mat-card-title>
+
+          Évaluation
+
+        </mat-card-title>
+
+      </mat-card-header>
+
+      <mat-card-content>
+
+        <div
+          class="empty"
+
+          *ngIf="!internship.evaluation">
+
+          Aucune évaluation renseignée
+
+        </div>
+
+        <p
+          *ngIf="internship.evaluation">
+
+          {{ internship.evaluation }}
+
+        </p>
+
+      </mat-card-content>
+
+    </mat-card>
+
+    <!-- Observations -->
+
+    <mat-card class="details-card">
+
+      <mat-card-header>
+
+        <mat-card-title>
+
+          Observations
+
+        </mat-card-title>
+
+      </mat-card-header>
+
+      <mat-card-content>
+
+        <div
+          class="empty"
+
+          *ngIf="!internship.remarks">
+
+          Aucune observation renseignée
+
+        </div>
+
+        <p
+          *ngIf="internship.remarks">
+
+          {{ internship.remarks }}
+
+        </p>
+
+      </mat-card-content>
+
+    </mat-card>
+
+  </ng-container>
+
+</div>

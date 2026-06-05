@@ -1,0 +1,48 @@
+.page-container {
+
+  padding: 24px;
+}
+
+.page-header {
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  margin-bottom: 24px;
+}
+
+.partners-grid {
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(auto-fill,minmax(320px,1fr));
+
+  gap: 20px;
+}
+
+.partner-card {
+
+  background: white;
+
+  border-radius: 16px;
+
+  padding: 20px;
+
+  box-shadow:
+    0 4px 20px rgba(0,0,0,.08);
+}
+
+.actions {
+
+  display: flex;
+
+  justify-content: flex-end;
+
+  gap: 10px;
+
+  margin-top: 16px;
+}

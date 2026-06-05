@@ -1,0 +1,197 @@
+<div class="partner-details-page">
+
+  <div
+    class="loading"
+    *ngIf="loading">
+
+    Chargement...
+  </div>
+
+  <ng-container
+    *ngIf="!loading && partner">
+
+    <div class="page-header">
+
+      <div class="partner-profile">
+
+        <div class="avatar">
+
+          {{
+            partner.name?.charAt(0)
+          }}
+
+        </div>
+
+        <div>
+
+          <h1>
+
+            {{ partner.name }}
+
+          </h1>
+
+          <p>
+
+            {{ partner.sector }}
+
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <mat-card class="details-card">
+
+      <mat-card-header>
+
+        <mat-card-title>
+
+          Informations générales
+
+        </mat-card-title>
+
+      </mat-card-header>
+
+      <mat-card-content>
+
+        <div class="info-grid">
+
+          <div class="info-item">
+
+            <label>
+
+              Contact principal
+
+            </label>
+
+            <span>
+
+              {{
+                partner.contactPerson
+                || '-'
+              }}
+
+            </span>
+
+          </div>
+
+          <div class="info-item">
+
+            <label>
+
+              Téléphone
+
+            </label>
+
+            <span>
+
+              {{
+                partner.phone
+                || '-'
+              }}
+
+            </span>
+
+          </div>
+
+          <div class="info-item">
+
+            <label>
+
+              Email
+
+            </label>
+
+            <span>
+
+              {{
+                partner.email
+                || '-'
+              }}
+
+            </span>
+
+          </div>
+
+          <div class="info-item">
+
+            <label>
+
+              Adresse
+
+            </label>
+
+            <span>
+
+              {{
+                partner.address
+                || '-'
+              }}
+
+            </span>
+
+          </div>
+
+          <div class="info-item">
+
+            <label>
+
+              Secteur
+
+            </label>
+
+            <span>
+
+              {{
+                partner.sector
+                || '-'
+              }}
+
+            </span>
+
+          </div>
+
+        </div>
+
+      </mat-card-content>
+
+    </mat-card>
+
+    <mat-card class="details-card">
+
+      <mat-card-header>
+
+        <mat-card-title>
+
+          Description
+
+        </mat-card-title>
+
+      </mat-card-header>
+
+      <mat-card-content>
+
+        <div
+          class="empty"
+
+          *ngIf="!partner.description">
+
+          Aucune description renseignée
+
+        </div>
+
+        <p *ngIf="partner.description">
+
+          {{ partner.description }}
+
+        </p>
+
+      </mat-card-content>
+
+    </mat-card>
+
+  </ng-container>
+
+</div>

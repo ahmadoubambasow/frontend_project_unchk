@@ -1,0 +1,242 @@
+<div class="dialog-container">
+
+  <div class="dialog-header">
+
+    <h2>
+
+      {{
+        data
+          ? 'Modifier stage'
+          : 'Nouveau stage'
+      }}
+
+    </h2>
+
+    <p>
+
+      Gestion des stages étudiants
+
+    </p>
+
+  </div>
+
+  <form
+    [formGroup]="form"
+    class="internship-form">
+
+    <div class="form-grid">
+
+      <mat-form-field appearance="outline">
+
+        <mat-label>
+
+          Étudiant
+
+        </mat-label>
+
+        <mat-select
+          formControlName="studentId">
+
+          <mat-option
+
+            *ngFor="
+              let student
+              of students
+            "
+
+            [value]="student.id">
+
+            {{ student.firstName }}
+            {{ student.lastName }}
+
+          </mat-option>
+
+        </mat-select>
+
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+
+        <mat-label>
+
+          Partenaire
+
+        </mat-label>
+
+        <mat-select
+          formControlName="partnerId">
+
+          <mat-option
+
+            *ngFor="
+              let partner
+              of partners
+            "
+
+            [value]="partner.id">
+
+            {{ partner.name }}
+
+          </mat-option>
+
+        </mat-select>
+
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+
+        <mat-label>
+
+          Encadreur
+
+        </mat-label>
+
+        <input
+          matInput
+          formControlName="supervisor">
+
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+
+        <mat-label>
+
+          Début
+
+        </mat-label>
+
+        <input
+
+          matInput
+
+          type="date"
+
+          formControlName="startDate">
+
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+
+        <mat-label>
+
+          Fin
+
+        </mat-label>
+
+        <input
+
+          matInput
+
+          type="date"
+
+          formControlName="endDate">
+
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+
+        <mat-label>
+
+          Statut
+
+        </mat-label>
+
+        <mat-select
+          formControlName="status">
+
+          <mat-option
+            *ngFor="
+              let status
+              of statuses
+            "
+            [value]="status">
+
+            {{ status }}
+
+          </mat-option>
+
+        </mat-select>
+
+      </mat-form-field>
+
+    </div>
+
+    <mat-form-field
+      appearance="outline"
+      class="full-width">
+
+      <mat-label>
+
+        Évaluation
+
+      </mat-label>
+
+      <textarea
+
+        matInput
+
+        rows="4"
+
+        formControlName="evaluation">
+
+      </textarea>
+
+    </mat-form-field>
+
+    <mat-form-field
+      appearance="outline"
+      class="full-width">
+
+      <mat-label>
+
+        Observations
+
+      </mat-label>
+
+      <textarea
+
+        matInput
+
+        rows="4"
+
+        formControlName="remarks">
+
+      </textarea>
+
+    </mat-form-field>
+
+  </form>
+
+  <div class="dialog-actions">
+
+    <button
+
+      mat-stroked-button
+
+      (click)="dialogRef.close()">
+
+      Annuler
+
+    </button>
+
+    <button
+
+      mat-raised-button
+
+      color="primary"
+
+      [disabled]="loading"
+
+      (click)="submit()">
+
+      {{
+        data
+          ? 'Modifier'
+          : 'Créer'
+      }}
+
+    </button>
+
+  </div>
+
+</div>

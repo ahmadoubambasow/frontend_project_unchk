@@ -17,6 +17,10 @@ import { StudentGroupDetails } from './pages/student-groups/student-group-detail
 import { StudentGroups } from './pages/student-groups/student-groups';
 import { Meetings } from './pages/meetings/meetings/meetings';
 import { MeetingDetails } from './pages/meetings/meeting-details/meeting-details';
+import { Partners } from './pages/partners/partners/partners';
+import { PartnerDetails } from './pages/partners/partner-details/partner-details';
+import { Internships } from './pages/internship/internship/internship';
+import { InternshipDetails } from './pages/internship/internship-details/internship-details';
 
 export const routes: Routes = [
     
@@ -117,6 +121,26 @@ export const routes: Routes = [
             {
                 path: 'meetings/:id',
                 component: MeetingDetails
+            },
+
+            {
+                path: 'partners',
+                component: Partners
+            },
+
+            {
+                path: 'partners/:id',
+                component: PartnerDetails
+            },
+
+            {
+                path: 'internships',
+                component: Internships
+            },
+
+            {
+                path: 'internships/:id',
+                component: InternshipDetails
             },
 
             {
