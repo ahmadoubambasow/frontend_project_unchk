@@ -1,0 +1,156 @@
+.contact-details-page {
+
+  padding: 24px;
+
+  max-width: 1200px;
+
+  margin: auto;
+}
+
+.loading {
+
+  text-align: center;
+
+  padding: 40px;
+}
+
+.page-header {
+
+  margin-bottom: 24px;
+}
+
+.contact-profile {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 20px;
+}
+
+.avatar {
+
+  width: 80px;
+
+  height: 80px;
+
+  border-radius: 50%;
+
+  background: #0ea5e9;
+
+  color: white;
+
+  font-size: 32px;
+
+  font-weight: 700;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+}
+
+.contact-profile h1 {
+
+  margin: 0;
+
+  font-size: 28px;
+
+  color: #0f172a;
+}
+
+.contact-profile p {
+
+  margin-top: 5px;
+
+  color: #64748b;
+}
+
+.details-card {
+
+  margin-bottom: 24px;
+
+  border-radius: 18px;
+
+  box-shadow:
+    0 4px 20px rgba(15,23,42,.08);
+}
+
+.info-grid {
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(auto-fit,minmax(250px,1fr));
+
+  gap: 20px;
+}
+
+.info-item {
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 6px;
+}
+
+.info-item label {
+
+  font-size: 13px;
+
+  font-weight: 600;
+
+  text-transform: uppercase;
+
+  color: #64748b;
+}
+
+.info-item span {
+
+  font-size: 16px;
+
+  color: #0f172a;
+}
+
+.badge {
+
+  display: inline-flex;
+
+  width: fit-content;
+
+  padding: 6px 12px;
+
+  border-radius: 20px;
+
+  background: #e0f2fe;
+
+  color: #0284c7;
+
+  font-weight: 600;
+}
+
+.details-card p {
+
+  margin: 0;
+
+  line-height: 1.8;
+
+  color: #334155;
+}
+
+@media (max-width: 768px) {
+
+  .contact-details-page {
+
+    padding: 16px;
+  }
+
+  .contact-profile {
+
+    flex-direction: column;
+
+    text-align: center;
+  }
+}

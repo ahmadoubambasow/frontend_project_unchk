@@ -21,6 +21,8 @@ import { Partners } from './pages/partners/partners/partners';
 import { PartnerDetails } from './pages/partners/partner-details/partner-details';
 import { Internships } from './pages/internship/internship/internship';
 import { InternshipDetails } from './pages/internship/internship-details/internship-details';
+import { StudentContacts } from './pages/studentContact/students-contact/students-contact';
+import { StudentContactDetails } from './pages/studentContact/student-contact-detail/student-contact-detail';
 
 export const routes: Routes = [
     
@@ -141,6 +143,16 @@ export const routes: Routes = [
             {
                 path: 'internships/:id',
                 component: InternshipDetails
+            },
+
+            {
+                path: 'studentscontacts',
+                component: StudentContacts
+            },
+
+            {
+                path: 'student-contacts/:id',
+                component: StudentContactDetails
             },
 
             {

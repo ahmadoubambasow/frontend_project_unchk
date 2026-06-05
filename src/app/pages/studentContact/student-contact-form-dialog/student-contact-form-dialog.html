@@ -1,0 +1,210 @@
+<div class="dialog-container">
+
+  <div class="dialog-header">
+
+    <h2>
+
+      {{
+        data
+          ? 'Modifier contact'
+          : 'Nouveau contact'
+      }}
+
+    </h2>
+
+    <p>
+
+      Registre de suivi étudiant
+
+    </p>
+
+  </div>
+
+  <form
+
+    [formGroup]="form"
+
+    class="contact-form">
+
+    <div class="form-grid">
+
+      <mat-form-field appearance="outline">
+
+        <mat-label>
+
+          Étudiant
+
+        </mat-label>
+
+        <mat-select
+          formControlName="studentId">
+
+          <mat-option
+
+            *ngFor="
+              let student
+              of students
+            "
+
+            [value]="student.id">
+
+            {{ student.firstName }}
+            {{ student.lastName }}
+
+          </mat-option>
+
+        </mat-select>
+
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+
+        <mat-label>
+
+          Responsable
+
+        </mat-label>
+
+        <mat-select
+          formControlName="createdById">
+
+          <mat-option
+
+            *ngFor="
+              let user
+              of users
+            "
+
+            [value]="user.id">
+
+            {{ user.fullName }}
+
+          </mat-option>
+
+        </mat-select>
+
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+
+        <mat-label>
+
+          Date
+
+        </mat-label>
+
+        <input
+
+          matInput
+
+          type="date"
+
+          formControlName="contactDate">
+
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+
+        <mat-label>
+
+          Type
+
+        </mat-label>
+
+        <mat-select
+          formControlName="contactType">
+
+          <mat-option
+
+            *ngFor="
+              let type
+              of contactTypes
+            "
+
+            [value]="type">
+
+            {{ getTypeLabel(type) }}
+
+          </mat-option>
+
+        </mat-select>
+
+      </mat-form-field>
+
+    </div>
+
+    <mat-form-field
+      appearance="outline"
+      class="full-width">
+
+      <mat-label>
+
+        Sujet
+
+      </mat-label>
+
+      <input
+
+        matInput
+
+        formControlName="subject">
+
+    </mat-form-field>
+
+    <mat-form-field
+      appearance="outline"
+      class="full-width">
+
+      <mat-label>
+
+        Compte rendu
+
+      </mat-label>
+
+      <textarea
+
+        matInput
+
+        rows="6"
+
+        formControlName="description">
+
+      </textarea>
+
+    </mat-form-field>
+
+  </form>
+
+  <div class="dialog-actions">
+
+    <button
+
+      mat-stroked-button
+
+      (click)="dialogRef.close()">
+
+      Annuler
+
+    </button>
+
+    <button
+
+      mat-raised-button
+
+      color="primary"
+
+      [disabled]="loading"
+
+      (click)="submit()">
+
+      {{
+        data
+          ? 'Modifier'
+          : 'Créer'
+      }}
+
+    </button>
+
+  </div>
+
+</div>

@@ -1,0 +1,167 @@
+<div class="page-container">
+
+  <div class="page-header">
+
+    <div>
+
+      <h1>
+
+        Registre de contacts
+
+      </h1>
+
+      <p>
+
+        Suivi des étudiants
+
+      </p>
+
+    </div>
+
+    <button
+
+      mat-raised-button
+
+      color="primary"
+
+      (click)="openCreateDialog()">
+
+      <mat-icon>
+
+        add
+
+      </mat-icon>
+
+      Nouveau contact
+
+    </button>
+
+  </div>
+
+  <div class="search-bar">
+
+    <input
+
+      matInput
+
+      placeholder="Rechercher..."
+
+      (input)="applyFilter($event)">
+  </div>
+
+  <div
+    class="loading"
+
+    *ngIf="loading">
+
+    Chargement...
+  </div>
+
+  <div
+
+    class="contacts-grid"
+
+    *ngIf="!loading">
+
+    <div
+
+      class="contact-card"
+
+      *ngFor="
+        let contact
+        of filteredContacts
+      ">
+
+      <div class="card-header">
+
+        <h3>
+
+          {{ contact.studentName }}
+
+        </h3>
+
+        <span class="type-badge">
+
+          {{
+            getTypeLabel(
+              contact.contactType
+            )
+          }}
+
+        </span>
+
+      </div>
+
+      <div class="card-body">
+
+        <p>
+
+          <strong>Sujet :</strong>
+
+          {{ contact.subject }}
+
+        </p>
+
+        <p>
+
+          <strong>Date :</strong>
+
+          {{ contact.contactDate }}
+
+        </p>
+
+        <p>
+
+          <strong>Responsable :</strong>
+
+          {{ contact.createdByName }}
+
+        </p>
+
+      </div>
+
+      <div class="card-footer">
+
+        <button
+
+          mat-button
+
+          color="primary"
+
+          (click)="openDetails(contact)">
+
+          Détails
+
+        </button>
+
+        <button
+
+          mat-button
+
+          color="accent"
+
+          (click)="openEditDialog(contact)">
+
+          Modifier
+
+        </button>
+
+        <button
+
+          mat-button
+
+          color="warn"
+
+          (click)="deleteContact(contact)">
+
+          Supprimer
+
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

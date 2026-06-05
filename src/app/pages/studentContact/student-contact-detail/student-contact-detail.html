@@ -1,0 +1,185 @@
+<div class="contact-details-page">
+
+  <div
+    class="loading"
+    *ngIf="loading">
+
+    Chargement...
+  </div>
+
+  <ng-container
+    *ngIf="!loading && contact">
+
+    <div class="page-header">
+
+      <div class="contact-profile">
+
+        <div class="avatar">
+
+          {{
+            contact.studentName?.charAt(0)
+          }}
+
+        </div>
+
+        <div>
+
+          <h1>
+
+            {{ contact.studentName }}
+
+          </h1>
+
+          <p>
+
+            {{ getTypeLabel(contact.contactType) }}
+
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <mat-card class="details-card">
+
+      <mat-card-header>
+
+        <mat-card-title>
+
+          Informations générales
+
+        </mat-card-title>
+
+      </mat-card-header>
+
+      <mat-card-content>
+
+        <div class="info-grid">
+
+          <div class="info-item">
+
+            <label>
+
+              Étudiant
+
+            </label>
+
+            <span>
+
+              {{ contact.studentName }}
+
+            </span>
+
+          </div>
+
+          <div class="info-item">
+
+            <label>
+
+              Responsable
+
+            </label>
+
+            <span>
+
+              {{ contact.createdByName }}
+
+            </span>
+
+          </div>
+
+          <div class="info-item">
+
+            <label>
+
+              Date
+
+            </label>
+
+            <span>
+
+              {{ contact.contactDate }}
+
+            </span>
+
+          </div>
+
+          <div class="info-item">
+
+            <label>
+
+              Type
+
+            </label>
+
+            <span class="badge">
+
+              {{
+                getTypeLabel(
+                  contact.contactType
+                )
+              }}
+
+            </span>
+
+          </div>
+
+        </div>
+
+      </mat-card-content>
+
+    </mat-card>
+
+    <mat-card class="details-card">
+
+      <mat-card-header>
+
+        <mat-card-title>
+
+          Sujet
+
+        </mat-card-title>
+
+      </mat-card-header>
+
+      <mat-card-content>
+
+        <p>
+
+          {{ contact.subject }}
+
+        </p>
+
+      </mat-card-content>
+
+    </mat-card>
+
+    <mat-card class="details-card">
+
+      <mat-card-header>
+
+        <mat-card-title>
+
+          Compte rendu
+
+        </mat-card-title>
+
+      </mat-card-header>
+
+      <mat-card-content>
+
+        <p>
+
+          {{ contact.description }}
+
+        </p>
+
+      </mat-card-content>
+
+    </mat-card>
+
+  </ng-container>
+
+</div>
