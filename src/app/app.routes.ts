@@ -25,6 +25,7 @@ import { StudentContacts } from './pages/studentContact/students-contact/student
 import { StudentContactDetails } from './pages/studentContact/student-contact-detail/student-contact-detail';
 import { GraduateInsertions } from './pages/graduate-insertion/graduate-insertions/graduate-insertions';
 import { GraduateInsertionDetails } from './pages/graduate-insertion/graduate-insertion-details/graduate-insertion-details';
+import { InsertionDashboardPage } from './pages/graduate-insertion/insertion-dashboard/insertion-dashboard';
 
 export const routes: Routes = [
     
@@ -48,6 +49,11 @@ export const routes: Routes = [
             {
                 path: 'dashboard',
                 component: Dashboard
+            },
+
+            {
+                path: 'dashboard-insertion',
+                component: InsertionDashboardPage
             },
 
             {
