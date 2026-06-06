@@ -1,0 +1,235 @@
+<div class="page-container">
+
+  <div class="page-header">
+
+    <div>
+
+      <h1>
+
+        Gestion budgétaire
+
+      </h1>
+
+      <p>
+
+        Budgets et orientations
+
+      </p>
+
+    </div>
+
+    <button
+
+      mat-raised-button
+
+      color="primary"
+
+      (click)="openCreateDialog()">
+
+      <mat-icon>
+
+        add
+
+      </mat-icon>
+
+      Nouveau budget
+
+    </button>
+
+  </div>
+
+  <div class="stats-grid">
+
+    <div class="stat-card">
+
+      <h3>
+
+        Budget prévu
+
+      </h3>
+
+      <span>
+
+        {{
+          totalPlanned
+          | number
+        }}
+
+      </span>
+
+    </div>
+
+    <div class="stat-card">
+
+      <h3>
+
+        Budget réalisé
+
+      </h3>
+
+      <span>
+
+        {{
+          totalExecuted
+          | number
+        }}
+
+      </span>
+
+    </div>
+
+    <div class="stat-card">
+
+      <h3>
+
+        Écart
+
+      </h3>
+
+      <span>
+
+        {{
+          totalVariance
+          | number
+        }}
+
+      </span>
+
+    </div>
+
+    <div class="stat-card">
+
+      <h3>
+
+        Budgets
+
+      </h3>
+
+      <span>
+
+        {{
+          budgets.length
+        }}
+
+      </span>
+
+    </div>
+
+  </div>
+
+  <div class="search-bar">
+
+    <input
+
+      matInput
+
+      placeholder="Rechercher..."
+
+      (input)="applyFilter($event)">
+  </div>
+
+  <div
+    class="budgets-grid">
+
+    <div
+
+      *ngFor="
+        let budget
+        of filteredBudgets
+      "
+
+      class="budget-card">
+
+      <div class="budget-header">
+
+        <h3>
+
+          {{ budget.title }}
+
+        </h3>
+
+        <span class="badge">
+
+          {{
+            getTypeLabel(
+              budget.type
+            )
+          }}
+
+        </span>
+
+      </div>
+
+      <p>
+
+        Année :
+        {{ budget.year }}
+
+      </p>
+
+      <p>
+
+        Prévu :
+        {{ budget.plannedAmount }}
+
+      </p>
+
+      <p>
+
+        Réalisé :
+        {{ budget.executedAmount }}
+
+      </p>
+
+      <p>
+
+        Écart :
+        {{ budget.variance }}
+
+      </p>
+
+      <div class="actions">
+
+        <button
+
+          mat-button
+
+          color="primary"
+
+          (click)="openDetails(budget)">
+
+          Détails
+
+        </button>
+
+        <button
+
+          mat-button
+
+          color="accent"
+
+          (click)="openEditDialog(budget)">
+
+          Modifier
+
+        </button>
+
+        <button
+
+          mat-button
+
+          color="warn"
+
+          (click)="deleteBudget(budget)">
+
+          Supprimer
+
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

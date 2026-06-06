@@ -1,0 +1,276 @@
+<div class="details-page">
+
+  <div
+    *ngIf="loading"
+    class="loading">
+
+    Chargement...
+  </div>
+
+  <ng-container
+    *ngIf="!loading && budget">
+
+    <div class="page-header">
+
+      <div class="budget-profile">
+
+        <div class="icon">
+
+          💰
+
+        </div>
+
+        <div>
+
+          <h1>
+
+            {{ budget.title }}
+
+          </h1>
+
+          <p>
+
+            {{
+              getTypeLabel(
+                budget.type
+              )
+            }}
+
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <mat-card class="details-card">
+
+      <mat-card-header>
+
+        <mat-card-title>
+
+          Informations générales
+
+        </mat-card-title>
+
+      </mat-card-header>
+
+      <mat-card-content>
+
+        <div class="info-grid">
+
+          <div class="info-item">
+
+            <label>
+
+              Année
+
+            </label>
+
+            <span>
+
+              {{ budget.year }}
+
+            </span>
+
+          </div>
+
+          <div class="info-item">
+
+            <label>
+
+              Type
+
+            </label>
+
+            <span class="badge">
+
+              {{
+                getTypeLabel(
+                  budget.type
+                )
+              }}
+
+            </span>
+
+          </div>
+
+          <div class="info-item">
+
+            <label>
+
+              Budget prévu
+
+            </label>
+
+            <span>
+
+              {{
+                budget.plannedAmount
+                | number
+              }}
+
+              FCFA
+
+            </span>
+
+          </div>
+
+          <div class="info-item">
+
+            <label>
+
+              Budget réalisé
+
+            </label>
+
+            <span>
+
+              {{
+                budget.executedAmount
+                | number
+              }}
+
+              FCFA
+
+            </span>
+
+          </div>
+
+          <div class="info-item">
+
+            <label>
+
+              Écart
+
+            </label>
+
+            <span
+              [class.positive]="budget.variance >= 0"
+              [class.negative]="budget.variance < 0">
+
+              {{
+                budget.variance
+                | number
+              }}
+
+              FCFA
+
+            </span>
+
+          </div>
+
+        </div>
+
+      </mat-card-content>
+
+    </mat-card>
+
+    <mat-card class="details-card">
+
+      <mat-card-header>
+
+        <mat-card-title>
+
+          Description
+
+        </mat-card-title>
+
+      </mat-card-header>
+
+      <mat-card-content>
+
+        <p>
+
+          {{
+            budget.description
+            || '-'
+          }}
+
+        </p>
+
+      </mat-card-content>
+
+    </mat-card>
+
+    <mat-card
+      *ngIf="budget.documentPath"
+      class="details-card">
+
+      <mat-card-header>
+
+        <mat-card-title>
+
+          Document associé
+
+        </mat-card-title>
+
+      </mat-card-header>
+
+    <mat-card
+  *ngIf="budget.documentPath"
+  class="details-card">
+
+  <mat-card-header>
+
+    <mat-card-title>
+
+      Document associé
+
+    </mat-card-title>
+
+  </mat-card-header>
+
+  <mat-card-content>
+
+    <div
+      *ngIf="
+        isImage(
+          budget.documentPath
+        )
+      "
+
+      class="image-preview">
+
+      <img
+
+        [src]="
+          'http://localhost:8080/uploads/documents/'
+          + budget.documentPath
+        "
+
+        alt="Document budget">
+
+    </div>
+
+    <a
+
+      class="document-link"
+
+      [href]="
+        'http://localhost:8080/uploads/documents/'
+        + budget.documentPath
+      "
+
+      target="_blank">
+
+      Ouvrir le document
+
+    </a>
+
+    <button mat-icon-button
+      (click)="openDocument(budget.documentPath)"
+    >
+      <mat-icon>download</mat-icon>
+    </button>
+
+  </mat-card-content>
+
+</mat-card>
+
+    </mat-card>
+
+  </ng-container>
+
+</div>

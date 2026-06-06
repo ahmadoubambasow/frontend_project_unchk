@@ -28,6 +28,8 @@ import { GraduateInsertionDetails } from './pages/graduate-insertion/graduate-in
 import { InsertionDashboardPage } from './pages/graduate-insertion/insertion-dashboard/insertion-dashboard';
 import { AdministrativeDocuments } from './pages/administration/administrative-documents/administrative-documents';
 import { AdministrativeDocumentDetails } from './pages/administration/administrative-document-details/administrative-document-details';
+import { Budgets } from './pages/budget/budgets/budgets';
+import { BudgetDetails } from './pages/budget/budget-details/budget-details';
 
 export const routes: Routes = [
     
@@ -77,7 +79,17 @@ export const routes: Routes = [
                 path: 'administrative-documents/:id',
                 component: AdministrativeDocumentDetails
             },
-            
+
+            {
+                path: 'budgets',
+                component: Budgets
+            },
+
+            {
+                path: 'budgets/:id',
+                component: BudgetDetails
+            },
+                        
             {
                 path: 'users',
                 component: Users
