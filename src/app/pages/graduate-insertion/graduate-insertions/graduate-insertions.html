@@ -1,0 +1,118 @@
+<div class="page-container">
+
+  <div class="page-header">
+
+    <div>
+
+      <h1>
+
+        Insertion professionnelle
+
+      </h1>
+
+      <p>
+
+        Suivi des diplômés
+
+      </p>
+
+    </div>
+
+    <button
+
+      mat-raised-button
+
+      color="primary"
+
+      (click)="openCreateDialog()">
+
+      <mat-icon>
+
+        add
+
+      </mat-icon>
+
+      Nouvelle insertion
+
+    </button>
+
+  </div>
+
+  <div class="search-bar">
+
+    <input
+
+      matInput
+
+      placeholder="Rechercher..."
+
+      (input)="applyFilter($event)">
+  </div>
+
+  <div
+
+    class="insertions-grid">
+
+    <div
+
+      class="insertion-card"
+
+      *ngFor="
+        let insertion
+        of filteredInsertions
+      ">
+
+      <h3>
+
+        {{ insertion.studentName }}
+
+      </h3>
+
+      <p>
+
+        {{ getStatusLabel(insertion.status) }}
+
+      </p>
+
+      <p>
+
+        {{ insertion.company || '-' }}
+
+      </p>
+
+      <div class="actions">
+
+        <button
+          mat-button
+          color="primary"
+          (click)="openDetails(insertion)">
+
+          Détails
+
+        </button>
+
+        <button
+          mat-button
+          color="accent"
+          (click)="openEditDialog(insertion)">
+
+          Modifier
+
+        </button>
+
+        <button
+          mat-button
+          color="warn"
+          (click)="deleteInsertion(insertion)">
+
+          Supprimer
+
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

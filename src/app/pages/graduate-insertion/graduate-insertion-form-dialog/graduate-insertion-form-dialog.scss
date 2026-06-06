@@ -1,0 +1,84 @@
+.dialog-container {
+
+  padding: 24px;
+
+  max-height: 90vh;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 20px;
+}
+
+.dialog-header {
+
+  h2 {
+
+    margin: 0;
+
+    font-size: 28px;
+
+    font-weight: 700;
+  }
+
+  p {
+
+    margin-top: 6px;
+
+    color: #64748b;
+  }
+}
+
+.insertion-form {
+
+  overflow-y: auto;
+
+  padding-right: 6px;
+}
+
+.form-grid {
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(auto-fit,minmax(280px,1fr));
+
+  gap: 18px;
+}
+
+mat-form-field {
+
+  width: 100%;
+}
+
+.full-width {
+
+  width: 100%;
+}
+
+.dialog-actions {
+
+  display: flex;
+
+  justify-content: flex-end;
+
+  gap: 12px;
+
+  border-top: 1px solid #e2e8f0;
+
+  padding-top: 16px;
+}
+
+@media (max-width: 768px) {
+
+  .form-grid {
+
+    grid-template-columns: 1fr;
+  }
+
+  .dialog-container {
+
+    padding: 16px;
+  }
+}

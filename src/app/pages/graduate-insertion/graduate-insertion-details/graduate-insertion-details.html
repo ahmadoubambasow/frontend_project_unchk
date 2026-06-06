@@ -1,0 +1,211 @@
+<div class="details-page">
+
+  <div
+    class="loading"
+    *ngIf="loading">
+
+    Chargement...
+  </div>
+
+  <ng-container
+    *ngIf="!loading && insertion">
+
+    <div class="page-header">
+
+      <div class="profile">
+
+        <div class="avatar">
+
+          {{
+            insertion.studentName
+              ?.charAt(0)
+          }}
+
+        </div>
+
+        <div>
+
+          <h1>
+
+            {{ insertion.studentName }}
+
+          </h1>
+
+          <p>
+
+            {{
+              getStatusLabel(
+                insertion.status
+              )
+            }}
+
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <mat-card class="details-card">
+
+      <mat-card-header>
+
+        <mat-card-title>
+
+          Informations générales
+
+        </mat-card-title>
+
+      </mat-card-header>
+
+      <mat-card-content>
+
+        <div class="info-grid">
+
+          <div class="info-item">
+
+            <label>
+
+              Étudiant
+
+            </label>
+
+            <span>
+
+              {{ insertion.studentName }}
+
+            </span>
+
+          </div>
+
+          <div class="info-item">
+
+            <label>
+
+              Situation
+
+            </label>
+
+            <span class="status">
+
+              {{
+                getStatusLabel(
+                  insertion.status
+                )
+              }}
+
+            </span>
+
+          </div>
+
+          <div class="info-item">
+
+            <label>
+
+              Entreprise
+
+            </label>
+
+            <span>
+
+              {{ insertion.company || '-' }}
+
+            </span>
+
+          </div>
+
+          <div class="info-item">
+
+            <label>
+
+              Poste
+
+            </label>
+
+            <span>
+
+              {{ insertion.position || '-' }}
+
+            </span>
+
+          </div>
+
+          <div class="info-item">
+
+            <label>
+
+              Date début
+
+            </label>
+
+            <span>
+
+              {{ insertion.startDate || '-' }}
+
+            </span>
+
+          </div>
+
+          <div class="info-item">
+
+            <label>
+
+              Salaire
+
+            </label>
+
+            <span>
+
+              {{
+                insertion.salary
+                  ? (insertion.salary | number)
+                  : '-'
+              }}
+
+            </span>
+
+          </div>
+
+        </div>
+
+      </mat-card-content>
+
+    </mat-card>
+
+    <mat-card class="details-card">
+
+      <mat-card-header>
+
+        <mat-card-title>
+
+          Observations
+
+        </mat-card-title>
+
+      </mat-card-header>
+
+      <mat-card-content>
+
+        <div
+          class="empty"
+          *ngIf="!insertion.remarks">
+
+          Aucune observation
+
+        </div>
+
+        <p
+          *ngIf="insertion.remarks">
+
+          {{ insertion.remarks }}
+
+        </p>
+
+      </mat-card-content>
+
+    </mat-card>
+
+  </ng-container>
+
+</div>

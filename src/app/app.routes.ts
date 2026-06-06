@@ -23,6 +23,8 @@ import { Internships } from './pages/internship/internship/internship';
 import { InternshipDetails } from './pages/internship/internship-details/internship-details';
 import { StudentContacts } from './pages/studentContact/students-contact/students-contact';
 import { StudentContactDetails } from './pages/studentContact/student-contact-detail/student-contact-detail';
+import { GraduateInsertions } from './pages/graduate-insertion/graduate-insertions/graduate-insertions';
+import { GraduateInsertionDetails } from './pages/graduate-insertion/graduate-insertion-details/graduate-insertion-details';
 
 export const routes: Routes = [
     
@@ -146,13 +148,23 @@ export const routes: Routes = [
             },
 
             {
-                path: 'studentscontacts',
+                path: 'students-contacts',
                 component: StudentContacts
             },
 
             {
                 path: 'student-contacts/:id',
                 component: StudentContactDetails
+            },
+
+            {
+                path: 'graduate-insertions',
+                component: GraduateInsertions
+            },
+
+            {
+                path: 'graduate-insertions/:id',
+                component: GraduateInsertionDetails
             },
 
             {
