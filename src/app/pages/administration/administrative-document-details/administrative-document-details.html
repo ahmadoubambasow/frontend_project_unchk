@@ -1,0 +1,204 @@
+<div class="details-page">
+
+  <div
+    class="loading"
+    *ngIf="loading">
+
+    Chargement...
+  </div>
+
+  <ng-container
+    *ngIf="!loading && document">
+
+    <div class="page-header">
+
+      <div class="document-profile">
+
+        <div class="icon">
+
+          📄
+
+        </div>
+
+        <div>
+
+          <h1>
+
+            {{ document.title }}
+
+          </h1>
+
+          <p>
+
+            {{
+              getTypeLabel(
+                document.type
+              )
+            }}
+
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <mat-card class="details-card">
+
+      <mat-card-header>
+
+        <mat-card-title>
+
+          Informations générales
+
+        </mat-card-title>
+
+      </mat-card-header>
+
+      <mat-card-content>
+
+        <div class="info-grid">
+
+          <div class="info-item">
+
+            <label>
+
+              Référence
+
+            </label>
+
+            <span>
+
+              {{ document.referenceNumber }}
+
+            </span>
+
+          </div>
+
+          <div class="info-item">
+
+            <label>
+
+              Type
+
+            </label>
+
+            <span class="badge">
+
+              {{
+                getTypeLabel(
+                  document.type
+                )
+              }}
+
+            </span>
+
+          </div>
+
+          <div class="info-item">
+
+            <label>
+
+              Date
+
+            </label>
+
+            <span>
+
+              {{ document.documentDate }}
+
+            </span>
+
+          </div>
+
+          <div class="info-item">
+
+            <label>
+
+              Émetteur
+
+            </label>
+
+            <span>
+
+              {{ document.issuerName || '-' }}
+
+            </span>
+
+          </div>
+
+          <div class="info-item">
+
+            <label>
+
+              Destinataire
+
+            </label>
+
+            <span>
+
+              {{ document.recipientName || '-' }}
+
+            </span>
+
+          </div>
+
+        </div>
+
+      </mat-card-content>
+
+    </mat-card>
+
+    <mat-card class="details-card">
+
+      <mat-card-header>
+
+        <mat-card-title>
+
+          Description
+
+        </mat-card-title>
+
+      </mat-card-header>
+
+      <mat-card-content>
+
+        <p>
+
+          {{ document.description || '-' }}
+
+        </p>
+
+      </mat-card-content>
+
+    </mat-card>
+
+    <mat-card
+      class="details-card"
+
+      *ngIf="document.filePath">
+
+      <mat-card-header>
+
+        <mat-card-title>
+
+          Pièce jointe
+
+        </mat-card-title>
+
+      </mat-card-header>
+
+      <mat-card-content>
+
+        <button mat-button color="primary" (click)="openDocument(document.filePath)">
+          ouvrir
+        </button>
+
+      </mat-card-content>
+
+    </mat-card>
+
+  </ng-container>
+
+</div>

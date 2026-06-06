@@ -1,0 +1,152 @@
+<div class="page-container">
+
+  <div class="page-header">
+
+    <div>
+
+      <h1>
+
+        Gestion documentaire
+
+      </h1>
+
+      <p>
+
+        Courriers, notes et circulaires
+
+      </p>
+
+    </div>
+
+    <button
+
+      mat-raised-button
+
+      color="primary"
+
+      (click)="openCreateDialog()">
+
+      <mat-icon>
+
+        add
+
+      </mat-icon>
+
+      Nouveau document
+
+    </button>
+
+  </div>
+
+  <div class="search-bar">
+
+    <input
+
+      matInput
+
+      placeholder="Rechercher..."
+
+      (input)="applyFilter($event)">
+  </div>
+
+  <div
+    *ngIf="loading"
+    class="loading">
+
+    Chargement...
+  </div>
+
+  <div
+    *ngIf="!loading"
+    class="documents-grid">
+
+    <div
+
+      *ngFor="
+        let document
+        of filteredDocuments
+      "
+
+      class="document-card">
+
+      <div class="card-header">
+
+        <h3>
+
+          {{ document.title }}
+
+        </h3>
+
+        <span class="badge">
+
+          {{
+            getTypeLabel(
+              document.type
+            )
+          }}
+
+        </span>
+
+      </div>
+
+      <p>
+
+        <strong>Référence :</strong>
+
+        {{ document.referenceNumber }}
+
+      </p>
+
+      <p>
+
+        <strong>Date :</strong>
+
+        {{ document.documentDate }}
+
+      </p>
+
+      <div class="actions">
+
+        <button
+
+          mat-button
+
+          color="primary"
+
+          (click)="openDetails(document)">
+
+          Détails
+
+        </button>
+
+        <button
+
+          mat-button
+
+          color="accent"
+
+          (click)="openEditDialog(document)">
+
+          Modifier
+
+        </button>
+
+        <button
+
+          mat-button
+
+          color="warn"
+
+          (click)="deleteDocument(document)">
+
+          Supprimer
+
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

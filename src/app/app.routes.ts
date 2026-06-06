@@ -26,6 +26,8 @@ import { StudentContactDetails } from './pages/studentContact/student-contact-de
 import { GraduateInsertions } from './pages/graduate-insertion/graduate-insertions/graduate-insertions';
 import { GraduateInsertionDetails } from './pages/graduate-insertion/graduate-insertion-details/graduate-insertion-details';
 import { InsertionDashboardPage } from './pages/graduate-insertion/insertion-dashboard/insertion-dashboard';
+import { AdministrativeDocuments } from './pages/administration/administrative-documents/administrative-documents';
+import { AdministrativeDocumentDetails } from './pages/administration/administrative-document-details/administrative-document-details';
 
 export const routes: Routes = [
     
@@ -64,6 +66,16 @@ export const routes: Routes = [
                     ).then(
                     m => m.Notifications
                  )
+            },
+
+            {
+                path: 'administrative-documents',
+                component: AdministrativeDocuments
+            },
+
+            {
+                path: 'administrative-documents/:id',
+                component: AdministrativeDocumentDetails
             },
             
             {

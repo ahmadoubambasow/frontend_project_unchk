@@ -1,0 +1,319 @@
+<div class="dialog-container">
+
+  <div class="dialog-header">
+
+    <div>
+
+      <h2>
+        {{
+          data
+            ? 'Modifier un document'
+            : 'Nouveau document'
+        }}
+      </h2>
+
+      <p>
+
+        Gestion documentaire administrative
+
+      </p>
+
+    </div>
+
+  </div>
+
+  <form
+    [formGroup]="form">
+
+    <!-- Informations principales -->
+
+    <div class="section">
+
+      <h3>
+
+        Informations générales
+
+      </h3>
+
+      <div class="form-grid">
+
+        <mat-form-field appearance="outline">
+
+          <mat-label>
+
+            Type de document
+
+          </mat-label>
+
+          <mat-select
+            formControlName="type">
+
+            <mat-option
+
+              *ngFor="
+                let type
+                of documentTypes
+              "
+
+              [value]="type">
+
+              {{ getTypeLabel(type) }}
+
+            </mat-option>
+
+          </mat-select>
+
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+
+          <mat-label>
+
+            Statut
+
+          </mat-label>
+
+          <mat-select
+            formControlName="status">
+
+            <mat-option
+
+              *ngFor="
+                let status
+                of documentStatuses
+              "
+
+              [value]="status">
+
+              {{ getStatusLabel(status) }}
+
+            </mat-option>
+
+          </mat-select>
+
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+
+          <mat-label>
+
+            Titre
+
+          </mat-label>
+
+          <input
+            matInput
+            formControlName="title">
+
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+
+          <mat-label>
+
+            Date
+
+          </mat-label>
+
+          <input
+            matInput
+            type="date"
+            formControlName="documentDate">
+
+        </mat-form-field>
+
+      </div>
+
+    </div>
+
+    <!-- Circuit du document -->
+
+    <div class="section">
+
+      <h3>
+
+        Circuit du document
+
+      </h3>
+
+      <div class="form-grid">
+
+        <mat-form-field appearance="outline">
+
+          <mat-label>
+
+            Expéditeur
+
+          </mat-label>
+
+          <mat-select
+            formControlName="issuerId">
+
+            <mat-option
+
+              *ngFor="
+                let user
+                of users
+              "
+
+              [value]="user.id">
+
+              {{ user.fullName }}
+
+            </mat-option>
+
+          </mat-select>
+
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+
+          <mat-label>
+
+            Destinataire
+
+          </mat-label>
+
+          <mat-select
+            formControlName="recipientId">
+
+            <mat-option
+
+              *ngFor="
+                let user
+                of users
+              "
+
+              [value]="user.id">
+
+              {{ user.fullName }}
+
+            </mat-option>
+
+          </mat-select>
+
+        </mat-form-field>
+
+      </div>
+
+    </div>
+
+    <!-- Description -->
+
+    <div class="section">
+
+      <h3>
+
+        Contenu
+
+      </h3>
+
+      <mat-form-field
+        appearance="outline"
+        class="full-width">
+
+        <mat-label>
+
+          Description
+
+        </mat-label>
+
+        <textarea
+
+          matInput
+
+          rows="6"
+
+          formControlName="description">
+
+        </textarea>
+
+      </mat-form-field>
+
+    </div>
+
+    <!-- Pièce jointe -->
+
+    <div class="section">
+
+      <h3>
+
+        Pièce jointe
+
+      </h3>
+
+      <div class="upload-zone">
+
+        <input
+
+          type="file"
+
+          #fileInput
+
+          hidden
+
+          (change)="onFileSelected($event)">
+
+        <button
+
+          type="button"
+
+          mat-stroked-button
+
+          (click)="fileInput.click()">
+
+          Choisir un fichier
+
+        </button>
+
+        <span
+          *ngIf="selectedFile">
+
+          {{ selectedFile.name }}
+
+        </span>
+
+        <span
+          *ngIf="!selectedFile">
+
+          Aucun fichier sélectionné
+
+        </span>
+
+      </div>
+
+    </div>
+
+  </form>
+
+  <div class="dialog-actions">
+
+    <button
+      mat-stroked-button
+      (click)="dialogRef.close()">
+
+      Annuler
+
+    </button>
+
+    <button
+
+      mat-raised-button
+
+      color="primary"
+
+      [disabled]="loading"
+
+      (click)="submit()">
+
+      {{
+        data
+          ? 'Enregistrer'
+          : 'Créer le document'
+      }}
+
+    </button>
+
+  </div>
+
+</div>
