@@ -1,0 +1,65 @@
+.dialog-container {
+
+  padding: 24px;
+
+  max-height: 90vh;
+
+  overflow-y: auto;
+}
+
+.dialog-header {
+
+  margin-bottom: 24px;
+}
+
+.form-grid {
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(auto-fit,minmax(280px,1fr));
+
+  gap: 16px;
+}
+
+mat-form-field {
+
+  width: 100%;
+}
+
+.full-width {
+
+  width: 100%;
+
+  margin-top: 16px;
+}
+
+.upload-zone {
+
+  margin-top: 20px;
+
+  padding: 20px;
+
+  border: 2px dashed #cbd5e1;
+
+  border-radius: 16px;
+
+  display: flex;
+
+  gap: 15px;
+
+  align-items: center;
+
+  flex-wrap: wrap;
+}
+
+.dialog-actions {
+
+  margin-top: 24px;
+
+  display: flex;
+
+  justify-content: flex-end;
+
+  gap: 12px;
+}

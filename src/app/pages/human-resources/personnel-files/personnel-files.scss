@@ -1,0 +1,112 @@
+.page-container {
+
+  padding: 24px;
+}
+
+.page-header {
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  margin-bottom: 24px;
+}
+
+.stats-grid {
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(auto-fit,minmax(220px,1fr));
+
+  gap: 16px;
+
+  margin-bottom: 24px;
+}
+
+.stat-card {
+
+  background: white;
+
+  padding: 20px;
+
+  border-radius: 18px;
+
+  box-shadow:
+    0 4px 20px rgba(15,23,42,.08);
+
+  text-align: center;
+}
+
+.stat-card span {
+
+  font-size: 24px;
+
+  font-weight: 700;
+}
+
+.search-bar {
+
+  margin-bottom: 24px;
+}
+
+.personnel-grid {
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(auto-fill,minmax(340px,1fr));
+
+  gap: 20px;
+}
+
+.personnel-card {
+
+  background: white;
+
+  padding: 20px;
+
+  border-radius: 18px;
+
+  box-shadow:
+    0 4px 20px rgba(15,23,42,.08);
+}
+
+.card-header {
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  margin-bottom: 15px;
+}
+
+.badge {
+
+  padding: 6px 12px;
+
+  border-radius: 20px;
+
+  background: #dbeafe;
+
+  color: #2563eb;
+
+  font-size: 12px;
+
+  font-weight: 600;
+}
+
+.actions {
+
+  display: flex;
+
+  justify-content: flex-end;
+
+  gap: 10px;
+
+  margin-top: 15px;
+}

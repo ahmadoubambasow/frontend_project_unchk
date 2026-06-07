@@ -30,6 +30,10 @@ import { AdministrativeDocuments } from './pages/administration/administrative-d
 import { AdministrativeDocumentDetails } from './pages/administration/administrative-document-details/administrative-document-details';
 import { Budgets } from './pages/budget/budgets/budgets';
 import { BudgetDetails } from './pages/budget/budget-details/budget-details';
+import { PersonnelFiles } from './pages/human-resources/personnel-files/personnel-files';
+import { PersonnelFileDetails } from './pages/human-resources/personnel-file-details/personnel-file-details';
+import { StudentFiles } from './pages/human-resources/student-files/student-files';
+import { StudentFileDetails } from './pages/human-resources/student-file-details/student-file-details';
 
 export const routes: Routes = [
     
@@ -89,7 +93,27 @@ export const routes: Routes = [
                 path: 'budgets/:id',
                 component: BudgetDetails
             },
-                        
+
+            {
+                path: 'personnel-files',
+                component: PersonnelFiles
+            },
+
+            {
+                path: 'personnel-files/:id',
+                component: PersonnelFileDetails
+            },
+                                        
+            {
+                path: 'student-files',
+                component: StudentFiles
+            },
+
+            {
+                path: 'student-files/:id',
+                component: StudentFileDetails
+            },
+                                        
             {
                 path: 'users',
                 component: Users

@@ -1,0 +1,232 @@
+<div class="page-container">
+
+  <div class="page-header">
+
+    <div>
+
+      <h1>
+
+        Dossiers du personnel
+
+      </h1>
+
+      <p>
+
+        Administration, enseignants et tuteurs
+
+      </p>
+
+    </div>
+
+    <button
+
+      mat-raised-button
+
+      color="primary"
+
+      (click)="openCreateDialog()">
+
+      <mat-icon>
+
+        add
+
+      </mat-icon>
+
+      Nouveau dossier
+
+    </button>
+
+  </div>
+
+  <div class="stats-grid">
+
+    <div class="stat-card">
+
+      <h3>
+
+        Total dossiers
+
+      </h3>
+
+      <span>
+
+        {{ personnelFiles.length }}
+
+      </span>
+
+    </div>
+
+    <div class="stat-card">
+
+      <h3>
+
+        Enseignants
+
+      </h3>
+
+      <span>
+
+        {{ teachersCount }}
+
+      </span>
+
+    </div>
+
+    <div class="stat-card">
+
+      <h3>
+
+        Tuteurs
+
+      </h3>
+
+      <span>
+
+        {{ tutorsCount }}
+
+      </span>
+
+    </div>
+
+    <div class="stat-card">
+
+      <h3>
+
+        Administratifs
+
+      </h3>
+
+      <span>
+
+        {{ adminCount }}
+
+      </span>
+
+    </div>
+
+  </div>
+
+  <div class="search-bar">
+
+    <input
+
+      matInput
+
+      placeholder="Rechercher..."
+
+      (input)="applyFilter($event)">
+  </div>
+
+  <div
+    class="personnel-grid">
+
+    <div
+
+      *ngFor="
+        let personnel
+        of filteredPersonnelFiles
+      "
+
+      class="personnel-card">
+
+      <div class="card-header">
+
+        <h3>
+
+          {{ personnel.fullName }}
+
+        </h3>
+
+        <span class="badge">
+
+          {{ personnel.role }}
+
+        </span>
+
+      </div>
+
+      <p>
+
+        <strong>
+          Matricule :
+        </strong>
+
+        {{ personnel.employeeNumber }}
+
+      </p>
+
+      <p>
+
+        <strong>
+          Fonction :
+        </strong>
+
+        {{ personnel.position }}
+
+      </p>
+
+      <p>
+
+        <strong>
+          Contrat :
+        </strong>
+
+        {{ personnel.contractType }}
+
+      </p>
+
+      <p>
+
+        <strong>
+          Téléphone :
+        </strong>
+
+        {{ personnel.phone }}
+
+      </p>
+
+      <div class="actions">
+
+        <button
+
+          mat-button
+
+          color="primary"
+
+          (click)="openDetails(personnel)">
+
+          Détails
+
+        </button>
+
+        <button
+
+          mat-button
+
+          color="accent"
+
+          (click)="openEditDialog(personnel)">
+
+          Modifier
+
+        </button>
+
+        <button
+
+          mat-button
+
+          color="warn"
+
+          (click)="deletePersonnelFile(personnel)">
+
+          Supprimer
+
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

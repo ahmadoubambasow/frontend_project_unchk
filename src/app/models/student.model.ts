@@ -8,6 +8,8 @@ export interface Student {
 
   lastName: string;
 
+  fullName: String;
+
   birthDate: string;
 
   promotion: string;

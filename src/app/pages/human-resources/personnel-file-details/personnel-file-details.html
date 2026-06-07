@@ -1,0 +1,275 @@
+<div class="details-page">
+
+  <div
+    *ngIf="loading"
+    class="loading">
+
+    Chargement...
+  </div>
+
+  <ng-container
+    *ngIf="
+      !loading &&
+      personnel
+    ">
+
+    <div class="profile-header">
+
+      <div class="avatar">
+
+        {{
+          personnel.fullName
+          ?.charAt(0)
+        }}
+
+      </div>
+
+      <div>
+
+        <h1>
+
+          {{
+            personnel.fullName
+          }}
+
+        </h1>
+
+        <p>
+
+          {{
+            personnel.position
+          }}
+
+        </p>
+
+        <span class="role-badge">
+
+          {{
+            personnel.role
+          }}
+
+        </span>
+
+      </div>
+
+    </div>
+
+    <mat-card class="details-card">
+
+      <mat-card-header>
+
+        <mat-card-title>
+
+          Informations RH
+
+        </mat-card-title>
+
+      </mat-card-header>
+
+      <mat-card-content>
+
+        <div class="info-grid">
+
+          <div>
+
+            <label>
+
+              Matricule
+
+            </label>
+
+            <span>
+
+              {{
+                personnel.employeeNumber
+              }}
+
+            </span>
+
+          </div>
+
+          <div>
+
+            <label>
+
+              Contrat
+
+            </label>
+
+            <span>
+
+              {{
+                personnel.contractType
+              }}
+
+            </span>
+
+          </div>
+
+          <div>
+
+            <label>
+
+              Recrutement
+
+            </label>
+
+            <span>
+
+              {{
+                personnel.hireDate
+              }}
+
+            </span>
+
+          </div>
+
+          <div>
+
+            <label>
+
+              Salaire
+
+            </label>
+
+            <span>
+
+              {{
+                personnel.salary
+                | number
+              }}
+
+              FCFA
+
+            </span>
+
+          </div>
+
+          <div>
+
+            <label>
+
+              Diplôme
+
+            </label>
+
+            <span>
+
+              {{
+                personnel.diploma
+              }}
+
+            </span>
+
+          </div>
+
+          <div>
+
+            <label>
+
+              Téléphone
+
+            </label>
+
+            <span>
+
+              {{
+                personnel.phone
+              }}
+
+            </span>
+
+          </div>
+
+        </div>
+
+      </mat-card-content>
+
+    </mat-card>
+
+    <mat-card class="details-card">
+
+      <mat-card-header>
+
+        <mat-card-title>
+
+          Adresse
+
+        </mat-card-title>
+
+      </mat-card-header>
+
+      <mat-card-content>
+
+        {{
+          personnel.address
+          || '-'
+        }}
+
+      </mat-card-content>
+
+    </mat-card>
+
+    <mat-card
+
+      *ngIf="
+        personnel.filePath
+      "
+
+      class="details-card">
+
+      <mat-card-header>
+
+        <mat-card-title>
+
+          Document RH
+
+        </mat-card-title>
+
+      </mat-card-header>
+
+      <mat-card-content>
+
+        <div
+
+          *ngIf="
+            isImage(
+              personnel.filePath
+            )
+          "
+
+          class="image-preview">
+
+          <img
+
+            [src]="
+              'http://localhost:8080/uploads/documents/'
+              + personnel.filePath
+            "
+
+            alt="Document">
+
+        </div>
+
+        <a
+
+          class="document-link"
+
+          target="_blank"
+
+          [href]="
+            'http://localhost:8080/uploads/documents/'
+            + personnel.filePath
+          ">
+
+          Ouvrir le document
+
+        </a>
+
+      </mat-card-content>
+
+    </mat-card>
+
+  </ng-container>
+
+</div>

@@ -1,0 +1,222 @@
+<div class="dialog-container">
+
+  <div class="dialog-header">
+
+    <h2>
+
+      {{
+        data
+          ? 'Modifier dossier étudiant'
+          : 'Nouveau dossier étudiant'
+      }}
+
+    </h2>
+
+  </div>
+
+  <form [formGroup]="form">
+
+    <div class="form-grid">
+
+      <mat-form-field appearance="outline">
+
+        <mat-label>
+
+          Étudiant
+
+        </mat-label>
+
+        <mat-select
+          formControlName="studentId">
+
+          <mat-option
+
+            *ngFor="
+              let student
+              of students
+            "
+
+            [value]="student.id">
+
+            {{ student.firstName }} {{ student.lastName }}
+
+          </mat-option>
+
+        </mat-select>
+
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+
+        <mat-label>
+
+          Matricule
+
+        </mat-label>
+
+        <input
+          matInput
+          formControlName="registrationNumber">
+
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+
+        <mat-label>
+
+          Responsable légal
+
+        </mat-label>
+
+        <input
+          matInput
+          formControlName="guardianName">
+
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+
+        <mat-label>
+
+          Téléphone responsable
+
+        </mat-label>
+
+        <input
+          matInput
+          formControlName="guardianPhone">
+
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+
+        <mat-label>
+
+          Établissement précédent
+
+        </mat-label>
+
+        <input
+          matInput
+          formControlName="previousSchool">
+
+      </mat-form-field>
+
+    </div>
+
+    <mat-form-field
+      appearance="outline"
+      class="full-width">
+
+      <mat-label>
+
+        Adresse
+
+      </mat-label>
+
+      <textarea
+
+        rows="3"
+
+        matInput
+
+        formControlName="address">
+
+      </textarea>
+
+    </mat-form-field>
+
+    <mat-form-field
+      appearance="outline"
+      class="full-width">
+
+      <mat-label>
+
+        Observations
+
+      </mat-label>
+
+      <textarea
+
+        rows="4"
+
+        matInput
+
+        formControlName="remarks">
+
+      </textarea>
+
+    </mat-form-field>
+
+    <div class="upload-grid">
+
+      <div class="upload-card">
+
+        <label>
+
+          Photo
+
+        </label>
+
+        <input
+          type="file"
+          (change)="onPhotoSelected($event)">
+      </div>
+
+      <div class="upload-card">
+
+        <label>
+
+          Diplôme
+
+        </label>
+
+        <input
+          type="file"
+          (change)="onDiplomaSelected($event)">
+      </div>
+
+      <div class="upload-card">
+
+        <label>
+
+          Acte de naissance
+
+        </label>
+
+        <input
+          type="file"
+          (change)="onBirthCertificateSelected($event)">
+      </div>
+
+    </div>
+
+  </form>
+
+  <div class="dialog-actions">
+
+    <button
+
+      mat-stroked-button
+
+      (click)="dialogRef.close()">
+
+      Annuler
+
+    </button>
+
+    <button
+
+      mat-raised-button
+
+      color="primary"
+
+      (click)="submit()">
+
+      Enregistrer
+
+    </button>
+
+  </div>
+
+</div>

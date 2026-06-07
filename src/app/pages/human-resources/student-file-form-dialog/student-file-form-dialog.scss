@@ -1,0 +1,66 @@
+.dialog-container {
+
+  padding: 24px;
+
+  max-height: 90vh;
+
+  overflow-y: auto;
+}
+
+.form-grid {
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(auto-fit,minmax(280px,1fr));
+
+  gap: 16px;
+}
+
+.full-width {
+
+  width: 100%;
+
+  margin-top: 16px;
+}
+
+.upload-grid {
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(auto-fit,minmax(250px,1fr));
+
+  gap: 16px;
+
+  margin-top: 20px;
+}
+
+.upload-card {
+
+  padding: 16px;
+
+  border: 2px dashed #cbd5e1;
+
+  border-radius: 12px;
+}
+
+.upload-card label {
+
+  display: block;
+
+  margin-bottom: 10px;
+
+  font-weight: 600;
+}
+
+.dialog-actions {
+
+  margin-top: 24px;
+
+  display: flex;
+
+  justify-content: flex-end;
+
+  gap: 12px;
+}

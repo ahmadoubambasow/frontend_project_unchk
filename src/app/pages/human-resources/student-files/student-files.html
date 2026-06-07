@@ -1,0 +1,138 @@
+<div class="page-container">
+
+  <div class="page-header">
+
+    <div>
+
+      <h1>
+
+        Dossiers étudiants
+
+      </h1>
+
+      <p>
+
+        Gestion administrative des étudiants
+
+      </p>
+
+    </div>
+
+    <button
+
+      mat-raised-button
+
+      color="primary"
+
+      (click)="openCreateDialog()">
+
+      <mat-icon>
+
+        add
+
+      </mat-icon>
+
+      Nouveau dossier
+
+    </button>
+
+  </div>
+
+  <div class="search-bar">
+
+    <input
+
+      matInput
+
+      placeholder="Rechercher..."
+
+      (input)="applyFilter($event)">
+  </div>
+
+  <div
+    class="student-grid">
+
+    <div
+
+      *ngFor="
+        let student
+        of filteredStudentFiles
+      "
+
+      class="student-card">
+
+      <h3>
+
+        {{ student.fullName }}
+
+      </h3>
+
+      <p>
+
+        <strong>Matricule :</strong>
+
+        {{ student.registrationNumber }}
+
+      </p>
+
+      <p>
+
+        <strong>Responsable :</strong>
+
+        {{ student.guardianName }}
+
+      </p>
+
+      <p>
+
+        <strong>Téléphone :</strong>
+
+        {{ student.guardianPhone }}
+
+      </p>
+
+      <div class="actions">
+
+        <button
+
+          mat-button
+
+          color="primary"
+
+          (click)="openDetails(student)">
+
+          Détails
+
+        </button>
+
+        <button
+
+          mat-button
+
+          color="accent"
+
+          (click)="openEditDialog(student)">
+
+          Modifier
+
+        </button>
+
+        <button
+
+          mat-button
+
+          color="warn"
+
+          (click)="deleteStudentFile(student)">
+
+          Supprimer
+
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

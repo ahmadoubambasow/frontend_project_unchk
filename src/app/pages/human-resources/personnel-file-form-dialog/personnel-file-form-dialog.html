@@ -1,0 +1,256 @@
+<div class="dialog-container">
+
+  <div class="dialog-header">
+
+    <h2>
+
+      {{
+        data
+          ? 'Modifier dossier'
+          : 'Nouveau dossier'
+      }}
+
+    </h2>
+
+  </div>
+
+  <form [formGroup]="form">
+
+    <div class="form-grid">
+
+      <mat-form-field appearance="outline">
+
+        <mat-label>
+
+          Personnel
+
+        </mat-label>
+
+        <mat-select
+          formControlName="userId">
+
+          <mat-option
+
+            *ngFor="
+              let user
+              of users
+            "
+
+            [value]="user.id">
+
+            {{ user.fullName }}
+
+          </mat-option>
+
+        </mat-select>
+
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+
+        <mat-label>
+
+          Matricule
+
+        </mat-label>
+
+        <input
+          matInput
+          formControlName="employeeNumber">
+
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+
+        <mat-label>
+
+          Contrat
+
+        </mat-label>
+
+        <mat-select
+          formControlName="contractType">
+
+          <mat-option
+
+            *ngFor="
+              let type
+              of contractTypes
+            "
+
+            [value]="type">
+
+            {{ type }}
+
+          </mat-option>
+
+        </mat-select>
+
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+
+        <mat-label>
+
+          Fonction
+
+        </mat-label>
+
+        <input
+          matInput
+          formControlName="position">
+
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+
+        <mat-label>
+
+          Date recrutement
+
+        </mat-label>
+
+        <input
+
+          matInput
+
+          type="date"
+
+          formControlName="hireDate">
+
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+
+        <mat-label>
+
+          Salaire
+
+        </mat-label>
+
+        <input
+
+          matInput
+
+          type="number"
+
+          formControlName="salary">
+
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+
+        <mat-label>
+
+          Téléphone
+
+        </mat-label>
+
+        <input
+          matInput
+          formControlName="phone">
+
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+
+        <mat-label>
+
+          Diplôme
+
+        </mat-label>
+
+        <input
+          matInput
+          formControlName="diploma">
+
+      </mat-form-field>
+
+    </div>
+
+    <mat-form-field
+      appearance="outline"
+      class="full-width">
+
+      <mat-label>
+
+        Adresse
+
+      </mat-label>
+
+      <textarea
+
+        matInput
+
+        rows="4"
+
+        formControlName="address">
+
+      </textarea>
+
+    </mat-form-field>
+
+    <div class="upload-zone">
+
+      <input
+
+        hidden
+
+        #fileInput
+
+        type="file"
+
+        (change)="onFileSelected($event)">
+
+      <button
+
+        type="button"
+
+        mat-stroked-button
+
+        (click)="fileInput.click()">
+
+        Ajouter un document RH
+
+      </button>
+
+      <span>
+
+        {{
+          selectedFile?.name
+          || 'Aucun document'
+        }}
+
+      </span>
+
+    </div>
+
+  </form>
+
+  <div class="dialog-actions">
+
+    <button
+      mat-stroked-button
+      (click)="dialogRef.close()">
+
+      Annuler
+
+    </button>
+
+    <button
+
+      mat-raised-button
+
+      color="primary"
+
+      [disabled]="loading"
+
+      (click)="submit()">
+
+      Enregistrer
+
+    </button>
+
+  </div>
+
+</div>

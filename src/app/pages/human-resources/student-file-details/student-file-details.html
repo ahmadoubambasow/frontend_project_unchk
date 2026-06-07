@@ -1,0 +1,310 @@
+<div class="details-page">
+
+  <div
+    *ngIf="loading"
+    class="loading">
+
+    Chargement...
+  </div>
+
+  <ng-container
+    *ngIf="
+      !loading &&
+      studentFile
+    ">
+
+    <div class="profile-header">
+
+      <div class="avatar">
+
+        {{
+          studentFile.fullName
+          ?.charAt(0)
+        }}
+
+      </div>
+
+      <div>
+
+        <h1>
+
+          {{
+            studentFile.fullName
+          }}
+
+        </h1>
+
+        <p>
+
+          {{
+            studentFile.email
+          }}
+
+        </p>
+
+      </div>
+
+    </div>
+
+    <mat-card class="details-card">
+
+      <mat-card-header>
+
+        <mat-card-title>
+
+          Informations générales
+
+        </mat-card-title>
+
+      </mat-card-header>
+
+      <mat-card-content>
+
+        <div class="info-grid">
+
+          <div>
+
+            <label>
+
+              Matricule
+
+            </label>
+
+            <span>
+
+              {{
+                studentFile.registrationNumber
+              }}
+
+            </span>
+
+          </div>
+
+          <div>
+
+            <label>
+
+              Responsable légal
+
+            </label>
+
+            <span>
+
+              {{
+                studentFile.guardianName
+              }}
+
+            </span>
+
+          </div>
+
+          <div>
+
+            <label>
+
+              Téléphone
+
+            </label>
+
+            <span>
+
+              {{
+                studentFile.guardianPhone
+              }}
+
+            </span>
+
+          </div>
+
+          <div>
+
+            <label>
+
+              Ancien établissement
+
+            </label>
+
+            <span>
+
+              {{
+                studentFile.previousSchool
+              }}
+
+            </span>
+
+          </div>
+
+        </div>
+
+      </mat-card-content>
+
+    </mat-card>
+
+    <mat-card class="details-card">
+
+      <mat-card-header>
+
+        <mat-card-title>
+
+          Adresse
+
+        </mat-card-title>
+
+      </mat-card-header>
+
+      <mat-card-content>
+
+        {{
+          studentFile.address
+          || '-'
+        }}
+
+      </mat-card-content>
+
+    </mat-card>
+
+    <mat-card class="details-card">
+
+      <mat-card-header>
+
+        <mat-card-title>
+
+          Observations
+
+        </mat-card-title>
+
+      </mat-card-header>
+
+      <mat-card-content>
+
+        {{
+          studentFile.remarks
+          || '-'
+        }}
+
+      </mat-card-content>
+
+    </mat-card>
+
+    <!-- Photo -->
+
+    <mat-card
+
+      *ngIf="
+        studentFile.photoPath
+      "
+
+      class="details-card">
+
+      <mat-card-header>
+
+        <mat-card-title>
+
+          Photo
+
+        </mat-card-title>
+
+      </mat-card-header>
+
+      <mat-card-content>
+
+        <img
+
+          class="photo-preview"
+
+          [src]="
+            'http://localhost:8080/documents/'
+            + studentFile.photoPath
+          "
+
+          alt="Photo">
+
+      </mat-card-content>
+
+    </mat-card>
+
+    <!-- Diplôme -->
+
+    <mat-card
+
+      *ngIf="
+        studentFile.diplomaPath
+      "
+
+      class="details-card">
+
+      <mat-card-header>
+
+        <mat-card-title>
+
+          Diplôme
+
+        </mat-card-title>
+
+      </mat-card-header>
+
+      <mat-card-content>
+
+        <a
+
+          class="document-link"
+
+          target="_blank"
+
+          [href]="
+            'http://localhost:8080/documents/'
+            + studentFile.diplomaPath
+          ">
+
+          Ouvrir le diplôme
+
+        </a>
+
+      </mat-card-content>
+
+    </mat-card>
+
+    <!-- Acte -->
+
+    <mat-card
+
+      *ngIf="
+        studentFile.birthCertificatePath
+      "
+
+      class="details-card">
+
+      <mat-card-header>
+
+        <mat-card-title>
+
+          Acte de naissance
+
+        </mat-card-title>
+
+      </mat-card-header>
+
+      <mat-card-content>
+
+        <a
+
+          class="document-link"
+
+          target="_blank"
+
+          [href]="
+            'http://localhost:8080/uploads/documents/'
+            + studentFile.birthCertificatePath
+          ">
+
+          Ouvrir l'acte
+
+        </a>
+
+      </mat-card-content>
+
+    </mat-card>
+
+  </ng-container>
+
+</div>
