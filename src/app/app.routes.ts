@@ -34,6 +34,33 @@ import { PersonnelFiles } from './pages/human-resources/personnel-files/personne
 import { PersonnelFileDetails } from './pages/human-resources/personnel-file-details/personnel-file-details';
 import { StudentFiles } from './pages/human-resources/student-files/student-files';
 import { StudentFileDetails } from './pages/human-resources/student-file-details/student-file-details';
+import { roleGuard } from './guards/role-guard';
+
+import {
+
+    ADMIN_ONLY,
+
+    INSERTION_ROLES,
+
+    STUDENT_MANAGEMENT_ROLES,
+
+    ACADEMIC_ROLES,
+
+    HR_ROLES,
+
+    TEACHING_ROLES,
+
+    MEETING_ROLES,
+
+    COMMUNICATION_ROLES,
+
+    ALL_AUTHENTICATED_ROLES,
+
+    ADMIN_AND_DIRECTION,
+
+    DASHBOARD_ROLES
+
+} from './constants/route-roles';
 
 export const routes: Routes = [
     
@@ -56,197 +83,323 @@ export const routes: Routes = [
         children: [
             {
                 path: 'dashboard',
-                component: Dashboard
+                component: Dashboard,
+                canActivate: [roleGuard],
+                data: {
+                    roles: DASHBOARD_ROLES
+                }
             },
 
             {
                 path: 'dashboard-insertion',
-                component: InsertionDashboardPage
+                component: InsertionDashboardPage,
+                canActivate: [roleGuard],
+                data: {
+                    roles: INSERTION_ROLES
+                }
             },
 
             {
                 path: 'notifications',
                 loadComponent: () =>
-                    import(
-                    './pages/dashboard/notifications/notifications'
-                    ).then(
-                    m => m.Notifications
-                 )
+                    import('./pages/dashboard/notifications/notifications')
+                        .then(m => m.Notifications),
+                canActivate: [roleGuard],
+                data: {
+                    roles: ALL_AUTHENTICATED_ROLES
+                }
             },
 
             {
                 path: 'administrative-documents',
-                component: AdministrativeDocuments
+                component: AdministrativeDocuments,
+                canActivate: [roleGuard],
+                data: {
+                    roles: HR_ROLES
+                }
             },
 
             {
                 path: 'administrative-documents/:id',
-                component: AdministrativeDocumentDetails
+                component: AdministrativeDocumentDetails,
+                canActivate: [roleGuard],
+                data: {
+                    roles: HR_ROLES
+                }
             },
 
             {
                 path: 'budgets',
-                component: Budgets
+                component: Budgets,
+                canActivate: [roleGuard],
+                data: {
+                    roles: ADMIN_AND_DIRECTION
+                }
             },
 
             {
                 path: 'budgets/:id',
-                component: BudgetDetails
+                component: BudgetDetails,
+                canActivate: [roleGuard],
+                data: {
+                    roles: ADMIN_AND_DIRECTION
+                }
             },
 
             {
                 path: 'personnel-files',
-                component: PersonnelFiles
+                component: PersonnelFiles,
+                canActivate: [roleGuard],
+                data: {
+                    roles: HR_ROLES
+                }
             },
 
             {
                 path: 'personnel-files/:id',
-                component: PersonnelFileDetails
+                component: PersonnelFileDetails,
+                canActivate: [roleGuard],
+                data: {
+                    roles: HR_ROLES
+                }
             },
-                                        
+
             {
                 path: 'student-files',
-                component: StudentFiles
+                component: StudentFiles,
+                canActivate: [roleGuard],
+                data: {
+                    roles: HR_ROLES
+                }
             },
 
             {
                 path: 'student-files/:id',
-                component: StudentFileDetails
+                component: StudentFileDetails,
+                canActivate: [roleGuard],
+                data: {
+                    roles: HR_ROLES
+                }
             },
-                                        
+
             {
                 path: 'users',
-                component: Users
+                component: Users,
+                canActivate: [roleGuard],
+                data: {
+                    roles: ADMIN_ONLY
+                }
             },
 
             {
                 path: 'students',
-                component: Students
+                component: Students,
+                canActivate: [roleGuard],
+                data: {
+                    roles: STUDENT_MANAGEMENT_ROLES
+                }
             },
 
             {
-                path: 'students/:id',   
-                component: StudentDetails
+                path: 'students/:id',
+                component: StudentDetails,
+                canActivate: [roleGuard],
+                data: {
+                    roles: STUDENT_MANAGEMENT_ROLES
+                }
             },
 
             {
                 path: 'student-groups',
-                component: StudentGroups
+                component: StudentGroups,
+                canActivate: [roleGuard],
+                data: {
+                    roles: ACADEMIC_ROLES
+                }
             },
 
             {
                 path: 'student-groups/:id',
-                component: StudentGroupDetails
+                component: StudentGroupDetails,
+                canActivate: [roleGuard],
+                data: {
+                    roles: ACADEMIC_ROLES
+                }
             },
 
             {
                 path: 'formations',
-                component: Formations
+                component: Formations,
+                canActivate: [roleGuard],
+                data: {
+                    roles: ACADEMIC_ROLES
+                }
             },
 
             {
                 path: 'formations/:id',
                 component: FormationDetails,
+                canActivate: [roleGuard],
+                data: {
+                    roles: ACADEMIC_ROLES
+                }
             },
 
             {
                 path: 'trainers',
-                component: Trainers
+                component: Trainers,
+                canActivate: [roleGuard],
+                data: {
+                    roles: ACADEMIC_ROLES
+                }
             },
 
             {
                 path: 'schedules',
-                component: Schedules
+                component: Schedules,
+                canActivate: [roleGuard],
+                data: {
+                    roles: TEACHING_ROLES
+                }
             },
 
             {
                 path: 'schedules/calendar',
                 loadComponent: () =>
-
-                    import(
-                            './pages/schedules/schedule-calendar/schedule-calendar'
-                )
-                .then(
-                    m => m.ScheduleCalendar
-                )
+                    import('./pages/schedules/schedule-calendar/schedule-calendar')
+                        .then(m => m.ScheduleCalendar),
+                canActivate: [roleGuard],
+                data: {
+                    roles: TEACHING_ROLES
+                }
             },
 
             {
-                'path': 'meetings',
-                component: Meetings
+                path: 'meetings',
+                component: Meetings,
+                canActivate: [roleGuard],
+                data: {
+                    roles: MEETING_ROLES
+                }
             },
 
             {
                 path: 'meetings/:id',
-                component: MeetingDetails
+                component: MeetingDetails,
+                canActivate: [roleGuard],
+                data: {
+                    roles: MEETING_ROLES
+                }
             },
 
             {
                 path: 'partners',
-                component: Partners
+                component: Partners,
+                canActivate: [roleGuard],
+                data: {
+                    roles: INSERTION_ROLES
+                }
             },
 
             {
                 path: 'partners/:id',
-                component: PartnerDetails
+                component: PartnerDetails,
+                canActivate: [roleGuard],
+                data: {
+                    roles: INSERTION_ROLES
+                }
             },
 
             {
                 path: 'internships',
-                component: Internships
+                component: Internships,
+                canActivate: [roleGuard],
+                data: {
+                    roles: INSERTION_ROLES
+                }
             },
 
             {
                 path: 'internships/:id',
-                component: InternshipDetails
+                component: InternshipDetails,
+                canActivate: [roleGuard],
+                data: {
+                    roles: INSERTION_ROLES
+                }
             },
 
             {
                 path: 'students-contacts',
-                component: StudentContacts
+                component: StudentContacts,
+                canActivate: [roleGuard],
+                data: {
+                    roles: INSERTION_ROLES
+                }
             },
 
             {
                 path: 'student-contacts/:id',
-                component: StudentContactDetails
+                component: StudentContactDetails,
+                canActivate: [roleGuard],
+                data: {
+                    roles: INSERTION_ROLES
+                }
             },
 
             {
                 path: 'graduate-insertions',
-                component: GraduateInsertions
+                component: GraduateInsertions,
+                canActivate: [roleGuard],
+                data: {
+                    roles: INSERTION_ROLES
+                }
             },
 
             {
                 path: 'graduate-insertions/:id',
-                component: GraduateInsertionDetails
+                component: GraduateInsertionDetails,
+                canActivate: [roleGuard],
+                data: {
+                    roles: INSERTION_ROLES
+                }
             },
 
             {
                 path: 'promotions',
-                component: Promotions
+                component: Promotions,
+                canActivate: [roleGuard],
+                data: {
+                    roles: ACADEMIC_ROLES
+                }
             },
 
             {
                 path: 'filieres',
-                component: Filieres
+                component: Filieres,
+                canActivate: [roleGuard],
+                data: {
+                    roles: ACADEMIC_ROLES
+                }
             },
 
             {
                 path: 'communications',
-                component: Communications
+                component: Communications,
+                canActivate: [roleGuard],
+                data: {
+                    roles: COMMUNICATION_ROLES
+                }
             },
 
             {
                 path: 'archives',
-                loadComponent: () => 
-
-                    import(
-                        './pages/communications/archives/archives'
-                    )
-                    .then(
-                        m => m.Archives
-                    )
-                
+                loadComponent: () =>
+                    import('./pages/communications/archives/archives')
+                        .then(m => m.Archives),
+                canActivate: [roleGuard],
+                data: {
+                    roles: ALL_AUTHENTICATED_ROLES
+                }
             }
         ]
     },
