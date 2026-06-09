@@ -1,86 +1,117 @@
-<!--
-<div class="dashboard-grid">
+<div class="dashboard-page">
 
-  <div class="stat-card">
 
-    <div class="icon blue">
+  <!-- Loader -->
 
-      <mat-icon>
-        school
-      </mat-icon>
+  <div
+    class="loading-container"
+    *ngIf="loading">
 
-    </div>
+    <div class="loader"></div>
 
-    <div>
-
-      
-      <h2>{{ stats.students}}</h2>
-
-      <p>Étudiants</p>
-
-    </div>
+    <p>Chargement du tableau de bord...</p>
 
   </div>
 
-  <div class="stat-card">
+  <!-- Dashboard -->
 
-    <div class="icon green">
+  <div
+    *ngIf="!loading && dashboard"
+    class="dashboard-content">
 
-      <mat-icon>
-        menu_book
-      </mat-icon>
+    <!-- Header -->
 
-    </div>
+    <div class="dashboard-header">
 
-    <div>
+      <div>
 
-      <h2>{{ stats.formations }}</h2>
+        <h1>
+          Tableau de bord
+        </h1>
 
-      <p>Formations</p>
+        <p>
+          Bienvenue sur la plateforme de gestion UNCHK
+        </p>
 
-    </div>
+      </div>
 
-  </div>
+      <div
+        class="role-badge">
 
-  <div class="stat-card">
+        {{ dashboard.dashboardType }}
 
-    <div class="icon orange">
-
-      <mat-icon>
-        groups
-      </mat-icon>
-
-    </div>
-
-    <div>
-
-      <h2>215</h2>
-
-      <p>Formateurs</p>
+      </div>
 
     </div>
 
-  </div>
+    <!-- ADMIN -->
 
-  <div class="stat-card">
+    <app-admin-dashboard
+      *ngIf="
+        dashboard.dashboardType === 'ADMIN'
+      "
+      [dashboard]="dashboard">
+    </app-admin-dashboard>
 
-    <div class="icon purple">
+    <!-- DIRECTION -->
 
-      <mat-icon>
-        handshake
-      </mat-icon>
+    <app-direction-dashboard
+      *ngIf="
+        dashboard.dashboardType === 'DIRECTION'
+      "
+      [dashboard]="dashboard">
+    </app-direction-dashboard>
 
-    </div>
+    <!-- RESPONSABLE PEDAGOGIQUE -->
 
-    <div>
+    <app-pedagogical-dashboard
+      *ngIf="
+        dashboard.dashboardType ===
+        'RESPONSABLE_FORMATION'
+      "
+      [dashboard]="dashboard">
+    </app-pedagogical-dashboard>
 
-      <h2>48</h2>
+    <!-- INSERTION -->
 
-      <p>Partenaires</p>
+    <app-insertion-dashboard
+      *ngIf="
+        dashboard.dashboardType ===
+        'INSERTION'
+      "
+      [dashboard]="dashboard">
+    </app-insertion-dashboard>
 
-    </div>
+    <!-- SECRETAIRE -->
+
+    <app-secretary-dashboard
+      *ngIf="
+        dashboard.dashboardType ===
+        'SECRETAIRE'
+      "
+      [dashboard]="dashboard">
+    </app-secretary-dashboard>
+
+    <!-- ENSEIGNANT -->
+
+    <app-teacher-dashboard
+      *ngIf="
+        dashboard.dashboardType ===
+        'TUTEUR'
+      "
+      [dashboard]="dashboard">
+    </app-teacher-dashboard>
+
+    <!-- ETUDIANT -->
+
+    <app-student-dashboard
+      *ngIf="
+        dashboard.dashboardType ===
+        'ETUDIANT'
+      "
+      [dashboard]="dashboard">
+    </app-student-dashboard>
 
   </div>
 
 </div>
--->

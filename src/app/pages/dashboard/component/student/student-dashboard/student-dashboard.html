@@ -1,0 +1,224 @@
+<div class="student-dashboard">
+
+  <!-- ==========================
+       BIENVENUE
+  ========================== -->
+
+  <mat-card class="welcome-card">
+
+    <div class="welcome-content">
+
+      <div>
+
+        <h2>
+          Bienvenue sur votre espace étudiant
+        </h2>
+
+        <p>
+          Consultez votre parcours académique,
+          vos stages et votre insertion professionnelle.
+        </p>
+
+      </div>
+
+      <mat-icon class="welcome-icon">
+
+        school
+
+      </mat-icon>
+
+    </div>
+
+  </mat-card>
+
+  <!-- ==========================
+       INFORMATIONS
+  ========================== -->
+
+  <div class="dashboard-grid">
+
+    <div class="stat-card">
+
+      <div class="icon blue">
+
+        <mat-icon>
+          badge
+        </mat-icon>
+
+      </div>
+
+      <div>
+
+        <h2>
+          {{ dashboard.studentIne || '-' }}
+        </h2>
+
+        <p>INE</p>
+
+      </div>
+
+    </div>
+
+    <div class="stat-card">
+
+      <div class="icon green">
+
+        <mat-icon>
+          menu_book
+        </mat-icon>
+
+      </div>
+
+      <div>
+
+        <h2>
+          {{ dashboard.studentFormation || '-' }}
+        </h2>
+
+        <p>Formation</p>
+
+      </div>
+
+    </div>
+
+    <div class="stat-card">
+
+      <div class="icon purple">
+
+        <mat-icon>
+          workspace_premium
+        </mat-icon>
+
+      </div>
+
+      <div>
+
+        <h2>
+          {{ dashboard.studentPromotion || '-' }}
+        </h2>
+
+        <p>Promotion</p>
+
+      </div>
+
+    </div>
+
+    <div class="stat-card">
+
+      <div class="icon orange">
+
+        <mat-icon>
+          group_work
+        </mat-icon>
+
+      </div>
+
+      <div>
+
+        <h2>
+          {{ dashboard.studentGroup || '-' }}
+        </h2>
+
+        <p>Groupe</p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- ==========================
+       STAGE
+  ========================== -->
+
+  <mat-card class="chart-card">
+
+    <mat-card-header>
+
+      <mat-card-title>
+
+        Mon stage
+
+      </mat-card-title>
+
+    </mat-card-header>
+
+    <mat-card-content>
+
+      <div class="stat-line">
+
+        <span>Entreprise</span>
+
+        <strong>
+          {{ dashboard.internshipCompany || '-' }}
+        </strong>
+
+      </div>
+
+      <div class="stat-line">
+
+        <span>Statut</span>
+
+        <strong>
+          {{ dashboard.internshipStatus || '-' }}
+        </strong>
+
+      </div>
+
+    </mat-card-content>
+
+  </mat-card>
+
+  <!-- ==========================
+       INSERTION
+  ========================== -->
+
+  <mat-card class="chart-card">
+
+    <mat-card-header>
+
+      <mat-card-title>
+
+        Mon insertion professionnelle
+
+      </mat-card-title>
+
+    </mat-card-header>
+
+    <mat-card-content>
+
+      <div class="stat-line">
+
+        <span>Statut</span>
+
+        <strong>
+          {{ dashboard.insertionStatus || '-' }}
+        </strong>
+
+      </div>
+
+      <div class="stat-line">
+
+        <span>Entreprise</span>
+
+        <strong>
+          {{ dashboard.insertionCompany || '-' }}
+        </strong>
+
+      </div>
+
+      <div class="stat-line">
+
+        <span>Poste</span>
+
+        <strong>
+          {{ dashboard.insertionPosition || '-' }}
+        </strong>
+
+      </div>
+
+    </mat-card-content>
+
+  </mat-card>
+
+</div>

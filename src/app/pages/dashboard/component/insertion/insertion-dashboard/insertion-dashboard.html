@@ -1,0 +1,243 @@
+<!-- ===================================
+     KPI PRINCIPAUX
+=================================== -->
+
+<div class="dashboard-grid">
+
+  <div class="stat-card">
+
+    <div class="icon blue">
+      <mat-icon>handshake</mat-icon>
+    </div>
+
+    <div>
+
+      <h2>{{ dashboard.totalPartners }}</h2>
+
+      <p>Partenaires</p>
+
+    </div>
+
+  </div>
+
+  <div class="stat-card">
+
+    <div class="icon green">
+      <mat-icon>work</mat-icon>
+    </div>
+
+    <div>
+
+      <h2>{{ dashboard.totalInternships }}</h2>
+
+      <p>Stages</p>
+
+    </div>
+
+  </div>
+
+  <div class="stat-card">
+
+    <div class="icon orange">
+      <mat-icon>trending_up</mat-icon>
+    </div>
+
+    <div>
+
+      <h2>{{ dashboard.totalInsertions }}</h2>
+
+      <p>Insertions</p>
+
+    </div>
+
+  </div>
+
+  <div class="stat-card">
+
+    <div class="icon purple">
+      <mat-icon>analytics</mat-icon>
+    </div>
+
+    <div>
+
+      <h2>{{ dashboard.insertionRate }}%</h2>
+
+      <p>Taux d'insertion</p>
+
+    </div>
+
+  </div>
+
+</div>
+
+<!-- ===================================
+     PERFORMANCE
+=================================== -->
+
+<div class="performance-grid">
+
+  <mat-card class="performance-card">
+
+    <div class="performance-value">
+
+      {{ dashboard.internshipSuccessRate }}%
+
+    </div>
+
+    <div class="performance-label">
+
+      Réussite des stages
+
+    </div>
+
+  </mat-card>
+
+  <mat-card class="performance-card">
+
+    <div class="performance-value">
+
+      {{ dashboard.insertionRate }}%
+
+    </div>
+
+    <div class="performance-label">
+
+      Insertion professionnelle
+
+    </div>
+
+  </mat-card>
+
+</div>
+
+<!-- ===================================
+     STAGES
+=================================== -->
+
+<div class="stats-grid">
+
+  <mat-card class="chart-card">
+
+    <mat-card-header>
+
+      <mat-card-title>
+
+        Stages par statut
+
+      </mat-card-title>
+
+    </mat-card-header>
+
+    <mat-card-content>
+
+      <div
+        class="stat-line"
+        *ngFor="
+          let item of dashboard.internshipsByStatus
+          | keyvalue
+        ">
+
+        <span>
+
+          {{ item.key }}
+
+        </span>
+
+        <strong>
+
+          {{ item.value }}
+
+        </strong>
+
+      </div>
+
+    </mat-card-content>
+
+  </mat-card>
+
+  <mat-card class="chart-card">
+
+    <mat-card-header>
+
+      <mat-card-title>
+
+        Insertions par statut
+
+      </mat-card-title>
+
+    </mat-card-header>
+
+    <mat-card-content>
+
+      <div
+        class="stat-line"
+        *ngFor="
+          let item of dashboard.insertionsByStatus
+          | keyvalue
+        ">
+
+        <span>
+
+          {{ item.key }}
+
+        </span>
+
+        <strong>
+
+          {{ item.value }}
+
+        </strong>
+
+      </div>
+
+    </mat-card-content>
+
+  </mat-card>
+
+</div>
+
+<!-- ===================================
+     PARTENAIRES
+=================================== -->
+
+<div class="stats-grid">
+
+  <mat-card class="chart-card">
+
+    <mat-card-header>
+
+      <mat-card-title>
+
+        Partenaires par secteur
+
+      </mat-card-title>
+
+    </mat-card-header>
+
+    <mat-card-content>
+
+      <div
+        class="stat-line"
+        *ngFor="
+          let item of dashboard.partnersBySector
+        ">
+
+        <span>
+
+          {{ item.label }}
+
+        </span>
+
+        <strong>
+
+          {{ item.value }}
+
+        </strong>
+
+      </div>
+
+    </mat-card-content>
+
+  </mat-card>
+
+</div>

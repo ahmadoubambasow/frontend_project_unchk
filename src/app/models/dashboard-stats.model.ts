@@ -1,13 +1,73 @@
+import { DashboardItem } from './dashboard-item.model';
+
 /**
  * Statistiques dashboard
  */
 export interface DashboardStats {
 
-    students: number;
+  // Type dashboard
+  dashboardType: string;
 
-    activeStudents: number;
+  // KPIs
+  totalStudents: number;
 
-    users: number;
+  totalUsers: number;
 
-    formations: number;
+  totalFormations: number;
+
+  totalPromotions: number;
+
+  totalGroups: number;
+
+  totalPartners: number;
+
+  totalInternships: number;
+
+  totalInsertions: number;
+
+  totalDocuments: number;
+
+  // Student
+  studentIne: string;
+
+  studentFormation: string;
+
+  studentGroup: string;
+
+  studentPromotion: string;
+
+  internshipCompany: string;
+
+  internshipStatus: string;
+
+  insertionStatus: string;
+
+  insertionCompany: string;
+
+  insertionPosition: string;
+
+  // Taux
+  insertionRate: number;
+
+  internshipSuccessRate: number;
+
+  // Répartitions
+  internshipsByStatus: Record<string, number>;
+
+  insertionsByStatus: Record<string, number>;
+
+  documentsByStatus: Record<string, number>;
+
+  usersByRole: Record<string, number>;
+
+  // Graphiques
+  studentsByFormation: DashboardItem[];
+
+  studentsByPromotion: DashboardItem[];
+
+  studentsByGroup: DashboardItem[];
+
+  documentsByType: DashboardItem[];
+
+  partnersBySector: DashboardItem[];
 }

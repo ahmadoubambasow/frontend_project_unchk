@@ -1,87 +1,176 @@
-.dashboard-grid {
+.dashboard-page {
 
-  display: grid;
+  min-height: 100vh;
 
-  grid-template-columns:
-    repeat(auto-fit, minmax(240px, 1fr));
+  background: #f8fafc;
 
-  gap: 20px;
+  padding: 24px;
 }
 
-/* Cards */
-.stat-card {
+/* ==========================
+   HEADER
+========================== */
 
-  background: white;
-
-  border-radius: 20px;
-
-  padding: 25px;
+.dashboard-header {
 
   display: flex;
+
+  justify-content: space-between;
 
   align-items: center;
 
-  gap: 18px;
+  margin-bottom: 30px;
 
-  box-shadow:
-    0 5px 20px rgba(0,0,0,0.05);
+  flex-wrap: wrap;
+
+  gap: 15px;
 }
 
-.stat-card h2 {
+.dashboard-header h1 {
 
-  font-size: 28px;
+  margin: 0;
+
+  font-size: 32px;
 
   font-weight: 700;
+
+  color: #0f172a;
 }
 
-.stat-card p {
+.dashboard-header p {
+
+  margin-top: 5px;
 
   color: #64748b;
+
+  font-size: 15px;
 }
 
-/* Icons */
-.icon {
+.role-badge {
 
-  width: 65px;
+  background: white;
 
-  height: 65px;
+  color: #2563eb;
 
-  border-radius: 18px;
+  font-weight: 600;
+
+  padding: 12px 18px;
+
+  border-radius: 12px;
+
+  border: 1px solid #dbeafe;
+
+  box-shadow:
+    0 3px 10px rgba(0,0,0,.04);
+}
+
+/* ==========================
+   CONTENT
+========================== */
+
+.dashboard-content {
+
+  animation: fadeIn .3s ease;
+}
+
+@keyframes fadeIn {
+
+  from {
+
+    opacity: 0;
+
+    transform: translateY(10px);
+  }
+
+  to {
+
+    opacity: 1;
+
+    transform: translateY(0);
+  }
+}
+
+/* ==========================
+   LOADER
+========================== */
+
+.loading-container {
+
+  min-height: 80vh;
 
   display: flex;
+
+  flex-direction: column;
 
   justify-content: center;
 
   align-items: center;
 
-  color: white;
+  gap: 20px;
 }
 
-.icon mat-icon {
+.loading-container p {
 
-  font-size: 32px;
+  color: #64748b;
 
-  width: 32px;
-
-  height: 32px;
+  font-size: 15px;
 }
 
-.blue {
+.loader {
 
-  background: #2563eb;
+  width: 55px;
+
+  height: 55px;
+
+  border-radius: 50%;
+
+  border: 5px solid #e2e8f0;
+
+  border-top: 5px solid #2563eb;
+
+  animation: spin 1s linear infinite;
 }
 
-.green {
+@keyframes spin {
 
-  background: #16a34a;
+  from {
+
+    transform: rotate(0deg);
+  }
+
+  to {
+
+    transform: rotate(360deg);
+  }
 }
 
-.orange {
+/* ==========================
+   MOBILE
+========================== */
 
-  background: #f59e0b;
-}
+@media (max-width: 768px) {
 
-.purple {
+  .dashboard-page {
 
-  background: #9333ea;
+    padding: 15px;
+  }
+
+  .dashboard-header {
+
+    flex-direction: column;
+
+    align-items: flex-start;
+  }
+
+  .dashboard-header h1 {
+
+    font-size: 24px;
+  }
+
+  .role-badge {
+
+    width: 100%;
+
+    text-align: center;
+  }
 }

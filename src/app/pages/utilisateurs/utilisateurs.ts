@@ -1,4 +1,5 @@
 import {
+  ChangeDetectorRef,
   Component,
   OnInit
 } from '@angular/core';
@@ -47,6 +48,8 @@ implements OnInit {
 
   users: User[] = [];
 
+  loading = false;
+
   constructor(
 
     private userService:
@@ -56,7 +59,9 @@ implements OnInit {
       MatDialog,
 
     private snackBar:
-      MatSnackBar
+      MatSnackBar,
+
+      private cdr: ChangeDetectorRef
 
   ) {}
 
@@ -67,6 +72,8 @@ implements OnInit {
 
   loadUsers(): void {
 
+    this.loading = true;
+
     this.userService
 
       .getUsers()
@@ -76,6 +83,10 @@ implements OnInit {
         next: (response) => {
 
           this.users = response;
+
+          this.loading = false;
+
+          this.cdr.detectChanges();
         }
       });
   }

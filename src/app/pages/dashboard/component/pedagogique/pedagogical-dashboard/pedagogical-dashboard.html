@@ -1,0 +1,201 @@
+<!-- ===================================
+     KPI PRINCIPAUX
+=================================== -->
+
+<div class="dashboard-grid">
+
+  <div class="stat-card">
+
+    <div class="icon blue">
+      <mat-icon>menu_book</mat-icon>
+    </div>
+
+    <div>
+
+      <h2>{{ dashboard.totalFormations }}</h2>
+
+      <p>Formations</p>
+
+    </div>
+
+  </div>
+
+  <div class="stat-card">
+
+    <div class="icon green">
+      <mat-icon>school</mat-icon>
+    </div>
+
+    <div>
+
+      <h2>{{ dashboard.totalStudents }}</h2>
+
+      <p>Étudiants</p>
+
+    </div>
+
+  </div>
+
+  <div class="stat-card">
+
+    <div class="icon purple">
+      <mat-icon>workspace_premium</mat-icon>
+    </div>
+
+    <div>
+
+      <h2>{{ dashboard.totalPromotions }}</h2>
+
+      <p>Promotions</p>
+
+    </div>
+
+  </div>
+
+  <div class="stat-card">
+
+    <div class="icon orange">
+      <mat-icon>group_work</mat-icon>
+    </div>
+
+    <div>
+
+      <h2>{{ dashboard.totalGroups }}</h2>
+
+      <p>Groupes</p>
+
+    </div>
+
+  </div>
+
+</div>
+
+<!-- ===================================
+     FORMATIONS
+=================================== -->
+
+<div class="stats-grid">
+
+  <mat-card class="chart-card">
+
+    <mat-card-header>
+
+      <mat-card-title>
+
+        Étudiants par formation
+
+      </mat-card-title>
+
+    </mat-card-header>
+
+    <mat-card-content>
+
+      <div
+        class="stat-line"
+        *ngFor="
+          let formation of dashboard.studentsByFormation
+        ">
+
+        <span>
+
+          {{ formation.label }}
+
+        </span>
+
+        <strong>
+
+          {{ formation.value }}
+
+        </strong>
+
+      </div>
+
+    </mat-card-content>
+
+  </mat-card>
+
+  <mat-card class="chart-card">
+
+    <mat-card-header>
+
+      <mat-card-title>
+
+        Étudiants par promotion
+
+      </mat-card-title>
+
+    </mat-card-header>
+
+    <mat-card-content>
+
+      <div
+        class="stat-line"
+        *ngFor="
+          let promotion of dashboard.studentsByPromotion
+        ">
+
+        <span>
+
+          {{ promotion.label }}
+
+        </span>
+
+        <strong>
+
+          {{ promotion.value }}
+
+        </strong>
+
+      </div>
+
+    </mat-card-content>
+
+  </mat-card>
+
+</div>
+
+<!-- ===================================
+     GROUPES
+=================================== -->
+
+<div class="stats-grid">
+
+  <mat-card class="chart-card">
+
+    <mat-card-header>
+
+      <mat-card-title>
+
+        Étudiants par groupe
+
+      </mat-card-title>
+
+    </mat-card-header>
+
+    <mat-card-content>
+
+      <div
+        class="stat-line"
+        *ngFor="
+          let group of dashboard.studentsByGroup
+        ">
+
+        <span>
+
+          {{ group.label }}
+
+        </span>
+
+        <strong>
+
+          {{ group.value }}
+
+        </strong>
+
+      </div>
+
+    </mat-card-content>
+
+  </mat-card>
+
+</div>

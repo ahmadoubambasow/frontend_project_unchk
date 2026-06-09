@@ -1,0 +1,44 @@
+@use '../../../../../shared/dashboard/dashboard-shared.scss';
+
+.student-dashboard {
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 20px;
+}
+
+.welcome-card {
+
+  border-radius: 20px !important;
+
+  background:
+    linear-gradient(
+      135deg,
+      #2563eb,
+      #3b82f6
+    );
+
+  color: white;
+}
+
+.welcome-content {
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+}
+
+.welcome-icon {
+
+  font-size: 70px;
+
+  width: 70px;
+
+  height: 70px;
+
+  opacity: .3;
+}
