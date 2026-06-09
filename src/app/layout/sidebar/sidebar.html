@@ -11,9 +11,9 @@
 
       <div>
 
-        <h2>UCHK</h2>
+        <h2>UNCHK</h2>
 
-        <p>Admin Panel</p>
+        <p>Management</p>
 
       </div>
 
@@ -25,118 +25,53 @@
   <div class="menu">
 
     <a
-      routerLink="/dashboard"
-      routerLinkActive="active-link">
+
+      *ngFor="let item of menuItems"
+
+      [routerLink]="item.route"
+
+      routerLinkActive="active-link"
+
+      [routerLinkActiveOptions]="{ exact: false }">
 
       <mat-icon>
-        dashboard
+        {{ item.icon }}
       </mat-icon>
 
       <span>
-        Tableau de bord
-      </span>
-
-    </a>
-
-    <a
-      routerLink="/students"
-      routerLinkActive="active-link">
-
-      <mat-icon>
-        school
-      </mat-icon>
-
-      <span>
-        Étudiants
-      </span>
-
-    </a>
-
-    <a
-      routerLink="/trainers"
-      routerLinkActive="active-link">
-
-      <mat-icon>
-        school
-      </mat-icon>
-
-      <span>
-        Formateurs
-      </span>
-
-    </a>
-
-    <a
-      routerLink="/formations"
-      routerLinkActive="active-link">
-
-      <mat-icon>
-        menu_book
-      </mat-icon>
-
-      <span>
-        Formations
-      </span>
-
-    </a>
-
-    <a
-      routerLink="/users"
-      routerLinkActive="active-link">
-
-      <mat-icon>
-        group
-      </mat-icon>
-
-      <span>
-        Utilisateurs
-      </span>
-
-    </a>
-
-    <a
-      routerLink="/schedules"
-      routerLinkActive="active-link">
-
-      <mat-icon>
-        event
-      </mat-icon>
-
-      <span>
-        Emplois du temps
-      </span>
-
-    </a>
-
-    <a>
-
-      <mat-icon>
-        settings
-      </mat-icon>
-
-      <span>
-        Paramètres
+        {{ item.label }}
       </span>
 
     </a>
 
   </div>
 
-  <!-- User -->
+  <!-- Utilisateur connecté -->
   <div class="sidebar-user">
 
     <div class="avatar">
-      A
+
+      {{
+        user?.fullName
+          ? user.fullName.charAt(0).toUpperCase()
+          : 'U'
+      }}
+
     </div>
 
     <div>
 
-      <h4>{{ user?.fullName }}</h4>
+      <h4>
+        {{ user?.fullName || 'Utilisateur' }}
+      </h4>
 
-      <p>{{ user?.role }}</p>
+      <p>
+        {{ user?.role || 'Invité' }}
+      </p>
 
     </div>
 
   </div>
 
 </div>
+
