@@ -48,6 +48,7 @@ import {
 import {
   FormationService
 } from '../../../services/formation';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-formation-form-dialog',
@@ -61,7 +62,8 @@ import {
     MatInputModule,
     MatButtonModule,
     MatSelectModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatIconModule
   ],
 
   templateUrl:

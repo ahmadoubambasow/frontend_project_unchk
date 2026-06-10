@@ -1,16 +1,104 @@
 .dialog-container {
 
-  padding: 24px;
+  padding: 28px;
 
   min-width: 700px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 28px;
+}
+
+/* Header */
+
+.dialog-header {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 18px;
+}
+
+.dialog-icon {
+
+  width: 64px;
+
+  height: 64px;
+
+  border-radius: 18px;
+
+  background: linear-gradient(
+    135deg,
+    #2563eb,
+    #1d4ed8
+  );
+
+  color: white;
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+}
+
+.dialog-icon mat-icon {
+
+  font-size: 30px;
+
+  width: 30px;
+
+  height: 30px;
+}
+
+.dialog-header h2 {
+
+  margin: 0;
+
+  font-size: 26px;
+
+  font-weight: 700;
+
+  color: #0f172a;
+}
+
+.dialog-header p {
+
+  margin: 6px 0 0;
+
+  color: #64748b;
+}
+
+/* Formulaire */
+
+.group-form {
+
+  display: flex;
+
+  flex-direction: column;
+}
+
+.form-grid {
+
+  display: grid;
+
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(280px, 1fr)
+  );
+
+  gap: 18px;
 }
 
 mat-form-field {
 
   width: 100%;
-
-  margin-bottom: 16px;
 }
+
+/* Actions */
 
 .dialog-actions {
 
@@ -18,10 +106,19 @@ mat-form-field {
 
   justify-content: flex-end;
 
-  gap: 12px;
+  gap: 14px;
 
-  margin-top: 24px;
+  padding-top: 20px;
+
+  border-top: 1px solid #e2e8f0;
 }
+
+.dialog-actions button {
+
+  min-width: 140px;
+}
+
+/* Mobile */
 
 @media (max-width: 768px) {
 
@@ -29,6 +126,30 @@ mat-form-field {
 
     min-width: auto;
 
-    width: 95vw;
+    width: 100%;
+
+    padding: 20px;
+  }
+
+  .dialog-header {
+
+    flex-direction: column;
+
+    text-align: center;
+  }
+
+  .form-grid {
+
+    grid-template-columns: 1fr;
+  }
+
+  .dialog-actions {
+
+    flex-direction: column-reverse;
+  }
+
+  .dialog-actions button {
+
+    width: 100%;
   }
 }

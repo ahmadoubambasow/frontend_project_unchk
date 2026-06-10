@@ -1,77 +1,162 @@
 <div class="dialog-container">
 
+  <!-- Header -->
   <div class="dialog-header">
 
-    <h2>
+    <div class="dialog-icon">
 
-      {{
-        data
-          ? 'Modifier filière'
-          : 'Nouvelle filière'
-      }}
+      <mat-icon>
 
-    </h2>
+        account_tree
 
-    <p>
+      </mat-icon>
 
-      Gestion des filières académiques
+    </div>
 
-    </p>
+    <div>
+
+      <h2>
+
+        {{
+          data
+            ? 'Modifier filière'
+            : 'Nouvelle filière'
+        }}
+
+      </h2>
+
+      <p>
+
+        Gestion des filières académiques
+
+      </p>
+
+    </div>
 
   </div>
 
+  <!-- Formulaire -->
   <form
-    [formGroup]="filiereForm">
+    [formGroup]="filiereForm"
+    class="dialog-form">
 
-    <!-- Nom -->
-    <mat-form-field appearance="outline">
+    <div class="section-card">
 
-      <mat-label>
+      <div class="section-header">
 
-        Nom
+        <mat-icon>
 
-      </mat-label>
+          school
 
-      <input
+        </mat-icon>
 
-        matInput
+        <h3>
 
-        formControlName="name"
+          Informations générales
 
-        placeholder="Informatique">
+        </h3>
 
-    </mat-form-field>
+      </div>
 
-    
-    <!-- Description -->
-    <mat-form-field appearance="outline">
+      <!-- Nom -->
+      <mat-form-field appearance="outline">
 
-      <mat-label>
+        <mat-label>
 
-        Description
+          Nom de la filière
 
-      </mat-label>
+        </mat-label>
 
-      <textarea
+        <mat-icon matPrefix>
 
-        matInput
+          menu_book
 
-        rows="4"
+        </mat-icon>
 
-        formControlName="description">
+        <input
+          matInput
+          formControlName="name"
+          placeholder="Informatique">
 
-      </textarea>
+      </mat-form-field>
 
-    </mat-form-field>
+      <!-- Description -->
+      <mat-form-field
+        appearance="outline"
+        class="full-width">
+
+        <mat-label>
+
+          Description
+
+        </mat-label>
+
+        <mat-icon matPrefix>
+
+          description
+
+        </mat-icon>
+
+        <textarea
+          matInput
+          rows="4"
+          formControlName="description"
+          placeholder="Décrivez brièvement cette filière...">
+
+        </textarea>
+
+      </mat-form-field>
+
+    </div>
+
+    <!-- Aperçu -->
+    <div
+      class="preview-card"
+      *ngIf="filiereForm.value.name">
+
+      <div class="preview-avatar">
+
+        {{
+          filiereForm.value.name.charAt(0)
+        }}
+
+      </div>
+
+      <div>
+
+        <span>
+
+          Aperçu de la filière
+
+        </span>
+
+        <strong>
+
+          {{ filiereForm.value.name }}
+
+        </strong>
+
+        <small>
+
+          {{
+            filiereForm.value.description
+              ? filiereForm.value.description
+              : 'Aucune description renseignée'
+          }}
+
+        </small>
+
+      </div>
+
+    </div>
 
   </form>
 
+  <!-- Actions -->
   <div class="dialog-actions">
 
     <button
-
       mat-stroked-button
-
       (click)="dialogRef.close()">
 
       Annuler
@@ -79,17 +164,19 @@
     </button>
 
     <button
-
-      mat-raised-button
-
+      mat-flat-button
       color="primary"
-
       (click)="submit()"
-
       [disabled]="
         loading ||
         filiereForm.invalid
       ">
+
+      <mat-icon>
+
+        save
+
+      </mat-icon>
 
       {{
 
@@ -104,7 +191,7 @@
           : (
               data
                 ? 'Modifier'
-                : 'Ajouter'
+                : 'Créer'
             )
 
       }}

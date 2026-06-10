@@ -26,6 +26,10 @@ import {
 import { Partner } from '../models/partner.model';
 import { PartnerService } from '../services/partner';
 import { Router } from '@angular/router';
+import { MatDivider } from "@angular/material/divider";
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-partners',
@@ -34,9 +38,13 @@ import { Router } from '@angular/router';
 
   imports: [
     CommonModule,
+    MatCardModule,
+    MatFormFieldModule,
     MatButtonModule,
-    MatIconModule
-  ],
+    MatInputModule,
+    MatIconModule,
+    MatDivider
+],
 
   templateUrl: './partners.html',
 
@@ -101,6 +109,19 @@ implements OnInit {
         }
       });
   }
+
+  applyFilter(event: Event): void {
+
+    const filterValue =
+      (event.target as HTMLInputElement).value;
+
+    this.filteredPartners =
+      this.partners.filter(partner =>
+        partner.name
+          .toLowerCase()
+          .includes(filterValue));
+  }
+
 
   openCreateDialog(): void {
 
@@ -175,6 +196,7 @@ implements OnInit {
         this.loadPartners();
       });
   }
+
 
   openDetails(
     partner: Partner

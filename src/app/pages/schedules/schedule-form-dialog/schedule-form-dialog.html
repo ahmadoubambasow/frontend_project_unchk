@@ -1,229 +1,368 @@
 <div class="dialog-container">
 
+  <!-- Header -->
   <div class="dialog-header">
 
-    <h2>
+    <div class="dialog-icon">
 
-      {{
-        data
-          ? 'Modifier un créneau'
-          : 'Nouveau créneau'
-      }}
+      <mat-icon>
 
-    </h2>
+        event
 
-    <p>
+      </mat-icon>
 
-      Gestion des emplois du temps
+    </div>
 
-    </p>
+    <div>
+
+      <h2>
+
+        {{
+          data
+            ? 'Modifier un créneau'
+            : 'Nouveau créneau'
+        }}
+
+      </h2>
+
+      <p>
+
+        Gestion des emplois du temps
+
+      </p>
+
+    </div>
 
   </div>
 
   <form
-
     [formGroup]="form"
-
     class="schedule-form">
 
-    <div class="form-grid">
+    <!-- Contexte pédagogique -->
+    <div class="section-card">
 
-      <mat-form-field appearance="outline">
+      <div class="section-header">
 
-        <mat-label>
+        <mat-icon>
 
-          Groupe
+          school
 
-        </mat-label>
+        </mat-icon>
 
-        <mat-select
-          formControlName="groupId">
+        <h3>
 
-          <mat-option
+          Contexte pédagogique
 
-            *ngFor="
-              let group
-              of groups
-            "
+        </h3>
 
-            [value]="group.id">
+      </div>
 
-            {{ group.name }}
+      <div class="form-grid">
 
-            -
+        <mat-form-field appearance="outline">
 
-            {{ group.promotion }}
+          <mat-label>
 
-          </mat-option>
+            Groupe
 
-        </mat-select>
+          </mat-label>
 
-      </mat-form-field>
+          <mat-icon matPrefix>
 
-      <mat-form-field appearance="outline">
+            groups
 
-        <mat-label>
+          </mat-icon>
 
-          Module
+          <mat-select formControlName="groupId">
 
-        </mat-label>
+            <mat-option
+              *ngFor="let group of groups"
+              [value]="group.id">
 
-        <mat-select
-          formControlName="trainingModuleId">
+              {{ group.name }}
 
-          <mat-option
+              -
 
-            *ngFor="
-              let module
-              of filteredModules
-            "
+              {{ group.promotion }}
 
-            [value]="module.id">
+            </mat-option>
 
-            {{ module.title }}
+          </mat-select>
 
-          </mat-option>
+        </mat-form-field>
 
-        </mat-select>
+        <mat-form-field appearance="outline">
 
-      </mat-form-field>
+          <mat-label>
 
-      <mat-form-field appearance="outline">
+            Module
 
-        <mat-label>
+          </mat-label>
 
-          Formateur
+          <mat-icon matPrefix>
 
-        </mat-label>
+            menu_book
 
-        <mat-select
-          formControlName="trainerId">
+          </mat-icon>
 
-          <mat-option
+          <mat-select formControlName="trainingModuleId">
 
-            *ngFor="
-              let trainer
-              of trainers
-            "
+            <mat-option
+              *ngFor="let module of filteredModules"
+              [value]="module.id">
 
-            [value]="trainer.id">
+              {{ module.title }}
 
-            {{ trainer.fullName }}
+            </mat-option>
 
-          </mat-option>
+          </mat-select>
 
-        </mat-select>
+        </mat-form-field>
 
-      </mat-form-field>
+        <mat-form-field appearance="outline">
 
-      <mat-form-field appearance="outline">
+          <mat-label>
 
-        <mat-label>
+            Formateur
 
-          Jour
+          </mat-label>
 
-        </mat-label>
+          <mat-icon matPrefix>
 
-        <mat-select
-          formControlName="dayOfWeek">
+            person
 
-          <mat-option
+          </mat-icon>
 
-            *ngFor="
-              let day
-              of days
-            "
+          <mat-select formControlName="trainerId">
 
-            [value]="day">
+            <mat-option
+              *ngFor="let trainer of trainers"
+              [value]="trainer.id">
 
-            {{ day }}
+              {{ trainer.fullName }}
 
-          </mat-option>
+            </mat-option>
 
-        </mat-select>
+          </mat-select>
 
-      </mat-form-field>
+        </mat-form-field>
 
-      <mat-form-field appearance="outline">
+      </div>
 
-        <mat-label>
+    </div>
 
-          Heure début
+    <!-- Planification -->
+    <div class="section-card">
 
-        </mat-label>
+      <div class="section-header">
 
-        <input
+        <mat-icon>
 
-          matInput
+          schedule
 
-          type="time"
+        </mat-icon>
 
-          formControlName="startTime">
+        <h3>
 
-      </mat-form-field>
+          Planification
 
-      <mat-form-field appearance="outline">
+        </h3>
 
-        <mat-label>
+      </div>
 
-          Heure fin
+      <div class="form-grid">
 
-        </mat-label>
+        <mat-form-field appearance="outline">
 
-        <input
+          <mat-label>
 
-          matInput
+            Jour
 
-          type="time"
+          </mat-label>
 
-          formControlName="endTime">
+          <mat-icon matPrefix>
 
-      </mat-form-field>
+            calendar_month
 
-      <mat-form-field appearance="outline">
+          </mat-icon>
 
-        <mat-label>
+          <mat-select formControlName="dayOfWeek">
 
-          Salle
+            <mat-option
+              *ngFor="let day of days"
+              [value]="day">
 
-        </mat-label>
+              {{ day }}
 
-        <input
+            </mat-option>
 
-          matInput
+          </mat-select>
 
-          formControlName="room">
+        </mat-form-field>
 
-      </mat-form-field>
+        <mat-form-field appearance="outline">
 
-      <mat-form-field appearance="outline">
+          <mat-label>
 
-        <mat-label>
+            Heure début
 
-          Couleur
+          </mat-label>
 
-        </mat-label>
+          <mat-icon matPrefix>
 
-        <input
+            play_circle
 
-          matInput
+          </mat-icon>
 
-          type="color"
+          <input
+            matInput
+            type="time"
+            formControlName="startTime">
 
-          formControlName="color">
+        </mat-form-field>
 
-      </mat-form-field>
+        <mat-form-field appearance="outline">
+
+          <mat-label>
+
+            Heure fin
+
+          </mat-label>
+
+          <mat-icon matPrefix>
+
+            stop_circle
+
+          </mat-icon>
+
+          <input
+            matInput
+            type="time"
+            formControlName="endTime">
+
+        </mat-form-field>
+
+      </div>
+
+    </div>
+
+    <!-- Informations complémentaires -->
+    <div class="section-card">
+
+      <div class="section-header">
+
+        <mat-icon>
+
+          info
+
+        </mat-icon>
+
+        <h3>
+
+          Informations complémentaires
+
+        </h3>
+
+      </div>
+
+      <div class="form-grid">
+
+        <mat-form-field appearance="outline">
+
+          <mat-label>
+
+            Salle
+
+          </mat-label>
+
+          <mat-icon matPrefix>
+
+            meeting_room
+
+          </mat-icon>
+
+          <input
+            matInput
+            formControlName="room">
+
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+
+          <mat-label>
+
+            Couleur
+
+          </mat-label>
+
+          <input
+            matInput
+            type="color"
+            formControlName="color">
+
+        </mat-form-field>
+
+      </div>
+
+    </div>
+
+    <!-- Aperçu -->
+    <div
+      class="preview-card"
+      *ngIf="form.value.dayOfWeek">
+
+      <div
+        class="preview-color"
+        [style.background]="form.value.color || '#2563eb'">
+
+      </div>
+
+      <div>
+
+        <span>
+
+          Aperçu du créneau
+
+        </span>
+
+        <strong>
+
+          {{ form.value.dayOfWeek }}
+
+        </strong>
+
+        <small>
+
+          {{
+            form.value.startTime || '--:--'
+          }}
+
+          -
+
+          {{
+            form.value.endTime || '--:--'
+          }}
+
+          • Salle
+
+          {{
+            form.value.room || 'Non définie'
+          }}
+
+        </small>
+
+      </div>
 
     </div>
 
   </form>
 
+  <!-- Actions -->
   <div class="dialog-actions">
 
     <button
-
       mat-stroked-button
-
       (click)="dialogRef.close()">
 
       Annuler
@@ -231,14 +370,16 @@
     </button>
 
     <button
-
-      mat-raised-button
-
+      mat-flat-button
       color="primary"
-
       [disabled]="loading"
-
       (click)="submit()">
+
+      <mat-icon>
+
+        save
+
+      </mat-icon>
 
       {{
 
@@ -251,6 +392,7 @@
             ? 'Modifier'
 
             : 'Créer'
+
       }}
 
     </button>

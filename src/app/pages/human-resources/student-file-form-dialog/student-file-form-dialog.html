@@ -1,94 +1,202 @@
 <div class="dialog-container">
 
+  <!-- Header -->
   <div class="dialog-header">
 
-    <h2>
+    <div class="dialog-icon">
 
-      {{
-        data
-          ? 'Modifier dossier étudiant'
-          : 'Nouveau dossier étudiant'
-      }}
+      <mat-icon>
 
-    </h2>
+        folder_shared
+
+      </mat-icon>
+
+    </div>
+
+    <div>
+
+      <h2>
+
+        {{
+          data
+            ? 'Modifier dossier étudiant'
+            : 'Nouveau dossier étudiant'
+        }}
+
+      </h2>
+
+      <p>
+
+        Gérez les informations administratives de l'étudiant.
+
+      </p>
+
+    </div>
 
   </div>
 
-  <form [formGroup]="form">
+  <form
+    [formGroup]="form"
+    class="student-file-form">
 
-    <div class="form-grid">
+    <!-- Informations générales -->
+    <div class="section-card">
 
-      <mat-form-field appearance="outline">
+      <div class="section-header">
 
-        <mat-label>
+        <mat-icon>
 
-          Étudiant
+          person
 
-        </mat-label>
+        </mat-icon>
 
-        <mat-select
-          formControlName="studentId">
+        <h3>
 
-          <mat-option
+          Informations générales
 
-            *ngFor="
-              let student
-              of students
-            "
+        </h3>
 
-            [value]="student.id">
+      </div>
 
-            {{ student.firstName }} {{ student.lastName }}
+      <div class="form-grid">
 
-          </mat-option>
+        <mat-form-field appearance="outline">
 
-        </mat-select>
+          <mat-label>
 
-      </mat-form-field>
+            Étudiant
 
-      <mat-form-field appearance="outline">
+          </mat-label>
 
-        <mat-label>
+          <select
+            matNativeControl
+            formControlName="studentId">
 
-          Matricule
+            <option
+              *ngFor="let student of students"
+              [value]="student.id">
 
-        </mat-label>
+              {{ student.firstName }}
+              {{ student.lastName }}
 
-        <input
-          matInput
-          formControlName="registrationNumber">
+            </option>
 
-      </mat-form-field>
+          </select>
 
-      <mat-form-field appearance="outline">
+        </mat-form-field>
 
-        <mat-label>
+        <mat-form-field appearance="outline">
+
+          <mat-label>
+
+            Matricule
+
+          </mat-label>
+
+          <input
+            matInput
+            formControlName="registrationNumber">
+
+        </mat-form-field>
+
+      </div>
+
+    </div>
+
+    <!-- Responsable -->
+    <div class="section-card">
+
+      <div class="section-header">
+
+        <mat-icon>
+
+          family_restroom
+
+        </mat-icon>
+
+        <h3>
 
           Responsable légal
 
-        </mat-label>
+        </h3>
 
-        <input
-          matInput
-          formControlName="guardianName">
+      </div>
 
-      </mat-form-field>
+      <div class="form-grid">
 
-      <mat-form-field appearance="outline">
+        <mat-form-field appearance="outline">
+
+          <mat-label>
+
+            Nom complet
+
+          </mat-label>
+
+          <input
+            matInput
+            formControlName="guardianName">
+
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+
+          <mat-label>
+
+            Téléphone
+
+          </mat-label>
+
+          <input
+            matInput
+            formControlName="guardianPhone">
+
+        </mat-form-field>
+
+      </div>
+
+      <mat-form-field
+        appearance="outline"
+        class="full-width">
 
         <mat-label>
 
-          Téléphone responsable
+          Adresse
 
         </mat-label>
 
-        <input
+        <textarea
+          rows="3"
           matInput
-          formControlName="guardianPhone">
+          formControlName="address">
+
+        </textarea>
 
       </mat-form-field>
 
-      <mat-form-field appearance="outline">
+    </div>
+
+    <!-- Parcours scolaire -->
+    <div class="section-card">
+
+      <div class="section-header">
+
+        <mat-icon>
+
+          school
+
+        </mat-icon>
+
+        <h3>
+
+          Parcours scolaire
+
+        </h3>
+
+      </div>
+
+      <mat-form-field
+        appearance="outline"
+        class="full-width">
 
         <mat-label>
 
@@ -102,103 +210,119 @@
 
       </mat-form-field>
 
+      <mat-form-field
+        appearance="outline"
+        class="full-width">
+
+        <mat-label>
+
+          Observations
+
+        </mat-label>
+
+        <textarea
+          rows="4"
+          matInput
+          formControlName="remarks">
+
+        </textarea>
+
+      </mat-form-field>
+
     </div>
 
-    <mat-form-field
-      appearance="outline"
-      class="full-width">
+    <!-- Documents -->
+    <div class="section-card">
 
-      <mat-label>
+      <div class="section-header">
 
-        Adresse
+        <mat-icon>
 
-      </mat-label>
+          attach_file
 
-      <textarea
+        </mat-icon>
 
-        rows="3"
+        <h3>
 
-        matInput
+          Documents administratifs
 
-        formControlName="address">
+        </h3>
 
-      </textarea>
-
-    </mat-form-field>
-
-    <mat-form-field
-      appearance="outline"
-      class="full-width">
-
-      <mat-label>
-
-        Observations
-
-      </mat-label>
-
-      <textarea
-
-        rows="4"
-
-        matInput
-
-        formControlName="remarks">
-
-      </textarea>
-
-    </mat-form-field>
-
-    <div class="upload-grid">
-
-      <div class="upload-card">
-
-        <label>
-
-          Photo
-
-        </label>
-
-        <input
-          type="file"
-          (change)="onPhotoSelected($event)">
       </div>
 
-      <div class="upload-card">
+      <div class="upload-grid">
 
-        <label>
+        <div class="upload-card">
 
-          Diplôme
+          <mat-icon>
 
-        </label>
+            photo_camera
 
-        <input
-          type="file"
-          (change)="onDiplomaSelected($event)">
-      </div>
+          </mat-icon>
 
-      <div class="upload-card">
+          <h4>
 
-        <label>
+            Photo
 
-          Acte de naissance
+          </h4>
 
-        </label>
+          <input
+            type="file"
+            (change)="onPhotoSelected($event)">
 
-        <input
-          type="file"
-          (change)="onBirthCertificateSelected($event)">
+        </div>
+
+        <div class="upload-card">
+
+          <mat-icon>
+
+            workspace_premium
+
+          </mat-icon>
+
+          <h4>
+
+            Diplôme
+
+          </h4>
+
+          <input
+            type="file"
+            (change)="onDiplomaSelected($event)">
+
+        </div>
+
+        <div class="upload-card">
+
+          <mat-icon>
+
+            description
+
+          </mat-icon>
+
+          <h4>
+
+            Acte de naissance
+
+          </h4>
+
+          <input
+            type="file"
+            (change)="onBirthCertificateSelected($event)">
+
+        </div>
+
       </div>
 
     </div>
 
   </form>
 
+  <!-- Actions -->
   <div class="dialog-actions">
 
     <button
-
       mat-stroked-button
-
       (click)="dialogRef.close()">
 
       Annuler
@@ -206,12 +330,15 @@
     </button>
 
     <button
-
-      mat-raised-button
-
+      mat-flat-button
       color="primary"
-
       (click)="submit()">
+
+      <mat-icon>
+
+        save
+
+      </mat-icon>
 
       Enregistrer
 

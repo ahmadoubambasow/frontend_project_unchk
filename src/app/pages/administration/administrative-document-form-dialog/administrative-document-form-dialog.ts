@@ -43,6 +43,7 @@ import { User } from '../../../models/user.model';
 import { AdministrativeDocumentService } from '../services/administrative-document';
 import { UserService } from '../../../services/user-service';
 import { AdministrativeDocument } from '../models/administrative-document.model';
+import { MatIconModule } from '@angular/material/icon';
 
 
 
@@ -57,7 +58,8 @@ import { AdministrativeDocument } from '../models/administrative-document.model'
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    MatSelectModule
+    MatSelectModule,
+    MatIconModule
   ],
 
   templateUrl:

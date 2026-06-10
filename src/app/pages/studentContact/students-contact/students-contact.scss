@@ -1,7 +1,13 @@
 .page-container {
 
-  padding: 24px;
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 24px;
 }
+
+/* Header */
 
 .page-header {
 
@@ -11,18 +17,16 @@
 
   align-items: center;
 
-  margin-bottom: 24px;
-
   flex-wrap: wrap;
 
-  gap: 20px;
+  gap: 16px;
 }
 
 .page-header h1 {
 
   margin: 0;
 
-  font-size: 30px;
+  font-size: 32px;
 
   font-weight: 700;
 
@@ -31,61 +35,83 @@
 
 .page-header p {
 
-  margin: 4px 0 0;
+  margin: 6px 0 0;
 
   color: #64748b;
 }
 
-.search-bar {
+/* Recherche */
 
-  margin-bottom: 24px;
+.search-card {
+
+  padding: 16px;
 }
 
-.search-bar input {
+.search-card mat-form-field {
 
   width: 100%;
-
-  padding: 12px;
-
-  border-radius: 10px;
-
-  border: 1px solid #cbd5e1;
 }
 
-.loading {
+/* Chargement */
 
-  text-align: center;
-
-  padding: 50px;
-}
-
-.contacts-grid {
-
-  display: grid;
-
-  grid-template-columns:
-    repeat(auto-fill,minmax(350px,1fr));
-
-  gap: 20px;
-}
-
-.contact-card {
-
-  background: white;
-
-  border-radius: 18px;
-
-  padding: 20px;
-
-  box-shadow:
-    0 4px 20px rgba(15,23,42,.08);
+.loading-state {
 
   display: flex;
 
   flex-direction: column;
 
+  align-items: center;
+
   gap: 16px;
+
+  padding: 60px;
+
+  color: #64748b;
 }
+
+/* Grille */
+
+.contacts-grid {
+
+  display: grid;
+
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(340px, 1fr)
+  );
+
+  gap: 24px;
+}
+
+/* Carte */
+
+.contact-card {
+
+  border-radius: 20px;
+
+  transition: 0.3s;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 20px;
+}
+
+.contact-card:hover {
+
+  transform: translateY(-4px);
+
+  box-shadow:
+    0 12px 30px rgba(
+      0,
+      0,
+      0,
+      0.08
+    );
+}
+
+/* Header carte */
 
 .card-header {
 
@@ -93,58 +119,145 @@
 
   justify-content: space-between;
 
+  align-items: flex-start;
+
+  gap: 16px;
+}
+
+.student-info {
+
+  display: flex;
+
+  gap: 14px;
+
   align-items: center;
 }
 
-.card-header h3 {
+.avatar {
+
+  width: 50px;
+
+  height: 50px;
+
+  border-radius: 50%;
+
+  background: linear-gradient(
+    135deg,
+    #2563eb,
+    #1d4ed8
+  );
+
+  color: white;
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  font-size: 18px;
+
+  font-weight: 700;
+}
+
+.student-info h3 {
 
   margin: 0;
 
-  color: #0f172a;
+  font-size: 18px;
 }
+
+.student-info small {
+
+  color: #64748b;
+}
+
+/* Badge */
 
 .type-badge {
 
-  background: #eff6ff;
+  background: #dbeafe;
 
-  color: #2563eb;
+  color: #1d4ed8;
 
   padding: 6px 12px;
 
-  border-radius: 20px;
+  border-radius: 999px;
 
   font-size: 12px;
 
   font-weight: 600;
 }
 
-.card-body p {
+/* Corps */
 
-  margin: 0 0 8px;
+.card-body {
 
-  color: #334155;
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 14px;
 }
+
+.info-item {
+
+  display: flex;
+
+  gap: 10px;
+
+  align-items: center;
+
+  color: #475569;
+}
+
+.info-item mat-icon {
+
+  color: #2563eb;
+
+  font-size: 20px;
+}
+
+/* Footer */
 
 .card-footer {
 
   display: flex;
 
-  justify-content: flex-end;
+  justify-content: space-between;
+
+  align-items: center;
 
   gap: 8px;
 
-  margin-top: auto;
+  padding-top: 16px;
+
+  border-top: 1px solid #e2e8f0;
 }
+
+/* Mobile */
 
 @media (max-width: 768px) {
 
-  .page-container {
+  .page-header {
 
-    padding: 16px;
+    flex-direction: column;
+
+    align-items: stretch;
   }
 
   .contacts-grid {
 
     grid-template-columns: 1fr;
+  }
+
+  .card-footer {
+
+    flex-wrap: wrap;
+  }
+
+  .card-footer button:first-child {
+
+    width: 100%;
   }
 }

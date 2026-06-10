@@ -1,41 +1,108 @@
 .dialog-container {
 
-  padding: 24px;
+  padding: 28px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 24px;
+
+  max-height: 90vh;
+
+  overflow-y: auto;
 }
 
 .dialog-header {
 
-  margin-bottom: 24px;
+  display: flex;
 
-  h2 {
+  align-items: center;
 
-    margin: 0;
-
-    font-size: 28px;
-
-    font-weight: 700;
-  }
-
-  p {
-
-    color: #6b7280;
-
-    margin-top: 8px;
-  }
+  gap: 18px;
 }
 
-.section {
+.header-icon {
 
-  margin-bottom: 24px;
+  width: 64px;
 
-  h3 {
+  height: 64px;
 
-    margin-bottom: 12px;
+  border-radius: 18px;
 
-    color: #1f2937;
+  background: linear-gradient(
+    135deg,
+    #2563eb,
+    #1d4ed8
+  );
 
-    font-size: 16px;
-  }
+  color: white;
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+}
+
+.header-icon mat-icon {
+
+  font-size: 32px;
+
+  width: 32px;
+
+  height: 32px;
+}
+
+.dialog-header h2 {
+
+  margin: 0;
+
+  font-size: 28px;
+
+  font-weight: 700;
+}
+
+.dialog-header p {
+
+  margin-top: 6px;
+
+  color: #64748b;
+}
+
+.section-card {
+
+  background: white;
+
+  border: 1px solid #e2e8f0;
+
+  border-radius: 20px;
+
+  padding: 24px;
+
+  margin-bottom: 20px;
+}
+
+.section-title {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  margin-bottom: 20px;
+
+  font-size: 18px;
+
+  font-weight: 600;
+
+  color: #1e293b;
+}
+
+.section-title mat-icon {
+
+  color: #2563eb;
 }
 
 .grid {
@@ -45,10 +112,10 @@
   grid-template-columns:
     repeat(
       auto-fit,
-      minmax(250px, 1fr)
+      minmax(260px, 1fr)
     );
 
-  gap: 16px;
+  gap: 18px;
 }
 
 .full-width {
@@ -56,13 +123,42 @@
   width: 100%;
 }
 
-.total {
+.total-card {
 
-  margin-top: 12px;
+  margin-top: 20px;
 
-  font-weight: 600;
+  display: flex;
+
+  align-items: center;
+
+  gap: 16px;
+
+  padding: 18px;
+
+  border-radius: 16px;
+
+  background: #eff6ff;
+}
+
+.total-card mat-icon {
 
   color: #2563eb;
+}
+
+.total-card span {
+
+  display: block;
+
+  color: #64748b;
+
+  font-size: 13px;
+}
+
+.total-card strong {
+
+  color: #1d4ed8;
+
+  font-size: 22px;
 }
 
 .dialog-actions {
@@ -73,18 +169,37 @@
 
   gap: 12px;
 
-  margin-top: 24px;
+  padding-top: 20px;
+
+  border-top: 1px solid #e2e8f0;
 }
 
 @media (max-width: 768px) {
 
   .dialog-container {
 
-    padding: 16px;
+    padding: 20px;
+  }
+
+  .dialog-header {
+
+    flex-direction: column;
+
+    text-align: center;
   }
 
   .grid {
 
     grid-template-columns: 1fr;
+  }
+
+  .dialog-actions {
+
+    flex-direction: column-reverse;
+  }
+
+  .dialog-actions button {
+
+    width: 100%;
   }
 }

@@ -11,11 +11,13 @@ import { CommunicationService } from '../../services/communication-service';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { CommunicationFormDialog } from './communication-form-dialog/communication-form-dialog';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'app-communications',
   imports: [
     CommonModule,
+    MatCardModule,
     MatTableModule,
     MatPaginatorModule,
     MatButtonModule,

@@ -1,29 +1,33 @@
 <div class="page-container">
 
+  <!-- Header -->
   <div class="page-header">
 
     <div>
 
       <h1>
+
         Filières
+
       </h1>
 
       <p>
+
         Gestion des filières académiques
+
       </p>
 
     </div>
 
     <button
-
-      mat-raised-button
-
+      mat-flat-button
       color="primary"
-
       (click)="openCreateDialog()">
 
       <mat-icon>
+
         add
+
       </mat-icon>
 
       Nouvelle filière
@@ -32,161 +36,250 @@
 
   </div>
 
-  <div class="search-container">
+  <!-- Statistiques -->
+  <div class="stats-grid">
 
-    <mat-form-field
-      appearance="outline">
+    <div class="stat-card">
+
+      <mat-icon>
+
+        account_tree
+
+      </mat-icon>
+
+      <div>
+
+        <span>
+
+          Total filières
+
+        </span>
+
+        <strong>
+
+          {{ dataSource.data.length }}
+
+        </strong>
+
+      </div>
+
+    </div>
+
+    <div class="stat-card">
+
+      <mat-icon>
+
+        bookmark
+
+      </mat-icon>
+
+      <div>
+
+        <span>
+
+          Codes enregistrés
+
+        </span>
+
+        <strong>
+
+          {{ dataSource.data.length }}
+
+        </strong>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- Recherche -->
+  <mat-card class="search-card">
+
+    <mat-form-field appearance="outline">
 
       <mat-label>
 
-        Rechercher
+        Rechercher une filière
 
       </mat-label>
 
       <input
-
         matInput
-
+        placeholder="Code, nom..."
         (keyup)="applyFilter($event)">
+
+      <mat-icon matSuffix>
+
+        search
+
+      </mat-icon>
 
     </mat-form-field>
 
-  </div>
+  </mat-card>
 
-  <div class="table-container">
+  <!-- Tableau -->
+  <mat-card class="table-card">
 
-    <table
-      mat-table
-      [dataSource]="dataSource">
+    <div class="table-container">
 
-      <!-- Code -->
-      <ng-container
-        matColumnDef="code">
+      <table
+        mat-table
+        [dataSource]="dataSource">
 
-        <th
-          mat-header-cell
-          *matHeaderCellDef>
+        <!-- Code -->
+        <ng-container matColumnDef="code">
 
-          Code
+          <th mat-header-cell *matHeaderCellDef>
 
-        </th>
+            Code
 
-        <td
-          mat-cell
-          *matCellDef="let row">
+          </th>
 
-          {{ row.code }}
+          <td mat-cell *matCellDef="let row">
 
-        </td>
+            <span class="code-badge">
 
-      </ng-container>
+              {{ row.code }}
 
-      <!-- Nom -->
-      <ng-container
-        matColumnDef="name">
+            </span>
 
-        <th
-          mat-header-cell
-          *matHeaderCellDef>
+          </td>
 
-          Nom
+        </ng-container>
 
-        </th>
+        <!-- Nom -->
+        <ng-container matColumnDef="name">
 
-        <td
-          mat-cell
-          *matCellDef="let row">
+          <th mat-header-cell *matHeaderCellDef>
 
-          {{ row.name }}
+            Filière
 
-        </td>
+          </th>
 
-      </ng-container>
+          <td mat-cell *matCellDef="let row">
 
-      <!-- Description -->
-      <ng-container
-        matColumnDef="description">
+            <div class="filiere-cell">
 
-        <th
-          mat-header-cell
-          *matHeaderCellDef>
+              <div class="filiere-avatar">
 
-          Description
+                {{ row.name.charAt(0) }}
 
-        </th>
+              </div>
 
-        <td
-          mat-cell
-          *matCellDef="let row">
+              <div>
 
-          {{ row.description }}
+                <strong>
 
-        </td>
+                  {{ row.name }}
 
-      </ng-container>
+                </strong>
 
-      <!-- Actions -->
-      <ng-container
-        matColumnDef="actions">
+              </div>
 
-        <th
-          mat-header-cell
-          *matHeaderCellDef>
+            </div>
 
-          Actions
+          </td>
 
-        </th>
+        </ng-container>
 
-        <td
-          mat-cell
-          *matCellDef="let row">
+        <!-- Description -->
+        <ng-container matColumnDef="description">
 
-          <button
-            mat-icon-button
-            (click)="openEditDialog(row)">
+          <th mat-header-cell *matHeaderCellDef>
 
-            <mat-icon>
-              edit
-            </mat-icon>
+            Description
 
-          </button>
+          </th>
 
-          <button
-            mat-icon-button
-            (click)="deleteFiliere(row)">
+          <td mat-cell *matCellDef="let row">
 
-            <mat-icon color="warn">
-              delete
-            </mat-icon>
+            <span class="description-text">
 
-          </button>
+              {{
+                row.description
+                  ? row.description
+                  : 'Aucune description'
+              }}
 
-        </td>
+            </span>
 
-      </ng-container>
+          </td>
 
-      <tr
-        mat-header-row
-        *matHeaderRowDef="
-          displayedColumns
-        ">
-      </tr>
+        </ng-container>
 
-      <tr
-        mat-row
-        *matRowDef="
-          let row;
-          columns:
-          displayedColumns
-        ">
-      </tr>
+        <!-- Actions -->
+        <ng-container matColumnDef="actions">
 
-    </table>
+          <th mat-header-cell *matHeaderCellDef>
+
+            Actions
+
+          </th>
+
+          <td mat-cell *matCellDef="let row">
+
+            <button
+              mat-icon-button
+              color="primary"
+              (click)="openEditDialog(row)">
+
+              <mat-icon>
+
+                edit
+
+              </mat-icon>
+
+            </button>
+
+            <button
+              mat-icon-button
+              color="warn"
+              (click)="deleteFiliere(row)">
+
+              <mat-icon>
+
+                delete
+
+              </mat-icon>
+
+            </button>
+
+          </td>
+
+        </ng-container>
+
+        <tr
+          mat-header-row
+          *matHeaderRowDef="displayedColumns">
+
+        </tr>
+
+        <tr
+          mat-row
+          *matRowDef="
+            let row;
+            columns: displayedColumns
+          ">
+
+        </tr>
+
+      </table>
+
+    </div>
 
     <mat-paginator
-      [pageSize]="10">
+      [pageSize]="10"
+      [pageSizeOptions]="[
+        5,
+        10,
+        20
+      ]"
+      showFirstLastButtons>
+
     </mat-paginator>
 
-  </div>
+  </mat-card>
 
 </div>

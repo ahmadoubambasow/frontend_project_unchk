@@ -44,6 +44,7 @@ import { Student } from '../../../models/student.model';
 import { GraduateInsertionService } from '../services/graduate-insertion';
 import { StudentService } from '../../../services/student';
 import { GraduateInsertion } from '../models/graduate-insertion.model';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-graduate-insertion-form-dialog',
@@ -56,7 +57,8 @@ import { GraduateInsertion } from '../models/graduate-insertion.model';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    MatSelectModule
+    MatSelectModule,
+    MatIconModule
   ],
 
   templateUrl:

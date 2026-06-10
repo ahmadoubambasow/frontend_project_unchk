@@ -17,6 +17,8 @@ import {
 } from '@angular/material/card';
 import { AdministrativeDocument } from '../models/administrative-document.model';
 import { AdministrativeDocumentService } from '../services/administrative-document';
+import { MatIconModule } from '@angular/material/icon';
+import { MatProgressSpinner } from "@angular/material/progress-spinner";
 
 
 @Component({
@@ -26,8 +28,10 @@ import { AdministrativeDocumentService } from '../services/administrative-docume
 
   imports: [
     CommonModule,
-    MatCardModule
-  ],
+    MatCardModule,
+    MatIconModule,
+    MatProgressSpinner
+],
 
   templateUrl:
     './administrative-document-details.html',

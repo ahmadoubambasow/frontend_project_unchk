@@ -1,82 +1,274 @@
 <div class="dialog-container">
 
+  <!-- Header -->
   <div class="dialog-header">
 
-    <h2>
-      {{ data ? 'Modifier formateur' : 'Nouveau formateur' }}
-    </h2>
+    <div class="dialog-icon">
 
-    <p>
-      Gestion des enseignants, tuteurs et responsables
-    </p>
+      <mat-icon>
+
+        school
+
+      </mat-icon>
+
+    </div>
+
+    <div>
+
+      <h2>
+
+        {{
+          data
+            ? 'Modifier formateur'
+            : 'Nouveau formateur'
+        }}
+
+      </h2>
+
+      <p>
+
+        Gestion des enseignants, tuteurs et responsables pédagogiques
+
+      </p>
+
+    </div>
 
   </div>
 
+  <!-- Formulaire -->
   <form
     [formGroup]="trainerForm"
-    (ngSubmit)="submit()">
+    (ngSubmit)="submit()"
+    class="dialog-form">
 
-    <mat-form-field appearance="outline">
-      <mat-label>Prénom</mat-label>
-      <input
-        matInput
-        formControlName="firstName">
-    </mat-form-field>
+    <!-- Informations personnelles -->
+    <div class="section-card">
 
-    <mat-form-field appearance="outline">
-      <mat-label>Nom</mat-label>
-      <input
-        matInput
-        formControlName="lastName">
-    </mat-form-field>
+      <div class="section-header">
 
-    <mat-form-field appearance="outline">
-      <mat-label>Email</mat-label>
-      <input
-        matInput
-        type="email"
-        formControlName="email">
-    </mat-form-field>
+        <mat-icon>
 
-    <mat-form-field appearance="outline">
-      <mat-label>Téléphone</mat-label>
-      <input
-        matInput
-        formControlName="phone">
-    </mat-form-field>
+          person
 
-    <mat-form-field appearance="outline">
-      <mat-label>Spécialité</mat-label>
-      <input
-        matInput
-        formControlName="speciality">
-    </mat-form-field>
+        </mat-icon>
 
-    <mat-form-field appearance="outline">
-      <mat-label>Grade</mat-label>
-      <input
-        matInput
-        formControlName="grade">
-    </mat-form-field>
+        <h3>
 
-    <mat-form-field appearance="outline">
-      <mat-label>Type</mat-label>
+          Informations personnelles
 
-      <mat-select
-        formControlName="type">
+        </h3>
 
-        <mat-option
-          *ngFor="let type of trainerTypes"
-          [value]="type">
+      </div>
 
-          {{ type }}
+      <div class="form-grid">
 
-        </mat-option>
+        <mat-form-field appearance="outline">
 
-      </mat-select>
+          <mat-label>
 
-    </mat-form-field>
+            Prénom
 
+          </mat-label>
+
+          <mat-icon matPrefix>
+
+            badge
+
+          </mat-icon>
+
+          <input
+            matInput
+            formControlName="firstName">
+
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+
+          <mat-label>
+
+            Nom
+
+          </mat-label>
+
+          <mat-icon matPrefix>
+
+            person
+
+          </mat-icon>
+
+          <input
+            matInput
+            formControlName="lastName">
+
+        </mat-form-field>
+
+      </div>
+
+    </div>
+
+    <!-- Coordonnées -->
+    <div class="section-card">
+
+      <div class="section-header">
+
+        <mat-icon>
+
+          contact_mail
+
+        </mat-icon>
+
+        <h3>
+
+          Coordonnées
+
+        </h3>
+
+      </div>
+
+      <div class="form-grid">
+
+        <mat-form-field appearance="outline">
+
+          <mat-label>
+
+            Adresse email
+
+          </mat-label>
+
+          <mat-icon matPrefix>
+
+            mail
+
+          </mat-icon>
+
+          <input
+            matInput
+            type="email"
+            formControlName="email">
+
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+
+          <mat-label>
+
+            Téléphone
+
+          </mat-label>
+
+          <mat-icon matPrefix>
+
+            phone
+
+          </mat-icon>
+
+          <input
+            matInput
+            formControlName="phone">
+
+        </mat-form-field>
+
+      </div>
+
+    </div>
+
+    <!-- Profil pédagogique -->
+    <div class="section-card">
+
+      <div class="section-header">
+
+        <mat-icon>
+
+          menu_book
+
+        </mat-icon>
+
+        <h3>
+
+          Profil pédagogique
+
+        </h3>
+
+      </div>
+
+      <div class="form-grid">
+
+        <mat-form-field appearance="outline">
+
+          <mat-label>
+
+            Spécialité
+
+          </mat-label>
+
+          <mat-icon matPrefix>
+
+            auto_stories
+
+          </mat-icon>
+
+          <input
+            matInput
+            formControlName="speciality">
+
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+
+          <mat-label>
+
+            Grade
+
+          </mat-label>
+
+          <mat-icon matPrefix>
+
+            workspace_premium
+
+          </mat-icon>
+
+          <input
+            matInput
+            formControlName="grade">
+
+        </mat-form-field>
+
+      </div>
+
+      <mat-form-field
+        appearance="outline"
+        class="full-width">
+
+        <mat-label>
+
+          Type de formateur
+
+        </mat-label>
+
+        <mat-icon matPrefix>
+
+          groups
+
+        </mat-icon>
+
+        <mat-select
+          formControlName="type">
+
+          <mat-option
+            *ngFor="let type of trainerTypes"
+            [value]="type">
+
+            {{ type }}
+
+          </mat-option>
+
+        </mat-select>
+
+      </mat-form-field>
+
+    </div>
+
+    <!-- Actions -->
     <div class="dialog-actions">
 
       <button
@@ -90,11 +282,23 @@
 
       <button
         type="submit"
-        mat-raised-button
+        mat-flat-button
         color="primary"
         [disabled]="loading">
 
-        {{ loading ? 'Enregistrement...' : 'Enregistrer' }}
+        <mat-icon>
+
+          save
+
+        </mat-icon>
+
+        {{
+          loading
+            ? 'Enregistrement...'
+            : data
+                ? 'Mettre à jour'
+                : 'Créer'
+        }}
 
       </button>
 

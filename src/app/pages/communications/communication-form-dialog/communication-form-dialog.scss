@@ -1,47 +1,116 @@
 .dialog-container {
 
-  width: 900px;
+  padding: 28px;
 
-  max-width: 95vw;
+  max-height: 90vh;
 
-  padding: 24px;
+  overflow-y: auto;
 }
 
 .dialog-header {
 
-  margin-bottom: 24px;
+  display: flex;
 
-  h2 {
+  align-items: center;
 
-    margin: 0;
+  gap: 18px;
 
-    font-size: 28px;
+  margin-bottom: 28px;
+}
 
-    font-weight: 600;
-  }
+.dialog-icon {
 
-  p {
+  width: 64px;
 
-    margin-top: 6px;
+  height: 64px;
 
-    color: #6b7280;
+  border-radius: 18px;
+
+  background: #eff6ff;
+
+  color: #2563eb;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  mat-icon {
+
+    font-size: 32px;
+
+    width: 32px;
+
+    height: 32px;
   }
 }
 
-.section {
+.dialog-header h2 {
 
-  margin-bottom: 24px;
+  margin: 0;
 
-  h3 {
+  font-size: 28px;
 
-    margin-bottom: 16px;
+  font-weight: 700;
 
-    font-size: 16px;
+  color: #0f172a;
+}
 
-    font-weight: 600;
+.dialog-header p {
 
-    color: #1f2937;
-  }
+  margin: 6px 0 0;
+
+  color: #64748b;
+}
+
+.communication-form {
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 24px;
+}
+
+.section-card {
+
+  padding: 24px;
+
+  border: 1px solid #e2e8f0;
+
+  border-radius: 20px;
+
+  background: white;
+}
+
+.section-header {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  margin-bottom: 20px;
+}
+
+.section-header h3 {
+
+  margin: 0;
+
+  color: #1e293b;
+
+  font-size: 18px;
+
+  font-weight: 600;
+}
+
+.section-header mat-icon {
+
+  color: #2563eb;
 }
 
 .form-grid {
@@ -49,12 +118,9 @@
   display: grid;
 
   grid-template-columns:
-    repeat(
-      auto-fit,
-      minmax(250px, 1fr)
-    );
+    repeat(auto-fit, minmax(250px, 1fr));
 
-  gap: 16px;
+  gap: 18px;
 }
 
 .full-width {
@@ -62,35 +128,114 @@
   width: 100%;
 }
 
-.upload-container {
+.selection-grid {
 
-  border: 2px dashed #d1d5db;
+  display: grid;
 
-  border-radius: 10px;
+  grid-template-columns:
+    repeat(auto-fit, minmax(160px, 1fr));
 
-  padding: 24px;
-
-  text-align: center;
-
-  background: #f9fafb;
-
-  transition: all .3s ease;
+  gap: 14px;
 }
 
-.upload-container:hover {
+.selection-card {
+
+  padding: 18px;
+
+  border: 1px solid #e2e8f0;
+
+  border-radius: 16px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  gap: 10px;
+
+  cursor: pointer;
+
+  transition: .2s ease;
+
+  text-align: center;
+}
+
+.selection-card:hover {
+
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 8px 24px rgba(15, 23, 42, .08);
+}
+
+.selection-card.selected {
+
+  background: #eff6ff;
 
   border-color: #2563eb;
 
-  background: #eff6ff;
+  color: #2563eb;
+}
+
+.selection-card.selected mat-icon {
+
+  color: #2563eb;
+}
+
+.upload-container {
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 16px;
+}
+
+.upload-card {
+
+  border: 2px dashed #cbd5e1;
+
+  border-radius: 16px;
+
+  padding: 32px;
+
+  text-align: center;
+
+  cursor: pointer;
+
+  transition: .2s;
+}
+
+.upload-card:hover {
+
+  border-color: #2563eb;
+
+  background: #f8fafc;
+}
+
+.upload-card mat-icon {
+
+  display: block;
+
+  margin-bottom: 12px;
+
+  color: #2563eb;
 }
 
 .selected-file {
 
-  margin-top: 12px;
+  display: flex;
 
-  font-weight: 500;
+  align-items: center;
 
-  color: #2563eb;
+  gap: 8px;
+
+  padding: 12px 16px;
+
+  background: #f8fafc;
+
+  border-radius: 12px;
 }
 
 .dialog-actions {
@@ -101,44 +246,40 @@
 
   gap: 12px;
 
-  margin-top: 24px;
+  margin-top: 28px;
 
-  padding-top: 16px;
+  padding-top: 20px;
 
-  border-top: 1px solid #e5e7eb;
-}
-
-.role-select-panel {
-
-  max-height: 300px !important;
-}
-
-mat-form-field {
-
-  width: 100%;
-}
-
-textarea {
-
-  resize: none;
+  border-top: 1px solid #e2e8f0;
 }
 
 @media (max-width: 768px) {
 
   .dialog-container {
 
-    max-height: 80vh;
-
-    overflow-y: auto;
+    padding: 16px;
   }
 
-  .form-grid {
+  .dialog-header {
+
+    flex-direction: column;
+
+    text-align: center;
+  }
+
+  .form-grid,
+  .selection-grid {
 
     grid-template-columns: 1fr;
   }
 
   .dialog-actions {
 
-    flex-direction: column;
+    flex-direction: column-reverse;
+  }
+
+  .dialog-actions button {
+
+    width: 100%;
   }
 }

@@ -1,22 +1,37 @@
 <div class="dialog-container">
 
+  <!-- Header -->
   <div class="dialog-header">
 
-    <h2>
+    <div class="dialog-icon">
 
-      {{
-        data
-          ? 'Modifier insertion'
-          : 'Nouvelle insertion'
-      }}
+      <mat-icon>
 
-    </h2>
+        work
 
-    <p>
+      </mat-icon>
 
-      Suivi de l'insertion professionnelle
+    </div>
 
-    </p>
+    <div>
+
+      <h2>
+
+        {{
+          data
+            ? 'Modifier insertion'
+            : 'Nouvelle insertion'
+        }}
+
+      </h2>
+
+      <p>
+
+        Suivi de l'insertion professionnelle des diplômés
+
+      </p>
+
+    </div>
 
   </div>
 
@@ -24,9 +39,28 @@
     [formGroup]="form"
     class="insertion-form">
 
-    <div class="form-grid">
+    <!-- Diplômé -->
+    <div class="section-card">
 
-      <mat-form-field appearance="outline">
+      <div class="section-header">
+
+        <mat-icon>
+
+          school
+
+        </mat-icon>
+
+        <h3>
+
+          Diplômé concerné
+
+        </h3>
+
+      </div>
+
+      <mat-form-field
+        appearance="outline"
+        class="full-width">
 
         <mat-label>
 
@@ -34,16 +68,17 @@
 
         </mat-label>
 
+        <mat-icon matPrefix>
+
+          person
+
+        </mat-icon>
+
         <mat-select
           formControlName="studentId">
 
           <mat-option
-
-            *ngFor="
-              let student
-              of students
-            "
-
+            *ngFor="let student of students"
             [value]="student.id">
 
             {{ student.firstName }}
@@ -55,124 +90,221 @@
 
       </mat-form-field>
 
-      <mat-form-field appearance="outline">
+    </div>
 
-        <mat-label>
+    <!-- Situation -->
+    <div class="section-card">
 
-          Situation
+      <div class="section-header">
 
-        </mat-label>
+        <mat-icon>
 
-        <mat-select
-          formControlName="status">
+          assignment_turned_in
 
-          <mat-option
+        </mat-icon>
 
-            *ngFor="
-              let status
-              of statuses
-            "
+        <h3>
 
-            [value]="status">
+          Situation professionnelle
+
+        </h3>
+
+      </div>
+
+      <div class="status-grid">
+
+        <div
+          *ngFor="let status of statuses"
+          class="status-card"
+          [class.selected]="form.value.status === status"
+          (click)="form.patchValue({ status: status })">
+
+          <mat-icon>
+
+            {{
+              status === 'EMPLOYE'
+                ? 'work'
+                : status === 'ENTREPRENEUR'
+                  ? 'store'
+                  : status === 'POURSUITE_ETUDES'
+                    ? 'menu_book'
+                    : 'search'
+            }}
+
+          </mat-icon>
+
+          <span>
 
             {{ getStatusLabel(status) }}
 
-          </mat-option>
+          </span>
 
-        </mat-select>
+        </div>
 
-      </mat-form-field>
+      </div>
 
-      <mat-form-field appearance="outline">
+    </div>
+
+    <!-- Informations professionnelles -->
+    <div class="section-card">
+
+      <div class="section-header">
+
+        <mat-icon>
+
+          business
+
+        </mat-icon>
+
+        <h3>
+
+          Informations professionnelles
+
+        </h3>
+
+      </div>
+
+      <div class="form-grid">
+
+        <mat-form-field appearance="outline">
+
+          <mat-label>
+
+            Entreprise
+
+          </mat-label>
+
+          <mat-icon matPrefix>
+
+            business
+
+          </mat-icon>
+
+          <input
+            matInput
+            formControlName="company">
+
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+
+          <mat-label>
+
+            Poste occupé
+
+          </mat-label>
+
+          <mat-icon matPrefix>
+
+            badge
+
+          </mat-icon>
+
+          <input
+            matInput
+            formControlName="position">
+
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+
+          <mat-label>
+
+            Date de début
+
+          </mat-label>
+
+          <mat-icon matPrefix>
+
+            calendar_today
+
+          </mat-icon>
+
+          <input
+            matInput
+            type="date"
+            formControlName="startDate">
+
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+
+          <mat-label>
+
+            Salaire mensuel
+
+          </mat-label>
+
+          <mat-icon matPrefix>
+
+            payments
+
+          </mat-icon>
+
+          <input
+            matInput
+            type="number"
+            formControlName="salary">
+
+          <span matTextSuffix>
+
+            FCFA
+
+          </span>
+
+        </mat-form-field>
+
+      </div>
+
+    </div>
+
+    <!-- Observations -->
+    <div class="section-card">
+
+      <div class="section-header">
+
+        <mat-icon>
+
+          notes
+
+        </mat-icon>
+
+        <h3>
+
+          Observations
+
+        </h3>
+
+      </div>
+
+      <mat-form-field
+        appearance="outline"
+        class="full-width">
 
         <mat-label>
 
-          Entreprise
+          Commentaires complémentaires
 
         </mat-label>
 
-        <input
+        <textarea
           matInput
-          formControlName="company">
+          rows="5"
+          formControlName="remarks">
 
-      </mat-form-field>
-
-      <mat-form-field appearance="outline">
-
-        <mat-label>
-
-          Poste
-
-        </mat-label>
-
-        <input
-          matInput
-          formControlName="position">
-
-      </mat-form-field>
-
-      <mat-form-field appearance="outline">
-
-        <mat-label>
-
-          Date début
-
-        </mat-label>
-
-        <input
-          matInput
-          type="date"
-          formControlName="startDate">
-
-      </mat-form-field>
-
-      <mat-form-field appearance="outline">
-
-        <mat-label>
-
-          Salaire
-
-        </mat-label>
-
-        <input
-          matInput
-          type="number"
-          formControlName="salary">
+        </textarea>
 
       </mat-form-field>
 
     </div>
 
-    <mat-form-field
-      appearance="outline"
-      class="full-width">
-
-      <mat-label>
-
-        Observations
-
-      </mat-label>
-
-      <textarea
-
-        matInput
-
-        rows="5"
-
-        formControlName="remarks">
-
-      </textarea>
-
-    </mat-form-field>
-
   </form>
 
+  <!-- Actions -->
   <div class="dialog-actions">
 
     <button
-
       mat-stroked-button
-
       (click)="dialogRef.close()">
 
       Annuler
@@ -180,19 +312,33 @@
     </button>
 
     <button
-
       mat-raised-button
-
       color="primary"
-
-      [disabled]="loading"
-
+      [disabled]="loading || form.invalid"
       (click)="submit()">
 
+      <mat-icon>
+
+        save
+
+      </mat-icon>
+
       {{
-        data
-          ? 'Modifier'
-          : 'Créer'
+
+        loading
+
+          ? (
+              data
+                ? 'Modification...'
+                : 'Création...'
+            )
+
+          : (
+              data
+                ? 'Modifier'
+                : 'Créer'
+            )
+
       }}
 
     </button>

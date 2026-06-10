@@ -6,38 +6,137 @@
     <div>
 
       <h1>
+
         Formateurs
+
       </h1>
 
       <p>
-        Gestion des enseignants, tuteurs et responsables
+
+        Gestion des enseignants, tuteurs et responsables pédagogiques
+
       </p>
 
     </div>
 
     <button
-      mat-raised-button
+      mat-flat-button
       color="primary"
       (click)="openCreateDialog()">
 
       <mat-icon>
+
         add
+
       </mat-icon>
 
-      Ajouter formateur
+      Ajouter un formateur
 
     </button>
 
   </div>
 
+  <!-- Statistiques -->
+  <div class="stats-grid">
+
+    <div class="stat-card">
+
+      <mat-icon>
+
+        groups
+
+      </mat-icon>
+
+      <div>
+
+        <span>
+
+          Total formateurs
+
+        </span>
+
+        <strong>
+
+          {{ dataSource.data.length }}
+
+        </strong>
+
+      </div>
+
+    </div>
+
+    <div class="stat-card">
+
+      <mat-icon>
+
+        school
+
+      </mat-icon>
+
+      <div>
+
+        <span>
+
+          Enseignants
+
+        </span>
+
+        <strong>
+
+          {{
+            dataSource.data.filter(
+              t => t.type === 'ENSEIGNANT'
+            ).length
+          }}
+
+        </strong>
+
+      </div>
+
+    </div>
+
+    <div class="stat-card">
+
+      <mat-icon>
+
+        supervisor_account
+
+      </mat-icon>
+
+      <div>
+
+        <span>
+
+          Responsables
+
+        </span>
+
+        <strong>
+
+          {{
+            dataSource.data.filter(
+              t => t.type === 'RESPONSABLE'
+            ).length
+          }}
+
+        </strong>
+
+      </div>
+
+    </div>
+
+  </div>
+
   <!-- Recherche -->
-  <div class="search-container">
+  <mat-card class="search-card">
 
     <mat-form-field
       appearance="outline">
 
       <mat-label>
-        Rechercher
+
+        Rechercher un formateur
+
       </mat-label>
 
       <input
@@ -46,169 +145,210 @@
         (keyup)="applyFilter($event)">
 
       <mat-icon matSuffix>
+
         search
+
       </mat-icon>
 
     </mat-form-field>
 
-  </div>
+  </mat-card>
 
-  <!-- Table -->
-  <div class="table-container">
+  <!-- Tableau -->
+  <mat-card class="table-card">
 
-    <table
-      mat-table
-      [dataSource]="dataSource">
+    <div class="table-container">
 
-      <!-- Nom -->
-      <ng-container matColumnDef="fullName">
+      <table
+        mat-table
+        [dataSource]="dataSource">
 
-        <th mat-header-cell *matHeaderCellDef>
-          Nom complet
-        </th>
+        <!-- Formateur -->
+        <ng-container matColumnDef="fullName">
 
-        <td mat-cell *matCellDef="let trainer">
+          <th mat-header-cell *matHeaderCellDef>
 
-          {{ trainer.firstName }}
-          {{ trainer.lastName }}
+            Formateur
 
-        </td>
+          </th>
 
-      </ng-container>
+          <td mat-cell *matCellDef="let trainer">
 
-      <!-- Email -->
-      <ng-container matColumnDef="email">
+            <div class="trainer-cell">
 
-        <th mat-header-cell *matHeaderCellDef>
-          Email
-        </th>
+              <div class="avatar">
 
-        <td mat-cell *matCellDef="let trainer">
+                {{ trainer.firstName?.charAt(0) }}
 
-          {{ trainer.email }}
+              </div>
 
-        </td>
+              <div>
 
-      </ng-container>
+                <strong>
 
-      <!-- Téléphone -->
-      <ng-container matColumnDef="phone">
+                  {{ trainer.firstName }}
+                  {{ trainer.lastName }}
 
-        <th mat-header-cell *matHeaderCellDef>
-          Téléphone
-        </th>
+                </strong>
 
-        <td mat-cell *matCellDef="let trainer">
+                <small>
 
-          {{ trainer.phone }}
+                  {{ trainer.email }}
 
-        </td>
+                </small>
 
-      </ng-container>
+              </div>
 
-      <!-- Spécialité -->
-      <ng-container matColumnDef="speciality">
+            </div>
 
-        <th mat-header-cell *matHeaderCellDef>
-          Spécialité
-        </th>
+          </td>
 
-        <td mat-cell *matCellDef="let trainer">
+        </ng-container>
 
-          {{ trainer.speciality }}
+        <!-- Téléphone -->
+        <ng-container matColumnDef="phone">
 
-        </td>
+          <th mat-header-cell *matHeaderCellDef>
 
-      </ng-container>
+            Téléphone
 
-      <!-- Grade -->
-      <ng-container matColumnDef="grade">
+          </th>
 
-        <th mat-header-cell *matHeaderCellDef>
-          Grade
-        </th>
+          <td mat-cell *matCellDef="let trainer">
 
-        <td mat-cell *matCellDef="let trainer">
+            {{ trainer.phone }}
 
-          {{ trainer.grade }}
+          </td>
 
-        </td>
+        </ng-container>
 
-      </ng-container>
+        <!-- Spécialité -->
+        <ng-container matColumnDef="speciality">
 
-      <!-- Type -->
-      <ng-container matColumnDef="type">
+          <th mat-header-cell *matHeaderCellDef>
 
-        <th mat-header-cell *matHeaderCellDef>
-          Type
-        </th>
+            Spécialité
 
-        <td mat-cell *matCellDef="let trainer">
+          </th>
 
-          {{ trainer.type }}
+          <td mat-cell *matCellDef="let trainer">
 
-        </td>
+            {{ trainer.speciality }}
 
-      </ng-container>
+          </td>
 
-      <!-- Actions -->
-      <ng-container matColumnDef="actions">
+        </ng-container>
 
-        <th mat-header-cell *matHeaderCellDef>
-          Actions
-        </th>
+        <!-- Grade -->
+        <ng-container matColumnDef="grade">
 
-        <td mat-cell *matCellDef="let trainer">
+          <th mat-header-cell *matHeaderCellDef>
 
-          <button
-            mat-icon-button
-            (click)="openEditDialog(trainer)">
+            Grade
 
-            <mat-icon color="primary">
-              edit
-            </mat-icon>
+          </th>
 
-          </button>
+          <td mat-cell *matCellDef="let trainer">
 
-          <button
-            mat-icon-button
-            (click)="deleteTrainer(trainer)">
+            <span class="grade-badge">
 
-            <mat-icon color="warn">
-              delete
-            </mat-icon>
+              {{ trainer.grade }}
 
-          </button>
+            </span>
 
-        </td>
+          </td>
 
-      </ng-container>
+        </ng-container>
 
-      <tr
-        mat-header-row
-        *matHeaderRowDef="displayedColumns">
-      </tr>
+        <!-- Type -->
+        <ng-container matColumnDef="type">
 
-      <tr
-        mat-row
-        *matRowDef="
-          let row;
-          columns: displayedColumns;
-        ">
-      </tr>
+          <th mat-header-cell *matHeaderCellDef>
 
-    </table>
+            Type
+
+          </th>
+
+          <td mat-cell *matCellDef="let trainer">
+
+            <span class="type-badge">
+
+              {{ trainer.type }}
+
+            </span>
+
+          </td>
+
+        </ng-container>
+
+        <!-- Actions -->
+        <ng-container matColumnDef="actions">
+
+          <th mat-header-cell *matHeaderCellDef>
+
+            Actions
+
+          </th>
+
+          <td mat-cell *matCellDef="let trainer">
+
+            <button
+              mat-icon-button
+              color="primary"
+              (click)="openEditDialog(trainer)">
+
+              <mat-icon>
+
+                edit
+
+              </mat-icon>
+
+            </button>
+
+            <button
+              mat-icon-button
+              color="warn"
+              (click)="deleteTrainer(trainer)">
+
+              <mat-icon>
+
+                delete
+
+              </mat-icon>
+
+            </button>
+
+          </td>
+
+        </ng-container>
+
+        <tr
+          mat-header-row
+          *matHeaderRowDef="displayedColumns">
+
+        </tr>
+
+        <tr
+          mat-row
+          *matRowDef="
+            let row;
+            columns: displayedColumns;
+          ">
+
+        </tr>
+
+      </table>
+
+    </div>
 
     <mat-paginator
-
       [pageSize]="5"
-
       [pageSizeOptions]="[5, 10, 20]"
-
       showFirstLastButtons>
 
     </mat-paginator>
 
-  </div>
+  </mat-card>
 
 </div>
+

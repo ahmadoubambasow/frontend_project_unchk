@@ -123,7 +123,6 @@ implements OnInit {
         ScheduleFormDialog,
 
         {
-
           width: '850px',
 
           maxWidth: '95vw'

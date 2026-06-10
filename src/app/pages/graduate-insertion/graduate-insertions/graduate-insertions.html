@@ -1,5 +1,6 @@
 <div class="page-container">
 
+  <!-- Header -->
   <div class="page-header">
 
     <div>
@@ -12,18 +13,15 @@
 
       <p>
 
-        Suivi des diplômés
+        Suivi des diplômés et de leur intégration sur le marché du travail
 
       </p>
 
     </div>
 
     <button
-
       mat-raised-button
-
       color="primary"
-
       (click)="openCreateDialog()">
 
       <mat-icon>
@@ -38,80 +36,213 @@
 
   </div>
 
-  <div class="search-bar">
+  <!-- Recherche -->
+  <div class="search-container">
 
-    <input
+    <mat-form-field appearance="outline">
 
-      matInput
+      <mat-label>
 
-      placeholder="Rechercher..."
+        Rechercher
 
-      (input)="applyFilter($event)">
+      </mat-label>
+
+      <input
+        matInput
+        placeholder="Nom, entreprise, statut..."
+        (input)="applyFilter($event)">
+
+      <mat-icon matSuffix>
+
+        search
+
+      </mat-icon>
+
+    </mat-form-field>
+
   </div>
 
+  <!-- État vide -->
   <div
+    class="empty-state"
+    *ngIf="filteredInsertions.length === 0">
 
-    class="insertions-grid">
+    <mat-icon>
 
-    <div
+      work_off
 
+    </mat-icon>
+
+    <h3>
+
+      Aucune insertion enregistrée
+
+    </h3>
+
+    <p>
+
+      Commencez par ajouter le parcours d'un diplômé.
+
+    </p>
+
+  </div>
+
+  <!-- Cartes -->
+  <div
+    class="insertions-grid"
+    *ngIf="filteredInsertions.length > 0">
+
+    <mat-card
       class="insertion-card"
+      *ngFor="let insertion of filteredInsertions">
 
-      *ngFor="
-        let insertion
-        of filteredInsertions
-      ">
+      <!-- En-tête -->
+      <div class="card-header">
 
-      <h3>
+        <div class="graduate-avatar">
 
-        {{ insertion.studentName }}
+          <mat-icon>
 
-      </h3>
+            school
 
-      <p>
+          </mat-icon>
 
-        {{ getStatusLabel(insertion.status) }}
+        </div>
 
-      </p>
+        <div class="graduate-info">
 
-      <p>
+          <h3>
 
-        {{ insertion.company || '-' }}
+            {{ insertion.studentName }}
 
-      </p>
+          </h3>
 
-      <div class="actions">
+          <p>
+
+            {{ insertion.company || 'Aucune entreprise renseignée' }}
+
+          </p>
+
+        </div>
+
+        <span [class]="'status-badge ' + insertion.status.toLowerCase()">
+          {{ getStatusLabel(insertion.status) }}
+        </span>
+
+      </div>
+
+      <mat-divider></mat-divider>
+
+      <!-- Informations -->
+      <div class="card-content">
+
+        <div
+          class="info-item"
+          *ngIf="insertion.company">
+
+          <mat-icon>
+
+            business
+
+          </mat-icon>
+
+          <span>
+
+            {{ insertion.company }}
+
+          </span>
+
+        </div>
+
+        <div
+          class="info-item"
+          *ngIf="insertion.position">
+
+          <mat-icon>
+
+            badge
+
+          </mat-icon>
+
+          <span>
+
+            {{ insertion.position }}
+
+          </span>
+
+        </div>
+
+        <div
+          class="info-item"
+          *ngIf="insertion.startDate">
+
+          <mat-icon>
+
+            event
+
+          </mat-icon>
+
+          <span>
+
+            {{ insertion.startDate | date: 'dd/MM/yyyy' }}
+
+          </span>
+
+        </div>
+
+      </div>
+
+      <!-- Actions -->
+      <div class="card-footer">
 
         <button
-          mat-button
+          mat-stroked-button
           color="primary"
           (click)="openDetails(insertion)">
+
+          <mat-icon>
+
+            visibility
+
+          </mat-icon>
 
           Détails
 
         </button>
 
-        <button
-          mat-button
-          color="accent"
-          (click)="openEditDialog(insertion)">
+        <div class="footer-actions">
 
-          Modifier
+          <button
+            mat-icon-button
+            color="primary"
+            (click)="openEditDialog(insertion)">
 
-        </button>
+            <mat-icon>
 
-        <button
-          mat-button
-          color="warn"
-          (click)="deleteInsertion(insertion)">
+              edit
 
-          Supprimer
+            </mat-icon>
 
-        </button>
+          </button>
+
+          <button
+            mat-icon-button
+            color="warn"
+            (click)="deleteInsertion(insertion)">
+
+            <mat-icon>
+
+              delete
+
+            </mat-icon>
+
+          </button>
+
+        </div>
 
       </div>
 
-    </div>
+    </mat-card>
 
   </div>
 

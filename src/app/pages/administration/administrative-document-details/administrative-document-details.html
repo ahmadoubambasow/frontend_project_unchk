@@ -1,22 +1,33 @@
 <div class="details-page">
 
   <div
-    class="loading"
+    class="loading-state"
     *ngIf="loading">
 
-    Chargement...
+    <mat-spinner diameter="40"></mat-spinner>
+
+    <span>
+
+      Chargement du document...
+
+    </span>
+
   </div>
 
-  <ng-container
-    *ngIf="!loading && document">
+  <ng-container *ngIf="!loading && document">
 
+    <!-- Header -->
     <div class="page-header">
 
       <div class="document-profile">
 
-        <div class="icon">
+        <div class="document-icon">
 
-          📄
+          <mat-icon>
+
+            description
+
+          </mat-icon>
 
         </div>
 
@@ -28,39 +39,72 @@
 
           </h1>
 
-          <p>
+          <div class="header-badges">
 
-            {{
-              getTypeLabel(
-                document.type
-              )
-            }}
+            <span class="type-badge">
 
-          </p>
+              {{
+                getTypeLabel(
+                  document.type
+                )
+              }}
+
+            </span>
+
+            <span class="reference-badge">
+
+              {{ document.referenceNumber }}
+
+            </span>
+
+          </div>
 
         </div>
 
       </div>
 
+      <button
+        mat-stroked-button
+        routerLink="../">
+
+        <mat-icon>
+
+          arrow_back
+
+        </mat-icon>
+
+        Retour
+
+      </button>
+
     </div>
 
+    <!-- Informations -->
     <mat-card class="details-card">
 
-      <mat-card-header>
+      <div class="card-title">
 
-        <mat-card-title>
+        <mat-icon>
 
-          Informations générales
+          info
 
-        </mat-card-title>
+        </mat-icon>
 
-      </mat-card-header>
+        Informations générales
 
-      <mat-card-content>
+      </div>
 
-        <div class="info-grid">
+      <div class="info-grid">
 
-          <div class="info-item">
+        <div class="info-item">
+
+          <mat-icon>
+
+            tag
+
+          </mat-icon>
+
+          <div>
 
             <label>
 
@@ -76,7 +120,17 @@
 
           </div>
 
-          <div class="info-item">
+        </div>
+
+        <div class="info-item">
+
+          <mat-icon>
+
+            category
+
+          </mat-icon>
+
+          <div>
 
             <label>
 
@@ -84,7 +138,7 @@
 
             </label>
 
-            <span class="badge">
+            <span>
 
               {{
                 getTypeLabel(
@@ -96,7 +150,17 @@
 
           </div>
 
-          <div class="info-item">
+        </div>
+
+        <div class="info-item">
+
+          <mat-icon>
+
+            event
+
+          </mat-icon>
+
+          <div>
 
             <label>
 
@@ -112,7 +176,17 @@
 
           </div>
 
-          <div class="info-item">
+        </div>
+
+        <div class="info-item">
+
+          <mat-icon>
+
+            person
+
+          </mat-icon>
+
+          <div>
 
             <label>
 
@@ -128,7 +202,17 @@
 
           </div>
 
-          <div class="info-item">
+        </div>
+
+        <div class="info-item">
+
+          <mat-icon>
+
+            groups
+
+          </mat-icon>
+
+          <div>
 
             <label>
 
@@ -146,56 +230,94 @@
 
         </div>
 
-      </mat-card-content>
+      </div>
 
     </mat-card>
 
+    <!-- Description -->
     <mat-card class="details-card">
 
-      <mat-card-header>
+      <div class="card-title">
 
-        <mat-card-title>
+        <mat-icon>
 
-          Description
+          notes
 
-        </mat-card-title>
+        </mat-icon>
 
-      </mat-card-header>
+        Description
 
-      <mat-card-content>
+      </div>
 
-        <p>
+      <div class="description-content">
 
-          {{ document.description || '-' }}
+        {{ document.description || 'Aucune description disponible.' }}
 
-        </p>
-
-      </mat-card-content>
+      </div>
 
     </mat-card>
 
+    <!-- Pièce jointe -->
     <mat-card
       class="details-card"
-
       *ngIf="document.filePath">
 
-      <mat-card-header>
+      <div class="card-title">
 
-        <mat-card-title>
+        <mat-icon>
 
-          Pièce jointe
+          attach_file
 
-        </mat-card-title>
+        </mat-icon>
 
-      </mat-card-header>
+        Pièce jointe
 
-      <mat-card-content>
+      </div>
 
-        <button mat-button color="primary" (click)="openDocument(document.filePath)">
-          ouvrir
+      <div class="attachment-card">
+
+        <div class="attachment-info">
+
+          <mat-icon>
+
+            insert_drive_file
+
+          </mat-icon>
+
+          <div>
+
+            <strong>
+
+              Document associé
+
+            </strong>
+
+            <small>
+
+              Cliquez pour consulter le fichier
+
+            </small>
+
+          </div>
+
+        </div>
+
+        <button
+          mat-raised-button
+          color="primary"
+          (click)="openDocument(document.filePath)">
+
+          <mat-icon>
+
+            open_in_new
+
+          </mat-icon>
+
+          Ouvrir
+
         </button>
 
-      </mat-card-content>
+      </div>
 
     </mat-card>
 

@@ -1,5 +1,6 @@
 <div class="page-container">
 
+  <!-- Header -->
   <div class="page-header">
 
     <div>
@@ -12,18 +13,15 @@
 
       <p>
 
-        Gestion des partenaires
+        Gestion des partenaires et des collaborations
 
       </p>
 
     </div>
 
     <button
-
       mat-raised-button
-
       color="primary"
-
       (click)="openCreateDialog()">
 
       <mat-icon>
@@ -38,76 +36,200 @@
 
   </div>
 
-  <div class="partners-grid">
+  <!-- Barre de recherche -->
+  <div class="search-container">
 
-    <div
+    <mat-form-field appearance="outline">
 
+      <mat-label>
+
+        Rechercher un partenaire
+
+      </mat-label>
+
+      <input
+        matInput
+        placeholder="Nom, secteur, contact..."
+        (keyup)="applyFilter($event)">
+
+      <mat-icon matSuffix>
+
+        search
+
+      </mat-icon>
+
+    </mat-form-field>
+
+  </div>
+
+  <!-- État vide -->
+  <div
+    class="empty-state"
+    *ngIf="filteredPartners.length === 0">
+
+    <mat-icon>
+
+      handshake
+
+    </mat-icon>
+
+    <h3>
+
+      Aucun partenaire trouvé
+
+    </h3>
+
+    <p>
+
+      Commencez par ajouter un partenaire à votre registre.
+
+    </p>
+
+  </div>
+
+  <!-- Cartes -->
+  <div
+    class="partners-grid"
+    *ngIf="filteredPartners.length > 0">
+
+    <mat-card
       class="partner-card"
+      *ngFor="let partner of filteredPartners">
 
-      *ngFor="
-        let partner
-        of filteredPartners
-      ">
+      <div class="partner-header">
 
-      <h3>
+        <div class="partner-avatar">
 
-        {{ partner.name }}
+          <mat-icon>
 
-      </h3>
+            business
 
-      <p>
+          </mat-icon>
 
-        {{ partner.sector }}
+        </div>
 
-      </p>
+        <div>
 
-      <p>
+          <h3>
 
-        {{ partner.contactPerson }}
+            {{ partner.name }}
 
-      </p>
+          </h3>
+
+          <span class="partner-sector">
+
+            {{ partner.sector }}
+
+          </span>
+
+        </div>
+
+      </div>
+
+      <mat-divider></mat-divider>
+
+      <div class="partner-content">
+
+        <div class="info-item">
+
+          <mat-icon>
+
+            person
+
+          </mat-icon>
+
+          <span>
+
+            {{ partner.contactPerson }}
+
+          </span>
+
+        </div>
+
+        <div
+          class="info-item"
+          *ngIf="partner.email">
+
+          <mat-icon>
+
+            mail
+
+          </mat-icon>
+
+          <span>
+
+            {{ partner.email }}
+
+          </span>
+
+        </div>
+
+        <div
+          class="info-item"
+          *ngIf="partner.phone">
+
+          <mat-icon>
+
+            phone
+
+          </mat-icon>
+
+          <span>
+
+            {{ partner.phone }}
+
+          </span>
+
+        </div>
+
+      </div>
 
       <div class="card-footer">
 
-  <button
+        <button
+          mat-stroked-button
+          color="primary"
+          (click)="openDetails(partner)">
 
-    mat-button
+          <mat-icon>
 
-    color="primary"
+            visibility
 
-    (click)="openDetails(partner)">
+          </mat-icon>
 
-    Détails
+          Détails
 
-  </button>
+        </button>
 
-  <button
+        <button
+          mat-icon-button
+          color="primary"
+          (click)="openEditDialog(partner)">
 
-    mat-stroked-button
+          <mat-icon>
 
-    color="primary"
+            edit
 
-    (click)="openEditDialog(partner)">
+          </mat-icon>
 
-    Modifier
+        </button>
 
-  </button>
+        <button
+          mat-icon-button
+          color="warn"
+          (click)="deletePartner(partner)">
 
-  <button
+          <mat-icon>
 
-    mat-stroked-button
+            delete
 
-    color="warn"
+          </mat-icon>
 
-    (click)="deletePartner(partner)">
+        </button>
 
-    Supprimer
+      </div>
 
-  </button>
-
-</div>
-
-    </div>
+    </mat-card>
 
   </div>
 

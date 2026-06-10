@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -10,11 +10,13 @@ import { TrainerService } from '../../services/trainer';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TrainerFormDialog } from './trainer-form-dialog/trainer-form-dialog';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'app-trainers',
   imports: [
     CommonModule,
+    MatCardModule,
     MatTableModule,
     MatPaginatorModule,
     MatButtonModule,
@@ -56,7 +58,9 @@ export class Trainers implements OnInit {
 
     private dialog: MatDialog,
 
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+
+    private cdr: ChangeDetectorRef
   ) {}
 
 
@@ -79,6 +83,8 @@ export class Trainers implements OnInit {
         this.dataSource.data = response;
 
         this.dataSource.paginator = this.paginator;
+      
+        this.cdr.detectChanges();
       },
       error: (error) => {
 

@@ -1,37 +1,423 @@
-<div class="details-page" *ngIf="formation as f">
+<div
+  class="details-page"
+  *ngIf="formation as f">
 
-  <div class="header">
-    <h1>{{ f.name }}</h1>
-    <p>{{ f.formationType }} • {{ f.level }}</p>
+  <!-- Header -->
+  <div class="formation-header">
+
+    <div class="formation-info">
+
+      <div class="formation-icon">
+
+        <mat-icon>
+
+          school
+
+        </mat-icon>
+
+      </div>
+
+      <div>
+
+        <h1>
+
+          {{ f.name }}
+
+        </h1>
+
+        <div class="badges">
+
+          <span class="badge">
+
+            {{ f.formationType }}
+
+          </span>
+
+          <span class="badge">
+
+            {{ f.level }}
+
+          </span>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <button
+      mat-flat-button
+      color="primary"
+      (click)="openAssignTrainerDialog()">
+
+      <mat-icon>
+
+        person_add
+
+      </mat-icon>
+
+      Affecter un formateur
+
+    </button>
+
   </div>
 
-  <mat-card>
-    <mat-card-content>
-      <p><strong>Début :</strong> {{ f.startDate }}</p>
-      <p><strong>Fin :</strong> {{ f.endDate }}</p>
-      <p><strong>Financement :</strong> {{ f.fundingAmount }} FCFA</p>
-      <p><strong>Type :</strong> {{ f.fundingType }}</p>
-      <p><strong>Description :</strong> {{ f.description }}</p>
-    </mat-card-content>
+  <!-- Résumé -->
+  <mat-card class="overview-card">
+
+    <div class="overview-grid">
+
+      <div class="overview-item">
+
+        <mat-icon>
+
+          event
+
+        </mat-icon>
+
+        <div>
+
+          <span>
+
+            Début
+
+          </span>
+
+          <strong>
+
+            {{ f.startDate }}
+
+          </strong>
+
+        </div>
+
+      </div>
+
+      <div class="overview-item">
+
+        <mat-icon>
+
+          event_available
+
+        </mat-icon>
+
+        <div>
+
+          <span>
+
+            Fin
+
+          </span>
+
+          <strong>
+
+            {{ f.endDate }}
+
+          </strong>
+
+        </div>
+
+      </div>
+
+      <div class="overview-item">
+
+        <mat-icon>
+
+          payments
+
+        </mat-icon>
+
+        <div>
+
+          <span>
+
+            Financement
+
+          </span>
+
+          <strong>
+
+            {{ f.fundingAmount }} FCFA
+
+          </strong>
+
+        </div>
+
+      </div>
+
+      <div class="overview-item">
+
+        <mat-icon>
+
+          account_balance
+
+        </mat-icon>
+
+        <div>
+
+          <span>
+
+            Type
+
+          </span>
+
+          <strong>
+
+            {{ f.fundingType }}
+
+          </strong>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <mat-divider>
+
+    </mat-divider>
+
+    <div class="description">
+
+      <h3>
+
+        Description
+
+      </h3>
+
+      <p>
+
+        {{ f.description }}
+
+      </p>
+
+    </div>
+
   </mat-card>
 
+  <!-- Formateurs -->
   <mat-card>
-    <mat-card-header>
-      <mat-card-title>Formateurs</mat-card-title>
-    </mat-card-header>
+
+    <div class="section-header">
+
+      <div>
+
+        <h2>
+
+          Formateurs
+
+        </h2>
+
+        <p>
+
+          Encadrement pédagogique de la formation
+
+        </p>
+
+      </div>
+
+    </div>
+
     <mat-card-content>
-      <div *ngFor="let trainer of trainers">
-        <h3>{{ trainer.fullName }}</h3>
-        <p>{{ trainer.email }}</p>
-        <small>{{ trainer.role }}</small>
+
+      <div
+        class="trainers-grid"
+        *ngIf="trainers.length > 0">
+
+        <div
+          class="trainer-card"
+          *ngFor="let trainer of trainers">
+
+          <div class="trainer-avatar">
+
+            {{ trainer.fullName.charAt(0) }}
+
+          </div>
+
+          <div class="trainer-info">
+
+            <h3>
+
+              {{ trainer.fullName }}
+
+            </h3>
+
+            <p>
+
+              {{ trainer.email }}
+
+            </p>
+
+            <span>
+
+              {{ trainer.role }}
+
+            </span>
+
+          </div>
+
+          <button
+            mat-icon-button
+            color="warn"
+            (click)="removeTrainer(trainer)">
+
+            <mat-icon>
+
+              delete
+
+            </mat-icon>
+
+          </button>
+
+        </div>
+
+      </div>
+
+      <div
+        class="empty-state"
+        *ngIf="trainers.length === 0">
+
+        <mat-icon>
+
+          groups
+
+        </mat-icon>
+
+        <h3>
+
+          Aucun formateur affecté
+
+        </h3>
+
+        <p>
+
+          Commencez par affecter un formateur à cette formation.
+
+        </p>
+
+      </div>
+
+    </mat-card-content>
+
+  </mat-card>
+
+  <!-- Modules -->
+  <mat-card class="modules-card">
+
+    <div class="section-header">
+
+      <div>
+
+        <h2>
+
+          Modules pédagogiques
+
+        </h2>
+
+        <p>
+
+          Gestion des matières et unités d'enseignement
+
+        </p>
+
+      </div>
+
+      <button
+        mat-flat-button
+        color="primary"
+        (click)="openModuleDialog()">
+
+        <mat-icon>
+
+          add
+
+        </mat-icon>
+
+        Ajouter
+
+      </button>
+
+    </div>
+
+    <div
+      class="empty-state"
+      *ngIf="modules.length === 0">
+
+      <mat-icon>
+
+        menu_book
+
+      </mat-icon>
+
+      <h3>
+
+        Aucun module enregistré
+
+      </h3>
+
+      <p>
+
+        Commencez par ajouter un module pédagogique.
+
+      </p>
+
+    </div>
+
+    <div
+      class="module-card"
+      *ngFor="let module of modules">
+
+      <div class="module-content">
+
+        <h3>
+
+          {{ module.title }}
+
+        </h3>
+
+        <p>
+
+          {{ module.description }}
+
+        </p>
+
+        <div class="module-meta">
+
+          <mat-icon>
+
+            schedule
+
+          </mat-icon>
+
+          <span>
+
+            {{ module.hours }} heures
+
+          </span>
+
+        </div>
+
+      </div>
+
+      <div class="module-actions">
 
         <button
-
           mat-icon-button
+          color="primary"
+          (click)="openModuleDialog(module)">
 
+          <mat-icon>
+
+            edit
+
+          </mat-icon>
+
+        </button>
+
+        <button
+          mat-icon-button
           color="warn"
-
-          (click)="removeTrainer(trainer)">
+          (click)="deleteModule(module)">
 
           <mat-icon>
 
@@ -40,151 +426,12 @@
           </mat-icon>
 
         </button>
-      </div>
-      
-
-      <p *ngIf="trainers.length === 0">Aucun formateur affecté pour le moment.</p>
-    </mat-card-content>
-  </mat-card>
-
-  <mat-card class="modules-card">
-
-  <div class="section-header">
-
-    <div>
-
-      <h2>
-
-        Modules pédagogiques
-
-      </h2>
-
-      <p>
-
-        Gestion des matières et unités d'enseignement
-
-      </p>
-
-    </div>
-
-    <button
-      mat-raised-button
-      color="primary"
-      (click)="openModuleDialog()">
-
-      <mat-icon>
-
-        add
-
-      </mat-icon>
-
-      Ajouter
-
-    </button>
-
-  </div>
-
-  <div
-    class="empty-state"
-
-    *ngIf="modules.length === 0">
-
-    <mat-icon>
-
-      menu_book
-
-    </mat-icon>
-
-    <h3>
-
-      Aucun module enregistré
-
-    </h3>
-
-    <p>
-
-      Commencez par ajouter un module pédagogique.
-
-    </p>
-
-  </div>
-
-  <div
-    class="module-card"
-
-    *ngFor="let module of modules">
-
-    <div class="module-content">
-
-      <h3>
-
-        {{ module.title }}
-
-      </h3>
-
-      <p>
-
-        {{ module.description }}
-
-      </p>
-
-      <div class="module-meta">
-
-        <span>
-
-          {{ module.hours }} heures
-
-        </span>
 
       </div>
 
     </div>
 
-    <div class="module-actions">
-
-      <button
-
-        mat-icon-button
-
-        color="primary"
-
-        (click)="openModuleDialog(module)">
-
-        <mat-icon>
-
-          edit
-
-        </mat-icon>
-
-      </button>
-
-      <button
-
-        mat-icon-button
-
-        color="warn"
-
-        (click)="deleteModule(module)">
-
-        <mat-icon>
-
-          delete
-
-        </mat-icon>
-
-      </button>
-
-    </div>
-
-  </div>
-
-</mat-card>
-
-  <mat-card>
-    <button mat-raised-button color="primary" (click)="openAssignTrainerDialog()">
-      <mat-icon>person_add</mat-icon>
-      Affecter un formateur
-    </button>
   </mat-card>
 
 </div>
+

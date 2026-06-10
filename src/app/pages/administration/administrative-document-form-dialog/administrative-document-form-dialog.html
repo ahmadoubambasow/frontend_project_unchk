@@ -1,15 +1,28 @@
 <div class="dialog-container">
 
+  <!-- Header -->
   <div class="dialog-header">
+
+    <div class="dialog-icon">
+
+      <mat-icon>
+
+        folder
+
+      </mat-icon>
+
+    </div>
 
     <div>
 
       <h2>
+
         {{
           data
             ? 'Modifier un document'
             : 'Nouveau document'
         }}
+
       </h2>
 
       <p>
@@ -23,75 +36,93 @@
   </div>
 
   <form
-    [formGroup]="form">
+    [formGroup]="form"
+    class="document-form">
 
-    <!-- Informations principales -->
+    <!-- Informations -->
+    <div class="section-card">
 
-    <div class="section">
+      <div class="section-header">
 
-      <h3>
+        <mat-icon>
 
-        Informations générales
+          description
 
-      </h3>
+        </mat-icon>
+
+        <h3>
+
+          Informations générales
+
+        </h3>
+
+      </div>
+
+      <div class="selection-grid">
+
+        <div
+          *ngFor="let type of documentTypes"
+          class="selection-card"
+          [class.selected]="form.value.type === type"
+          (click)="form.patchValue({ type: type })">
+
+          <mat-icon>
+
+            {{
+              type === 'COURRIER'
+                ? 'mail'
+                : type === 'NOTE_SERVICE'
+                  ? 'assignment'
+                  : type === 'CIRCULAIRE'
+                    ? 'campaign'
+                    : 'description'
+            }}
+
+          </mat-icon>
+
+          <span>
+
+            {{ getTypeLabel(type) }}
+
+          </span>
+
+        </div>
+
+      </div>
+
+      <div class="selection-grid status-grid">
+
+        <div
+          *ngFor="let status of documentStatuses"
+          class="selection-card"
+          [class.selected]="form.value.status === status"
+          (click)="form.patchValue({ status: status })">
+
+          <mat-icon>
+
+            {{
+              status === 'BROUILLON'
+                ? 'edit_note'
+                : status === 'VALIDE'
+                  ? 'verified'
+                  : status === 'ARCHIVE'
+                    ? 'archive'
+                    : 'pending'
+            }}
+
+          </mat-icon>
+
+          <span>
+
+            {{ getStatusLabel(status) }}
+
+          </span>
+
+        </div>
+
+      </div>
 
       <div class="form-grid">
-
-        <mat-form-field appearance="outline">
-
-          <mat-label>
-
-            Type de document
-
-          </mat-label>
-
-          <mat-select
-            formControlName="type">
-
-            <mat-option
-
-              *ngFor="
-                let type
-                of documentTypes
-              "
-
-              [value]="type">
-
-              {{ getTypeLabel(type) }}
-
-            </mat-option>
-
-          </mat-select>
-
-        </mat-form-field>
-
-        <mat-form-field appearance="outline">
-
-          <mat-label>
-
-            Statut
-
-          </mat-label>
-
-          <mat-select
-            formControlName="status">
-
-            <mat-option
-
-              *ngFor="
-                let status
-                of documentStatuses
-              "
-
-              [value]="status">
-
-              {{ getStatusLabel(status) }}
-
-            </mat-option>
-
-          </mat-select>
-
-        </mat-form-field>
 
         <mat-form-field appearance="outline">
 
@@ -100,6 +131,12 @@
             Titre
 
           </mat-label>
+
+          <mat-icon matPrefix>
+
+            title
+
+          </mat-icon>
 
           <input
             matInput
@@ -111,9 +148,15 @@
 
           <mat-label>
 
-            Date
+            Date du document
 
           </mat-label>
+
+          <mat-icon matPrefix>
+
+            event
+
+          </mat-icon>
 
           <input
             matInput
@@ -126,15 +169,24 @@
 
     </div>
 
-    <!-- Circuit du document -->
+    <!-- Circuit -->
+    <div class="section-card">
 
-    <div class="section">
+      <div class="section-header">
 
-      <h3>
+        <mat-icon>
 
-        Circuit du document
+          sync_alt
 
-      </h3>
+        </mat-icon>
+
+        <h3>
+
+          Circuit du document
+
+        </h3>
+
+      </div>
 
       <div class="form-grid">
 
@@ -146,23 +198,25 @@
 
           </mat-label>
 
-          <mat-select
+          <select
+            matNativeControl
             formControlName="issuerId">
 
-            <mat-option
+            <option [value]="null">
 
-              *ngFor="
-                let user
-                of users
-              "
+              Sélectionner...
 
+            </option>
+
+            <option
+              *ngFor="let user of users"
               [value]="user.id">
 
               {{ user.fullName }}
 
-            </mat-option>
+            </option>
 
-          </mat-select>
+          </select>
 
         </mat-form-field>
 
@@ -174,23 +228,25 @@
 
           </mat-label>
 
-          <mat-select
+          <select
+            matNativeControl
             formControlName="recipientId">
 
-            <mat-option
+            <option [value]="null">
 
-              *ngFor="
-                let user
-                of users
-              "
+              Sélectionner...
 
+            </option>
+
+            <option
+              *ngFor="let user of users"
               [value]="user.id">
 
               {{ user.fullName }}
 
-            </mat-option>
+            </option>
 
-          </mat-select>
+          </select>
 
         </mat-form-field>
 
@@ -199,14 +255,23 @@
     </div>
 
     <!-- Description -->
+    <div class="section-card">
 
-    <div class="section">
+      <div class="section-header">
 
-      <h3>
+        <mat-icon>
 
-        Contenu
+          article
 
-      </h3>
+        </mat-icon>
+
+        <h3>
+
+          Contenu
+
+        </h3>
+
+      </div>
 
       <mat-form-field
         appearance="outline"
@@ -219,11 +284,8 @@
         </mat-label>
 
         <textarea
-
           matInput
-
           rows="6"
-
           formControlName="description">
 
         </textarea>
@@ -232,53 +294,74 @@
 
     </div>
 
-    <!-- Pièce jointe -->
+    <!-- Fichier -->
+    <div class="section-card">
 
-    <div class="section">
+      <div class="section-header">
 
-      <h3>
+        <mat-icon>
 
-        Pièce jointe
+          attach_file
 
-      </h3>
+        </mat-icon>
+
+        <h3>
+
+          Pièce jointe
+
+        </h3>
+
+      </div>
 
       <div class="upload-zone">
 
         <input
-
           type="file"
-
           #fileInput
-
           hidden
-
           (change)="onFileSelected($event)">
 
-        <button
-
-          type="button"
-
-          mat-stroked-button
-
+        <div
+          class="upload-card"
           (click)="fileInput.click()">
 
-          Choisir un fichier
+          <mat-icon>
 
-        </button>
+            cloud_upload
 
-        <span
+          </mat-icon>
+
+          <h4>
+
+            Ajouter un document
+
+          </h4>
+
+          <p>
+
+            PDF, Word, Excel ou image
+
+          </p>
+
+        </div>
+
+        <div
+          class="selected-file"
           *ngIf="selectedFile">
 
-          {{ selectedFile.name }}
+          <mat-icon>
 
-        </span>
+            insert_drive_file
 
-        <span
-          *ngIf="!selectedFile">
+          </mat-icon>
 
-          Aucun fichier sélectionné
+          <span>
 
-        </span>
+            {{ selectedFile.name }}
+
+          </span>
+
+        </div>
 
       </div>
 
@@ -286,6 +369,7 @@
 
   </form>
 
+  <!-- Actions -->
   <div class="dialog-actions">
 
     <button
@@ -297,19 +381,29 @@
     </button>
 
     <button
-
       mat-raised-button
-
       color="primary"
-
-      [disabled]="loading"
-
+      [disabled]="loading || form.invalid"
       (click)="submit()">
 
+      <mat-icon>
+
+        save
+
+      </mat-icon>
+
       {{
-        data
-          ? 'Enregistrer'
-          : 'Créer le document'
+
+        loading
+
+          ? 'Enregistrement...'
+
+          : data
+
+            ? 'Enregistrer'
+
+            : 'Créer le document'
+
       }}
 
     </button>

@@ -11,11 +11,13 @@ import { Formation } from '../../../models/formation.model';
 import { FormationService } from '../../../services/formation';
 import { PromotionService } from '../../../services/promotion';
 import { Promotion } from '../../../models/promotion.model';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-promotion-form-dialog',
   imports: [
     CommonModule,
+    MatIconModule,
     ReactiveFormsModule,
     MatDialogModule,
     MatFormFieldModule,

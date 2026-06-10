@@ -1,37 +1,62 @@
 <div class="dialog-container">
 
+  <!-- Header -->
   <div class="dialog-header">
 
-    <h2>
+    <div class="dialog-icon">
 
-      {{
-        data
-          ? 'Modifier communication'
-          : 'Nouvelle communication'
-      }}
+      <mat-icon>
 
-    </h2>
+        campaign
 
-    <p>
+      </mat-icon>
 
-      Gestion des comptes rendus et documents
+    </div>
 
-    </p>
+    <div>
+
+      <h2>
+
+        {{
+          data
+            ? 'Modifier communication'
+            : 'Nouvelle communication'
+        }}
+
+      </h2>
+
+      <p>
+
+        Gestion des comptes rendus, circulaires et documents institutionnels
+
+      </p>
+
+    </div>
 
   </div>
 
   <form
-    [formGroup]="communicationForm">
+    [formGroup]="communicationForm"
+    class="communication-form">
 
     <!-- Informations générales -->
+    <div class="section-card">
 
-    <div class="section">
+      <div class="section-header">
 
-      <h3>
+        <mat-icon>
 
-        Informations générales
+          info
 
-      </h3>
+        </mat-icon>
+
+        <h3>
+
+          Informations générales
+
+        </h3>
+
+      </div>
 
       <div class="form-grid">
 
@@ -43,6 +68,12 @@
 
           </mat-label>
 
+          <mat-icon matPrefix>
+
+            title
+
+          </mat-icon>
+
           <input
             matInput
             formControlName="title">
@@ -53,37 +84,15 @@
 
           <mat-label>
 
-            Type
+            Date de publication
 
           </mat-label>
 
-          <mat-select
-            formControlName="type">
+          <mat-icon matPrefix>
 
-            <mat-option
+            event
 
-              *ngFor="
-                let type
-                of communicationTypes
-              "
-
-              [value]="type">
-
-              {{ type }}
-
-            </mat-option>
-
-          </mat-select>
-
-        </mat-form-field>
-
-        <mat-form-field appearance="outline">
-
-          <mat-label>
-
-            Date
-
-          </mat-label>
+          </mat-icon>
 
           <input
             matInput
@@ -96,15 +105,75 @@
 
     </div>
 
+    <!-- Type -->
+    <div class="section-card">
+
+      <div class="section-header">
+
+        <mat-icon>
+
+          category
+
+        </mat-icon>
+
+        <h3>
+
+          Type de communication
+
+        </h3>
+
+      </div>
+
+      <div class="selection-grid">
+
+        <div
+          *ngFor="let type of communicationTypes"
+          class="selection-card"
+          [class.selected]="communicationForm.value.type === type"
+          (click)="communicationForm.patchValue({ type: type })">
+
+          <mat-icon>
+
+            {{
+              type === 'COMPTE_RENDU'
+                ? 'description'
+                : type === 'CIRCULAIRE'
+                  ? 'campaign'
+                  : 'article'
+            }}
+
+          </mat-icon>
+
+          <span>
+
+            {{ type }}
+
+          </span>
+
+        </div>
+
+      </div>
+
+    </div>
+
     <!-- Description -->
+    <div class="section-card">
 
-    <div class="section">
+      <div class="section-header">
 
-      <h3>
+        <mat-icon>
 
-        Description
+          notes
 
-      </h3>
+        </mat-icon>
+
+        <h3>
+
+          Description
+
+        </h3>
+
+      </div>
 
       <mat-form-field
         appearance="outline"
@@ -117,11 +186,8 @@
         </mat-label>
 
         <textarea
-
           matInput
-
-          rows="3"
-
+          rows="4"
           formControlName="description">
 
         </textarea>
@@ -131,14 +197,23 @@
     </div>
 
     <!-- Compte rendu -->
+    <div class="section-card">
 
-    <div class="section">
+      <div class="section-header">
 
-      <h3>
+        <mat-icon>
 
-        Compte rendu
+          article
 
-      </h3>
+        </mat-icon>
+
+        <h3>
+
+          Contenu
+
+        </h3>
+
+      </div>
 
       <mat-form-field
         appearance="outline"
@@ -146,16 +221,13 @@
 
         <mat-label>
 
-          Contenu du compte rendu
+          Compte rendu / contenu
 
         </mat-label>
 
         <textarea
-
           matInput
-
-          rows="6"
-
+          rows="8"
           formControlName="report">
 
         </textarea>
@@ -165,32 +237,60 @@
     </div>
 
     <!-- Document -->
+    <div class="section-card">
 
-    <div class="section">
+      <div class="section-header">
 
-      <h3>
+        <mat-icon>
 
-        Document associé
+          attach_file
 
-      </h3>
+        </mat-icon>
+
+        <h3>
+
+          Document associé
+
+        </h3>
+
+      </div>
 
       <div class="upload-container">
 
-        <input
+        <label
+          class="upload-card">
 
-          type="file"
+          <input
+            type="file"
+            hidden
+            accept=".pdf,.doc,.docx,.xls,.xlsx,.png,.jpg,.jpeg"
+            (change)="onFileSelected($event)">
 
-          accept=".pdf,.doc,.docx,.xls,.xlsx,.png,.jpg,.jpeg"
+          <mat-icon>
 
-          (change)="onFileSelected($event)">
+            cloud_upload
+
+          </mat-icon>
+
+          <span>
+
+            Sélectionner un document
+
+          </span>
+
+        </label>
 
         <div
-
           class="selected-file"
-
           *ngIf="selectedFileName">
 
-          📎 {{ selectedFileName }}
+          <mat-icon>
+
+            description
+
+          </mat-icon>
+
+          {{ selectedFileName }}
 
         </div>
 
@@ -199,51 +299,65 @@
     </div>
 
     <!-- Diffusion -->
+    <div class="section-card">
 
-    <div class="section">
+      <div class="section-header">
 
-      <h3>
+        <mat-icon>
 
-        Diffusion
+          security
 
-      </h3>
+        </mat-icon>
 
-      <mat-form-field
-        appearance="outline"
-        class="full-width">
+        <h3>
 
-        <mat-label>
+          Diffusion
 
-          Rôle d'accès
+        </h3>
 
-        </mat-label>
+      </div>
 
-        <mat-select
-          formControlName="accessRole"
-          panelClass="role-select-panel">
+      <div class="selection-grid">
 
-          <mat-option
-            *ngFor="let role of accessRoles"
-            [value]="role.value">
+        <div
+          *ngFor="let role of accessRoles"
+          class="selection-card"
+          [class.selected]="communicationForm.value.accessRole === role.value"
+          (click)="communicationForm.patchValue({ accessRole: role.value })">
+
+          <mat-icon>
+
+            {{
+              role.value === 'ADMIN'
+                ? 'admin_panel_settings'
+                : role.value === 'RESPONSABLE_FORMATION'
+                  ? 'manage_accounts'
+                  : role.value === 'TRAINER'
+                    ? 'school'
+                    : 'groups'
+            }}
+
+          </mat-icon>
+
+          <span>
 
             {{ role.label }}
 
-          </mat-option>
+          </span>
 
-        </mat-select>
+        </div>
 
-      </mat-form-field>
+      </div>
 
     </div>
 
   </form>
 
+  <!-- Actions -->
   <div class="dialog-actions">
 
     <button
-
       mat-stroked-button
-
       (click)="dialogRef.close()">
 
       Annuler
@@ -251,21 +365,21 @@
     </button>
 
     <button
-
       mat-raised-button
-
       color="primary"
-
-      [disabled]="loading"
-
+      [disabled]="loading || communicationForm.invalid"
       (click)="submit()">
+
+      <mat-icon>
+
+        save
+
+      </mat-icon>
 
       {{
 
         loading
-
           ? 'Enregistrement...'
-
           : 'Enregistrer'
 
       }}

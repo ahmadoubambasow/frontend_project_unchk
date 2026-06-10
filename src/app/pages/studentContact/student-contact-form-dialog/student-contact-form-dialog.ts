@@ -45,6 +45,7 @@ import { StudentContactService } from '../services/student-contact-service';
 import { StudentService } from '../../../services/student';
 import { UserService } from '../../../services/user-service';
 import { StudentContact } from '../models/Student-contact.model';
+import { MatIconModule } from '@angular/material/icon';
 
 
 
@@ -62,7 +63,8 @@ import { StudentContact } from '../models/Student-contact.model';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    MatSelectModule
+    MatSelectModule,
+    MatIconModule
   ],
 
   templateUrl:

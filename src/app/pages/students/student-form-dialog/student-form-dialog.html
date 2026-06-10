@@ -1,214 +1,282 @@
 <div class="dialog-container">
 
+  <!-- Header -->
   <div class="dialog-header">
 
-    <h2>
+    <div class="dialog-icon">
 
-      {{
-        data
-          ? 'Modifier étudiant'
-          : 'Nouvel étudiant'
-      }}
+      <mat-icon>
 
-    </h2>
+        {{ data ? 'edit_note' : 'school' }}
 
-    <p>
+      </mat-icon>
 
-      Gestion des dossiers étudiants
+    </div>
 
-    </p>
+    <div>
+
+      <h2>
+
+        {{
+          data
+            ? 'Modifier étudiant'
+            : 'Nouvel étudiant'
+        }}
+
+      </h2>
+
+      <p>
+
+        Gestion des dossiers étudiants
+
+      </p>
+
+    </div>
 
   </div>
 
+  <!-- Form -->
   <form
-
     [formGroup]="form"
-
     class="student-form">
 
-    <div class="form-grid">
+    <!-- Informations personnelles -->
+    <div class="section-card">
 
-      <mat-form-field appearance="outline">
+      <div class="section-header">
+
+        <mat-icon>
+
+          person
+
+        </mat-icon>
+
+        <h3>
+
+          Informations personnelles
+
+        </h3>
+
+      </div>
+
+      <div class="form-grid">
+
+        <mat-form-field appearance="outline">
+
+          <mat-label>
+
+            Prénom
+
+          </mat-label>
+
+          <input
+            matInput
+            formControlName="firstName">
+
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+
+          <mat-label>
+
+            Nom
+
+          </mat-label>
+
+          <input
+            matInput
+            formControlName="lastName">
+
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+
+          <mat-label>
+
+            Date de naissance
+
+          </mat-label>
+
+          <input
+            matInput
+            type="date"
+            formControlName="birthDate">
+
+        </mat-form-field>
+
+      </div>
+
+    </div>
+
+    <!-- Parcours académique -->
+    <div class="section-card">
+
+      <div class="section-header">
+
+        <mat-icon>
+
+          menu_book
+
+        </mat-icon>
+
+        <h3>
+
+          Parcours académique
+
+        </h3>
+
+      </div>
+
+      <div class="form-grid">
+
+        <mat-form-field appearance="outline">
+
+          <mat-label>
+
+            Formation
+
+          </mat-label>
+
+          <select
+            matNativeControl
+            formControlName="formationId">
+
+            <option
+              *ngFor="let formation of formations"
+              [value]="formation.id">
+
+              {{ formation.name }}
+
+            </option>
+
+          </select>
+
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+
+          <mat-label>
+
+            Groupe
+
+          </mat-label>
+
+          <select
+            matNativeControl
+            formControlName="groupId">
+
+            <option
+              *ngFor="let group of groups"
+              [value]="group.id">
+
+              {{ group.name }} - {{ group.promotion }}
+
+            </option>
+
+          </select>
+
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+
+          <mat-label>
+
+            Année d'entrée
+
+          </mat-label>
+
+          <input
+            matInput
+            type="number"
+            formControlName="startYear">
+
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+
+          <mat-label>
+
+            Année de sortie
+
+          </mat-label>
+
+          <input
+            matInput
+            type="number"
+            formControlName="graduationYear">
+
+        </mat-form-field>
+
+      </div>
+
+    </div>
+
+    <!-- Informations complémentaires -->
+    <div class="section-card">
+
+      <div class="section-header">
+
+        <mat-icon>
+
+          description
+
+        </mat-icon>
+
+        <h3>
+
+          Informations complémentaires
+
+        </h3>
+
+      </div>
+
+      <mat-form-field
+        appearance="outline"
+        class="full-width">
 
         <mat-label>
 
-          Prénom
+          Diplômes obtenus
 
         </mat-label>
 
-        <input
+        <textarea
           matInput
-          formControlName="firstName">
+          rows="4"
+          formControlName="diplomas">
+
+        </textarea>
 
       </mat-form-field>
 
-      <mat-form-field appearance="outline">
+      <mat-form-field
+        appearance="outline"
+        class="full-width">
 
         <mat-label>
 
-          Nom
+          Autres formations
 
         </mat-label>
 
-        <input
+        <textarea
           matInput
-          formControlName="lastName">
+          rows="4"
+          formControlName="otherTrainings">
 
-      </mat-form-field>
-
-      <mat-form-field appearance="outline">
-
-        <mat-label>
-
-          Date de naissance
-
-        </mat-label>
-
-        <input
-          matInput
-          type="date"
-          formControlName="birthDate">
-
-      </mat-form-field>
-
-      <mat-form-field appearance="outline">
-
-        <mat-label>
-
-          Formation
-
-        </mat-label>
-
-        <mat-select
-          formControlName="formationId">
-
-          <mat-option
-
-            *ngFor="
-              let formation
-              of formations
-            "
-
-            [value]="formation.id">
-
-            {{ formation.name }}
-
-          </mat-option>
-
-        </mat-select>
-
-      </mat-form-field>
-
-      <mat-form-field appearance="outline">
-
-        <mat-label>
-
-          Groupe
-
-        </mat-label>
-
-        <mat-select
-          formControlName="groupId">
-
-          <mat-option
-
-            *ngFor="
-              let group
-              of groups
-            "
-
-            [value]="group.id">
-
-            {{ group.name }}
-
-            -
-
-            {{ group.promotion }}
-
-          </mat-option>
-
-        </mat-select>
-
-      </mat-form-field>
-
-      <mat-form-field appearance="outline">
-
-        <mat-label>
-
-          Année d'entrée
-
-        </mat-label>
-
-        <input
-          matInput
-          type="number"
-          formControlName="startYear">
-
-      </mat-form-field>
-
-      <mat-form-field appearance="outline">
-
-        <mat-label>
-
-          Année de sortie
-
-        </mat-label>
-
-        <input
-          matInput
-          type="number"
-          formControlName="graduationYear">
+        </textarea>
 
       </mat-form-field>
 
     </div>
 
-    <mat-form-field
-      appearance="outline"
-      class="full-width">
-
-      <mat-label>
-
-        Diplômes obtenus
-
-      </mat-label>
-
-      <textarea
-        matInput
-        rows="4"
-        formControlName="diplomas">
-
-      </textarea>
-
-    </mat-form-field>
-
-    <mat-form-field
-      appearance="outline"
-      class="full-width">
-
-      <mat-label>
-
-        Autres formations
-
-      </mat-label>
-
-      <textarea
-        matInput
-        rows="4"
-        formControlName="otherTrainings">
-
-      </textarea>
-
-    </mat-form-field>
-
   </form>
 
+  <!-- Actions -->
   <div class="dialog-actions">
 
     <button
-
       mat-stroked-button
-
       (click)="dialogRef.close()">
 
       Annuler
@@ -216,26 +284,23 @@
     </button>
 
     <button
-
-      mat-raised-button
-
+      mat-flat-button
       color="primary"
-
       [disabled]="loading"
-
       (click)="submit()">
 
+      <mat-icon>
+
+        save
+
+      </mat-icon>
+
       {{
-
         loading
-
           ? 'Enregistrement...'
-
           : data
-
-            ? 'Modifier'
-
-            : 'Créer'
+              ? 'Modifier'
+              : 'Créer'
       }}
 
     </button>

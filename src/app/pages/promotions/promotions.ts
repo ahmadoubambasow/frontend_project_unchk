@@ -10,11 +10,13 @@ import { Promotion } from '../../models/promotion.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { PromotionService } from '../../services/promotion';
 import { PromotionFormDialog } from './promotion-form-dialog/promotion-form-dialog';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'app-promotions',
   imports: [
     CommonModule,
+    MatCardModule,
     MatTableModule,
     MatPaginatorModule,
     MatDialogModule,

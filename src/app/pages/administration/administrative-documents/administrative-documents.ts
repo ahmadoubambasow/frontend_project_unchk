@@ -34,6 +34,8 @@ import {
 import { AdministrativeDocument } from '../models/administrative-document.model';
 import { AdministrativeDocumentService } from '../services/administrative-document';
 import { AdministrativeDocumentFormDialog } from '../administrative-document-form-dialog/administrative-document-form-dialog';
+import { MatProgressSpinner } from "@angular/material/progress-spinner";
+import { MatCardModule } from '@angular/material/card';
 
 
 @Component({
@@ -43,10 +45,12 @@ import { AdministrativeDocumentFormDialog } from '../administrative-document-for
 
   imports: [
     CommonModule,
+    MatCardModule,
     MatButtonModule,
     MatIconModule,
-    MatInputModule
-  ],
+    MatInputModule,
+    MatProgressSpinner
+],
 
   templateUrl:
     './administrative-documents.html',

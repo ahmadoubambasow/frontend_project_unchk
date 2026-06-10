@@ -1,58 +1,95 @@
 <div class="dialog-container">
 
+  <!-- Header -->
   <div class="dialog-header">
 
-    <h2>
+    <div class="dialog-icon">
 
-      {{
-        data.module
-          ? 'Modifier module'
-          : 'Nouveau module'
-      }}
+      <mat-icon>
 
-    </h2>
+        menu_book
 
-    <p>
+      </mat-icon>
 
-      Gestion des modules pédagogiques
+    </div>
 
-    </p>
+    <div>
+
+      <h2>
+
+        {{
+          data.module
+            ? 'Modifier module'
+            : 'Nouveau module'
+        }}
+
+      </h2>
+
+      <p>
+
+        Configurez les informations du module pédagogique.
+
+      </p>
+
+    </div>
 
   </div>
 
+  <!-- Formulaire -->
   <form
-    [formGroup]="form">
+    [formGroup]="form"
+    class="dialog-form">
 
-    <mat-form-field
-      appearance="outline">
+    <div class="form-grid">
 
-      <mat-label>
+      <mat-form-field appearance="outline">
 
-        Titre
+        <mat-label>
 
-      </mat-label>
+          Titre du module
 
-      <input
-        matInput
-        formControlName="title">
+        </mat-label>
 
-    </mat-form-field>
+        <mat-icon matPrefix>
 
-    <mat-form-field
-      appearance="outline">
+          title
 
-      <mat-label>
+        </mat-icon>
 
-        Nombre d'heures
+        <input
+          matInput
+          formControlName="title">
 
-      </mat-label>
+      </mat-form-field>
 
-      <input
-        matInput
-        type="number"
-        formControlName="hours">
+      <mat-form-field appearance="outline">
 
-    </mat-form-field>
+        <mat-label>
+
+          Volume horaire
+
+        </mat-label>
+
+        <mat-icon matPrefix>
+
+          schedule
+
+        </mat-icon>
+
+        <input
+          matInput
+          type="number"
+          formControlName="hours">
+
+        <span matSuffix>
+
+          h
+
+        </span>
+
+      </mat-form-field>
+
+    </div>
 
     <mat-form-field
       appearance="outline"
@@ -63,6 +100,12 @@
         Description
 
       </mat-label>
+
+      <mat-icon matPrefix>
+
+        description
+
+      </mat-icon>
 
       <textarea
         matInput
@@ -75,6 +118,43 @@
 
   </form>
 
+  <!-- Aperçu -->
+  <div
+    class="summary-card"
+    *ngIf="form.value.title">
+
+    <mat-icon>
+
+      auto_stories
+
+    </mat-icon>
+
+    <div>
+
+      <span>
+
+        Aperçu du module
+
+      </span>
+
+      <strong>
+
+        {{ form.value.title }}
+
+      </strong>
+
+      <small
+        *ngIf="form.value.hours">
+
+        {{ form.value.hours }} heures prévues
+
+      </small>
+
+    </div>
+
+  </div>
+
+  <!-- Actions -->
   <div class="dialog-actions">
 
     <button
@@ -86,16 +166,22 @@
     </button>
 
     <button
-      mat-raised-button
+      mat-flat-button
       color="primary"
       [disabled]="loading"
       (click)="submit()">
+
+      <mat-icon>
+
+        save
+
+      </mat-icon>
 
       {{
         loading
           ? 'Enregistrement...'
           : data.module
-              ? 'Modifier'
+              ? 'Mettre à jour'
               : 'Créer'
       }}
 

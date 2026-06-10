@@ -45,6 +45,7 @@ import { StudentFileService } from '../services/student-file';
 import { StudentService } from '../../../services/student';
 import { StudentFile } from '../models/student-file.model';
 import { Student } from '../../../models/student.model';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-student-file-form-dialog',
@@ -57,7 +58,8 @@ import { Student } from '../../../models/student.model';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    MatSelectModule
+    MatSelectModule,
+    MatIconModule
   ],
 
   templateUrl:

@@ -1,23 +1,62 @@
 <div class="dialog-container">
 
+  <!-- Header -->
   <div class="dialog-header">
 
-    <h2>
+    <div class="dialog-icon">
 
-      {{
-        data
-          ? 'Modifier réunion'
-          : 'Nouvelle réunion'
-      }}
+      <mat-icon>
 
-    </h2>
+        groups
+
+      </mat-icon>
+
+    </div>
+
+    <div>
+
+      <h2>
+
+        {{
+          data
+            ? 'Modifier réunion'
+            : 'Nouvelle réunion'
+        }}
+
+      </h2>
+
+      <p>
+
+        Gestion des réunions pédagogiques et administratives
+
+      </p>
+
+    </div>
 
   </div>
 
   <form
-    [formGroup]="form">
+    [formGroup]="form"
+    class="meeting-form">
 
-    <div class="form-grid">
+    <!-- Informations générales -->
+    <div class="section-card">
+
+      <div class="section-header">
+
+        <mat-icon>
+
+          info
+
+        </mat-icon>
+
+        <h3>
+
+          Informations générales
+
+        </h3>
+
+      </div>
 
       <mat-form-field appearance="outline">
 
@@ -27,222 +66,345 @@
 
         </mat-label>
 
+        <mat-icon matPrefix>
+
+          title
+
+        </mat-icon>
+
         <input
           matInput
           formControlName="title">
 
       </mat-form-field>
 
-      <mat-form-field appearance="outline">
+      <!-- Type -->
+      <div class="selection-section">
 
-        <mat-label>
+        <label class="section-label">
 
-          Type
+          Type de réunion
 
-        </mat-label>
+        </label>
 
-        <mat-select
-          formControlName="type">
+        <div class="roles-grid">
 
-          <mat-option value="TUTORAT">
+          <div
+            class="role-card"
+            [class.selected]="form.value.type === 'TUTORAT'"
+            (click)="form.patchValue({ type: 'TUTORAT' })">
 
-            Tutorat
+            <mat-icon>
 
-          </mat-option>
+              school
 
-          <mat-option
-            value="PREPARATION_COURS">
+            </mat-icon>
 
-            Préparation cours
+            <span>
 
-          </mat-option>
+              Tutorat
 
-          <mat-option
-            value="PREPARATION_EVALUATION">
+            </span>
 
-            Préparation évaluation
+          </div>
 
-          </mat-option>
+          <div
+            class="role-card"
+            [class.selected]="form.value.type === 'PREPARATION_COURS'"
+            (click)="form.patchValue({ type: 'PREPARATION_COURS' })">
 
-        </mat-select>
+            <mat-icon>
 
-      </mat-form-field>
+              menu_book
 
-      <mat-form-field appearance="outline">
+            </mat-icon>
 
-        <mat-label>
+            <span>
+
+              Préparation cours
+
+            </span>
+
+          </div>
+
+          <div
+            class="role-card"
+            [class.selected]="form.value.type === 'PREPARATION_EVALUATION'"
+            (click)="form.patchValue({ type: 'PREPARATION_EVALUATION' })">
+
+            <mat-icon>
+
+              quiz
+
+            </mat-icon>
+
+            <span>
+
+              Préparation évaluation
+
+            </span>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- Statut -->
+      <div class="selection-section">
+
+        <label class="section-label">
 
           Statut
 
+        </label>
+
+        <div class="roles-grid">
+
+          <div
+            class="role-card"
+            [class.selected]="form.value.status === 'PLANIFIEE'"
+            (click)="form.patchValue({ status: 'PLANIFIEE' })">
+
+            <mat-icon>
+
+              event
+
+            </mat-icon>
+
+            <span>
+
+              Planifiée
+
+            </span>
+
+          </div>
+
+          <div
+            class="role-card"
+            [class.selected]="form.value.status === 'EN_COURS'"
+            (click)="form.patchValue({ status: 'EN_COURS' })">
+
+            <mat-icon>
+
+              play_circle
+
+            </mat-icon>
+
+            <span>
+
+              En cours
+
+            </span>
+
+          </div>
+
+          <div
+            class="role-card"
+            [class.selected]="form.value.status === 'TERMINEE'"
+            (click)="form.patchValue({ status: 'TERMINEE' })">
+
+            <mat-icon>
+
+              check_circle
+
+            </mat-icon>
+
+            <span>
+
+              Terminée
+
+            </span>
+
+          </div>
+
+          <div
+            class="role-card"
+            [class.selected]="form.value.status === 'ANNULEE'"
+            (click)="form.patchValue({ status: 'ANNULEE' })">
+
+            <mat-icon>
+
+              cancel
+
+            </mat-icon>
+
+            <span>
+
+              Annulée
+
+            </span>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Planification -->
+    <div class="section-card">
+
+      <div class="section-header">
+
+        <mat-icon>
+
+          schedule
+
+        </mat-icon>
+
+        <h3>
+
+          Planification
+
+        </h3>
+
+      </div>
+
+      <div class="form-grid">
+
+        <mat-form-field appearance="outline">
+
+          <mat-label>
+
+            Date
+
+          </mat-label>
+
+          <input
+            matInput
+            type="date"
+            formControlName="meetingDate">
+
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+
+          <mat-label>
+
+            Heure début
+
+          </mat-label>
+
+          <input
+            matInput
+            type="time"
+            formControlName="startTime">
+
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+
+          <mat-label>
+
+            Heure fin
+
+          </mat-label>
+
+          <input
+            matInput
+            type="time"
+            formControlName="endTime">
+
+        </mat-form-field>
+
+      </div>
+
+    </div>
+
+    <!-- Participants -->
+    <div class="section-card">
+
+      <div class="section-header">
+
+        <mat-icon>
+
+          people
+
+        </mat-icon>
+
+        <h3>
+
+          Participants
+
+        </h3>
+
+      </div>
+
+      <div class="form-grid">
+
+        <mat-form-field appearance="outline">
+
+          <mat-label>
+
+            Organisateur
+
+          </mat-label>
+
+          <mat-select formControlName="organizerId">
+
+            <mat-option
+              *ngFor="let user of users"
+              [value]="user.id">
+
+              {{ user.fullName }}
+
+            </mat-option>
+
+          </mat-select>
+
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+
+          <mat-label>
+
+            Groupe concerné
+
+          </mat-label>
+
+          <mat-select formControlName="groupId">
+
+            <mat-option [value]="null">
+
+              Aucun
+
+            </mat-option>
+
+            <mat-option
+              *ngFor="let group of groups"
+              [value]="group.id">
+
+              {{ group.name }}
+
+            </mat-option>
+
+          </mat-select>
+
+        </mat-form-field>
+
+      </div>
+
+      <mat-form-field
+        appearance="outline"
+        class="full-width">
+
+        <mat-label>
+
+          Participants
+
         </mat-label>
 
         <mat-select
-          formControlName="status">
-
-          <mat-option value="PLANIFIEE">
-
-            Planifiée
-
-          </mat-option>
-
-          <mat-option value="EN_COURS">
-
-            En cours
-
-          </mat-option>
-
-          <mat-option value="TERMINEE">
-
-            Terminée
-
-          </mat-option>
-
-          <mat-option value="ANNULEE">
-
-            Annulée
-
-          </mat-option>
-
-        </mat-select>
-
-      </mat-form-field>
-
-      <mat-form-field appearance="outline">
-
-        <mat-label>
-
-          Date
-
-        </mat-label>
-
-        <input
-
-          matInput
-
-          type="date"
-
-          formControlName="meetingDate">
-
-      </mat-form-field>
-
-      <mat-form-field appearance="outline">
-
-        <mat-label>
-
-          Début
-
-        </mat-label>
-
-        <input
-
-          matInput
-
-          type="time"
-
-          formControlName="startTime">
-
-      </mat-form-field>
-
-      <mat-form-field appearance="outline">
-
-        <mat-label>
-
-          Fin
-
-        </mat-label>
-
-        <input
-
-          matInput
-
-          type="time"
-
-          formControlName="endTime">
-
-      </mat-form-field>
-
-      <!-- Organisateur -->
-<mat-form-field appearance="outline">
-
-  <mat-label>
-
-    Organisateur
-
-  </mat-label>
-
-  <mat-select
-    formControlName="organizerId">
-
-    <mat-option
-      *ngFor="let user of users"
-      [value]="user.id">
-
-      {{ user.fullName }}
-
-    </mat-option>
-
-  </mat-select>
-
-</mat-form-field>
-
-<!-- Participants -->
-<mat-form-field appearance="outline">
-
-  <mat-label>
-
-    Participants
-
-  </mat-label>
-
-  <mat-select
-
-    multiple
-
-    formControlName="participantIds">
-
-    <mat-option
-      *ngFor="let user of users"
-      [value]="user.id">
-
-      {{ user.fullName }}
-
-    </mat-option>
-
-  </mat-select>
-
-</mat-form-field>
-
-<!-- Participants -->
-
-
-      <mat-form-field appearance="outline">
-
-        <mat-label>
-
-          Groupe
-
-        </mat-label>
-
-        <mat-select
-          formControlName="groupId">
+          multiple
+          formControlName="participantIds">
 
           <mat-option
-            [value]="null">
+            *ngFor="let user of users"
+            [value]="user.id">
 
-            Aucun
-
-          </mat-option>
-
-          <mat-option
-
-            *ngFor="
-              let group
-              of groups
-            "
-
-            [value]="group.id">
-
-            {{ group.name }}
+            {{ user.fullName }}
 
           </mat-option>
 
@@ -252,49 +414,64 @@
 
     </div>
 
-    <mat-form-field
-      appearance="outline"
-      class="full-width">
+    <!-- Compte rendu -->
+    <div class="section-card">
 
-      <mat-label>
+      <div class="section-header">
 
-        Description
+        <mat-icon>
 
-      </mat-label>
+          description
 
-      <textarea
+        </mat-icon>
 
-        matInput
+        <h3>
 
-        rows="5"
+          Notes et compte rendu
 
-        formControlName="description">
+        </h3>
 
-      </textarea>
+      </div>
 
-    </mat-form-field>
+      <mat-form-field
+        appearance="outline"
+        class="full-width">
 
-    <mat-form-field
-      appearance="outline"
-      class="full-width">
+        <mat-label>
 
-      <mat-label>
+          Description
 
-        Compte rendu
+        </mat-label>
 
-      </mat-label>
+        <textarea
+          matInput
+          rows="4"
+          formControlName="description">
 
-      <textarea
+        </textarea>
 
-        matInput
+      </mat-form-field>
 
-        rows="5"
+      <mat-form-field
+        appearance="outline"
+        class="full-width">
 
-        formControlName="report">
+        <mat-label>
 
-      </textarea>
+          Compte rendu
 
-    </mat-form-field>
+        </mat-label>
+
+        <textarea
+          matInput
+          rows="5"
+          formControlName="report">
+
+        </textarea>
+
+      </mat-form-field>
+
+    </div>
 
   </form>
 
@@ -309,12 +486,15 @@
     </button>
 
     <button
-
       mat-raised-button
-
       color="primary"
-
       (click)="submit()">
+
+      <mat-icon>
+
+        save
+
+      </mat-icon>
 
       {{
         data

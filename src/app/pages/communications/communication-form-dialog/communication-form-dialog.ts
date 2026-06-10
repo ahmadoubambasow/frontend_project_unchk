@@ -9,11 +9,13 @@ import { MatSelectModule } from '@angular/material/select';
 import { CommunicationService } from '../../../services/communication-service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Communication } from '../../../models/communication.model';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-communication-form-dialog',
   imports: [
     CommonModule,
+    MatIconModule,
     ReactiveFormsModule,
     MatDialogModule,
     MatFormFieldModule,

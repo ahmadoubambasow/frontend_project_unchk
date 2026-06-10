@@ -52,6 +52,7 @@ import { TrainingModuleService } from '../../../services/training-module';
 
 import { User } from '../../../models/user.model';
 import { UserService } from '../../../services/user-service';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-schedule-form-dialog',
@@ -64,7 +65,8 @@ import { UserService } from '../../../services/user-service';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    MatSelectModule
+    MatSelectModule,
+    MatIconModule
   ],
 
   templateUrl:

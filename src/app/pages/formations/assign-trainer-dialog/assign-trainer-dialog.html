@@ -1,48 +1,120 @@
 <div class="dialog-container">
 
-  <h2>
+  <!-- Header -->
+  <div class="dialog-header">
 
-    Affecter un formateur
+    <div class="dialog-icon">
 
-  </h2>
+      <mat-icon>
 
+        person_add
+
+      </mat-icon>
+
+    </div>
+
+    <div>
+
+      <h2>
+
+        Affecter un formateur
+
+      </h2>
+
+      <p>
+
+        Sélectionnez un formateur pour l'associer à cette formation.
+
+      </p>
+
+    </div>
+
+  </div>
+
+  <!-- Formulaire -->
   <form
-    [formGroup]="form">
+    [formGroup]="form"
+    class="dialog-form">
 
-    <mat-form-field
-      appearance="outline">
+    <div class="section-card">
 
-      <mat-label>
+      <div class="section-header">
 
-        Formateur
+        <mat-icon>
 
-      </mat-label>
+          groups
 
-      <mat-select
-        formControlName="trainerId">
+        </mat-icon>
 
-        <mat-option
+        <h3>
 
-          *ngFor="
-            let trainer
-            of trainers
-          "
+          Formateur
 
-          [value]="trainer.id">
+        </h3>
 
-          {{ trainer.fullName }}
+      </div>
 
-          ({{ trainer.role }})
+      <mat-form-field
+        appearance="outline"
+        class="full-width">
 
-        </mat-option>
+        <mat-label>
 
-      </mat-select>
+          Choisir un formateur
 
-    </mat-form-field>
+        </mat-label>
+
+        <mat-icon matPrefix>
+
+          school
+
+        </mat-icon>
+
+        <mat-select
+          formControlName="trainerId">
+
+          <mat-option
+            *ngFor="let trainer of trainers"
+            [value]="trainer.id">
+
+            <div class="trainer-option">
+
+              <div class="trainer-avatar">
+
+                {{ trainer.fullName.charAt(0) }}
+
+              </div>
+
+              <div class="trainer-details">
+
+                <span class="trainer-name">
+
+                  {{ trainer.fullName }}
+
+                </span>
+
+                <small>
+
+                  {{ trainer.role }}
+
+                </small>
+
+              </div>
+
+            </div>
+
+          </mat-option>
+
+        </mat-select>
+
+      </mat-form-field>
+
+    </div>
 
   </form>
 
-  <div class="actions">
+  <!-- Actions -->
+  <div class="dialog-actions">
 
     <button
       mat-stroked-button
@@ -53,12 +125,24 @@
     </button>
 
     <button
-      mat-raised-button
+      mat-flat-button
       color="primary"
       [disabled]="loading"
       (click)="submit()">
 
-      Affecter
+      <mat-icon>
+
+        person_add
+
+      </mat-icon>
+
+      {{
+
+        loading
+          ? 'Affectation...'
+          : 'Affecter'
+
+      }}
 
     </button>
 

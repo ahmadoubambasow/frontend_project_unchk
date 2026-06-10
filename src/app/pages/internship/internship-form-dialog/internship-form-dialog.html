@@ -1,22 +1,37 @@
 <div class="dialog-container">
 
+  <!-- Header -->
   <div class="dialog-header">
 
-    <h2>
+    <div class="dialog-icon">
 
-      {{
-        data
-          ? 'Modifier stage'
-          : 'Nouveau stage'
-      }}
+      <mat-icon>
 
-    </h2>
+        work_history
 
-    <p>
+      </mat-icon>
 
-      Gestion des stages étudiants
+    </div>
 
-    </p>
+    <div>
+
+      <h2>
+
+        {{
+          data
+            ? 'Modifier stage'
+            : 'Nouveau stage'
+        }}
+
+      </h2>
+
+      <p>
+
+        Gestion des stages étudiants et du suivi professionnel
+
+      </p>
+
+    </div>
 
   </div>
 
@@ -24,195 +39,317 @@
     [formGroup]="form"
     class="internship-form">
 
-    <div class="form-grid">
+    <!-- Informations générales -->
+    <div class="section-card">
 
-      <mat-form-field appearance="outline">
+      <div class="section-header">
 
-        <mat-label>
+        <mat-icon>
 
-          Étudiant
+          school
 
-        </mat-label>
+        </mat-icon>
 
-        <mat-select
-          formControlName="studentId">
+        <h3>
 
-          <mat-option
+          Informations générales
 
-            *ngFor="
-              let student
-              of students
-            "
+        </h3>
 
-            [value]="student.id">
+      </div>
 
-            {{ student.firstName }}
-            {{ student.lastName }}
+      <div class="form-grid">
 
-          </mat-option>
+        <mat-form-field appearance="outline">
 
-        </mat-select>
+          <mat-label>
 
-      </mat-form-field>
+            Étudiant
 
-      <mat-form-field appearance="outline">
+          </mat-label>
 
-        <mat-label>
+          <mat-icon matPrefix>
 
-          Partenaire
+            person
 
-        </mat-label>
+          </mat-icon>
 
-        <mat-select
-          formControlName="partnerId">
+          <mat-select
+            formControlName="studentId">
 
-          <mat-option
+            <mat-option
+              *ngFor="let student of students"
+              [value]="student.id">
 
-            *ngFor="
-              let partner
-              of partners
-            "
+              {{ student.firstName }}
+              {{ student.lastName }}
 
-            [value]="partner.id">
+            </mat-option>
 
-            {{ partner.name }}
+          </mat-select>
 
-          </mat-option>
+        </mat-form-field>
 
-        </mat-select>
+        <mat-form-field appearance="outline">
 
-      </mat-form-field>
+          <mat-label>
 
-      <mat-form-field appearance="outline">
+            Partenaire
 
-        <mat-label>
+          </mat-label>
 
-          Encadreur
+          <mat-icon matPrefix>
 
-        </mat-label>
+            business
 
-        <input
-          matInput
-          formControlName="supervisor">
+          </mat-icon>
 
-      </mat-form-field>
+          <mat-select
+            formControlName="partnerId">
 
-      <mat-form-field appearance="outline">
+            <mat-option
+              *ngFor="let partner of partners"
+              [value]="partner.id">
 
-        <mat-label>
+              {{ partner.name }}
 
-          Début
+            </mat-option>
 
-        </mat-label>
+          </mat-select>
 
-        <input
+        </mat-form-field>
 
-          matInput
+        <mat-form-field appearance="outline">
 
-          type="date"
+          <mat-label>
 
-          formControlName="startDate">
+            Encadreur
 
-      </mat-form-field>
+          </mat-label>
 
-      <mat-form-field appearance="outline">
+          <mat-icon matPrefix>
 
-        <mat-label>
+            supervisor_account
 
-          Fin
+          </mat-icon>
 
-        </mat-label>
+          <input
+            matInput
+            formControlName="supervisor">
 
-        <input
+        </mat-form-field>
 
-          matInput
+      </div>
 
-          type="date"
+    </div>
 
-          formControlName="endDate">
+    <!-- Période -->
+    <div class="section-card">
 
-      </mat-form-field>
+      <div class="section-header">
 
-      <mat-form-field appearance="outline">
+        <mat-icon>
 
-        <mat-label>
+          event
 
-          Statut
+        </mat-icon>
 
-        </mat-label>
+        <h3>
 
-        <mat-select
-          formControlName="status">
+          Période du stage
 
-          <mat-option
-            *ngFor="
-              let status
-              of statuses
-            "
-            [value]="status">
+        </h3>
+
+      </div>
+
+      <div class="form-grid">
+
+        <mat-form-field appearance="outline">
+
+          <mat-label>
+
+            Date de début
+
+          </mat-label>
+
+          <mat-icon matPrefix>
+
+            calendar_today
+
+          </mat-icon>
+
+          <input
+            matInput
+            type="date"
+            formControlName="startDate">
+
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+
+          <mat-label>
+
+            Date de fin
+
+          </mat-label>
+
+          <mat-icon matPrefix>
+
+            event_available
+
+          </mat-icon>
+
+          <input
+            matInput
+            type="date"
+            formControlName="endDate">
+
+        </mat-form-field>
+
+      </div>
+
+    </div>
+
+    <!-- Statut -->
+    <div class="section-card">
+
+      <div class="section-header">
+
+        <mat-icon>
+
+          flag
+
+        </mat-icon>
+
+        <h3>
+
+          Statut du stage
+
+        </h3>
+
+      </div>
+
+      <div class="roles-grid">
+
+        <div
+          *ngFor="let status of statuses"
+          class="role-card"
+          [class.selected]="form.value.status === status"
+          (click)="form.patchValue({ status: status })">
+
+          <mat-icon>
+
+            {{
+              status === 'PLANIFIE'
+                ? 'schedule'
+                : status === 'EN_COURS'
+                  ? 'play_circle'
+                  : status === 'TERMINE'
+                    ? 'check_circle'
+                    : 'cancel'
+            }}
+
+          </mat-icon>
+
+          <span>
 
             {{ status }}
 
-          </mat-option>
+          </span>
 
-        </mat-select>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Évaluation -->
+    <div class="section-card">
+
+      <div class="section-header">
+
+        <mat-icon>
+
+          rate_review
+
+        </mat-icon>
+
+        <h3>
+
+          Évaluation
+
+        </h3>
+
+      </div>
+
+      <mat-form-field
+        appearance="outline"
+        class="full-width">
+
+        <mat-label>
+
+          Évaluation
+
+        </mat-label>
+
+        <textarea
+          matInput
+          rows="4"
+          formControlName="evaluation">
+
+        </textarea>
 
       </mat-form-field>
 
     </div>
 
-    <mat-form-field
-      appearance="outline"
-      class="full-width">
+    <!-- Observations -->
+    <div class="section-card">
 
-      <mat-label>
+      <div class="section-header">
 
-        Évaluation
+        <mat-icon>
 
-      </mat-label>
+          notes
 
-      <textarea
+        </mat-icon>
 
-        matInput
+        <h3>
 
-        rows="4"
+          Observations
 
-        formControlName="evaluation">
+        </h3>
 
-      </textarea>
+      </div>
 
-    </mat-form-field>
+      <mat-form-field
+        appearance="outline"
+        class="full-width">
 
-    <mat-form-field
-      appearance="outline"
-      class="full-width">
+        <mat-label>
 
-      <mat-label>
+          Observations
 
-        Observations
+        </mat-label>
 
-      </mat-label>
+        <textarea
+          matInput
+          rows="4"
+          formControlName="remarks">
 
-      <textarea
+        </textarea>
 
-        matInput
+      </mat-form-field>
 
-        rows="4"
-
-        formControlName="remarks">
-
-      </textarea>
-
-    </mat-form-field>
+    </div>
 
   </form>
 
+  <!-- Actions -->
   <div class="dialog-actions">
 
     <button
-
       mat-stroked-button
-
       (click)="dialogRef.close()">
 
       Annuler
@@ -220,19 +357,33 @@
     </button>
 
     <button
-
       mat-raised-button
-
       color="primary"
-
-      [disabled]="loading"
-
+      [disabled]="loading || form.invalid"
       (click)="submit()">
 
+      <mat-icon>
+
+        save
+
+      </mat-icon>
+
       {{
-        data
-          ? 'Modifier'
-          : 'Créer'
+
+        loading
+
+          ? (
+              data
+                ? 'Modification...'
+                : 'Création...'
+            )
+
+          : (
+              data
+                ? 'Modifier'
+                : 'Créer'
+            )
+
       }}
 
     </button>

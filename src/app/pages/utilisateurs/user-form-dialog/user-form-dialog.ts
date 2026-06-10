@@ -45,6 +45,7 @@ import { UserRequest } from '../../../models/user-request.model';
 import { UserService } from '../../../services/user-service';
 import { Role } from '../../../models/role.model';
 import { RoleService } from '../../../services/role-service';
+import { MatIconModule } from '@angular/material/icon';
 @Component({
   selector: 'app-user-form-dialog',
 
@@ -55,7 +56,8 @@ import { RoleService } from '../../../services/role-service';
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
-    MatButtonModule
+    MatButtonModule,
+    MatIconModule
   ],
 
   templateUrl: './user-form-dialog.html',

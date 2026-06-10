@@ -45,6 +45,7 @@ import { InternshipService } from '../services/internship-service';
 import { StudentService } from '../../../services/student';
 import { PartnerService } from '../../partners/services/partner';
 import { Internship } from '../models/internship.model';
+import { MatIconModule } from '@angular/material/icon';
 
 
 @Component({
@@ -58,7 +59,8 @@ import { Internship } from '../models/internship.model';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    MatSelectModule
+    MatSelectModule,
+    MatIconModule
   ],
 
   templateUrl:

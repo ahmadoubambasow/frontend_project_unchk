@@ -39,6 +39,7 @@ from '../../../models/filiere.model';
 
 import { FiliereService }
 from '../../../services/filiere';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-filiere-form-dialog',
@@ -51,7 +52,8 @@ from '../../../services/filiere';
     MatDialogModule,
     MatFormFieldModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
+    MatIconModule
   ],
 
   templateUrl:

@@ -3,108 +3,219 @@
   <!-- Header -->
   <div class="dialog-header">
 
-    <h2>
+    <div class="dialog-icon">
 
-      {{
-        data
-          ? 'Modifier promotion'
-          : 'Nouvelle promotion'
-      }}
+      <mat-icon>
 
-    </h2>
+        groups
 
-    <p>
+      </mat-icon>
 
-      Gestion des promotions académiques
+    </div>
 
-    </p>
+    <div>
+
+      <h2>
+
+        {{
+          data
+            ? 'Modifier promotion'
+            : 'Nouvelle promotion'
+        }}
+
+      </h2>
+
+      <p>
+
+        Gestion des promotions académiques
+
+      </p>
+
+    </div>
 
   </div>
 
-  <!-- Form -->
+  <!-- Formulaire -->
   <form
-    [formGroup]="promotionForm">
+    [formGroup]="promotionForm"
+    class="dialog-form">
 
-    <!-- Nom -->
-    <mat-form-field appearance="outline">
+    <div class="section-card">
 
-      <mat-label>
+      <div class="section-header">
 
-        Nom de la promotion
+        <mat-icon>
 
-      </mat-label>
+          school
 
-      <input
-        matInput
-        formControlName="name"
-        placeholder="L3 INFO 2025-2026">
+        </mat-icon>
 
-    </mat-form-field>
+        <h3>
 
-    <!-- Année -->
-    <mat-form-field appearance="outline">
+          Informations générales
 
-      <mat-label>
+        </h3>
 
-        Année académique
+      </div>
 
-      </mat-label>
+      <div class="form-grid">
 
-      <input
-        matInput
-        formControlName="academicYear"
-        placeholder="2025-2026">
+        <!-- Nom -->
+        <mat-form-field appearance="outline">
 
-    </mat-form-field>
+          <mat-label>
 
-    <!-- Capacité -->
-    <mat-form-field appearance="outline">
+            Nom de la promotion
 
-      <mat-label>
+          </mat-label>
 
-        Capacité
+          <mat-icon matPrefix>
 
-      </mat-label>
+            badge
 
-      <input
-        matInput
-        type="number"
-        formControlName="capacity">
+          </mat-icon>
 
-    </mat-form-field>
+          <input
+            matInput
+            formControlName="name"
+            placeholder="L3 INFO 2025-2026">
 
-    <!-- Formation
-    <mat-form-field appearance="outline">
+        </mat-form-field>
 
-      <mat-label>
+        <!-- Année -->
+        <mat-form-field appearance="outline">
 
-        Formation
+          <mat-label>
 
-      </mat-label>
+            Année académique
 
-      <mat-select
-        formControlName="formationId">
+          </mat-label>
 
-        <mat-option
+          <mat-icon matPrefix>
 
-          *ngFor="
-            let formation
-            of formations
-          "
+            calendar_month
 
-          [value]="formation.id">
+          </mat-icon>
 
-          {{ formation.name }}
+          <input
+            matInput
+            formControlName="academicYear"
+            placeholder="2025-2026">
 
-          -
+        </mat-form-field>
 
-          {{ formation.code }}
+        <!-- Capacité -->
+        <mat-form-field appearance="outline">
 
-        </mat-option>
+          <mat-label>
 
-      </mat-select>
+            Capacité d'accueil
 
-    </mat-form-field> -->
+          </mat-label>
+
+          <mat-icon matPrefix>
+
+            groups
+
+          </mat-icon>
+
+          <input
+            matInput
+            type="number"
+            formControlName="capacity">
+
+          <span matSuffix>
+
+            étudiants
+
+          </span>
+
+        </mat-form-field>
+
+        <!-- Formation -->
+        <!--
+        <mat-form-field appearance="outline">
+
+          <mat-label>
+
+            Formation
+
+          </mat-label>
+
+          <mat-icon matPrefix>
+
+            menu_book
+
+          </mat-icon>
+
+          <mat-select
+            formControlName="formationId">
+
+            <mat-option
+              *ngFor="let formation of formations"
+              [value]="formation.id">
+
+              {{ formation.name }}
+
+              -
+
+              {{ formation.code }}
+
+            </mat-option>
+
+          </mat-select>
+
+        </mat-form-field>
+        -->
+
+      </div>
+
+    </div>
+
+    <!-- Aperçu -->
+    <div
+      class="preview-card"
+      *ngIf="promotionForm.value.name">
+
+      <mat-icon>
+
+        auto_awesome
+
+      </mat-icon>
+
+      <div>
+
+        <span>
+
+          Aperçu
+
+        </span>
+
+        <strong>
+
+          {{ promotionForm.value.name }}
+
+        </strong>
+
+        <small>
+
+          {{
+            promotionForm.value.academicYear || 'Année non définie'
+          }}
+
+          •
+
+          {{
+            promotionForm.value.capacity || 0
+          }}
+
+          étudiants
+
+        </small>
+
+      </div>
+
+    </div>
 
   </form>
 
@@ -120,17 +231,19 @@
     </button>
 
     <button
-
-      mat-raised-button
-
+      mat-flat-button
       color="primary"
-
       (click)="submit()"
-
       [disabled]="
         loading ||
         promotionForm.invalid
       ">
+
+      <mat-icon>
+
+        save
+
+      </mat-icon>
 
       {{
 
@@ -145,7 +258,7 @@
           : (
               data
                 ? 'Modifier'
-                : 'Ajouter'
+                : 'Créer'
             )
 
       }}

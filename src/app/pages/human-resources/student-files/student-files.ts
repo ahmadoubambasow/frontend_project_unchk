@@ -37,6 +37,7 @@ import {
 } from '../student-file-form-dialog/student-file-form-dialog';
 import { StudentFile } from '../models/student-file.model';
 import { StudentFileService } from '../services/student-file';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'app-student-files',
@@ -45,6 +46,7 @@ import { StudentFileService } from '../services/student-file';
 
   imports: [
     CommonModule,
+    MatCardModule,
     MatButtonModule,
     MatIconModule,
     MatInputModule

@@ -1,42 +1,64 @@
 <div class="dialog-container">
 
+  <!-- Header -->
   <div class="dialog-header">
 
-    <h2>
+    <div class="header-icon">
 
-      {{
-        data
-          ? 'Modifier une formation'
-          : 'Nouvelle formation'
-      }}
+      <mat-icon>
 
-    </h2>
+        school
 
-    <p>
+      </mat-icon>
 
-      Gestion des programmes de formation
+    </div>
 
-    </p>
+    <div>
+
+      <h2>
+
+        {{
+          data
+            ? 'Modifier une formation'
+            : 'Nouvelle formation'
+        }}
+
+      </h2>
+
+      <p>
+
+        Configurez les informations du programme de formation.
+
+      </p>
+
+    </div>
 
   </div>
 
-  <form
-    [formGroup]="form">
+  <form [formGroup]="form">
 
     <!-- Informations -->
+    <div class="section-card">
 
-    <div class="section">
+      <div class="section-title">
 
-      <h3>
+        <mat-icon>
 
-        Informations générales
+          info
 
-      </h3>
+        </mat-icon>
+
+        <span>
+
+          Informations générales
+
+        </span>
+
+      </div>
 
       <div class="grid">
 
-        <mat-form-field
-          appearance="outline">
+        <mat-form-field appearance="outline">
 
           <mat-label>
 
@@ -44,14 +66,19 @@
 
           </mat-label>
 
+          <mat-icon matPrefix>
+
+            menu_book
+
+          </mat-icon>
+
           <input
             matInput
             formControlName="name">
 
         </mat-form-field>
 
-        <mat-form-field
-          appearance="outline">
+        <mat-form-field appearance="outline">
 
           <mat-label>
 
@@ -59,16 +86,16 @@
 
           </mat-label>
 
-          <mat-select
-            formControlName="formationType">
+          <mat-icon matPrefix>
+
+            category
+
+          </mat-icon>
+
+          <mat-select formControlName="formationType">
 
             <mat-option
-
-              *ngFor="
-                let type
-                of formationTypes
-              "
-
+              *ngFor="let type of formationTypes"
               [value]="type">
 
               {{ type }}
@@ -79,8 +106,7 @@
 
         </mat-form-field>
 
-        <mat-form-field
-          appearance="outline">
+        <mat-form-field appearance="outline">
 
           <mat-label>
 
@@ -88,16 +114,16 @@
 
           </mat-label>
 
-          <mat-select
-            formControlName="level">
+          <mat-icon matPrefix>
+
+            workspace_premium
+
+          </mat-icon>
+
+          <mat-select formControlName="level">
 
             <mat-option
-
-              *ngFor="
-                let level
-                of formationLevels
-              "
-
+              *ngFor="let level of formationLevels"
               [value]="level">
 
               {{ level }}
@@ -113,19 +139,27 @@
     </div>
 
     <!-- Dates -->
+    <div class="section-card">
 
-    <div class="section">
+      <div class="section-title">
 
-      <h3>
+        <mat-icon>
 
-        Période
+          event
 
-      </h3>
+        </mat-icon>
+
+        <span>
+
+          Période
+
+        </span>
+
+      </div>
 
       <div class="grid">
 
-        <mat-form-field
-          appearance="outline">
+        <mat-form-field appearance="outline">
 
           <mat-label>
 
@@ -140,8 +174,7 @@
 
         </mat-form-field>
 
-        <mat-form-field
-          appearance="outline">
+        <mat-form-field appearance="outline">
 
           <mat-label>
 
@@ -161,25 +194,39 @@
     </div>
 
     <!-- Financement -->
+    <div class="section-card">
 
-    <div class="section">
+      <div class="section-title">
 
-      <h3>
+        <mat-icon>
 
-        Financement
+          payments
 
-      </h3>
+        </mat-icon>
+
+        <span>
+
+          Financement
+
+        </span>
+
+      </div>
 
       <div class="grid">
 
-        <mat-form-field
-          appearance="outline">
+        <mat-form-field appearance="outline">
 
           <mat-label>
 
             Montant
 
           </mat-label>
+
+          <mat-icon matPrefix>
+
+            attach_money
+
+          </mat-icon>
 
           <input
             matInput
@@ -188,25 +235,24 @@
 
         </mat-form-field>
 
-        <mat-form-field
-          appearance="outline">
+        <mat-form-field appearance="outline">
 
           <mat-label>
 
-            Type financement
+            Type de financement
 
           </mat-label>
 
-          <mat-select
-            formControlName="fundingType">
+          <mat-icon matPrefix>
+
+            account_balance
+
+          </mat-icon>
+
+          <mat-select formControlName="fundingType">
 
             <mat-option
-
-              *ngFor="
-                let funding
-                of fundingTypes
-              "
-
+              *ngFor="let funding of fundingTypes"
               [value]="funding">
 
               {{ funding }}
@@ -222,25 +268,39 @@
     </div>
 
     <!-- Effectifs -->
+    <div class="section-card">
 
-    <div class="section">
+      <div class="section-title">
 
-      <h3>
+        <mat-icon>
 
-        Effectifs
+          groups
 
-      </h3>
+        </mat-icon>
+
+        <span>
+
+          Effectifs
+
+        </span>
+
+      </div>
 
       <div class="grid">
 
-        <mat-form-field
-          appearance="outline">
+        <mat-form-field appearance="outline">
 
           <mat-label>
 
             Hommes
 
           </mat-label>
+
+          <mat-icon matPrefix>
+
+            man
+
+          </mat-icon>
 
           <input
             matInput
@@ -249,14 +309,19 @@
 
         </mat-form-field>
 
-        <mat-form-field
-          appearance="outline">
+        <mat-form-field appearance="outline">
 
           <mat-label>
 
             Femmes
 
           </mat-label>
+
+          <mat-icon matPrefix>
+
+            woman
+
+          </mat-icon>
 
           <input
             matInput
@@ -267,31 +332,58 @@
 
       </div>
 
-      <div class="total">
+      <div class="total-card">
 
-        Total :
+        <mat-icon>
 
-        {{
-          (form.value.maleCount || 0)
-          +
-          (form.value.femaleCount || 0)
-        }}
+          diversity_3
 
-        apprenants
+        </mat-icon>
+
+        <div>
+
+          <span>
+
+            Effectif total
+
+          </span>
+
+          <strong>
+
+            {{
+              (form.value.maleCount || 0)
+              +
+              (form.value.femaleCount || 0)
+            }}
+
+            apprenants
+
+          </strong>
+
+        </div>
 
       </div>
 
     </div>
 
     <!-- Description -->
+    <div class="section-card">
 
-    <div class="section">
+      <div class="section-title">
 
-      <h3>
+        <mat-icon>
 
-        Description
+          description
 
-      </h3>
+        </mat-icon>
+
+        <span>
+
+          Description
+
+        </span>
+
+      </div>
 
       <mat-form-field
         appearance="outline"
@@ -299,7 +391,7 @@
 
         <mat-label>
 
-          Description
+          Description du programme
 
         </mat-label>
 
@@ -316,6 +408,7 @@
 
   </form>
 
+  <!-- Actions -->
   <div class="dialog-actions">
 
     <button
@@ -327,13 +420,19 @@
     </button>
 
     <button
-      mat-raised-button
+      mat-flat-button
       color="primary"
       (click)="submit()">
 
+      <mat-icon>
+
+        save
+
+      </mat-icon>
+
       {{
         data
-          ? 'Modifier'
+          ? 'Mettre à jour'
           : 'Créer'
       }}
 

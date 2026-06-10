@@ -1,105 +1,164 @@
 <div class="dialog-container">
 
-  <h2>
+  <!-- Header -->
+  <div class="dialog-header">
 
-    {{
-      data
-      ? 'Modifier groupe'
-      : 'Nouveau groupe'
-    }}
+    <div class="dialog-icon">
 
-  </h2>
+      <mat-icon>
 
-  <form [formGroup]="form">
+        groups
 
-    <mat-form-field appearance="outline">
+      </mat-icon>
 
-      <mat-label>
+    </div>
 
-        Nom du groupe
+    <div>
 
-      </mat-label>
+      <h2>
 
-      <input
-        matInput
-        formControlName="name">
+        {{
+          data
+            ? 'Modifier groupe'
+            : 'Nouveau groupe'
+        }}
 
-    </mat-form-field>
+      </h2>
 
-    <mat-form-field appearance="outline">
+      <p>
 
-      <mat-label>
+        Configurez les informations du groupe étudiant.
 
-        Promotion
+      </p>
 
-      </mat-label>
+    </div>
 
-      <input
-        matInput
-        formControlName="promotion">
+  </div>
 
-    </mat-form-field>
+  <!-- Formulaire -->
+  <form
+    [formGroup]="form"
+    class="group-form">
 
-    <mat-form-field appearance="outline">
+    <div class="form-grid">
 
-      <mat-label>
+      <mat-form-field appearance="outline">
 
-        Année académique
+        <mat-label>
 
-      </mat-label>
+          Nom du groupe
 
-      <input
+        </mat-label>
 
-        matInput
+        <mat-icon matPrefix>
 
-        type="number"
+          group_work
 
-        formControlName="academicYear">
+        </mat-icon>
 
-    </mat-form-field>
+        <input
+          matInput
+          formControlName="name">
 
-    <mat-form-field appearance="outline">
+      </mat-form-field>
 
-      <mat-label>
+      <mat-form-field appearance="outline">
 
-        Formation
+        <mat-label>
 
-      </mat-label>
+          Promotion
 
-      <mat-select
-        formControlName="formationId">
+        </mat-label>
 
-        <mat-option
+        <mat-icon matPrefix>
 
-          *ngFor="
-            let formation
-            of formations
-          "
+          workspace_premium
 
-          [value]="formation.id">
+        </mat-icon>
 
-          {{ formation.name }}
+        <input
+          matInput
+          formControlName="promotion">
 
-        </mat-option>
+      </mat-form-field>
 
-      </mat-select>
+      <mat-form-field appearance="outline">
 
-    </mat-form-field>
+        <mat-label>
+
+          Année académique
+
+        </mat-label>
+
+        <mat-icon matPrefix>
+
+          calendar_today
+
+        </mat-icon>
+
+        <input
+          matInput
+          type="number"
+          formControlName="academicYear">
+
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+
+        <mat-label>
+
+          Formation
+
+        </mat-label>
+
+        <mat-icon matPrefix>
+
+          school
+
+        </mat-icon>
+
+        <select
+          matNativeControl
+          formControlName="formationId">
+
+          <option
+            *ngFor="let formation of formations"
+            [value]="formation.id">
+
+            {{ formation.name }}
+
+          </option>
+
+        </select>
+
+      </mat-form-field>
+
+    </div>
 
   </form>
 
+  <!-- Actions -->
   <div class="dialog-actions">
 
     <button
-      mat-stroked-button>
+      mat-stroked-button
+      type="button">
 
       Annuler
 
     </button>
 
     <button
-      mat-raised-button
-      color="primary" (click)="submit()">
+      mat-flat-button
+      color="primary"
+      type="button"
+      (click)="submit()">
+
+      <mat-icon>
+
+        save
+
+      </mat-icon>
 
       Enregistrer
 

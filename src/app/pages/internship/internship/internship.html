@@ -1,5 +1,6 @@
 <div class="page-container">
 
+  <!-- Header -->
   <div class="page-header">
 
     <div>
@@ -12,18 +13,15 @@
 
       <p>
 
-        Gestion des stages étudiants
+        Gestion des stages étudiants et du suivi professionnel
 
       </p>
 
     </div>
 
     <button
-
       mat-raised-button
-
       color="primary"
-
       (click)="openCreateDialog()">
 
       <mat-icon>
@@ -38,88 +36,217 @@
 
   </div>
 
-  <div class="search-bar">
+  <!-- Recherche -->
+  <div class="search-container">
 
-    <input
+    <mat-form-field appearance="outline">
 
-      matInput
+      <mat-label>
 
-      placeholder="Rechercher..."
+        Rechercher un stage
 
-      (input)="applyFilter($event)">
+      </mat-label>
+
+      <input
+        matInput
+        placeholder="Étudiant, entreprise, statut..."
+        (input)="applyFilter($event)">
+
+      <mat-icon matSuffix>
+
+        search
+
+      </mat-icon>
+
+    </mat-form-field>
+
   </div>
 
+  <!-- État vide -->
   <div
-    class="internships-grid">
+    class="empty-state"
+    *ngIf="filteredInternships.length === 0">
 
-    <div
+    <mat-icon>
 
+      work_history
+
+    </mat-icon>
+
+    <h3>
+
+      Aucun stage trouvé
+
+    </h3>
+
+    <p>
+
+      Commencez par enregistrer un stage étudiant.
+
+    </p>
+
+  </div>
+
+  <!-- Cartes -->
+  <div
+    class="internships-grid"
+    *ngIf="filteredInternships.length > 0">
+
+    <mat-card
       class="internship-card"
+      *ngFor="let internship of filteredInternships">
 
-      *ngFor="
-        let internship
-        of filteredInternships
-      ">
+      <!-- Header -->
+      <div class="card-header">
 
-      <h3>
+        <div class="student-avatar">
 
-        {{ internship.studentName }}
+          <mat-icon>
 
-      </h3>
+            school
 
-      <p>
+          </mat-icon>
 
-        {{ internship.partnerName }}
+        </div>
 
-      </p>
+        <div class="student-info">
 
-      <span class="status">
+          <h3>
 
-        {{ internship.status }}
+            {{ internship.studentName }}
 
-      </span>
+          </h3>
 
-      <div class="actions">
+          <p>
+
+            {{ internship.partnerName }}
+
+          </p>
+
+        </div>
+
+        <span
+          class="status-badge"
+          [ngClass]="internship.status.toLowerCase()">
+
+          {{ internship.status }}
+
+        </span>
+
+      </div>
+
+      <mat-divider></mat-divider>
+
+      <!-- Contenu -->
+      <div class="card-content">
+
+        <div class="info-item">
+
+          <mat-icon>
+
+            business
+
+          </mat-icon>
+
+          <span>
+
+            {{ internship.partnerName }}
+
+          </span>
+
+        </div>
+
+        <div
+          class="info-item"
+          *ngIf="internship.supervisor">
+
+          <mat-icon>
+
+            person
+
+          </mat-icon>
+
+          <span>
+
+            {{ internship.supervisor }}
+
+          </span>
+
+        </div>
+
+        <div
+          class="info-item"
+          *ngIf="internship.startDate">
+
+          <mat-icon>
+
+            event
+
+          </mat-icon>
+
+          <span>
+
+            {{ internship.startDate }}
+            -
+            {{ internship.endDate }}
+
+          </span>
+
+        </div>
+
+      </div>
+
+      <!-- Actions -->
+      <div class="card-footer">
 
         <button
-
-          mat-button
-
+          mat-stroked-button
           color="primary"
-
           (click)="openDetails(internship)">
+
+          <mat-icon>
+
+            visibility
+
+          </mat-icon>
 
           Détails
 
         </button>
 
-        <button
+        <div class="footer-actions">
 
-          mat-button
+          <button
+            mat-icon-button
+            color="primary"
+            (click)="openEditDialog(internship)">
 
-          color="accent"
+            <mat-icon>
 
-          (click)="openEditDialog(internship)">
+              edit
 
-          Modifier
+            </mat-icon>
 
-        </button>
+          </button>
 
-        <button
+          <button
+            mat-icon-button
+            color="warn"
+            (click)="deleteInternship(internship)">
 
-          mat-button
+            <mat-icon>
 
-          color="warn"
+              delete
 
-          (click)="deleteInternship(internship)">
+            </mat-icon>
 
-          Supprimer
+          </button>
 
-        </button>
+        </div>
 
       </div>
 
-    </div>
+    </mat-card>
 
   </div>
 

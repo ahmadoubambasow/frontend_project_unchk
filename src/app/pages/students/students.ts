@@ -214,9 +214,12 @@ export class Students implements OnInit {
 
         {
 
-          width: '800px',
+          width: '850px',
+          maxWidth: '95vw',
 
-          maxWidth: '95vw'
+          maxHeight: '90vh',
+
+          autoFocus: false
         }
       );
 

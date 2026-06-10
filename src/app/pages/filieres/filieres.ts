@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 
 import {
+  ChangeDetectorRef,
   Component,
   OnInit,
   ViewChild
@@ -45,6 +46,7 @@ from '../../services/filiere';
 import {
   FiliereFormDialog
 } from './filiere-form-dialog/filiere-form-dialog';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'app-filieres',
@@ -53,6 +55,7 @@ import {
 
   imports: [
     CommonModule,
+    MatCardModule,
     MatTableModule,
     MatPaginatorModule,
     MatButtonModule,
@@ -94,7 +97,10 @@ implements OnInit {
       MatDialog,
 
     private snackBar:
-      MatSnackBar
+      MatSnackBar,
+
+    private cdr:
+      ChangeDetectorRef
 
   ) {}
 
@@ -118,6 +124,8 @@ implements OnInit {
 
           this.dataSource.paginator =
             this.paginator;
+
+          this.cdr.detectChanges();
         },
 
         error: (error) => {

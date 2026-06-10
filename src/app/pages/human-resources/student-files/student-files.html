@@ -1,5 +1,6 @@
 <div class="page-container">
 
+  <!-- Header -->
   <div class="page-header">
 
     <div>
@@ -19,11 +20,8 @@
     </div>
 
     <button
-
-      mat-raised-button
-
+      mat-flat-button
       color="primary"
-
       (click)="openCreateDialog()">
 
       <mat-icon>
@@ -38,100 +36,173 @@
 
   </div>
 
-  <div class="search-bar">
+  <!-- Recherche -->
+  <mat-card class="search-card">
 
-    <input
+    <mat-form-field appearance="outline">
 
-      matInput
+      <mat-label>
 
-      placeholder="Rechercher..."
+        Rechercher un étudiant
 
-      (input)="applyFilter($event)">
-  </div>
+      </mat-label>
 
-  <div
-    class="student-grid">
+      <mat-icon matPrefix>
 
-    <div
+        search
 
-      *ngFor="
-        let student
-        of filteredStudentFiles
-      "
+      </mat-icon>
 
-      class="student-card">
+      <input
+        matInput
+        placeholder="Nom, matricule ou responsable..."
+        (input)="applyFilter($event)">
 
-      <h3>
+    </mat-form-field>
 
-        {{ student.fullName }}
+  </mat-card>
 
-      </h3>
+  <!-- Liste -->
+  <div class="student-grid">
 
-      <p>
+    <mat-card
+      class="student-card"
+      *ngFor="let student of filteredStudentFiles">
 
-        <strong>Matricule :</strong>
+      <!-- Bandeau -->
+      <div class="student-banner"></div>
 
-        {{ student.registrationNumber }}
+      <!-- Profil -->
+      <div class="student-profile">
 
-      </p>
+        <div class="avatar">
 
-      <p>
+          {{ student.fullName.charAt(0) }}
 
-        <strong>Responsable :</strong>
+        </div>
 
-        {{ student.guardianName }}
+        <div class="student-details">
 
-      </p>
+          <h3>
 
-      <p>
+            {{ student.fullName }}
 
-        <strong>Téléphone :</strong>
+          </h3>
 
-        {{ student.guardianPhone }}
+          <span class="matricule">
 
-      </p>
+            {{ student.registrationNumber }}
 
-      <div class="actions">
+          </span>
+
+        </div>
+
+      </div>
+
+      <!-- Informations -->
+      <div class="student-info">
+
+        <div class="info-card">
+
+          <mat-icon>
+
+            family_restroom
+
+          </mat-icon>
+
+          <div>
+
+            <span>
+
+              Responsable
+
+            </span>
+
+            <strong>
+
+              {{ student.guardianName }}
+
+            </strong>
+
+          </div>
+
+        </div>
+
+        <div class="info-card">
+
+          <mat-icon>
+
+            phone
+
+          </mat-icon>
+
+          <div>
+
+            <span>
+
+              Téléphone
+
+            </span>
+
+            <strong>
+
+              {{ student.guardianPhone }}
+
+            </strong>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- Actions -->
+      <div class="card-actions">
 
         <button
-
-          mat-button
-
+          mat-flat-button
           color="primary"
-
           (click)="openDetails(student)">
 
-          Détails
+          <mat-icon>
+
+            visibility
+
+          </mat-icon>
+
+          Consulter
 
         </button>
 
         <button
-
-          mat-button
-
+          mat-icon-button
           color="accent"
-
           (click)="openEditDialog(student)">
 
-          Modifier
+          <mat-icon>
+
+            edit
+
+          </mat-icon>
 
         </button>
 
         <button
-
-          mat-button
-
+          mat-icon-button
           color="warn"
-
           (click)="deleteStudentFile(student)">
 
-          Supprimer
+          <mat-icon>
+
+            delete
+
+          </mat-icon>
 
         </button>
 
       </div>
 
-    </div>
+    </mat-card>
 
   </div>
 

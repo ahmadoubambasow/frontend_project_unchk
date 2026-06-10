@@ -26,6 +26,9 @@ import {
 import { User } from '../../models/user.model';
 import { UserService } from '../../services/user-service';
 import { UserFormDialog } from './user-form-dialog/user-form-dialog';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormField, MatLabel } from "@angular/material/form-field";
+import { MatInputModule } from '@angular/material/input';
 
 
 
@@ -36,8 +39,12 @@ import { UserFormDialog } from './user-form-dialog/user-form-dialog';
   imports: [
     CommonModule,
     MatButtonModule,
-    MatIconModule
-  ],
+    MatCardModule,
+    MatIconModule,
+    MatFormField,
+    MatInputModule,
+    MatLabel
+],
 
   templateUrl: './utilisateurs.html',
 
@@ -82,6 +89,8 @@ implements OnInit {
 
         next: (response) => {
 
+          console.log(response);
+
           this.users = response;
 
           this.loading = false;
@@ -100,7 +109,12 @@ implements OnInit {
         UserFormDialog,
 
         {
-          width: '600px'
+          width: '650px',
+          maxWidth: '95vw',
+
+          maxHeight: '90vh',
+
+          autoFocus: false
         }
       );
 

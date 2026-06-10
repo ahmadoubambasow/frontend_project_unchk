@@ -1,22 +1,37 @@
 <div class="dialog-container">
 
+  <!-- Header -->
   <div class="dialog-header">
 
-    <h2>
+    <div class="dialog-icon">
 
-      {{
-        data
-          ? 'Modifier partenaire'
-          : 'Nouveau partenaire'
-      }}
+      <mat-icon>
 
-    </h2>
+        handshake
 
-    <p>
+      </mat-icon>
 
-      Gestion des partenaires institutionnels
+    </div>
 
-    </p>
+    <div>
+
+      <h2>
+
+        {{
+          data
+            ? 'Modifier partenaire'
+            : 'Nouveau partenaire'
+        }}
+
+      </h2>
+
+      <p>
+
+        Gestion des partenaires institutionnels et professionnels
+
+      </p>
+
+    </div>
 
   </div>
 
@@ -24,86 +39,191 @@
     [formGroup]="form"
     class="partner-form">
 
-    <div class="form-grid">
+    <!-- Informations générales -->
+    <div class="section-card">
 
-      <mat-form-field appearance="outline">
+      <div class="section-header">
 
-        <mat-label>
+        <mat-icon>
 
-          Nom du partenaire
+          business
 
-        </mat-label>
+        </mat-icon>
 
-        <input
-          matInput
-          formControlName="name">
+        <h3>
 
-      </mat-form-field>
+          Informations générales
 
-      <mat-form-field appearance="outline">
+        </h3>
 
-        <mat-label>
+      </div>
 
-          Secteur d'activité
+      <div class="form-grid">
 
-        </mat-label>
+        <mat-form-field appearance="outline">
 
-        <input
-          matInput
-          formControlName="sector">
+          <mat-label>
 
-      </mat-form-field>
+            Nom du partenaire
 
-      <mat-form-field appearance="outline">
+          </mat-label>
 
-        <mat-label>
+          <mat-icon matPrefix>
 
-          Contact principal
+            apartment
 
-        </mat-label>
+          </mat-icon>
 
-        <input
-          matInput
-          formControlName="contactPerson">
+          <input
+            matInput
+            formControlName="name">
 
-      </mat-form-field>
+        </mat-form-field>
 
-      <mat-form-field appearance="outline">
+        <mat-form-field appearance="outline">
 
-        <mat-label>
+          <mat-label>
 
-          Téléphone
+            Secteur d'activité
 
-        </mat-label>
+          </mat-label>
 
-        <input
-          matInput
-          formControlName="phone">
+          <mat-icon matPrefix>
 
-      </mat-form-field>
+            work
 
-      <mat-form-field appearance="outline">
+          </mat-icon>
 
-        <mat-label>
+          <input
+            matInput
+            formControlName="sector">
 
-          Adresse email
+        </mat-form-field>
 
-        </mat-label>
+      </div>
 
-        <input
-          matInput
-          type="email"
-          formControlName="email">
+    </div>
 
-      </mat-form-field>
+    <!-- Contact -->
+    <div class="section-card">
 
-      <mat-form-field appearance="outline">
+      <div class="section-header">
+
+        <mat-icon>
+
+          contact_phone
+
+        </mat-icon>
+
+        <h3>
+
+          Personne de contact
+
+        </h3>
+
+      </div>
+
+      <div class="form-grid">
+
+        <mat-form-field appearance="outline">
+
+          <mat-label>
+
+            Contact principal
+
+          </mat-label>
+
+          <mat-icon matPrefix>
+
+            person
+
+          </mat-icon>
+
+          <input
+            matInput
+            formControlName="contactPerson">
+
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+
+          <mat-label>
+
+            Téléphone
+
+          </mat-label>
+
+          <mat-icon matPrefix>
+
+            phone
+
+          </mat-icon>
+
+          <input
+            matInput
+            formControlName="phone">
+
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+
+          <mat-label>
+
+            Adresse email
+
+          </mat-label>
+
+          <mat-icon matPrefix>
+
+            mail
+
+          </mat-icon>
+
+          <input
+            matInput
+            type="email"
+            formControlName="email">
+
+        </mat-form-field>
+
+      </div>
+
+    </div>
+
+    <!-- Localisation -->
+    <div class="section-card">
+
+      <div class="section-header">
+
+        <mat-icon>
+
+          location_on
+
+        </mat-icon>
+
+        <h3>
+
+          Localisation
+
+        </h3>
+
+      </div>
+
+      <mat-form-field
+        appearance="outline"
+        class="full-width">
 
         <mat-label>
 
           Adresse
 
         </mat-label>
+
+        <mat-icon matPrefix>
+
+          home
+
+        </mat-icon>
 
         <input
           matInput
@@ -113,30 +233,49 @@
 
     </div>
 
-    <mat-form-field
-      appearance="outline"
-      class="full-width">
+    <!-- Description -->
+    <div class="section-card">
 
-      <mat-label>
+      <div class="section-header">
 
-        Description
+        <mat-icon>
 
-      </mat-label>
+          description
 
-      <textarea
+        </mat-icon>
 
-        matInput
+        <h3>
 
-        rows="5"
+          Informations complémentaires
 
-        formControlName="description">
+        </h3>
 
-      </textarea>
+      </div>
 
-    </mat-form-field>
+      <mat-form-field
+        appearance="outline"
+        class="full-width">
+
+        <mat-label>
+
+          Description
+
+        </mat-label>
+
+        <textarea
+          matInput
+          rows="5"
+          formControlName="description">
+
+        </textarea>
+
+      </mat-form-field>
+
+    </div>
 
   </form>
 
+  <!-- Actions -->
   <div class="dialog-actions">
 
     <button
@@ -148,19 +287,33 @@
     </button>
 
     <button
-
       mat-raised-button
-
       color="primary"
-
-      [disabled]="loading"
-
+      [disabled]="loading || form.invalid"
       (click)="submit()">
 
+      <mat-icon>
+
+        save
+
+      </mat-icon>
+
       {{
-        data
-          ? 'Modifier'
-          : 'Créer'
+
+        loading
+
+          ? (
+              data
+                ? 'Modification...'
+                : 'Création...'
+            )
+
+          : (
+              data
+                ? 'Modifier'
+                : 'Créer'
+            )
+
       }}
 
     </button>

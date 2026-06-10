@@ -11,6 +11,7 @@ import { Formation } from '../../../models/formation.model';
 import { TrainerService } from '../../../services/trainer';
 import { FormationService } from '../../../services/formation';
 import { Trainer } from '../../../models/trainer.model';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-trainer-form-dialog',
@@ -22,7 +23,8 @@ import { Trainer } from '../../../models/trainer.model';
     MatInputModule,
     MatButtonModule,
     MatSelectModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatIconModule
   ],
   templateUrl: './trainer-form-dialog.html',
   styleUrl: './trainer-form-dialog.scss',

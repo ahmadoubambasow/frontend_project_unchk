@@ -1,103 +1,156 @@
-<div class="page-header">
+<div class="users-page">
 
-  <h2>
+  <!-- Header -->
+  <div class="page-header">
 
-    Utilisateurs
+    <div>
 
-  </h2>
+      <h1>Utilisateurs</h1>
 
-  <button
+      <p>{{ users.length }} utilisateur(s) enregistré(s)</p>
 
-    mat-raised-button
+    </div>
 
-    color="primary"
+    <button
+      mat-flat-button
+      color="primary"
+      (click)="createUser()">
 
-    (click)="createUser()">
+      <mat-icon>add</mat-icon>
 
-    Ajouter
+      Ajouter un utilisateur
 
-  </button>
+    </button>
+
+  </div>
+
+  <!-- Recherche -->
+  <mat-card class="search-card">
+
+    <mat-form-field appearance="outline">
+
+      <mat-label>Rechercher</mat-label>
+
+      <input
+        matInput
+        placeholder="Nom, email ou rôle">
+
+      <mat-icon matSuffix>
+
+        search
+
+      </mat-icon>
+
+    </mat-form-field>
+
+  </mat-card>
+
+  <!-- Liste -->
+  <mat-card class="table-card">
+
+    <table>
+
+      <thead>
+
+        <tr>
+
+          <th>Utilisateur</th>
+
+          <th>Rôle</th>
+
+          <th>Email</th>
+
+          <th class="actions-column">
+
+            Actions
+
+          </th>
+
+        </tr>
+
+      </thead>
+
+      <tbody>
+
+        <tr *ngFor="let user of users">
+
+          <td>
+
+            <div class="user-info">
+
+              <div class="avatar">
+
+                {{ user.fullName.charAt(0) }}
+
+              </div>
+
+              <div>
+
+                <div class="name">
+
+                  {{ user.fullName }}
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </td>
+
+          <td>
+
+            <span
+              class="role-badge">
+
+              {{ user.roleName }}
+
+            </span>
+
+          </td>
+
+          <td>
+
+            {{ user.email }}
+
+          </td>
+
+          <td class="actions-column">
+
+            <button
+              mat-icon-button
+              color="primary"
+              (click)="editUser(user)">
+
+              <mat-icon>
+
+                edit
+
+              </mat-icon>
+
+            </button>
+
+            <button
+              mat-icon-button
+              color="warn"
+              (click)="deleteUser(user)">
+
+              <mat-icon>
+
+                delete
+
+              </mat-icon>
+
+            </button>
+
+          </td>
+
+        </tr>
+
+      </tbody>
+
+    </table>
+
+  </mat-card>
 
 </div>
-
-<table>
-
-  <thead>
-
-    <tr>
-
-      <th>Nom</th>
-
-      <th>Email</th>
-
-      <th>Rôle</th>
-
-      <th>Actions</th>
-
-    </tr>
-
-  </thead>
-
-  <tbody>
-
-    <tr
-      *ngFor="let user of users">
-
-      <td>
-
-        {{ user.fullName }}
-
-      </td>
-
-      <td>
-
-        {{ user.email }}
-
-      </td>
-
-      <td>
-
-        {{ user.roleName }}
-
-      </td>
-
-      <td>
-
-        <button
-          mat-icon-button
-
-          (click)="
-            editUser(user)
-          ">
-
-          <mat-icon>
-
-            edit
-
-          </mat-icon>
-
-        </button>
-
-        <button
-          mat-icon-button
-          color="warn"
-
-          (click)="
-            deleteUser(user)
-          ">
-
-          <mat-icon>
-
-            delete
-
-          </mat-icon>
-
-        </button>
-
-      </td>
-
-    </tr>
-
-  </tbody>
-
-</table>

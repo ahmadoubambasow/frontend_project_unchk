@@ -34,6 +34,8 @@ import {
 import { Internship } from '../models/internship.model';
 import { InternshipService } from '../services/internship-service';
 import { InternshipFormDialog } from '../internship-form-dialog/internship-form-dialog';
+import { MatCardModule } from '@angular/material/card';
+import { MatDivider } from "@angular/material/divider";
 
 @Component({
   selector: 'app-internships',
@@ -42,10 +44,12 @@ import { InternshipFormDialog } from '../internship-form-dialog/internship-form-
 
   imports: [
     CommonModule,
+    MatCardModule,
     MatButtonModule,
     MatIconModule,
-    MatInputModule
-  ],
+    MatInputModule,
+    MatDivider
+],
 
   templateUrl: './internship.html',
 

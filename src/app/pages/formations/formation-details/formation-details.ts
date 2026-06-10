@@ -35,6 +35,7 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { TrainingModule } from '../../../models/training-module.model';
 import { TrainingModuleService } from '../../../services/training-module';
 import { ModuleFormDialog } from '../training-modules/module-form-dialog/module-form-dialog';
+import { MatDivider } from "@angular/material/divider";
 
 @Component({
   selector: 'app-formation-details',
@@ -49,8 +50,9 @@ import { ModuleFormDialog } from '../training-modules/module-form-dialog/module-
     MatTabsModule,
     MatDialogModule,
     MatIconModule,
-    MatSnackBarModule
-  ],
+    MatSnackBarModule,
+    MatDivider
+],
 
   templateUrl:
     './formation-details.html',
@@ -199,9 +201,11 @@ openModuleDialog(
 
       {
 
-        width: '700px',
+        width: '90vw',
 
-        maxWidth: '95vw',
+        maxWidth: '600px',
+
+        autoFocus: false,
 
         data: {
 

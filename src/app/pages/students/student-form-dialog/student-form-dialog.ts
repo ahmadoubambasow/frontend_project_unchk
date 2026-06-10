@@ -47,6 +47,7 @@ import { StudentGroup } from '../../../models/student-group.model';
 import { StudentService } from '../../../services/student';
 import { FormationService } from '../../../services/formation';
 import { StudentGroupService } from '../../../services/student-group';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-student-form-dialog',
@@ -59,7 +60,8 @@ import { StudentGroupService } from '../../../services/student-group';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    MatSelectModule
+    MatSelectModule,
+    MatIconModule
   ],
 
   templateUrl:

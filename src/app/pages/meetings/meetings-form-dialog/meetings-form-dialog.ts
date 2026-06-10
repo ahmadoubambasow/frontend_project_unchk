@@ -64,6 +64,7 @@ import {
 import {
   MeetingService
 } from '../../../services/meeting-service';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-meeting-form-dialog',
@@ -76,7 +77,8 @@ import {
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    MatSelectModule
+    MatSelectModule,
+    MatIconModule
   ],
 
   templateUrl:

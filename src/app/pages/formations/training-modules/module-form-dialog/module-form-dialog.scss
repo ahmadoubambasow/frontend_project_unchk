@@ -1,41 +1,143 @@
 .dialog-container {
 
-  padding: 24px;
+  padding: 28px;
 
-  min-width: 600px;
+  width: min(100%, 650px);
+
+  box-sizing: border-box;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 24px;
 }
 
 .dialog-header {
 
-  margin-bottom: 24px;
+  display: flex;
+
+  align-items: center;
+
+  gap: 18px;
+}
+
+.dialog-icon {
+
+  width: 60px;
+
+  height: 60px;
+
+  border-radius: 18px;
+
+  background: linear-gradient(
+    135deg,
+    #2563eb,
+    #1d4ed8
+  );
+
+  color: white;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+}
+
+.dialog-icon mat-icon {
+
+  font-size: 30px;
+
+  width: 30px;
+
+  height: 30px;
 }
 
 .dialog-header h2 {
 
   margin: 0;
 
-  font-size: 28px;
+  font-size: 26px;
 
   font-weight: 700;
 }
 
 .dialog-header p {
 
-  color: #6b7280;
+  margin: 6px 0 0;
 
-  margin-top: 8px;
+  color: #64748b;
 }
 
-mat-form-field {
+.dialog-form {
 
-  width: 100%;
+  display: flex;
 
-  margin-bottom: 16px;
+  flex-direction: column;
+
+  gap: 20px;
+}
+
+.form-grid {
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(
+      auto-fit,
+      minmax(240px, 1fr)
+    );
+
+  gap: 18px;
 }
 
 .full-width {
 
   width: 100%;
+}
+
+.summary-card {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 14px;
+
+  padding: 18px;
+
+  border-radius: 16px;
+
+  background: #eff6ff;
+
+  border: 1px solid #bfdbfe;
+}
+
+.summary-card mat-icon {
+
+  color: #2563eb;
+}
+
+.summary-card span {
+
+  display: block;
+
+  font-size: 12px;
+
+  color: #64748b;
+}
+
+.summary-card strong {
+
+  display: block;
+
+  color: #1e40af;
+}
+
+.summary-card small {
+
+  color: #64748b;
 }
 
 .dialog-actions {
@@ -46,15 +148,43 @@ mat-form-field {
 
   gap: 12px;
 
-  margin-top: 24px;
+  padding-top: 20px;
+
+  border-top: 1px solid #e2e8f0;
+}
+
+.dialog-actions button {
+
+  min-width: 140px;
 }
 
 @media (max-width: 768px) {
 
   .dialog-container {
 
-    min-width: auto;
+    padding: 20px;
+  }
+
+  .dialog-header {
+
+    flex-direction: column;
+
+    text-align: center;
+  }
+
+  .form-grid {
+
+    grid-template-columns: 1fr;
+  }
+
+  .dialog-actions {
+
+    flex-direction: column-reverse;
+  }
+
+  .dialog-actions button {
 
     width: 100%;
   }
 }
+

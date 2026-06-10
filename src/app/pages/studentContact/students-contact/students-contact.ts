@@ -34,7 +34,8 @@ import {
 import { StudentContact } from '../models/Student-contact.model';
 import { StudentContactService } from '../services/student-contact-service';
 import { StudentContactFormDialog } from '../student-contact-form-dialog/student-contact-form-dialog';
-
+import { MatCardModule } from '@angular/material/card';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 
 @Component({
@@ -44,9 +45,11 @@ import { StudentContactFormDialog } from '../student-contact-form-dialog/student
 
   imports: [
     CommonModule,
+    MatCardModule,
     MatButtonModule,
     MatIconModule,
-    MatInputModule
+    MatInputModule,
+    MatProgressSpinnerModule
   ],
 
   templateUrl:

@@ -34,6 +34,8 @@ import {
 import { GraduateInsertion } from '../models/graduate-insertion.model';
 import { GraduateInsertionService } from '../services/graduate-insertion';
 import { GraduateInsertionFormDialog } from '../graduate-insertion-form-dialog/graduate-insertion-form-dialog';
+import { MatCardModule } from '@angular/material/card';
+import { MatDivider } from "@angular/material/divider";
 
 
 
@@ -44,10 +46,13 @@ import { GraduateInsertionFormDialog } from '../graduate-insertion-form-dialog/g
 
   imports: [
     CommonModule,
+    MatCardModule,
+    MatInputModule,
     MatButtonModule,
     MatIconModule,
-    MatInputModule
-  ],
+    MatInputModule,
+    MatDivider
+],
 
   templateUrl:
     './graduate-insertions.html',

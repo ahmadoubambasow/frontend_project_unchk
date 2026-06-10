@@ -1,186 +1,294 @@
 <div class="dialog-container">
 
+  <!-- Header -->
   <div class="dialog-header">
 
-    <h2>
+    <div class="dialog-icon">
 
-      {{
-        data
-          ? 'Modifier contact'
-          : 'Nouveau contact'
-      }}
+      <mat-icon>
 
-    </h2>
+        contact_phone
 
-    <p>
+      </mat-icon>
 
-      Registre de suivi étudiant
+    </div>
 
-    </p>
+    <div>
+
+      <h2>
+
+        {{
+          data
+            ? 'Modifier contact'
+            : 'Nouveau contact'
+        }}
+
+      </h2>
+
+      <p>
+
+        Registre de suivi et d'accompagnement des étudiants
+
+      </p>
+
+    </div>
 
   </div>
 
   <form
-
     [formGroup]="form"
-
     class="contact-form">
 
-    <div class="form-grid">
+    <!-- Participants -->
+    <div class="section-card">
 
-      <mat-form-field appearance="outline">
+      <div class="section-header">
 
-        <mat-label>
+        <mat-icon>
 
-          Étudiant
+          people
 
-        </mat-label>
+        </mat-icon>
 
-        <mat-select
-          formControlName="studentId">
+        <h3>
 
-          <mat-option
+          Informations générales
 
-            *ngFor="
-              let student
-              of students
-            "
+        </h3>
 
-            [value]="student.id">
+      </div>
 
-            {{ student.firstName }}
-            {{ student.lastName }}
+      <div class="form-grid">
 
-          </mat-option>
+        <mat-form-field appearance="outline">
 
-        </mat-select>
+          <mat-label>
 
-      </mat-form-field>
+            Étudiant
 
-      <mat-form-field appearance="outline">
+          </mat-label>
 
-        <mat-label>
+          <mat-icon matPrefix>
 
-          Responsable
+            school
 
-        </mat-label>
+          </mat-icon>
 
-        <mat-select
-          formControlName="createdById">
+          <mat-select
+            formControlName="studentId">
 
-          <mat-option
+            <mat-option
+              *ngFor="let student of students"
+              [value]="student.id">
 
-            *ngFor="
-              let user
-              of users
-            "
+              {{ student.firstName }}
+              {{ student.lastName }}
 
-            [value]="user.id">
+            </mat-option>
 
-            {{ user.fullName }}
+          </mat-select>
 
-          </mat-option>
+        </mat-form-field>
 
-        </mat-select>
+        <mat-form-field appearance="outline">
 
-      </mat-form-field>
+          <mat-label>
 
-      <mat-form-field appearance="outline">
+            Responsable
 
-        <mat-label>
+          </mat-label>
 
-          Date
+          <mat-icon matPrefix>
 
-        </mat-label>
+            person
 
-        <input
+          </mat-icon>
 
-          matInput
+          <mat-select
+            formControlName="createdById">
 
-          type="date"
+            <mat-option
+              *ngFor="let user of users"
+              [value]="user.id">
 
-          formControlName="contactDate">
+              {{ user.fullName }}
 
-      </mat-form-field>
+            </mat-option>
 
-      <mat-form-field appearance="outline">
+          </mat-select>
 
-        <mat-label>
+        </mat-form-field>
 
-          Type
+        <mat-form-field appearance="outline">
 
-        </mat-label>
+          <mat-label>
 
-        <mat-select
-          formControlName="contactType">
+            Date du contact
 
-          <mat-option
+          </mat-label>
 
-            *ngFor="
-              let type
-              of contactTypes
-            "
+          <mat-icon matPrefix>
 
-            [value]="type">
+            event
+
+          </mat-icon>
+
+          <input
+            matInput
+            type="date"
+            formControlName="contactDate">
+
+        </mat-form-field>
+
+      </div>
+
+    </div>
+
+    <!-- Type -->
+    <div class="section-card">
+
+      <div class="section-header">
+
+        <mat-icon>
+
+          category
+
+        </mat-icon>
+
+        <h3>
+
+          Type de contact
+
+        </h3>
+
+      </div>
+
+      <div class="type-grid">
+
+        <div
+          *ngFor="let type of contactTypes"
+          class="type-card"
+          [class.selected]="form.value.contactType === type"
+          (click)="form.patchValue({ contactType: type })">
+
+          <mat-icon>
+
+            {{
+              type === 'APPEL'
+                ? 'call'
+                : type === 'EMAIL'
+                  ? 'mail'
+                  : type === 'ENTRETIEN'
+                    ? 'forum'
+                    : type === 'VISITE'
+                      ? 'home_work'
+                      : 'contact_phone'
+            }}
+
+          </mat-icon>
+
+          <span>
 
             {{ getTypeLabel(type) }}
 
-          </mat-option>
+          </span>
 
-        </mat-select>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Sujet -->
+    <div class="section-card">
+
+      <div class="section-header">
+
+        <mat-icon>
+
+          title
+
+        </mat-icon>
+
+        <h3>
+
+          Sujet du contact
+
+        </h3>
+
+      </div>
+
+      <mat-form-field
+        appearance="outline"
+        class="full-width">
+
+        <mat-label>
+
+          Sujet
+
+        </mat-label>
+
+        <mat-icon matPrefix>
+
+          description
+
+        </mat-icon>
+
+        <input
+          matInput
+          formControlName="subject">
 
       </mat-form-field>
 
     </div>
 
-    <mat-form-field
-      appearance="outline"
-      class="full-width">
+    <!-- Compte rendu -->
+    <div class="section-card">
 
-      <mat-label>
+      <div class="section-header">
 
-        Sujet
+        <mat-icon>
 
-      </mat-label>
+          article
 
-      <input
+        </mat-icon>
 
-        matInput
+        <h3>
 
-        formControlName="subject">
+          Compte rendu
 
-    </mat-form-field>
+        </h3>
 
-    <mat-form-field
-      appearance="outline"
-      class="full-width">
+      </div>
 
-      <mat-label>
+      <mat-form-field
+        appearance="outline"
+        class="full-width">
 
-        Compte rendu
+        <mat-label>
 
-      </mat-label>
+          Description détaillée
 
-      <textarea
+        </mat-label>
 
-        matInput
+        <textarea
+          matInput
+          rows="6"
+          formControlName="description">
 
-        rows="6"
+        </textarea>
 
-        formControlName="description">
+      </mat-form-field>
 
-      </textarea>
-
-    </mat-form-field>
+    </div>
 
   </form>
 
+  <!-- Actions -->
   <div class="dialog-actions">
 
     <button
-
       mat-stroked-button
-
       (click)="dialogRef.close()">
 
       Annuler
@@ -188,19 +296,33 @@
     </button>
 
     <button
-
       mat-raised-button
-
       color="primary"
-
-      [disabled]="loading"
-
+      [disabled]="loading || form.invalid"
       (click)="submit()">
 
+      <mat-icon>
+
+        save
+
+      </mat-icon>
+
       {{
-        data
-          ? 'Modifier'
-          : 'Créer'
+
+        loading
+
+          ? (
+              data
+                ? 'Modification...'
+                : 'Création...'
+            )
+
+          : (
+              data
+                ? 'Modifier'
+                : 'Créer'
+            )
+
       }}
 
     </button>

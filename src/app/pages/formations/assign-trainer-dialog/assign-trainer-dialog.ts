@@ -8,6 +8,7 @@ import { UserService } from '../../../services/user-service';
 import { FormationTrainerService } from '../../../services/formation-trainer';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-assign-trainer-dialog',
@@ -16,7 +17,8 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
     ReactiveFormsModule,
     MatFormFieldModule,
     MatSelectModule,
-    MatButtonModule
+    MatButtonModule,
+    MatIconModule
   ],
   templateUrl: './assign-trainer-dialog.html',
   styleUrl: './assign-trainer-dialog.scss',

@@ -37,6 +37,7 @@ import {
 } from '@angular/material/snack-bar';
 import { PartnerService } from '../services/partner';
 import { Partner } from '../models/partner.model';
+import { MatIconModule } from '@angular/material/icon';
 
 
 
@@ -50,7 +51,8 @@ import { Partner } from '../models/partner.model';
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
+    MatIconModule
   ],
 
   templateUrl:

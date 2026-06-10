@@ -1,16 +1,19 @@
 <div class="page-container">
 
+  <!-- Header -->
   <div class="page-header">
 
     <div>
 
       <h1>
+
         Communications
+
       </h1>
 
       <p>
 
-        Gestion des comptes rendus et circulaires
+        Gestion des comptes rendus, notes de service et circulaires
 
       </p>
 
@@ -19,11 +22,12 @@
     <button
       mat-raised-button
       color="primary"
-      (click)="openCreateDialog()"  
-    >
+      (click)="openCreateDialog()">
 
       <mat-icon>
+
         add
+
       </mat-icon>
 
       Nouvelle communication
@@ -32,124 +36,155 @@
 
   </div>
 
-  <mat-form-field appearance="outline">
+  <!-- Recherche -->
+  <div class="search-container">
 
-    <mat-label>
+    <mat-form-field appearance="outline">
 
-      Recherche
+      <mat-label>
 
-    </mat-label>
+        Rechercher
 
-    <input
-      matInput
-      (keyup)="applyFilter($event)">
+      </mat-label>
 
-  </mat-form-field>
+      <input
+        matInput
+        placeholder="Titre, type, accès..."
+        (keyup)="applyFilter($event)">
 
-  <div class="table-container">
+      <mat-icon matSuffix>
 
-    <table
-      mat-table
-      [dataSource]="dataSource">
+        search
 
-      <ng-container matColumnDef="title">
+      </mat-icon>
 
-        <th mat-header-cell *matHeaderCellDef>
-          Titre
-        </th>
+    </mat-form-field>
 
-        <td mat-cell *matCellDef="let row">
-          {{ row.title }}
-        </td>
+  </div>
 
-      </ng-container>
+  <!-- Etat vide -->
+  <div
+    class="empty-state"
+    *ngIf="dataSource.filteredData.length === 0">
 
-      <ng-container matColumnDef="type">
+    <mat-icon>
 
-        <th mat-header-cell *matHeaderCellDef>
-          Type
-        </th>
+      campaign
 
-        <td mat-cell *matCellDef="let row">
-          {{ row.type }}
-        </td>
+    </mat-icon>
 
-      </ng-container>
+    <h3>
 
-      <ng-container matColumnDef="eventDate">
+      Aucune communication disponible
 
-        <th mat-header-cell *matHeaderCellDef>
-          Date
-        </th>
+    </h3>
 
-        <td mat-cell *matCellDef="let row">
-          {{ row.eventDate }}
-        </td>
+    <p>
 
-      </ng-container>
+      Commencez par créer une nouvelle communication.
 
-      <ng-container matColumnDef="accessRole">
+    </p>
 
-        <th mat-header-cell *matHeaderCellDef>
-          Accès
-        </th>
+  </div>
 
-        <td mat-cell *matCellDef="let row">
-          {{ row.accessRole }}
-        </td>
+  <!-- Communications -->
+  <div
+    class="communications-grid"
+    *ngIf="dataSource.filteredData.length > 0">
 
-      </ng-container>
+    <mat-card
+      class="communication-card"
+      *ngFor="let communication of dataSource.filteredData">
 
-      <ng-container matColumnDef="actions">
+      <div class="card-header">
 
-        <th mat-header-cell *matHeaderCellDef>
-          Actions
-        </th>
+        <div class="communication-icon">
 
-        <td mat-cell *matCellDef="let row">
+          <mat-icon>
 
-          <button mat-icon-button (click)="editCommunication(row)">
+            {{
+              communication.type === 'CIRCULAIRE'
+                ? 'campaign'
+                : communication.type === 'COMPTE_RENDU'
+                  ? 'description'
+                  : 'announcement'
+            }}
 
-            <mat-icon>
-              edit
-            </mat-icon>
+          </mat-icon>
 
-          </button>
+        </div>
 
-          <button
-            mat-icon-button
-            color="warn"
-            (click)="deleteCommunication(row)"
-           >
+        <div class="communication-info">
 
-            <mat-icon>
-              delete
-            </mat-icon>
+          <h3>
 
-          </button>
+            {{ communication.title }}
 
-        </td>
+          </h3>
 
-      </ng-container>
+          <p>
 
-      <tr
-        mat-header-row
-        *matHeaderRowDef="displayedColumns">
-      </tr>
+            {{ communication.eventDate | date:'dd/MM/yyyy' }}
 
-      <tr
-        mat-row
-        *matRowDef="
-          let row;
-          columns: displayedColumns
-        ">
-      </tr>
+          </p>
 
-    </table>
+        </div>
 
-    <mat-paginator
-      [pageSize]="10">
-    </mat-paginator>
+      </div>
+
+      <div class="badges">
+
+        <span
+          class="type-badge">
+
+          {{ communication.type }}
+
+        </span>
+
+        <span
+          class="access-badge">
+
+          {{ communication.accessRole }}
+
+        </span>
+
+      </div>
+
+      <div class="card-actions">
+
+        <button
+          mat-stroked-button
+          color="primary"
+          (click)="editCommunication(communication)">
+
+          <mat-icon>
+
+            edit
+
+          </mat-icon>
+
+          Modifier
+
+        </button>
+
+        <button
+          mat-stroked-button
+          color="warn"
+          (click)="deleteCommunication(communication)">
+
+          <mat-icon>
+
+            delete
+
+          </mat-icon>
+
+          Supprimer
+
+        </button>
+
+      </div>
+
+    </mat-card>
 
   </div>
 

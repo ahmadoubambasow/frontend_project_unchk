@@ -1,4 +1,5 @@
 export interface Promotion {
+formationName: any;
 
   id: number;
 
