@@ -1,5 +1,6 @@
 <div class="page-container">
 
+  <!-- Header -->
   <div class="page-header">
 
     <div>
@@ -19,11 +20,8 @@
     </div>
 
     <button
-
       mat-raised-button
-
       color="primary"
-
       (click)="openCreateDialog()">
 
       <mat-icon>
@@ -38,106 +36,203 @@
 
   </div>
 
+  <!-- Statistiques -->
   <div class="stats-grid">
 
-    <div class="stat-card">
+    <div class="stat-card total">
 
-      <h3>
+      <div class="stat-icon">
 
-        Total dossiers
+        <mat-icon>
 
-      </h3>
+          badge
 
-      <span>
+        </mat-icon>
 
-        {{ personnelFiles.length }}
+      </div>
 
-      </span>
+      <div>
 
-    </div>
+        <span>
 
-    <div class="stat-card">
+          Total dossiers
 
-      <h3>
+        </span>
 
-        Enseignants
+        <h2>
 
-      </h3>
+          {{ personnelFiles.length }}
 
-      <span>
+        </h2>
 
-        {{ teachersCount }}
-
-      </span>
+      </div>
 
     </div>
 
-    <div class="stat-card">
+    <div class="stat-card teacher">
 
-      <h3>
+      <div class="stat-icon">
 
-        Tuteurs
+        <mat-icon>
 
-      </h3>
+          school
 
-      <span>
+        </mat-icon>
 
-        {{ tutorsCount }}
+      </div>
 
-      </span>
+      <div>
+
+        <span>
+
+          Enseignants
+
+        </span>
+
+        <h2>
+
+          {{ teachersCount }}
+
+        </h2>
+
+      </div>
 
     </div>
 
-    <div class="stat-card">
+    <div class="stat-card tutor">
 
-      <h3>
+      <div class="stat-icon">
 
-        Administratifs
+        <mat-icon>
 
-      </h3>
+          groups
 
-      <span>
+        </mat-icon>
 
-        {{ adminCount }}
+      </div>
 
-      </span>
+      <div>
+
+        <span>
+
+          Tuteurs
+
+        </span>
+
+        <h2>
+
+          {{ tutorsCount }}
+
+        </h2>
+
+      </div>
+
+    </div>
+
+    <div class="stat-card admin">
+
+      <div class="stat-icon">
+
+        <mat-icon>
+
+          admin_panel_settings
+
+        </mat-icon>
+
+      </div>
+
+      <div>
+
+        <span>
+
+          Administratifs
+
+        </span>
+
+        <h2>
+
+          {{ adminCount }}
+
+        </h2>
+
+      </div>
 
     </div>
 
   </div>
 
-  <div class="search-bar">
+  <!-- Recherche -->
+  <div class="search-container">
 
-    <input
+    <mat-form-field appearance="outline">
 
-      matInput
+      <mat-label>
 
-      placeholder="Rechercher..."
+        Rechercher un agent
 
-      (input)="applyFilter($event)">
+      </mat-label>
+
+      <input
+        matInput
+        placeholder="Nom, matricule, fonction..."
+        (input)="applyFilter($event)">
+
+      <mat-icon matSuffix>
+
+        search
+
+      </mat-icon>
+
+    </mat-form-field>
+
   </div>
 
-  <div
-    class="personnel-grid">
+  <!-- Cartes -->
+  <div class="personnel-grid">
 
     <div
-
       *ngFor="
         let personnel
         of filteredPersonnelFiles
       "
-
       class="personnel-card">
 
+      <!-- En-tête -->
       <div class="card-header">
 
-        <h3>
+        <div class="profile">
 
-          {{ personnel.fullName }}
+          <div class="avatar">
 
-        </h3>
+            {{
+              personnel.fullName
+                ?.charAt(0)
+                ?.toUpperCase()
+            }}
 
-        <span class="badge">
+          </div>
+
+          <div>
+
+            <h3>
+
+              {{ personnel.fullName }}
+
+            </h3>
+
+            <span class="employee-number">
+
+              {{ personnel.employeeNumber }}
+
+            </span>
+
+          </div>
+
+        </div>
+
+        <span
+          class="role-badge"
+          [ngClass]="personnel.role?.toLowerCase()">
 
           {{ personnel.role }}
 
@@ -145,81 +240,100 @@
 
       </div>
 
-      <p>
+      <!-- Informations -->
+      <div class="card-content">
 
-        <strong>
-          Matricule :
-        </strong>
+        <div class="info-row">
 
-        {{ personnel.employeeNumber }}
+          <mat-icon>
 
-      </p>
+            work
 
-      <p>
+          </mat-icon>
 
-        <strong>
-          Fonction :
-        </strong>
+          <span>
 
-        {{ personnel.position }}
+            {{ personnel.position }}
 
-      </p>
+          </span>
 
-      <p>
+        </div>
 
-        <strong>
-          Contrat :
-        </strong>
+        <div class="info-row">
 
-        {{ personnel.contractType }}
+          <mat-icon>
 
-      </p>
+            description
 
-      <p>
+          </mat-icon>
 
-        <strong>
-          Téléphone :
-        </strong>
+          <span>
 
-        {{ personnel.phone }}
+            {{ personnel.contractType }}
 
-      </p>
+          </span>
 
-      <div class="actions">
+        </div>
+
+        <div class="info-row">
+
+          <mat-icon>
+
+            phone
+
+          </mat-icon>
+
+          <span>
+
+            {{ personnel.phone }}
+
+          </span>
+
+        </div>
+
+      </div>
+
+      <!-- Actions -->
+      <div class="card-actions">
 
         <button
-
-          mat-button
-
+          mat-stroked-button
           color="primary"
-
           (click)="openDetails(personnel)">
+
+          <mat-icon>
+
+            visibility
+
+          </mat-icon>
 
           Détails
 
         </button>
 
         <button
-
-          mat-button
-
-          color="accent"
-
+          mat-icon-button
+          color="primary"
           (click)="openEditDialog(personnel)">
 
-          Modifier
+          <mat-icon>
+
+            edit
+
+          </mat-icon>
 
         </button>
 
         <button
-
-          mat-button
-
+          mat-icon-button
           color="warn"
-
           (click)="deletePersonnelFile(personnel)">
 
-          Supprimer
+          <mat-icon>
+
+            delete
+
+          </mat-icon>
 
         </button>
 

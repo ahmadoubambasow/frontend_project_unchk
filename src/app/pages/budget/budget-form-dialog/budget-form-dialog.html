@@ -1,188 +1,370 @@
 <div class="dialog-container">
 
+  <!-- Header -->
   <div class="dialog-header">
 
-    <h2>
+    <div class="dialog-icon">
 
-      {{
-        data
-          ? 'Modifier budget'
-          : 'Nouveau budget'
-      }}
+      <mat-icon>
 
-    </h2>
+        account_balance_wallet
+
+      </mat-icon>
+
+    </div>
+
+    <div>
+
+      <h2>
+
+        {{
+          data
+            ? 'Modifier budget'
+            : 'Nouveau budget'
+        }}
+
+      </h2>
+
+      <p>
+
+        Planification et suivi budgétaire
+
+      </p>
+
+    </div>
 
   </div>
 
   <form
-    [formGroup]="form">
+    [formGroup]="form"
+    class="budget-form">
 
-    <div class="form-grid">
+    <!-- Informations générales -->
+    <div class="section-card">
 
-      <mat-form-field appearance="outline">
+      <div class="section-header">
 
-        <mat-label>
+        <mat-icon>
 
-          Année
+          description
 
-        </mat-label>
+        </mat-icon>
 
-        <input
-          matInput
-          type="number"
-          formControlName="year">
+        <h3>
 
-      </mat-form-field>
+          Informations générales
 
-      <mat-form-field appearance="outline">
+        </h3>
 
-        <mat-label>
+      </div>
 
-          Type
+      <div class="selection-grid">
 
-        </mat-label>
+        <div
+          *ngFor="let type of budgetTypes"
+          class="selection-card"
+          [class.selected]="form.value.type === type"
+          (click)="form.patchValue({ type: type })">
 
-        <mat-select
-          formControlName="type">
+          <mat-icon>
 
-          <mat-option
+            {{
+              type === 'FONCTIONNEMENT'
+                ? 'business'
+                : type === 'INVESTISSEMENT'
+                  ? 'trending_up'
+                  : 'account_balance'
+            }}
 
-            *ngFor="
-              let type
-              of budgetTypes
-            "
+          </mat-icon>
 
-            [value]="type">
+          <span>
 
             {{ getTypeLabel(type) }}
 
-          </mat-option>
+          </span>
 
-        </mat-select>
+        </div>
 
-      </mat-form-field>
+      </div>
 
-      <mat-form-field appearance="outline">
+      <div class="form-grid">
+
+        <mat-form-field appearance="outline">
+
+          <mat-label>
+
+            Année
+
+          </mat-label>
+
+          <mat-icon matPrefix>
+
+            calendar_today
+
+          </mat-icon>
+
+          <input
+            matInput
+            type="number"
+            formControlName="year">
+
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+
+          <mat-label>
+
+            Titre
+
+          </mat-label>
+
+          <mat-icon matPrefix>
+
+            title
+
+          </mat-icon>
+
+          <input
+            matInput
+            formControlName="title">
+
+        </mat-form-field>
+
+      </div>
+
+    </div>
+
+    <!-- Montants -->
+    <div class="section-card">
+
+      <div class="section-header">
+
+        <mat-icon>
+
+          payments
+
+        </mat-icon>
+
+        <h3>
+
+          Montants budgétaires
+
+        </h3>
+
+      </div>
+
+      <div class="form-grid">
+
+        <mat-form-field appearance="outline">
+
+          <mat-label>
+
+            Budget prévu
+
+          </mat-label>
+
+          <mat-icon matPrefix>
+
+            savings
+
+          </mat-icon>
+
+          <input
+            matInput
+            type="number"
+            formControlName="plannedAmount">
+
+          <span matTextSuffix>
+
+            FCFA
+
+          </span>
+
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+
+          <mat-label>
+
+            Budget réalisé
+
+          </mat-label>
+
+          <mat-icon matPrefix>
+
+            paid
+
+          </mat-icon>
+
+          <input
+            matInput
+            type="number"
+            formControlName="executedAmount">
+
+          <span matTextSuffix>
+
+            FCFA
+
+          </span>
+
+        </mat-form-field>
+
+      </div>
+
+      <div
+        class="variance-card"
+        [class.positive]="variance >= 0"
+        [class.negative]="variance < 0">
+
+        <div>
+
+          <span>
+
+            Écart budgétaire
+
+          </span>
+
+          <h2>
+
+            {{ variance | number }}
+
+            FCFA
+
+          </h2>
+
+        </div>
+
+        <mat-icon>
+
+          {{
+            variance >= 0
+              ? 'trending_up'
+              : 'trending_down'
+          }}
+
+        </mat-icon>
+
+      </div>
+
+    </div>
+
+    <!-- Description -->
+    <div class="section-card">
+
+      <div class="section-header">
+
+        <mat-icon>
+
+          article
+
+        </mat-icon>
+
+        <h3>
+
+          Description
+
+        </h3>
+
+      </div>
+
+      <mat-form-field
+        appearance="outline"
+        class="full-width">
 
         <mat-label>
 
-          Titre
+          Observations
 
         </mat-label>
 
-        <input
+        <textarea
           matInput
-          formControlName="title">
+          rows="6"
+          formControlName="description">
 
-      </mat-form-field>
-
-      <mat-form-field appearance="outline">
-
-        <mat-label>
-
-          Budget prévu
-
-        </mat-label>
-
-        <input
-          matInput
-          type="number"
-          formControlName="plannedAmount">
-
-      </mat-form-field>
-
-      <mat-form-field appearance="outline">
-
-        <mat-label>
-
-          Budget réalisé
-
-        </mat-label>
-
-        <input
-          matInput
-          type="number"
-          formControlName="executedAmount">
+        </textarea>
 
       </mat-form-field>
 
     </div>
 
-    <div class="variance-card">
+    <!-- Document -->
+    <div class="section-card">
 
-      <h3>
+      <div class="section-header">
 
-        Écart budgétaire
+        <mat-icon>
 
-      </h3>
+          attach_file
 
-      <span>
+        </mat-icon>
 
-        {{ variance | number }}
+        <h3>
 
-      </span>
+          Pièce justificative
 
-    </div>
+        </h3>
 
-    <mat-form-field
-      appearance="outline"
-      class="full-width">
+      </div>
 
-      <mat-label>
+      <div class="upload-zone">
 
-        Description
+        <input
+          hidden
+          #fileInput
+          type="file"
+          (change)="onFileSelected($event)">
 
-      </mat-label>
+        <div
+          class="upload-card"
+          (click)="fileInput.click()">
 
-      <textarea
+          <mat-icon>
 
-        matInput
+            cloud_upload
 
-        rows="6"
+          </mat-icon>
 
-        formControlName="description">
+          <h4>
 
-      </textarea>
+            Ajouter un document
 
-    </mat-form-field>
+          </h4>
 
-    <div class="upload-zone">
+          <p>
 
-      <input
+            Budget prévisionnel, devis, justificatif...
 
-        hidden
+          </p>
 
-        #fileInput
+        </div>
 
-        type="file"
+        <div
+          class="selected-file"
+          *ngIf="selectedFile">
 
-        (change)="onFileSelected($event)">
+          <mat-icon>
 
-      <button
+            insert_drive_file
 
-        type="button"
+          </mat-icon>
 
-        mat-stroked-button
+          <span>
 
-        (click)="fileInput.click()">
+            {{ selectedFile.name }}
 
-        Choisir un document
+          </span>
 
-      </button>
+        </div>
 
-      <span>
-
-        {{
-          selectedFile?.name
-          || 'Aucun fichier'
-        }}
-
-      </span>
+      </div>
 
     </div>
 
   </form>
 
+  <!-- Actions -->
   <div class="dialog-actions">
 
     <button
@@ -194,16 +376,26 @@
     </button>
 
     <button
-
       mat-raised-button
-
       color="primary"
-
-      [disabled]="loading"
-
+      [disabled]="loading || form.invalid"
       (click)="submit()">
 
-      Enregistrer
+      <mat-icon>
+
+        save
+
+      </mat-icon>
+
+      {{
+
+        loading
+
+          ? 'Enregistrement...'
+
+          : 'Enregistrer'
+
+      }}
 
     </button>
 

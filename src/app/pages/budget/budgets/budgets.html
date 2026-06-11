@@ -1,5 +1,6 @@
 <div class="page-container">
 
+  <!-- Header -->
   <div class="page-header">
 
     <div>
@@ -12,18 +13,15 @@
 
       <p>
 
-        Budgets et orientations
+        Budgets, suivi des dépenses et orientations financières
 
       </p>
 
     </div>
 
     <button
-
       mat-raised-button
-
       color="primary"
-
       (click)="openCreateDialog()">
 
       <mat-icon>
@@ -38,117 +36,189 @@
 
   </div>
 
+  <!-- Statistiques -->
   <div class="stats-grid">
 
-    <div class="stat-card">
+    <div class="stat-card planned">
 
-      <h3>
+      <div class="stat-icon">
 
-        Budget prévu
+        <mat-icon>
 
-      </h3>
+          account_balance_wallet
 
-      <span>
+        </mat-icon>
 
-        {{
-          totalPlanned
-          | number
-        }}
+      </div>
 
-      </span>
+      <div>
 
-    </div>
+        <span class="stat-label">
 
-    <div class="stat-card">
+          Budget prévu
 
-      <h3>
+        </span>
 
-        Budget réalisé
+        <h2>
 
-      </h3>
+          {{ totalPlanned | number }}
 
-      <span>
+          FCFA
 
-        {{
-          totalExecuted
-          | number
-        }}
+        </h2>
 
-      </span>
+      </div>
 
     </div>
 
-    <div class="stat-card">
+    <div class="stat-card executed">
 
-      <h3>
+      <div class="stat-icon">
 
-        Écart
+        <mat-icon>
 
-      </h3>
+          paid
 
-      <span>
+        </mat-icon>
 
-        {{
-          totalVariance
-          | number
-        }}
+      </div>
 
-      </span>
+      <div>
+
+        <span class="stat-label">
+
+          Budget réalisé
+
+        </span>
+
+        <h2>
+
+          {{ totalExecuted | number }}
+
+          FCFA
+
+        </h2>
+
+      </div>
 
     </div>
 
-    <div class="stat-card">
+    <div class="stat-card variance">
 
-      <h3>
+      <div class="stat-icon">
 
-        Budgets
+        <mat-icon>
 
-      </h3>
+          analytics
 
-      <span>
+        </mat-icon>
 
-        {{
-          budgets.length
-        }}
+      </div>
 
-      </span>
+      <div>
+
+        <span class="stat-label">
+
+          Écart
+
+        </span>
+
+        <h2>
+
+          {{ totalVariance | number }}
+
+          FCFA
+
+        </h2>
+
+      </div>
+
+    </div>
+
+    <div class="stat-card total">
+
+      <div class="stat-icon">
+
+        <mat-icon>
+
+          receipt_long
+
+        </mat-icon>
+
+      </div>
+
+      <div>
+
+        <span class="stat-label">
+
+          Budgets enregistrés
+
+        </span>
+
+        <h2>
+
+          {{ budgets.length }}
+
+        </h2>
+
+      </div>
 
     </div>
 
   </div>
 
-  <div class="search-bar">
+  <!-- Recherche -->
+  <div class="search-container">
 
-    <input
+    <mat-form-field appearance="outline">
 
-      matInput
+      <mat-label>
 
-      placeholder="Rechercher..."
+        Rechercher un budget
 
-      (input)="applyFilter($event)">
+      </mat-label>
+
+      <input
+        matInput
+        placeholder="Titre, année, type..."
+        (input)="applyFilter($event)">
+
+      <mat-icon matSuffix>
+
+        search
+
+      </mat-icon>
+
+    </mat-form-field>
+
   </div>
 
-  <div
-    class="budgets-grid">
+  <!-- Cartes -->
+  <div class="budgets-grid">
 
     <div
-
-      *ngFor="
-        let budget
-        of filteredBudgets
-      "
-
+      *ngFor="let budget of filteredBudgets"
       class="budget-card">
 
       <div class="budget-header">
 
-        <h3>
+        <div>
 
-          {{ budget.title }}
+          <h3>
 
-        </h3>
+            {{ budget.title }}
 
-        <span class="badge">
+          </h3>
+
+          <span class="year">
+
+            {{ budget.year }}
+
+          </span>
+
+        </div>
+
+        <span class="type-badge">
 
           {{
             getTypeLabel(
@@ -160,69 +230,142 @@
 
       </div>
 
-      <p>
+      <div class="budget-details">
 
-        Année :
-        {{ budget.year }}
+        <div class="detail-row">
 
-      </p>
+          <span>
 
-      <p>
+            Prévu
 
-        Prévu :
-        {{ budget.plannedAmount }}
+          </span>
 
-      </p>
+          <strong>
 
-      <p>
+            {{ budget.plannedAmount | number }}
 
-        Réalisé :
-        {{ budget.executedAmount }}
+            FCFA
 
-      </p>
+          </strong>
 
-      <p>
+        </div>
 
-        Écart :
-        {{ budget.variance }}
+        <div class="detail-row">
 
-      </p>
+          <span>
 
-      <div class="actions">
+            Réalisé
+
+          </span>
+
+          <strong>
+
+            {{ budget.executedAmount | number }}
+
+            FCFA
+
+          </strong>
+
+        </div>
+
+        <div class="detail-row variance-row">
+
+          <span>
+
+            Écart
+
+          </span>
+
+          <strong>
+
+            {{ budget.variance | number }}
+
+            FCFA
+
+          </strong>
+
+        </div>
+
+      </div>
+
+      <div class="execution-section">
+
+        <div class="execution-header">
+
+          <span>
+
+            Taux d'exécution
+
+          </span>
+
+          <span>
+
+            {{
+              (
+                budget.executedAmount
+                /
+                budget.plannedAmount
+              ) * 100
+              | number:'1.0-0'
+            }}%
+
+          </span>
+
+        </div>
+
+        <mat-progress-bar
+          mode="determinate"
+          [value]="
+            (
+              budget.executedAmount
+              /
+              budget.plannedAmount
+            ) * 100
+          ">
+        </mat-progress-bar>
+
+      </div>
+
+      <div class="card-actions">
 
         <button
-
-          mat-button
-
+          mat-stroked-button
           color="primary"
-
           (click)="openDetails(budget)">
+
+          <mat-icon>
+
+            visibility
+
+          </mat-icon>
 
           Détails
 
         </button>
 
         <button
-
-          mat-button
-
-          color="accent"
-
+          mat-icon-button
+          color="primary"
           (click)="openEditDialog(budget)">
 
-          Modifier
+          <mat-icon>
+
+            edit
+
+          </mat-icon>
 
         </button>
 
         <button
-
-          mat-button
-
+          mat-icon-button
           color="warn"
-
           (click)="deleteBudget(budget)">
 
-          Supprimer
+          <mat-icon>
+
+            delete
+
+          </mat-icon>
 
         </button>
 

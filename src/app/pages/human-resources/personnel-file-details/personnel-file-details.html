@@ -8,52 +8,164 @@
   </div>
 
   <ng-container
-    *ngIf="
-      !loading &&
-      personnel
-    ">
+    *ngIf="!loading && personnel">
 
+    <!-- Header -->
     <div class="profile-header">
 
-      <div class="avatar">
+      <div class="profile-info">
 
-        {{
-          personnel.fullName
-          ?.charAt(0)
-        }}
-
-      </div>
-
-      <div>
-
-        <h1>
+        <div class="avatar">
 
           {{
             personnel.fullName
+              ?.charAt(0)
+              ?.toUpperCase()
           }}
 
-        </h1>
+        </div>
 
-        <p>
+        <div>
 
-          {{
-            personnel.position
-          }}
+          <h1>
 
-        </p>
+            {{ personnel.fullName }}
 
-        <span class="role-badge">
+          </h1>
 
-          {{
-            personnel.role
-          }}
+          <p>
 
-        </span>
+            {{ personnel.position }}
+
+          </p>
+
+          <span class="role-badge">
+
+            {{ personnel.role }}
+
+          </span>
+
+        </div>
 
       </div>
 
     </div>
 
+    <!-- Statistiques -->
+    <div class="stats-grid">
+
+      <div class="stat-card">
+
+        <mat-icon>
+
+          badge
+
+        </mat-icon>
+
+        <div>
+
+          <label>
+
+            Matricule
+
+          </label>
+
+          <span>
+
+            {{ personnel.employeeNumber }}
+
+          </span>
+
+        </div>
+
+      </div>
+
+      <div class="stat-card">
+
+        <mat-icon>
+
+          work
+
+        </mat-icon>
+
+        <div>
+
+          <label>
+
+            Contrat
+
+          </label>
+
+          <span>
+
+            {{ personnel.contractType }}
+
+          </span>
+
+        </div>
+
+      </div>
+
+      <div class="stat-card">
+
+        <mat-icon>
+
+          payments
+
+        </mat-icon>
+
+        <div>
+
+          <label>
+
+            Salaire
+
+          </label>
+
+          <span>
+
+            {{
+              personnel.salary
+              | number
+            }}
+
+            FCFA
+
+          </span>
+
+        </div>
+
+      </div>
+
+      <div class="stat-card">
+
+        <mat-icon>
+
+          event
+
+        </mat-icon>
+
+        <div>
+
+          <label>
+
+            Recrutement
+
+          </label>
+
+          <span>
+
+            {{ personnel.hireDate }}
+
+          </span>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Informations RH -->
     <mat-card class="details-card">
 
       <mat-card-header>
@@ -70,82 +182,23 @@
 
         <div class="info-grid">
 
-          <div>
+          <div class="info-item">
 
             <label>
 
-              Matricule
+              Fonction
 
             </label>
 
             <span>
 
-              {{
-                personnel.employeeNumber
-              }}
+              {{ personnel.position }}
 
             </span>
 
           </div>
 
-          <div>
-
-            <label>
-
-              Contrat
-
-            </label>
-
-            <span>
-
-              {{
-                personnel.contractType
-              }}
-
-            </span>
-
-          </div>
-
-          <div>
-
-            <label>
-
-              Recrutement
-
-            </label>
-
-            <span>
-
-              {{
-                personnel.hireDate
-              }}
-
-            </span>
-
-          </div>
-
-          <div>
-
-            <label>
-
-              Salaire
-
-            </label>
-
-            <span>
-
-              {{
-                personnel.salary
-                | number
-              }}
-
-              FCFA
-
-            </span>
-
-          </div>
-
-          <div>
+          <div class="info-item">
 
             <label>
 
@@ -155,15 +208,13 @@
 
             <span>
 
-              {{
-                personnel.diploma
-              }}
+              {{ personnel.diploma || '-' }}
 
             </span>
 
           </div>
 
-          <div>
+          <div class="info-item">
 
             <label>
 
@@ -173,9 +224,7 @@
 
             <span>
 
-              {{
-                personnel.phone
-              }}
+              {{ personnel.phone || '-' }}
 
             </span>
 
@@ -187,6 +236,7 @@
 
     </mat-card>
 
+    <!-- Adresse -->
     <mat-card class="details-card">
 
       <mat-card-header>
@@ -201,21 +251,19 @@
 
       <mat-card-content>
 
-        {{
-          personnel.address
-          || '-'
-        }}
+        <p>
+
+          {{ personnel.address || '-' }}
+
+        </p>
 
       </mat-card-content>
 
     </mat-card>
 
+    <!-- Document -->
     <mat-card
-
-      *ngIf="
-        personnel.filePath
-      "
-
+      *ngIf="personnel.filePath"
       class="details-card">
 
       <mat-card-header>
@@ -231,40 +279,55 @@
       <mat-card-content>
 
         <div
-
-          *ngIf="
-            isImage(
-              personnel.filePath
-            )
-          "
-
+          *ngIf="isImage(personnel.filePath)"
           class="image-preview">
 
           <img
-
             [src]="
               'http://localhost:8080/uploads/documents/'
               + personnel.filePath
             "
-
-            alt="Document">
+            alt="Document RH">
 
         </div>
 
-        <a
+        <div class="document-actions">
 
-          class="document-link"
+          <a
+            mat-stroked-button
+            color="primary"
+            target="_blank"
+            [href]="
+              'http://localhost:8080/uploads/documents/'
+              + personnel.filePath
+            ">
 
-          target="_blank"
+            <mat-icon>
 
-          [href]="
-            'http://localhost:8080/uploads/documents/'
-            + personnel.filePath
-          ">
+              visibility
 
-          Ouvrir le document
+            </mat-icon>
 
-        </a>
+            Ouvrir
+
+          </a>
+
+          <button
+            mat-raised-button
+            color="primary"
+            (click)="openDocument(personnel.filePath)">
+
+            <mat-icon>
+
+              download
+
+            </mat-icon>
+
+            Télécharger
+
+          </button>
+
+        </div>
 
       </mat-card-content>
 

@@ -45,6 +45,7 @@ import { User } from '../../../models/user.model';
 import { UserService } from '../../../services/user-service';
 import { PersonnelFileService } from '../services/personnel-file-service';
 import { PersonnelFile } from '../models/personnel-file.model';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-personnel-file-form-dialog',
@@ -57,7 +58,8 @@ import { PersonnelFile } from '../models/personnel-file.model';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    MatSelectModule
+    MatSelectModule,
+    MatIconModule
   ],
 
   templateUrl:

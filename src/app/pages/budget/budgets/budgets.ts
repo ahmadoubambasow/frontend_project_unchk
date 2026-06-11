@@ -18,7 +18,12 @@ import {
 
 import {
   MatSnackBar
-} from '@angular/material/snack-bar';
+}
+from '@angular/material/snack-bar';
+
+import {
+  MatProgressBarModule
+} from '@angular/material/progress-bar';
 
 import {
   MatButtonModule
@@ -43,6 +48,7 @@ import { BudgetFormDialog } from '../budget-form-dialog/budget-form-dialog';
   imports: [
     CommonModule,
     MatButtonModule,
+    MatProgressBarModule,
     MatIconModule,
     MatInputModule
   ],

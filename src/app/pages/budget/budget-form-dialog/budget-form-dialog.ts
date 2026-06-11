@@ -41,6 +41,7 @@ import {
 } from '@angular/material/snack-bar';
 import { BudgetService } from '../services/budget';
 import { Budget } from '../models/budget.model';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-budget-form-dialog',
@@ -51,7 +52,8 @@ import { Budget } from '../models/budget.model';
     CommonModule,
     ReactiveFormsModule,
     MatFormFieldModule,
-    MatInputModule,
+    MatIconModule,
+  MatInputModule,
     MatButtonModule,
     MatSelectModule
   ],

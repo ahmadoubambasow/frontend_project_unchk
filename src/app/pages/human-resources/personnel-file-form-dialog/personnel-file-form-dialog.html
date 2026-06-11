@@ -1,232 +1,355 @@
 <div class="dialog-container">
 
+  <!-- Header -->
   <div class="dialog-header">
 
-    <h2>
+    <div class="dialog-icon">
 
-      {{
-        data
-          ? 'Modifier dossier'
-          : 'Nouveau dossier'
-      }}
+      <mat-icon>
 
-    </h2>
+        badge
+
+      </mat-icon>
+
+    </div>
+
+    <div>
+
+      <h2>
+
+        {{
+          data
+            ? 'Modifier dossier du personnel'
+            : 'Nouveau dossier du personnel'
+        }}
+
+      </h2>
+
+      <p>
+
+        Gestion des informations administratives du personnel
+
+      </p>
+
+    </div>
 
   </div>
 
-  <form [formGroup]="form">
+  <form
+    [formGroup]="form"
+    class="personnel-form">
 
-    <div class="form-grid">
+    <!-- Informations professionnelles -->
+    <div class="section-card">
 
-      <mat-form-field appearance="outline">
+      <div class="section-header">
+
+        <mat-icon>
+
+          work
+
+        </mat-icon>
+
+        <h3>
+
+          Informations professionnelles
+
+        </h3>
+
+      </div>
+
+      <div class="form-grid">
+
+        <mat-form-field appearance="outline">
+
+          <mat-label>
+
+            Personnel
+
+          </mat-label>
+
+          <mat-select
+            formControlName="userId">
+
+            <mat-option
+              *ngFor="let user of users"
+              [value]="user.id">
+
+              {{ user.fullName }}
+
+            </mat-option>
+
+          </mat-select>
+
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+
+          <mat-label>
+
+            Matricule
+
+          </mat-label>
+
+          <mat-icon matPrefix>
+
+            badge
+
+          </mat-icon>
+
+          <input
+            matInput
+            formControlName="employeeNumber">
+
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+
+          <mat-label>
+
+            Contrat
+
+          </mat-label>
+
+          <mat-select
+            formControlName="contractType">
+
+            <mat-option
+              *ngFor="let type of contractTypes"
+              [value]="type">
+
+              {{ type }}
+
+            </mat-option>
+
+          </mat-select>
+
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+
+          <mat-label>
+
+            Fonction
+
+          </mat-label>
+
+          <mat-icon matPrefix>
+
+            business_center
+
+          </mat-icon>
+
+          <input
+            matInput
+            formControlName="position">
+
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+
+          <mat-label>
+
+            Date de recrutement
+
+          </mat-label>
+
+          <mat-icon matPrefix>
+
+            event
+
+          </mat-icon>
+
+          <input
+            matInput
+            type="date"
+            formControlName="hireDate">
+
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+
+          <mat-label>
+
+            Salaire (FCFA)
+
+          </mat-label>
+
+          <mat-icon matPrefix>
+
+            payments
+
+          </mat-icon>
+
+          <input
+            matInput
+            type="number"
+            formControlName="salary">
+
+        </mat-form-field>
+
+      </div>
+
+    </div>
+
+    <!-- Coordonnées -->
+    <div class="section-card">
+
+      <div class="section-header">
+
+        <mat-icon>
+
+          contact_phone
+
+        </mat-icon>
+
+        <h3>
+
+          Coordonnées
+
+        </h3>
+
+      </div>
+
+      <div class="form-grid">
+
+        <mat-form-field appearance="outline">
+
+          <mat-label>
+
+            Téléphone
+
+          </mat-label>
+
+          <mat-icon matPrefix>
+
+            phone
+
+          </mat-icon>
+
+          <input
+            matInput
+            formControlName="phone">
+
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+
+          <mat-label>
+
+            Diplôme principal
+
+          </mat-label>
+
+          <mat-icon matPrefix>
+
+            school
+
+          </mat-icon>
+
+          <input
+            matInput
+            formControlName="diploma">
+
+        </mat-form-field>
+
+      </div>
+
+      <mat-form-field
+        appearance="outline"
+        class="full-width">
 
         <mat-label>
 
-          Personnel
+          Adresse
 
         </mat-label>
 
-        <mat-select
-          formControlName="userId">
+        <mat-icon matPrefix>
 
-          <mat-option
+          home
 
-            *ngFor="
-              let user
-              of users
-            "
+        </mat-icon>
 
-            [value]="user.id">
-
-            {{ user.fullName }}
-
-          </mat-option>
-
-        </mat-select>
-
-      </mat-form-field>
-
-      <mat-form-field appearance="outline">
-
-        <mat-label>
-
-          Matricule
-
-        </mat-label>
-
-        <input
+        <textarea
           matInput
-          formControlName="employeeNumber">
+          rows="4"
+          formControlName="address">
 
-      </mat-form-field>
-
-      <mat-form-field appearance="outline">
-
-        <mat-label>
-
-          Contrat
-
-        </mat-label>
-
-        <mat-select
-          formControlName="contractType">
-
-          <mat-option
-
-            *ngFor="
-              let type
-              of contractTypes
-            "
-
-            [value]="type">
-
-            {{ type }}
-
-          </mat-option>
-
-        </mat-select>
-
-      </mat-form-field>
-
-      <mat-form-field appearance="outline">
-
-        <mat-label>
-
-          Fonction
-
-        </mat-label>
-
-        <input
-          matInput
-          formControlName="position">
-
-      </mat-form-field>
-
-      <mat-form-field appearance="outline">
-
-        <mat-label>
-
-          Date recrutement
-
-        </mat-label>
-
-        <input
-
-          matInput
-
-          type="date"
-
-          formControlName="hireDate">
-
-      </mat-form-field>
-
-      <mat-form-field appearance="outline">
-
-        <mat-label>
-
-          Salaire
-
-        </mat-label>
-
-        <input
-
-          matInput
-
-          type="number"
-
-          formControlName="salary">
-
-      </mat-form-field>
-
-      <mat-form-field appearance="outline">
-
-        <mat-label>
-
-          Téléphone
-
-        </mat-label>
-
-        <input
-          matInput
-          formControlName="phone">
-
-      </mat-form-field>
-
-      <mat-form-field appearance="outline">
-
-        <mat-label>
-
-          Diplôme
-
-        </mat-label>
-
-        <input
-          matInput
-          formControlName="diploma">
+        </textarea>
 
       </mat-form-field>
 
     </div>
 
-    <mat-form-field
-      appearance="outline"
-      class="full-width">
+    <!-- Documents -->
+    <div class="section-card">
 
-      <mat-label>
+      <div class="section-header">
 
-        Adresse
+        <mat-icon>
 
-      </mat-label>
+          attach_file
 
-      <textarea
+        </mat-icon>
 
-        matInput
+        <h3>
 
-        rows="4"
+          Documents RH
 
-        formControlName="address">
+        </h3>
 
-      </textarea>
+      </div>
 
-    </mat-form-field>
+      <div class="upload-zone">
 
-    <div class="upload-zone">
+        <input
+          hidden
+          #fileInput
+          type="file"
+          (change)="onFileSelected($event)">
 
-      <input
+        <button
+          type="button"
+          mat-stroked-button
+          (click)="fileInput.click()">
 
-        hidden
+          <mat-icon>
 
-        #fileInput
+            upload_file
 
-        type="file"
+          </mat-icon>
 
-        (change)="onFileSelected($event)">
+          Ajouter un document
 
-      <button
+        </button>
 
-        type="button"
+        <div class="file-info">
 
-        mat-stroked-button
+          <mat-icon>
 
-        (click)="fileInput.click()">
+            description
 
-        Ajouter un document RH
+          </mat-icon>
 
-      </button>
+          <span>
 
-      <span>
+            {{
+              selectedFile?.name
+              || 'Aucun document sélectionné'
+            }}
 
-        {{
-          selectedFile?.name
-          || 'Aucun document'
-        }}
+          </span>
 
-      </span>
+        </div>
+
+      </div>
 
     </div>
 
   </form>
 
+  <!-- Actions -->
   <div class="dialog-actions">
 
     <button
@@ -238,16 +361,22 @@
     </button>
 
     <button
-
-      mat-raised-button
-
+      mat-flat-button
       color="primary"
-
       [disabled]="loading"
-
       (click)="submit()">
 
-      Enregistrer
+      <mat-icon>
+
+        save
+
+      </mat-icon>
+
+      {{
+        loading
+          ? 'Enregistrement...'
+          : 'Enregistrer'
+      }}
 
     </button>
 

@@ -17,6 +17,7 @@ import {
 } from '@angular/material/card';
 import { PersonnelFile } from '../models/personnel-file.model';
 import { PersonnelFileService } from '../services/personnel-file-service';
+import { MatIconModule } from '@angular/material/icon';
 
 
 @Component({
@@ -26,7 +27,8 @@ import { PersonnelFileService } from '../services/personnel-file-service';
 
   imports: [
     CommonModule,
-    MatCardModule
+    MatCardModule,
+    MatIconModule
   ],
 
   templateUrl:
@@ -122,6 +124,14 @@ implements OnInit {
 
     ].includes(
       extension || ''
+    );
+  }
+
+  openDocument(filePath: string): void {
+
+    window.open(
+      this.personnel?.filePath,
+      '_blank'
     );
   }
 }

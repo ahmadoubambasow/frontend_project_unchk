@@ -5,18 +5,23 @@
     class="loading">
 
     Chargement...
+
   </div>
 
-  <ng-container
-    *ngIf="!loading && budget">
+  <ng-container *ngIf="!loading && budget">
 
+    <!-- Header -->
     <div class="page-header">
 
       <div class="budget-profile">
 
-        <div class="icon">
+        <div class="profile-icon">
 
-          💰
+          <mat-icon>
+
+            account_balance_wallet
+
+          </mat-icon>
 
         </div>
 
@@ -28,15 +33,21 @@
 
           </h1>
 
-          <p>
+          <div class="header-meta">
 
-            {{
-              getTypeLabel(
-                budget.type
-              )
-            }}
+            <span class="badge">
 
-          </p>
+              {{ getTypeLabel(budget.type) }}
+
+            </span>
+
+            <span>
+
+              Exercice {{ budget.year }}
+
+            </span>
+
+          </div>
 
         </div>
 
@@ -44,9 +55,111 @@
 
     </div>
 
+    <!-- Résumé -->
+    <div class="summary-grid">
+
+      <div class="summary-card planned">
+
+        <mat-icon>
+
+          savings
+
+        </mat-icon>
+
+        <div>
+
+          <span>
+
+            Budget prévu
+
+          </span>
+
+          <h2>
+
+            {{ budget.plannedAmount | number }}
+
+            FCFA
+
+          </h2>
+
+        </div>
+
+      </div>
+
+      <div class="summary-card executed">
+
+        <mat-icon>
+
+          paid
+
+        </mat-icon>
+
+        <div>
+
+          <span>
+
+            Budget réalisé
+
+          </span>
+
+          <h2>
+
+            {{ budget.executedAmount | number }}
+
+            FCFA
+
+          </h2>
+
+        </div>
+
+      </div>
+
+      <div
+        class="summary-card variance"
+        [class.negative]="budget.variance < 0">
+
+        <mat-icon>
+
+          {{
+            budget.variance >= 0
+              ? 'trending_up'
+              : 'trending_down'
+          }}
+
+        </mat-icon>
+
+        <div>
+
+          <span>
+
+            Écart budgétaire
+
+          </span>
+
+          <h2>
+
+            {{ budget.variance | number }}
+
+            FCFA
+
+          </h2>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Informations -->
     <mat-card class="details-card">
 
       <mat-card-header>
+
+        <mat-icon>
+
+          info
+
+        </mat-icon>
 
         <mat-card-title>
 
@@ -86,76 +199,7 @@
 
             <span class="badge">
 
-              {{
-                getTypeLabel(
-                  budget.type
-                )
-              }}
-
-            </span>
-
-          </div>
-
-          <div class="info-item">
-
-            <label>
-
-              Budget prévu
-
-            </label>
-
-            <span>
-
-              {{
-                budget.plannedAmount
-                | number
-              }}
-
-              FCFA
-
-            </span>
-
-          </div>
-
-          <div class="info-item">
-
-            <label>
-
-              Budget réalisé
-
-            </label>
-
-            <span>
-
-              {{
-                budget.executedAmount
-                | number
-              }}
-
-              FCFA
-
-            </span>
-
-          </div>
-
-          <div class="info-item">
-
-            <label>
-
-              Écart
-
-            </label>
-
-            <span
-              [class.positive]="budget.variance >= 0"
-              [class.negative]="budget.variance < 0">
-
-              {{
-                budget.variance
-                | number
-              }}
-
-              FCFA
+              {{ getTypeLabel(budget.type) }}
 
             </span>
 
@@ -167,9 +211,16 @@
 
     </mat-card>
 
+    <!-- Description -->
     <mat-card class="details-card">
 
       <mat-card-header>
+
+        <mat-icon>
+
+          description
+
+        </mat-icon>
 
         <mat-card-title>
 
@@ -181,12 +232,9 @@
 
       <mat-card-content>
 
-        <p>
+        <p class="description">
 
-          {{
-            budget.description
-            || '-'
-          }}
+          {{ budget.description || 'Aucune description.' }}
 
         </p>
 
@@ -194,11 +242,18 @@
 
     </mat-card>
 
+    <!-- Document -->
     <mat-card
       *ngIf="budget.documentPath"
       class="details-card">
 
       <mat-card-header>
+
+        <mat-icon>
+
+          attach_file
+
+        </mat-icon>
 
         <mat-card-title>
 
@@ -208,66 +263,60 @@
 
       </mat-card-header>
 
-    <mat-card
-  *ngIf="budget.documentPath"
-  class="details-card">
+      <mat-card-content>
 
-  <mat-card-header>
+        <div
+          *ngIf="isImage(budget.documentPath)"
+          class="image-preview">
 
-    <mat-card-title>
+          <img
+            [src]="
+              'http://localhost:8080/uploads/documents/'
+              + budget.documentPath
+            "
+            alt="Document budgétaire">
 
-      Document associé
+        </div>
 
-    </mat-card-title>
+        <div class="document-actions">
 
-  </mat-card-header>
+          <button
+            mat-raised-button
+            color="primary"
+            (click)="openDocument(budget.documentPath)">
 
-  <mat-card-content>
+            <mat-icon>
 
-    <div
-      *ngIf="
-        isImage(
-          budget.documentPath
-        )
-      "
+              visibility
 
-      class="image-preview">
+            </mat-icon>
 
-      <img
+            Ouvrir
 
-        [src]="
-          'http://localhost:8080/uploads/documents/'
-          + budget.documentPath
-        "
+          </button>
 
-        alt="Document budget">
+          <a
+            mat-stroked-button
+            color="accent"
+            [href]="
+              'http://localhost:8080/uploads/documents/'
+              + budget.documentPath
+            "
+            download>
 
-    </div>
+            <mat-icon>
 
-    <a
+              download
 
-      class="document-link"
+            </mat-icon>
 
-      [href]="
-        'http://localhost:8080/uploads/documents/'
-        + budget.documentPath
-      "
+            Télécharger
 
-      target="_blank">
+          </a>
 
-      Ouvrir le document
+        </div>
 
-    </a>
-
-    <button mat-icon-button
-      (click)="openDocument(budget.documentPath)"
-    >
-      <mat-icon>download</mat-icon>
-    </button>
-
-  </mat-card-content>
-
-</mat-card>
+      </mat-card-content>
 
     </mat-card>
 
