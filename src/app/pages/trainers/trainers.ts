@@ -11,6 +11,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TrainerFormDialog } from './trainer-form-dialog/trainer-form-dialog';
 import { MatCardModule } from '@angular/material/card';
+import { UserService } from '../../services/user-service';
 
 @Component({
   selector: 'app-trainers',
@@ -56,6 +57,8 @@ export class Trainers implements OnInit {
   constructor(
     private trainerService: TrainerService,
 
+    private userService: UserService,
+
     private dialog: MatDialog,
 
     private snackBar: MatSnackBar,
@@ -74,7 +77,7 @@ export class Trainers implements OnInit {
    */
   loadTrainers(): void {
 
-    this.trainerService.getTrainers().subscribe({
+    this.userService.getTrainers().subscribe({
 
       next: (response) => {
 

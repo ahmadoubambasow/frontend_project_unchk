@@ -21,17 +21,13 @@
 
   </div>
 
-  <!-- Menu -->
+  <!-- Menu principal -->
   <div class="menu">
 
     <a
-
       *ngFor="let item of menuItems"
-
       [routerLink]="item.route"
-
       routerLinkActive="active-link"
-
       [routerLinkActiveOptions]="{ exact: false }">
 
       <mat-icon>
@@ -46,32 +42,80 @@
 
   </div>
 
-  <!-- Utilisateur connecté -->
-  <div class="sidebar-user">
+  <!-- Utilisateur -->
+  <div class="user-section">
 
-    <div class="avatar">
+    <div
+      class="sidebar-user"
+      (click)="toggleUserMenu(); $event.stopPropagation()">
 
-      {{
-        user?.fullName
-          ? user.fullName.charAt(0).toUpperCase()
-          : 'U'
-      }}
+      <div class="avatar">
+
+        {{
+          user?.fullName
+            ? user.fullName.charAt(0).toUpperCase()
+            : 'U'
+        }}
+
+      </div>
+
+      <div class="user-info">
+
+        <h4>
+          {{ user?.fullName || 'Utilisateur' }}
+        </h4>
+
+        <p>
+          {{ user?.role || 'Invité' }}
+        </p>
+
+      </div>
+
+      <mat-icon
+        class="dropdown-icon"
+        [class.rotate]="showUserMenu">
+
+        expand_more
+
+      </mat-icon>
 
     </div>
 
-    <div>
+    <!-- Menu déroulant -->
+    <div
+      class="user-dropdown"
+      *ngIf="showUserMenu">
 
-      <h4>
-        {{ user?.fullName || 'Utilisateur' }}
-      </h4>
+      <a
+        routerLink="/profile"
+        (click)="showUserMenu = false">
 
-      <p>
-        {{ user?.role || 'Invité' }}
-      </p>
+        <mat-icon>
+          person
+        </mat-icon>
+
+        <span>
+          Mon profil
+        </span>
+
+      </a>
+
+      <button
+        type="button"
+        (click)="showUserMenu = false; logout()">
+
+        <mat-icon>
+          logout
+        </mat-icon>
+
+        <span>
+          Déconnexion
+        </span>
+
+      </button>
 
     </div>
 
   </div>
 
 </div>
-

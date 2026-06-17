@@ -61,6 +61,7 @@ import {
     DASHBOARD_ROLES
 
 } from './constants/route-roles';
+import { Profile } from './pages/profile/profile/profile';
 
 export const routes: Routes = [
     
@@ -87,6 +88,15 @@ export const routes: Routes = [
                 canActivate: [roleGuard],
                 data: {
                     roles: DASHBOARD_ROLES
+                }
+            },
+
+            {
+                path: 'profile',
+                component: Profile,
+                canActivate: [roleGuard],
+                data: {
+                    roles: ALL_AUTHENTICATED_ROLES
                 }
             },
 

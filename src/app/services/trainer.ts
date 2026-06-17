@@ -11,7 +11,7 @@ export class TrainerService {
   /**
    * API URL
    */
-  private apiUrl = 'http://localhost:8080/api/trainers';
+  private apiUrl = 'http://localhost:8080/api/formation-trainers';
 
   constructor(
     private http: HttpClient

@@ -1,4 +1,5 @@
 import {
+  ChangeDetectorRef,
   Component,
   OnInit
 } from '@angular/core';
@@ -69,7 +70,10 @@ implements OnInit {
   constructor(
 
     private communicationService:
-      CommunicationService
+      CommunicationService,
+
+    private cdr: 
+      ChangeDetectorRef
 
   ) {}
 
@@ -93,9 +97,12 @@ implements OnInit {
 
         next: (response) => {
 
+          console.log(response);
           this.archives = response;
 
           this.loading = false;
+
+          this.cdr.detectChanges();
         },
 
         error: (error) => {

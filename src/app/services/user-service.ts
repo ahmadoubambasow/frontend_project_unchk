@@ -75,6 +75,23 @@ export class UserService {
     );
   }
 
+  getProfile(): Observable<User> {
+
+    return this.http.get<User>(
+      `${this.apiUrl}/profile`
+    );
+  }
+
+  updateProfile(
+    request: UserRequest
+  ): Observable<User> {
+
+    return this.http.put<User>(
+      `${this.apiUrl}/profile`,
+      request
+    );
+  }
+
   getTrainers() {
 
     return this.http.get<any[]>(
