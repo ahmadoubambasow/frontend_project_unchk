@@ -41,26 +41,31 @@ export class Sidebar implements OnInit {
 
     private elementRef: ElementRef
 
-  ) {
-    
-    this.user = this.authService.getUser();
-  }
+  ) {}
 
   ngOnInit(): void {
-  
-    const role = this.user?.role;
 
-    this.menuItems = SIDEBAR_ITEMS.filter(
-      
-      item => item.roles.includes('ALL')
-    
-      ||
+  this.authService.currentUser$
+    .subscribe(user => {
 
-      item.roles.includes(role)
-    
-    );
-  
-  }
+      this.user = user;
+
+      const role =
+        this.user?.role;
+
+      this.menuItems =
+        SIDEBAR_ITEMS.filter(
+
+          item =>
+
+            item.roles.includes('ALL')
+
+            ||
+
+            item.roles.includes(role)
+        );
+    });
+}
 
   toggleUserMenu(): void {
 

@@ -1,13 +1,21 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { LoginRequest } from '../models/login-request.model';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { LoginResponse } from '../models/login-response.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
+
+  private currentUserSubject =
+  new BehaviorSubject<LoginResponse | null>(
+    this.getUser()
+  );
+
+currentUser$ =
+  this.currentUserSubject.asObservable();
 
   /**
    * URL de l'API
@@ -33,6 +41,8 @@ export class AuthService {
   saveUser(user: LoginResponse): void {
 
     localStorage.setItem('user', JSON.stringify(user));
+
+    this.currentUserSubject.next(user);
   }
 
   /**
@@ -79,6 +89,8 @@ export class AuthService {
     localStorage.removeItem('token');
 
     localStorage.removeItem('user');
+
+    this.currentUserSubject.next(null);
   }
 
   /**
@@ -90,4 +102,37 @@ export class AuthService {
 
     return user ? JSON.parse(user) : null;
   }
+
+
+  updateCurrentUser(
+  updatedUser: any
+): void {
+
+  const currentUser =
+    this.getCurrentUser();
+
+  if (!currentUser) {
+    return;
+  }
+
+  const mergedUser = {
+
+    ...currentUser,
+
+    fullName:
+      updatedUser.fullName,
+
+    email:
+      updatedUser.email
+  };
+
+  localStorage.setItem(
+    'user',
+    JSON.stringify(mergedUser)
+  );
+
+  this.currentUserSubject.next(
+    mergedUser
+  );
+}
 }
