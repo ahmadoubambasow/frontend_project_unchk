@@ -19,6 +19,9 @@ import {
 })
 export class StudentFileService {
 
+  /**
+   * API URL
+   */
   private apiUrl =
     'http://localhost:8080/api/student-files';
 
@@ -26,6 +29,10 @@ export class StudentFileService {
     private http: HttpClient
   ) {}
 
+  /**
+   * Récupérer tous les dossiers
+   * @returns 
+   */
   getAll():
     Observable<StudentFile[]> {
 
@@ -34,6 +41,9 @@ export class StudentFileService {
     );
   }
 
+  /**
+   * Récupérer un dossier
+   */
   getById(
     id: number
   ): Observable<StudentFile> {
@@ -43,6 +53,9 @@ export class StudentFileService {
     );
   }
 
+  /**
+   * Création d'un dossier
+   */
   create(
     request: any
   ) {
@@ -53,6 +66,12 @@ export class StudentFileService {
     );
   }
 
+  /**
+   * Mise à jour d'un dossier
+   * @param id 
+   * @param request 
+   * @returns 
+   */
   update(
     id: number,
     request: any
@@ -64,6 +83,9 @@ export class StudentFileService {
     );
   }
 
+  /**
+   * Suppression d'un dossier
+   */
   delete(
     id: number
   ) {
@@ -73,6 +95,11 @@ export class StudentFileService {
     );
   }
 
+  /**
+   * Chargement du fichier
+   * @param formData 
+   * @returns 
+   */
   uploadFile(
     formData: FormData
   ) {

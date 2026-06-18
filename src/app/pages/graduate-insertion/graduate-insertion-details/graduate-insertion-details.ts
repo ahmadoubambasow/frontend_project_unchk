@@ -34,11 +34,16 @@ import { GraduateInsertionService } from '../services/graduate-insertion';
   styleUrl:
     './graduate-insertion-details.scss'
 })
-export class GraduateInsertionDetails
-implements OnInit {
+export class GraduateInsertionDetails implements OnInit {
 
+  /**
+   * Insertion
+   */
   insertion?: GraduateInsertion;
 
+  /**
+   * Loading
+   */
   loading = false;
 
   constructor(
@@ -66,6 +71,10 @@ implements OnInit {
     this.loadInsertion(id);
   }
 
+  /**
+   * Load insertion
+   * @param id 
+   */
   loadInsertion(
     id: number
   ): void {
@@ -96,6 +105,10 @@ implements OnInit {
       });
   }
 
+  /**
+   * Get status label
+   * @param status
+   */
   getStatusLabel(
     status?: string
   ): string {

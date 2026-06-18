@@ -45,8 +45,6 @@ import { UserService } from '../../../services/user-service';
 import { AdministrativeDocument } from '../models/administrative-document.model';
 import { MatIconModule } from '@angular/material/icon';
 
-
-
 @Component({
   selector: 'app-administrative-document-form-dialog',
 
@@ -71,14 +69,29 @@ import { MatIconModule } from '@angular/material/icon';
 export class AdministrativeDocumentFormDialog
 implements OnInit {
 
+  /**
+   * Form
+   */
   form!: FormGroup;
 
+  /**
+   * Loading
+   */
   loading = false;
 
+  /**
+   * Users
+   */
   users: User[] = [];
 
+  /**
+   * Selected file
+   */
   selectedFile?: File;
 
+  /**
+   * Document types
+   */
   readonly documentTypes = [
 
     'INCOMING_MAIL',
@@ -94,6 +107,9 @@ implements OnInit {
     'CIRCULAR'
   ];
 
+  /**
+   * Statut du document
+   */
   readonly documentStatuses = [
 
     'DRAFT',
@@ -130,16 +146,22 @@ implements OnInit {
 
   ngOnInit(): void {
 
+    // Build form
     this.buildForm();
 
+    // Load users
     this.loadUsers();
 
+    // Patch form
     if (this.data) {
 
       this.patchForm();
     }
   }
 
+  /**
+   * Build form
+   */
   buildForm(): void {
 
     this.form = this.fb.group({
@@ -180,6 +202,9 @@ implements OnInit {
     });
   }
 
+  /**
+   * Load users
+   */
   loadUsers(): void {
 
     this.userService
@@ -197,6 +222,9 @@ implements OnInit {
       });
   }
 
+  /**
+   * Patch form
+   */
   patchForm(): void {
 
     this.form.patchValue({
@@ -227,6 +255,9 @@ implements OnInit {
     });
   }
 
+  /**
+   * Submit
+   */
   submit(): void {
 
   if (this.form.invalid) {
@@ -250,40 +281,28 @@ implements OnInit {
     );
 
     this.documentService
-  .uploadFile(formData)
-  .subscribe({
+      .uploadFile(formData)
+      .subscribe({
 
-    next: response => {
+      next: response => {
 
-      console.log(
-        'UPLOAD RESPONSE',
-        response
-      );
+        request.filePath =
+          response.filePath;
 
-      request.filePath =
-        response.filePath;
+      
 
-      console.log(
-        'REQUEST',
-        JSON.stringify(
-          request,
-          null,
-          2
-        )
-      );
+        this.saveDocument(
+          request
+        );
+      },
 
-      this.saveDocument(
-        request
-      );
-    },
+      error: error => {
 
-    error: error => {
+        console.error(error);
 
-      console.error(error);
-
-      this.loading = false;
-    }
-  })
+        this.loading = false;
+      }
+    })
 
     return;
   }
@@ -293,34 +312,69 @@ implements OnInit {
   );
 }
 
+  /**
+   * On file selected
+   */
+  onFileSelected(
+    event: Event
+  ): void {
 
-onFileSelected(
-  event: Event
-): void {
+    const input = event.target as HTMLInputElement;
 
-  const input = event.target as HTMLInputElement;
+    if (input.files?.length) {
 
-  if (input.files?.length) {
-
-    this.selectedFile =
-      input.files[0];
+      this.selectedFile =
+        input.files[0];
+    }
   }
-}
 
-private saveDocument(
-  request: any
-): void {
+  /**
+   * Save document
+   */
+  private saveDocument(
+    request: any
+  ): void {
 
-  console.log('document sent', JSON.stringify(request, null, 2));
+    if (this.data?.id) {
 
-  if (this.data?.id) {
+      this.documentService
+
+        .update(
+          this.data.id,
+          request
+        )
+
+        .subscribe({
+
+          next: () => {
+
+            this.loading = false;
+
+            this.snackBar.open(
+              'Document modifié',
+              'Fermer',
+              {
+                duration: 3000
+              }
+            );
+
+            this.dialogRef.close(true);
+          },
+
+          error: error => {
+
+            console.error(error);
+
+            this.loading = false;
+          }
+        });
+
+      return;
+    }
 
     this.documentService
 
-      .update(
-        this.data.id,
-        request
-      )
+      .create(request)
 
       .subscribe({
 
@@ -329,7 +383,7 @@ private saveDocument(
           this.loading = false;
 
           this.snackBar.open(
-            'Document modifié',
+            'Document créé',
             'Fermer',
             {
               duration: 3000
@@ -346,40 +400,11 @@ private saveDocument(
           this.loading = false;
         }
       });
-
-    return;
   }
 
-  this.documentService
-
-    .create(request)
-
-    .subscribe({
-
-      next: () => {
-
-        this.loading = false;
-
-        this.snackBar.open(
-          'Document créé',
-          'Fermer',
-          {
-            duration: 3000
-          }
-        );
-
-        this.dialogRef.close(true);
-      },
-
-      error: error => {
-
-        console.error(error);
-
-        this.loading = false;
-      }
-    });
-}
-
+  /**
+   * Get type label
+   */
   getTypeLabel(
     type: string
   ): string {
@@ -408,6 +433,9 @@ private saveDocument(
     return labels[type] || type;
   }
 
+  /**
+   * Get status label
+   */
   getStatusLabel(
     status: string
   ): string {

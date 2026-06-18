@@ -7,6 +7,9 @@ import { StudentContact } from '../models/Student-contact.model';
 })
 export class StudentContactService {
 
+  /**
+   * URL Api
+   */
   private apiUrl =
     'http://localhost:8080/api/student-contacts';
 
@@ -14,6 +17,10 @@ export class StudentContactService {
     private http: HttpClient
   ) {}
 
+  /**
+   * Récupérer tous les contacts
+   * @returns 
+   */
   getAll() {
 
     return this.http.get<StudentContact[]>(
@@ -21,6 +28,11 @@ export class StudentContactService {
     );
   }
 
+  /**
+   * Récupérer tous les contacts d'un etudiant
+   * @param studentId 
+   * @returns 
+   */
   getByStudent(
     studentId: number
   ) {
@@ -31,6 +43,11 @@ export class StudentContactService {
     );
   }
 
+  /**
+   * Création d'un contact
+   * @param request 
+   * @returns 
+   */
   create(
     request: any
   ) {
@@ -41,6 +58,12 @@ export class StudentContactService {
     );
   }
 
+  /**
+   * Mise à jour d'un contact
+   * @param id
+   * @param request 
+   * @returns 
+   */
   update(
     id: number,
     request: any
@@ -54,6 +77,11 @@ export class StudentContactService {
     );
   }
 
+  /**
+   * Suppression d'un contact
+   * @param id 
+   * @returns 
+   */
   delete(
     id: number
   ) {
@@ -64,6 +92,11 @@ export class StudentContactService {
     );
   }
 
+  /**
+   * Récupérer un contact
+   * @param id 
+   * @returns 
+   */
   getById(
     id: number
   ) {

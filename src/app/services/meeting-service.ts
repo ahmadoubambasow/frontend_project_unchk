@@ -19,6 +19,9 @@ import {
 })
 export class MeetingService {
 
+  /**
+   * URL de l'API
+   */
   private apiUrl =
     'http://localhost:8080/api/meetings';
 
@@ -26,6 +29,10 @@ export class MeetingService {
     private http: HttpClient
   ) {}
 
+  /**
+   * Récupérer toutes les réunions
+   * @returns 
+   */
   getMeetings():
   Observable<Meeting[]> {
 
@@ -35,6 +42,10 @@ export class MeetingService {
     );
   }
 
+  /**
+   * Récupérer mes réunions
+   * @returns 
+   */
   getMyMeetings():
   Observable<Meeting[]> {
 
@@ -44,6 +55,11 @@ export class MeetingService {
     );
   }
 
+  /**
+   * Récupérer une réunion
+   * @param id 
+   * @returns 
+   */
   getById(
     id: number
   ): Observable<Meeting> {
@@ -54,6 +70,11 @@ export class MeetingService {
     );
   }
 
+  /**
+   * Créer une réunion
+   * @param request 
+   * @returns 
+   */
   create(
     request: any
   ): Observable<Meeting> {
@@ -66,6 +87,12 @@ export class MeetingService {
     );
   }
 
+  /**
+   * Modifier une réunion
+   * @param id 
+   * @param request 
+   * @returns 
+   */
   update(
     id: number,
     request: any
@@ -79,6 +106,11 @@ export class MeetingService {
     );
   }
 
+  /**
+   * Supprimer une réunion
+   * @param id 
+   * @returns 
+   */
   delete(
     id: number
   ) {

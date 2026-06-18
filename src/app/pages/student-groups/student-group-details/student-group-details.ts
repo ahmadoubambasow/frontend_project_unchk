@@ -53,13 +53,21 @@ import { StudentGroupService } from '../../../services/student-group';
   styleUrl:
     './student-group-details.scss'
 })
-export class StudentGroupDetails
-implements OnInit {
+export class StudentGroupDetails implements OnInit {
 
+  /**
+   * Groupe
+   */
   group?: StudentGroup;
 
+  /**
+   * Etudiants
+   */
   students: Student[] = [];
 
+  /**
+   * Chargement
+   */
   loading = false;
 
   constructor(
@@ -76,7 +84,8 @@ implements OnInit {
     private router:
       Router,
 
-    private cdr: ChangeDetectorRef
+    private cdr: 
+      ChangeDetectorRef
 
   ) {}
 
@@ -92,6 +101,10 @@ implements OnInit {
     this.loadGroup(id);
   }
 
+  /**
+   * Récupérer un groupe et ses etudiants
+   * @param id 
+   */
   loadGroup(
     id: number
   ): void {
@@ -138,6 +151,10 @@ implements OnInit {
     });
   }
 
+  /**
+   * Ouvre les details d'un etudiant
+   * @param student 
+   */
   openStudentDetails(
     student: Student
   ): void {

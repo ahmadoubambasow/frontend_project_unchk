@@ -29,11 +29,20 @@ import { MatCardModule } from '@angular/material/card';
 })
 export class Promotions implements OnInit {
 
+  /**
+   * Tableau
+   */
   dataSource = new MatTableDataSource<Promotion>([]);
 
+  /**
+   * Paginateur
+   */
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
 
+  /**
+   * Colonnes
+   */
   displayedColumns = [
 
     'name',
@@ -58,8 +67,10 @@ export class Promotions implements OnInit {
 
   ngOnInit(): void {
 
+    // Chargement
     this.loadPromotions();
 
+    // Filtre
     this.dataSource.filterPredicate = (
       data: Promotion,
       filter: string

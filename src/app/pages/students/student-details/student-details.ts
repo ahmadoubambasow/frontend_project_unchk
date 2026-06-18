@@ -46,11 +46,16 @@ import { StudentService } from '../../../services/student';
   styleUrl:
     './student-details.scss'
 })
-export class StudentDetails
-implements OnInit {
+export class StudentDetails implements OnInit {
 
+  /**
+   * Etudiant
+   */
   student?: Student;
 
+  /**
+   * Chargement
+   */
   loading = false;
 
   constructor(
@@ -61,12 +66,14 @@ implements OnInit {
     private studentService:
       StudentService,
 
-      private cdr: ChangeDetectorRef
+    private cdr: 
+      ChangeDetectorRef
 
   ) {}
 
   ngOnInit(): void {
 
+    // Récupération d'id
     const id = Number(
 
       this.route.snapshot
@@ -74,9 +81,14 @@ implements OnInit {
         .get('id')
     );
 
+    // Chargement du document
     this.loadStudent(id);
   }
 
+  /**
+   * Chargement du document
+   * @param id 
+   */
   loadStudent(
     id: number
   ): void {

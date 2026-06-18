@@ -19,6 +19,9 @@ import { DashboardStats } from '../../../../../models/dashboard-stats.model';
 })
 export class AdminDashboardComponent {
 
+  /**
+   * Statistiques du dashboard
+   */
   @Input({ required: true })
   dashboard!: DashboardStats;
 

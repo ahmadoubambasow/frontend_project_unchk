@@ -19,6 +19,9 @@ import {
 })
 export class AdministrativeDocumentService {
 
+  /**
+   * URL de l'API
+   */
   private apiUrl =
     'http://localhost:8080/api/administrative-documents';
 
@@ -26,6 +29,9 @@ export class AdministrativeDocumentService {
     private http: HttpClient
   ) {}
 
+  /**
+   * Récupère tous les documents
+   */
   getAll():
     Observable<AdministrativeDocument[]> {
 
@@ -34,6 +40,9 @@ export class AdministrativeDocumentService {
     );
   }
 
+  /**
+   * Récupère un document
+   */
   getById(
     id: number
   ): Observable<AdministrativeDocument> {
@@ -43,6 +52,9 @@ export class AdministrativeDocumentService {
     );
   }
 
+  /**
+   * Création d'un document
+   */
   create(
     request: any
   ) {
@@ -53,6 +65,12 @@ export class AdministrativeDocumentService {
     );
   }
 
+  /**
+   * Mise à jour d'un document
+   * @param id 
+   * @param request 
+   * @returns 
+   */
   update(
     id: number,
     request: any
@@ -64,6 +82,11 @@ export class AdministrativeDocumentService {
     );
   }
 
+  /**
+   * Suppression d'un document
+   * @param id 
+   * @returns 
+   */
   delete(
     id: number
   ) {
@@ -73,6 +96,11 @@ export class AdministrativeDocumentService {
     );
   }
 
+  /**
+   * Chargement du fichier
+   * @param formData 
+   * @returns 
+   */
   uploadFile(formData: FormData) {
      return this.http.post<{filePath:string}>(
        `${this.apiUrl}/upload`,
@@ -80,12 +108,16 @@ export class AdministrativeDocumentService {
      )
   }
 
+  /**
+   * Récupérer mes documents
+   * @returns 
+   */
   getMyDocuments() {
 
-  return this.http.get<
-    AdministrativeDocument[]
-  >(
-    `${this.apiUrl}/my-documents`
-  );
-}
+    return this.http.get<
+      AdministrativeDocument[]
+    >(
+      `${this.apiUrl}/my-documents`
+    );
+  }
 }

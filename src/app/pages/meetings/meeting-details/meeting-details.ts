@@ -11,11 +11,16 @@ import { CommonModule } from '@angular/common';
   templateUrl: './meeting-details.html',
   styleUrl: './meeting-details.scss',
 })
-export class MeetingDetails
-implements OnInit {
+export class MeetingDetails implements OnInit {
 
+  /**
+   * Rencontre
+   */
   meeting?: Meeting;
 
+  /**
+   * En cours de chargement
+   */
   loading = false;
 
   constructor(
@@ -26,7 +31,8 @@ implements OnInit {
     private meetingService:
       MeetingService,
 
-      private cdr: ChangeDetectorRef
+    private cdr: 
+      ChangeDetectorRef
 
   ) {}
 
@@ -42,6 +48,10 @@ implements OnInit {
     this.loadMeeting(id);
   }
 
+  /**
+   * Chargement d'une rencontre
+   * @param id 
+   */
   loadMeeting(
     id: number
   ): void {

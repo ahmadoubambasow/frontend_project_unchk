@@ -25,23 +25,37 @@ import { MatIconModule } from '@angular/material/icon';
 })
 export class AssignTrainerDialog implements OnInit {
 
+  /**
+   * Form
+   */
   form!: FormGroup;
 
+  /**
+   * Trainers
+   */
   trainers: any[] = [];
 
+  /**
+   * Loading
+   */
   loading = false;
 
   constructor(
 
-    private fb: FormBuilder,
+    private fb: 
+      FormBuilder,
 
-    private userService: UserService,
+    private userService: 
+      UserService,
 
-    private formationTrainerService: FormationTrainerService,
+    private formationTrainerService: 
+      FormationTrainerService,
 
-    private snackBar: MatSnackBar,
+    private snackBar: 
+      MatSnackBar,
 
-    public dialogRef: MatDialogRef<AssignTrainerDialog>,
+    public dialogRef: 
+      MatDialogRef<AssignTrainerDialog>,
 
     @Inject(MAT_DIALOG_DATA)
 
@@ -59,6 +73,9 @@ export class AssignTrainerDialog implements OnInit {
     this.loadTrainers();
   }
 
+  /**
+   * Chargement des formateurs
+   */
   loadTrainers(): void {
 
     this.userService.getTrainers().subscribe({
@@ -72,6 +89,10 @@ export class AssignTrainerDialog implements OnInit {
     });
   }
 
+  /**
+   * Soumettre
+   * @returns 
+   */
   submit(): void {
 
     if (this.form.invalid) {

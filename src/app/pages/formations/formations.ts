@@ -75,8 +75,7 @@ import { ConfirmDialog } from '../../shared/dialogs/confirm-dialog/confirm-dialo
 
   styleUrl: './formations.scss',
 })
-export class Formations
-implements OnInit, AfterViewInit {
+export class Formations implements OnInit, AfterViewInit {
 
   /**
    * Source de données

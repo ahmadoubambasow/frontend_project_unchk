@@ -1,3 +1,6 @@
+/**
+ * Modèle de sidebar item
+ */
 export interface SidebarItem {
 
   label: string;

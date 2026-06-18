@@ -69,17 +69,31 @@ import { MatIconModule } from '@angular/material/icon';
   styleUrl:
     './internship-form-dialog.scss'
 })
-export class InternshipFormDialog
-implements OnInit {
+export class InternshipFormDialog implements OnInit {
 
+  /**
+   * Formulaire
+   */
   form!: FormGroup;
 
+  /**
+   * Chargement
+   */
   loading = false;
 
+  /**
+   * Etudiants
+   */
   students: Student[] = [];
 
+  /**
+   * Partenaires
+   */
   partners: Partner[] = [];
 
+  /**
+   * Statuts
+   */
   readonly statuses = [
 
     'ONGOING',
@@ -117,18 +131,25 @@ implements OnInit {
 
   ngOnInit(): void {
 
+    // Construction du formulaire
     this.buildForm();
 
+    // Chargement des étudiants
     this.loadStudents();
 
+    // Chargement des partenaires
     this.loadPartners();
 
+    // Patch
     if (this.data) {
 
       this.patchForm();
     }
   }
 
+  /**
+   * Construction du formulaire
+   */
   buildForm(): void {
 
     this.form = this.fb.group({
@@ -169,6 +190,9 @@ implements OnInit {
     });
   }
 
+  /**
+   * Chargement des étudiants
+   */
   loadStudents(): void {
 
     this.studentService
@@ -187,6 +211,9 @@ implements OnInit {
       });
   }
 
+  /**
+   * Chargement des partenaires
+   */
   loadPartners(): void {
 
     this.partnerService
@@ -205,6 +232,9 @@ implements OnInit {
       });
   }
 
+  /**
+   * Patch
+   */
   patchForm(): void {
 
     this.form.patchValue({
@@ -235,8 +265,13 @@ implements OnInit {
     });
   }
 
+  /**
+   * Submit
+   * @returns 
+   */
   submit(): void {
 
+    // Vérification formulaire
     if (this.form.invalid) {
 
       this.form.markAllAsTouched();
@@ -246,6 +281,7 @@ implements OnInit {
 
     this.loading = true;
 
+    // Mise à jour si id existe
     if (this.data?.id) {
 
       this.internshipService
@@ -286,6 +322,7 @@ implements OnInit {
       return;
     }
 
+    // Création d'un stage nouveau
     this.internshipService
 
       .create(

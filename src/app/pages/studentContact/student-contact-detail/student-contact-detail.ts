@@ -38,8 +38,14 @@ import { StudentContactService } from '../services/student-contact-service';
 export class StudentContactDetails
 implements OnInit {
 
+  /**
+   * Contact
+   */
   contact?: StudentContact;
 
+  /**
+   * Chargement
+   */
   loading = false;
 
   constructor(
@@ -57,6 +63,7 @@ implements OnInit {
 
   ngOnInit(): void {
 
+    // Récupération d'id
     const id = Number(
 
       this.route.snapshot
@@ -64,9 +71,14 @@ implements OnInit {
         .get('id')
     );
 
+    // Chargement du document
     this.loadContact(id);
   }
 
+  /**
+   * Récupérer un contact
+   * @param id 
+   */
   loadContact(
     id: number
   ): void {
@@ -97,6 +109,11 @@ implements OnInit {
       });
   }
 
+  /**
+   * Retourne le label du type de document
+   * @param type 
+   * @returns 
+   */
   getTypeLabel(
     type?: string
   ): string {

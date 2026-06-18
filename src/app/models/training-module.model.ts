@@ -1,3 +1,6 @@
+/**
+ * Interface TrainingModule
+ */
 export interface TrainingModule {
 
   id: number;

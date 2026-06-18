@@ -1,3 +1,6 @@
+/**
+ * Interface TrainerSubject
+ */
 export interface TrainerSubject {
 
   id: number;

@@ -1,3 +1,6 @@
+/**
+ * Modèle de formateur
+ */
 export interface TrainerResponse {
 
     id: number;

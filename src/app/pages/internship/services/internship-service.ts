@@ -7,6 +7,9 @@ import { Internship } from '../models/internship.model';
 })
 export class InternshipService {
 
+  /**
+   * URL de l'API
+   */
   private apiUrl =
     'http://localhost:8080/api/internships';
 
@@ -14,6 +17,10 @@ export class InternshipService {
     private http: HttpClient
   ) {}
 
+  /**
+   * Récupérer tous les stages
+   * @returns 
+   */
   getAll() {
 
     return this.http.get<Internship[]>(
@@ -21,6 +28,11 @@ export class InternshipService {
     );
   }
 
+  /**
+   * Récupérer un stage
+   * @param id 
+   * @returns 
+   */
   getById(
     id: number
   ) {
@@ -30,6 +42,11 @@ export class InternshipService {
     );
   }
 
+  /**
+   * Création d'un stage
+   * @param request 
+   * @returns 
+   */
   create(
     request: any
   ) {
@@ -40,6 +57,12 @@ export class InternshipService {
     );
   }
 
+  /**
+   * Mise à jour d'un stage
+   * @param id 
+   * @param request 
+   * @returns 
+   */
   update(
     id: number,
     request: any
@@ -51,6 +74,11 @@ export class InternshipService {
     );
   }
 
+  /**
+   * Suppression d'un stage
+   * @param id 
+   * @returns 
+   */
   delete(
     id: number
   ) {

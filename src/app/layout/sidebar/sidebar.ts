@@ -27,29 +27,43 @@ import { CdkAutofill } from "@angular/cdk/text-field";
 })
 export class Sidebar implements OnInit {
 
+  /**
+   * Utilisateur
+   */
   user: any;
 
+  /**
+   * Liste des menus
+   */
   menuItems: any[] = [];
 
+  /**
+   * Affichage du menu utilisateur
+   */
   showUserMenu = false;
 
   constructor(
 
-    private authService: AuthService,
+    private authService: 
+      AuthService,
 
-    private router: Router,
+    private router: 
+      Router,
 
-    private elementRef: ElementRef
+    private elementRef: 
+      ElementRef
 
   ) {}
 
   ngOnInit(): void {
 
+    // Recupération utilisateur
   this.authService.currentUser$
     .subscribe(user => {
 
       this.user = user;
 
+    
       const role =
         this.user?.role;
 
@@ -67,16 +81,25 @@ export class Sidebar implements OnInit {
     });
 }
 
+  /**
+   * Toggle menu utilisateur
+   */
   toggleUserMenu(): void {
 
     this.showUserMenu = !this.showUserMenu;
   }
 
+  /**
+   * Fermer le menu utilisateur
+   */
   closeUserMenu(): void {
 
     this.showUserMenu = false;
   }
 
+  /**
+   * Déconnexion et fermeture
+   */
   logoutAndClose() {
 
     this.showUserMenu = false;
@@ -84,6 +107,9 @@ export class Sidebar implements OnInit {
     this.logout();
   }
 
+  /**
+   * Logout
+   */
   logout(): void {
 
     this.authService.logout();
@@ -94,17 +120,17 @@ export class Sidebar implements OnInit {
   /**
  * Fermer le menu si clic extérieur
  */
-@HostListener('document:click', ['$event'])
-onDocumentClick(event: MouseEvent): void {
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent): void {
 
-  const clickedInside =
-    this.elementRef.nativeElement.contains(
-      event.target
-    );
+    const clickedInside =
+      this.elementRef.nativeElement.contains(
+        event.target
+      );
 
-  if (!clickedInside) {
+    if (!clickedInside) {
 
-    this.showUserMenu = false;
+      this.showUserMenu = false;
+    }
   }
-}
 }

@@ -42,11 +42,16 @@ import { MatDialog } from '@angular/material/dialog';
 
   styleUrl: './notifications.scss'
 })
-export class Notifications
-implements OnInit {
+export class Notifications implements OnInit {
 
+  /**
+   * Notifications
+   */
   notifications: Notification[] = [];
 
+  /**
+   * Loading
+   */
   loading = false;
 
   constructor(
@@ -54,7 +59,8 @@ implements OnInit {
     private notificationService:
       NotificationService,
 
-    private dialog: MatDialog
+    private dialog: 
+      MatDialog
 
   ) {}
 
@@ -63,6 +69,9 @@ implements OnInit {
     this.loadNotifications();
   }
 
+  /**
+   * Load notifications
+   */
   loadNotifications(): void {
 
     this.loading = true;
@@ -99,6 +108,11 @@ implements OnInit {
       });
   }
 
+  /**
+   * Marquer comme lu
+   * @param notification 
+   * @returns 
+   */
   markAsRead(
     notification: Notification
   ): void {
@@ -118,43 +132,50 @@ implements OnInit {
 
           notification.isRead = true;
         }
-      });
+      }
+    );
   }
 
+  /**
+   * Ouvrir une notification
+   * @param notification 
+   */
   openNotification(
-  notification: Notification
-): void {
+    notification: Notification
+  ): void {
 
-  if (!notification.isRead) {
+    // Different traitement si non lue
+    if (!notification.isRead) {
 
-    this.notificationService
+      // Marquer comme lu
+      this.notificationService
 
-      .markAsRead(notification.id)
+        .markAsRead(notification.id)
 
-      .subscribe({
+        .subscribe({
 
-        next: () => {
+          next: () => {
 
-          notification.isRead = true;
-        },
+            notification.isRead = true;
+          },
 
-        error: (error) => {
+          error: (error) => {
 
-          console.error(error);
-        }
-      });
-  }
-
-  this.dialog.open(
-    NotificationView,
-    {
-
-      width: '600px',
-
-      maxWidth: '95vw',
-
-      data: notification
+            console.error(error);
+          }
+        });
     }
-  );
-}
+
+    this.dialog.open(
+      NotificationView,
+      {
+
+        width: '600px',
+
+        maxWidth: '95vw',
+
+        data: notification
+      }
+    );
+  }
 }

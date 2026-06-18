@@ -1,3 +1,6 @@
+/**
+ * Interface Filiere
+ */
 export interface Filiere {
 
   id: number;

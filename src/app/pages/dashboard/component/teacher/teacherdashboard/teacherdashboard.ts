@@ -14,6 +14,9 @@ import { MatIconModule } from '@angular/material/icon';
 })
 export class TeacherDashboard {
 
+  /**
+   * Statistiques du dashboard des enseignants
+   */
   @Input({ required: true })
   dashboard!: DashboardStats;
 }

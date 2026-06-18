@@ -11,6 +11,9 @@ import { Role } from '../models/role.model';
 })
 export class RoleService {
 
+  /**
+   * URL de l'api
+   */
   private apiUrl =
     'http://localhost:8080/api/roles';
 
@@ -18,6 +21,10 @@ export class RoleService {
     private http: HttpClient
   ) {}
 
+  /**
+   * Récupérer tous les rôles
+   * @returns 
+   */
   getRoles():
     Observable<Role[]> {
 

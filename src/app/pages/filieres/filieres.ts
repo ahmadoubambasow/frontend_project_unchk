@@ -71,9 +71,15 @@ import { MatCardModule } from '@angular/material/card';
 export class Filieres
 implements OnInit {
 
+  /**
+   * Filières
+   */
   dataSource =
     new MatTableDataSource<Filiere>();
 
+  /**
+   * Colonnes affichées
+   */
   displayedColumns = [
 
     'code',
@@ -85,6 +91,9 @@ implements OnInit {
     'actions'
   ];
 
+  /**
+   * 
+   */
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
 

@@ -43,7 +43,7 @@ import {
 import {
   TrainingModuleService
 } from '../../../../services/training-module';
-import { MatCard } from "@angular/material/card";
+import { MatCard, MatCardModule } from "@angular/material/card";
 import { MatIcon } from "@angular/material/icon";
 
 @Component({
@@ -57,7 +57,7 @@ import { MatIcon } from "@angular/material/icon";
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    MatCard,
+    MatCardModule,
     MatIcon
 ],
 
@@ -67,16 +67,22 @@ import { MatIcon } from "@angular/material/icon";
   styleUrl:
     './module-form-dialog.scss'
 })
-export class ModuleFormDialog
-implements OnInit {
+export class ModuleFormDialog implements OnInit {
 
+  /**
+   * Form
+   */
   form!: FormGroup;
 
+  /**
+   * Loading
+   */
   loading = false;
 
   constructor(
 
-    private fb: FormBuilder,
+    private fb: 
+      FormBuilder,
 
     private moduleService:
       TrainingModuleService,
@@ -141,8 +147,13 @@ implements OnInit {
     }
   }
 
+  /**
+   * Soumettre
+   * @returns 
+   */
   submit(): void {
 
+    // Valider formulaire
     if (this.form.invalid) {
 
       this.form.markAllAsTouched();
@@ -160,6 +171,7 @@ implements OnInit {
         this.data.formationId
     };
 
+    // Edition du module
     if (this.data.module) {
 
       this.moduleService
@@ -203,6 +215,7 @@ implements OnInit {
       return;
     }
 
+    // Création du module
     this.moduleService
 
       .create(payload)

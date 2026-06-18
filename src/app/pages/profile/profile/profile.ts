@@ -25,21 +25,32 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class Profile implements OnInit {
 
+  /**
+   * Form
+   */
   form!: FormGroup;
 
+  /**
+   * 
+   */
   loading = false;
 
   constructor(
 
-    private formBuilder: FormBuilder,
+    private formBuilder: 
+      FormBuilder,
 
-    private userService: UserService,
+    private userService: 
+      UserService,
 
-    private authService: AuthService,
+    private authService: 
+      AuthService,
 
-    private snackBar: MatSnackBar,
+    private snackBar: 
+      MatSnackBar,
 
-    private cdr: ChangeDetectorRef
+    private cdr: 
+      ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -56,6 +67,9 @@ export class Profile implements OnInit {
     this.loadProfile();
   }
 
+  /**
+   * Chargement du profil
+   */
   loadProfile(): void {
 
     this.loading = true;
@@ -84,39 +98,42 @@ export class Profile implements OnInit {
     });
   }
 
+  /**
+   * Mise à jour du profil
+   */
   save(): void {
 
-  this.userService.updateProfile(this.form.value).subscribe({
+    this.userService.updateProfile(this.form.value).subscribe({
 
-    next: (user) => {
+      next: (user) => {
 
-      this.authService.updateCurrentUser(user);
+        this.authService.updateCurrentUser(user);
 
-      this.loadProfile();
+        this.loadProfile();
 
-      this.snackBar.open(
-        'Profil mis à jour avec succès',
-        'Fermer',
-        {
-          duration: 3000,
-          horizontalPosition: 'right',
-          verticalPosition: 'top'
-        }
-      );
-    },
+        this.snackBar.open(
+          'Profil mis à jour avec succès',
+          'Fermer',
+          {
+            duration: 3000,
+            horizontalPosition: 'right',
+            verticalPosition: 'top'
+          }
+        );
+      },
 
-    error: () => {
+      error: () => {
 
-      this.snackBar.open(
-        'Erreur lors de la mise à jour du profil',
-        'Fermer',
-        {
-          duration: 3000,
-          horizontalPosition: 'right',
-          verticalPosition: 'top'
-        }
-      );
-    }
-  });
-}
+        this.snackBar.open(
+          'Erreur lors de la mise à jour du profil',
+          'Fermer',
+          {
+            duration: 3000,
+            horizontalPosition: 'right',
+            verticalPosition: 'top'
+          }
+        );
+      }
+    });
+  }
 }

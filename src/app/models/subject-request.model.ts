@@ -1,3 +1,6 @@
+/**
+ * Modèle de demande de matière
+ */
 export interface SubjectRequest {
 
   name: string;

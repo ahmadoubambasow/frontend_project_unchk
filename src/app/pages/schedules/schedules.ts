@@ -59,11 +59,16 @@ import { RouterModule } from '@angular/router';
   styleUrl:
     './schedules.scss'
 })
-export class Schedules
-implements OnInit {
+export class Schedules implements OnInit {
 
+  /**
+   * Liste des créneaux
+   */
   schedules: Schedule[] = [];
 
+  /**
+   * Indicateur de chargement
+   */
   loading = false;
 
   constructor(
@@ -77,7 +82,8 @@ implements OnInit {
     private snackBar:
       MatSnackBar,
 
-      private cdr: ChangeDetectorRef
+    private cdr: 
+      ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -85,6 +91,9 @@ implements OnInit {
     this.loadSchedules();
   }
 
+  /**
+   * Chargement des séances
+   */
   loadSchedules(): void {
 
     this.loading = true;
@@ -114,6 +123,9 @@ implements OnInit {
       });
   }
 
+  /**
+   * Ouverture du formulaire de création
+   */
   openCreateDialog(): void {
 
     const dialogRef =
@@ -140,6 +152,9 @@ implements OnInit {
       });
   }
 
+  /**
+   * Ouverture du formulaire de modification
+   */
   openEditDialog(
     schedule: Schedule
   ): void {
@@ -171,6 +186,9 @@ implements OnInit {
       });
   }
 
+  /**
+   * Suppression d'un séance
+   */
   deleteSchedule(
     schedule: Schedule
   ): void {

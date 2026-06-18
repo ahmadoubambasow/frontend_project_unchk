@@ -55,13 +55,21 @@ import { MatDivider } from "@angular/material/divider";
 
   styleUrl: './internship.scss'
 })
-export class Internships
-implements OnInit {
+export class Internships implements OnInit {
 
+  /**
+   * Internships
+   */
   internships: Internship[] = [];
 
+  /**
+   * Filtered Internships
+   */
   filteredInternships: Internship[] = [];
 
+  /**
+   * Loading
+   */
   loading = false;
 
   constructor(
@@ -78,7 +86,8 @@ implements OnInit {
     private router:
       Router,
 
-    private cdr: ChangeDetectorRef
+    private cdr: 
+      ChangeDetectorRef
 
   ) {}
 
@@ -87,6 +96,9 @@ implements OnInit {
     this.loadInternships();
   }
 
+  /**
+   * Load Internships
+   */
   loadInternships(): void {
 
     this.loading = true;
@@ -117,6 +129,10 @@ implements OnInit {
       });
   }
 
+  /**
+   * Filtre des stages
+   * @param event 
+   */
   applyFilter(
     event: Event
   ): void {
@@ -137,24 +153,30 @@ implements OnInit {
 
         internship =>
 
+          // Filtre sur le Nom
           internship.studentName
             ?.toLowerCase()
             .includes(value)
 
           ||
 
+          // Filtre sur le partenaire
           internship.partnerName
             ?.toLowerCase()
             .includes(value)
 
           ||
 
+          // Filtre sur le status
           internship.status
             ?.toLowerCase()
             .includes(value)
       );
   }
 
+  /**
+   * Ouvre les details d'un stage
+   */
   openDetails(
     internship: Internship
   ): void {
@@ -168,6 +190,9 @@ implements OnInit {
     ]);
   }
 
+  /**
+   * Ouvre le formulaire de creation
+   */
   openCreateDialog(): void {
 
     const dialogRef =
@@ -193,6 +218,10 @@ implements OnInit {
       });
   }
 
+  /**
+   * Ouvre le formulaire de modification
+   * @param internship 
+   */
   openEditDialog(
     internship: Internship
   ): void {
@@ -221,6 +250,10 @@ implements OnInit {
       });
   }
 
+  /**
+   * Supprime un stage
+   * @param internship 
+   */
   deleteInternship(
     internship: Internship
   ): void {

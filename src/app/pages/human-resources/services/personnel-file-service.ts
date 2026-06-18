@@ -19,6 +19,9 @@ import {
 })
 export class PersonnelFileService {
 
+  /**
+   * URL de l'API
+   */
   private apiUrl =
     'http://localhost:8080/api/personnel-files';
 
@@ -26,6 +29,10 @@ export class PersonnelFileService {
     private http: HttpClient
   ) {}
 
+  /**
+   * Récupérer tous les dossiers
+   * @returns 
+   */
   getAll():
     Observable<PersonnelFile[]> {
 
@@ -34,6 +41,11 @@ export class PersonnelFileService {
     );
   }
 
+  /**
+   * Récupérer un dossier
+   * @param id 
+   * @returns 
+   */
   getById(
     id: number
   ): Observable<PersonnelFile> {
@@ -43,6 +55,11 @@ export class PersonnelFileService {
     );
   }
 
+  /**
+   * Création d'un dossier
+   * @param request 
+   * @returns 
+   */
   create(
     request: any
   ) {
@@ -53,6 +70,12 @@ export class PersonnelFileService {
     );
   }
 
+  /**
+   * Mise à jour d'un dossier
+   * @param id 
+   * @param request 
+   * @returns 
+   */
   update(
     id: number,
     request: any
@@ -64,6 +87,11 @@ export class PersonnelFileService {
     );
   }
 
+  /**
+   * Suppression d'un dossier
+   * @param id 
+   * @returns 
+   */
   delete(
     id: number
   ) {
@@ -73,6 +101,11 @@ export class PersonnelFileService {
     );
   }
 
+  /**
+   * Chargement du fichier
+   * @param formData 
+   * @returns 
+   */
   uploadFile(
     formData: FormData
   ) {

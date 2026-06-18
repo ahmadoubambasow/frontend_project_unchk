@@ -19,6 +19,9 @@ import {
 })
 export class GraduateInsertionService {
 
+  /**
+   * API URL
+   */
   private apiUrl =
     'http://localhost:8080/api/graduate-insertions';
 
@@ -26,6 +29,10 @@ export class GraduateInsertionService {
     private http: HttpClient
   ) {}
 
+  /**
+   * Récupérer tous les étudiants inserés
+   * @returns 
+   */
   getAll():
     Observable<GraduateInsertion[]> {
 
@@ -34,6 +41,11 @@ export class GraduateInsertionService {
     );
   }
 
+  /**
+   * Récupérer un étudiant insérer
+   * @param id 
+   * @returns 
+   */
   getById(
     id: number
   ): Observable<GraduateInsertion> {
@@ -43,6 +55,11 @@ export class GraduateInsertionService {
     );
   }
 
+  /**
+   * Création d'un étudiant insérer
+   * @param request 
+   * @returns 
+   */
   create(
     request: any
   ) {
@@ -53,6 +70,12 @@ export class GraduateInsertionService {
     );
   }
 
+  /**
+   * Mise à jour d'un étudiant insérer
+   * @param id 
+   * @param request 
+   * @returns 
+   */
   update(
     id: number,
     request: any
@@ -64,6 +87,11 @@ export class GraduateInsertionService {
     );
   }
 
+  /**
+   * Suppression d'un étudiant insérer
+   * @param id 
+   * @returns 
+   */
   delete(
     id: number
   ) {

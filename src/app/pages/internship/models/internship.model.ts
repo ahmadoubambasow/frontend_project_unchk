@@ -1,3 +1,6 @@
+/**
+ * Stage
+ */
 export interface Internship {
 
   id: number;

@@ -37,8 +37,6 @@ import { GraduateInsertionFormDialog } from '../graduate-insertion-form-dialog/g
 import { MatCardModule } from '@angular/material/card';
 import { MatDivider } from "@angular/material/divider";
 
-
-
 @Component({
   selector: 'app-graduate-insertions',
 
@@ -60,15 +58,23 @@ import { MatDivider } from "@angular/material/divider";
   styleUrl:
     './graduate-insertions.scss'
 })
-export class GraduateInsertions
-implements OnInit {
+export class GraduateInsertions implements OnInit {
 
+  /**
+   * List of insertions
+   */
   insertions:
     GraduateInsertion[] = [];
 
+  /**
+   * Filtered list of insertions
+   */
   filteredInsertions:
     GraduateInsertion[] = [];
 
+    /**
+     * Loading indicator
+     */
   loading = false;
 
 
@@ -86,7 +92,8 @@ implements OnInit {
     private router:
       Router,
 
-    private cdr: ChangeDetectorRef
+    private cdr: 
+      ChangeDetectorRef
 
   ) {}
 
@@ -95,6 +102,9 @@ implements OnInit {
     this.loadInsertions();
   }
 
+  /**
+   * Load insertions
+   */
   loadInsertions(): void {
 
     this.loading = true;
@@ -125,6 +135,10 @@ implements OnInit {
       });
   }
 
+  /**
+   * Filter insertions
+   * @param event 
+   */
   applyFilter(
     event: Event
   ): void {
@@ -159,6 +173,9 @@ implements OnInit {
       );
   }
 
+  /**
+   * Open create dialog
+   */
   openCreateDialog(): void {
 
     const dialogRef =
@@ -184,6 +201,9 @@ implements OnInit {
       });
   }
 
+  /**
+   * Open edit dialog
+   */
   openEditDialog(
     insertion: GraduateInsertion
   ): void {
@@ -212,6 +232,9 @@ implements OnInit {
       });
   }
 
+  /**
+   * Open details
+   */
   openDetails(
     insertion: GraduateInsertion
   ): void {
@@ -224,6 +247,10 @@ implements OnInit {
     ]);
   }
 
+  /**
+   * Delete insertion
+   * @param insertion 
+   */
   deleteInsertion(
     insertion: GraduateInsertion
   ): void {
@@ -254,6 +281,9 @@ implements OnInit {
       });
   }
 
+  /**
+   * Get status label
+   */
   getStatusLabel(
     status: string
   ): string {

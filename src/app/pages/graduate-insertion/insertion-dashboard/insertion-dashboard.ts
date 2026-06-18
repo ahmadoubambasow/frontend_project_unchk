@@ -25,9 +25,11 @@ import { InsertionDashboard } from '../models/insertion-dashboard.model';
   styleUrl:
     './insertion-dashboard.scss'
 })
-export class InsertionDashboardPage
-implements OnInit {
+export class InsertionDashboardPage implements OnInit {
 
+  /**
+   * Dashboard
+   */
   dashboard?: InsertionDashboard;
 
   constructor(
@@ -35,7 +37,8 @@ implements OnInit {
     private dashboardService:
       InsertionDashboardService,
 
-      private cdr: ChangeDetectorRef
+    private cdr: 
+      ChangeDetectorRef
 
   ) {}
 

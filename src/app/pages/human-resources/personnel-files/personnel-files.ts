@@ -56,16 +56,27 @@ import { PersonnelFileService } from '../services/personnel-file-service';
   styleUrl:
     './personnel-files.scss'
 })
-export class PersonnelFiles
-implements OnInit {
+export class PersonnelFiles implements OnInit {
 
+  /**
+   * Liste des dossiers
+   */
   personnelFiles: PersonnelFile[] = [];
 
+  /**
+   * Liste des dossiers filtrés
+   */
   filteredPersonnelFiles:
     PersonnelFile[] = [];
 
+  /**
+   * Indicateur de chargement
+   */
   loading = false;
 
+  /**
+   * Statistiques
+   */
   teachersCount = 0;
 
   tutorsCount = 0;
@@ -86,7 +97,8 @@ implements OnInit {
     private router:
       Router,
 
-      private cdr: ChangeDetectorRef
+    private cdr: 
+      ChangeDetectorRef
 
   ) {}
 
@@ -95,6 +107,9 @@ implements OnInit {
     this.loadPersonnelFiles();
   }
 
+  /**
+   * Chargement des dossiers
+   */
   loadPersonnelFiles(): void {
 
     this.loading = true;
@@ -129,6 +144,9 @@ implements OnInit {
       });
   }
 
+  /**
+   * Calcul des statistiques
+   */
   calculateStats(): void {
 
     this.teachersCount =
@@ -170,6 +188,10 @@ implements OnInit {
       ).length;
   }
 
+  /**
+   * Filtre
+   * @param event 
+   */
   applyFilter(
     event: Event
   ): void {
@@ -200,6 +222,9 @@ implements OnInit {
       );
   }
 
+  /**
+   * Ouverture du formulaire
+   */
   openCreateDialog(): void {
 
     const dialogRef =
@@ -225,6 +250,10 @@ implements OnInit {
       });
   }
 
+  /**
+   * Ouverture du formulaire de modification
+   * @param personnel 
+   */
   openEditDialog(
     personnel: PersonnelFile
   ): void {
@@ -254,6 +283,10 @@ implements OnInit {
       });
   }
 
+  /**
+   * Ouverture des détails
+   * @param personnel
+   */
   openDetails(
     personnel: PersonnelFile
   ): void {
@@ -266,6 +299,11 @@ implements OnInit {
     ]);
   }
 
+  /**
+   * Suppression
+   * @param personnel 
+   * @returns 
+   */
   deletePersonnelFile(
     personnel: PersonnelFile
   ): void {

@@ -1,3 +1,6 @@
+/**
+ * Modèle de formation et de trainer
+ */
 export interface Trainer {
 
   id: number;

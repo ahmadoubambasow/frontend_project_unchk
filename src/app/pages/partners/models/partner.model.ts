@@ -1,3 +1,6 @@
+/**
+ * Interface Partner
+ */
 export interface Partner {
 
   id: number;

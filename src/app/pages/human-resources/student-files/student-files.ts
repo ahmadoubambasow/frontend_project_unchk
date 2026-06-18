@@ -58,14 +58,22 @@ import { MatCardModule } from '@angular/material/card';
   styleUrl:
     './student-files.scss'
 })
-export class StudentFiles
-implements OnInit {
+export class StudentFiles implements OnInit {
 
+  /**
+   * Liste des fichiers
+   */
   studentFiles: StudentFile[] = [];
 
+  /**
+   * Liste des fichiers filtrés
+   */
   filteredStudentFiles:
     StudentFile[] = [];
 
+  /**
+   * Indicateur de chargement
+   */
   loading = false;
 
   constructor(
@@ -82,7 +90,8 @@ implements OnInit {
     private router:
       Router,
 
-      private cdr: ChangeDetectorRef
+    private cdr: 
+      ChangeDetectorRef
 
   ) {}
 
@@ -91,6 +100,9 @@ implements OnInit {
     this.loadStudentFiles();
   }
 
+  /**
+   * Chargement des fichiers
+   */
   loadStudentFiles(): void {
 
     this.loading = true;
@@ -123,6 +135,10 @@ implements OnInit {
       });
   }
 
+  /**
+   * Filtre
+   * @param event 
+   */
   applyFilter(
     event: Event
   ): void {
@@ -153,6 +169,9 @@ implements OnInit {
       );
   }
 
+  /**
+   * Ouverture de la fenêtre de création
+   */
   openCreateDialog(): void {
 
     const dialogRef =
@@ -178,6 +197,9 @@ implements OnInit {
       });
   }
 
+  /**
+   * Ouverture de la fenêtre de détails
+   */
   openDetails(
     student: StudentFile
   ): void {
@@ -188,6 +210,10 @@ implements OnInit {
     ]);
   }
 
+  /**
+   * Ouverture de la fenêtre de modification
+   * @param student 
+   */
   openEditDialog(
     student: StudentFile
   ): void {
@@ -217,6 +243,11 @@ implements OnInit {
       });
   }
 
+  /**
+   * Ouverture de la fenêtre de suppression
+   * @param student 
+   * @returns 
+   */
   deleteStudentFile(
     student: StudentFile
   ): void {

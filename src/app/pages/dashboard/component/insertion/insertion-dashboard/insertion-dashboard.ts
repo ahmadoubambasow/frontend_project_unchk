@@ -14,6 +14,9 @@ import { MatCardModule } from '@angular/material/card';
 })
 export class InsertionDashboard {
 
+  /**
+   * Statistiques de l'insertion
+   */
   @Input({ required: true })
   dashboard!: DashboardStats;
 }

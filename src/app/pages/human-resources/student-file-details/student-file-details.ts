@@ -33,11 +33,16 @@ import { StudentFileService } from '../services/student-file';
   styleUrl:
     './student-file-details.scss'
 })
-export class StudentFileDetails
-implements OnInit {
+export class StudentFileDetails implements OnInit {
 
+  /**
+   * Dossier etudiant
+   */
   studentFile?: StudentFile;
 
+  /**
+   * Chargement
+   */
   loading = false;
 
   constructor(
@@ -65,6 +70,10 @@ implements OnInit {
     this.loadStudentFile(id);
   }
 
+  /**
+   * Chargement d'un dossier etudiant
+   * @param id 
+   */
   loadStudentFile(
     id: number
   ): void {
@@ -96,6 +105,11 @@ implements OnInit {
       });
   }
 
+  /**
+   * Verification de l'image
+   * @param path 
+   * @returns
+   */
   isImage(
     path?: string
   ): boolean {

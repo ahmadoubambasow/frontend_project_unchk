@@ -18,6 +18,9 @@ import { StudentGroup } from '../models/student-group.model';
 })
 export class StudentService {
 
+  /**
+   * URL de l'api
+   */
   private apiUrl =
     'http://localhost:8080/api/students';
 
@@ -25,6 +28,10 @@ export class StudentService {
     private http: HttpClient
   ) {}
 
+  /**
+   * Récupérer tous les étudiants
+   * @returns 
+   */
   getStudents():
     Observable<Student[]> {
 
@@ -33,6 +40,11 @@ export class StudentService {
     );
   }
 
+  /**
+   * Récupérer un étudiant
+   * @param id 
+   * @returns 
+   */
   getById(
     id: number
   ): Observable<Student> {
@@ -42,6 +54,11 @@ export class StudentService {
     );
   }
 
+  /**
+   * Créer un étudiant
+   * @param request 
+   * @returns 
+   */
   create(
     request: any
   ): Observable<Student> {
@@ -52,6 +69,12 @@ export class StudentService {
     );
   }
 
+  /**
+   * Modifier un étudiant
+   * @param id 
+   * @param request 
+   * @returns 
+   */
   update(
     id: number,
     request: any
@@ -63,6 +86,11 @@ export class StudentService {
     );
   }
 
+  /**
+   * Supprimer un étudiant
+   * @param id 
+   * @returns 
+   */
   delete(
     id: number
   ) {
@@ -72,6 +100,11 @@ export class StudentService {
     );
   }
 
+  /**
+   * Récupérer tous les étudiants d'un groupe
+   * @param groupId 
+   * @returns 
+   */
   getStudentsByGroup(
     groupId: number
   ) {

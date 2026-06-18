@@ -1,3 +1,6 @@
+/**
+ * Modèle de groupe d'etudiant
+ */
 export interface StudentGroup {
 
   id: number;

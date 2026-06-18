@@ -23,6 +23,9 @@ import {
 })
 export class ScheduleService {
 
+  /**
+   * API URL
+   */
   private apiUrl =
     'http://localhost:8080/api/schedules';
 
@@ -33,6 +36,10 @@ export class ScheduleService {
 
   ) {}
 
+  /**
+   * Récupérer tous les emplois du temps
+   * @returns 
+   */
   getSchedules():
   Observable<Schedule[]> {
 
@@ -41,6 +48,10 @@ export class ScheduleService {
     );
   }
 
+  /**
+   * Récupérer mon emploi du temps
+   * @returns 
+   */
   getMySchedule()
   : Observable<Schedule[]> {
 
@@ -50,6 +61,11 @@ export class ScheduleService {
     );
   }
 
+  /**
+   * Récupérer un emploi du temps
+   * @param id 
+   * @returns 
+   */
   getById(
     id: number
   ): Observable<Schedule> {
@@ -60,6 +76,11 @@ export class ScheduleService {
     );
   }
 
+  /**
+   * Récupérer tous les emplois du temps d'un groupe
+   * @param groupId 
+   * @returns 
+   */
   getGroupSchedules(
     groupId: number
   ): Observable<Schedule[]> {
@@ -70,6 +91,11 @@ export class ScheduleService {
     );
   }
 
+  /**
+   * Récupérer tous les emplois du temps d'un trainer
+   * @param trainerId 
+   * @returns 
+   */
   getTrainerSchedules(
     trainerId: number
   ): Observable<Schedule[]> {
@@ -80,6 +106,11 @@ export class ScheduleService {
     );
   }
 
+  /**
+   * Créer un emploi du temps
+   * @param request 
+   * @returns 
+   */
   create(
     request: ScheduleRequest
   ): Observable<Schedule> {
@@ -92,6 +123,12 @@ export class ScheduleService {
     );
   }
 
+  /**
+   * Modifier un emploi du temps
+   * @param id 
+   * @param request 
+   * @returns 
+   */
   update(
 
     id: number,
@@ -108,6 +145,11 @@ export class ScheduleService {
     );
   }
 
+  /**
+   * Supprimer un emploi du temps
+   * @param id 
+   * @returns 
+   */
   delete(
     id: number
   ): Observable<void> {

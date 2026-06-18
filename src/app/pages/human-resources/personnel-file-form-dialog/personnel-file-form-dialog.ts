@@ -68,17 +68,31 @@ import { MatIconModule } from '@angular/material/icon';
   styleUrl:
     './personnel-file-form-dialog.scss'
 })
-export class PersonnelFileFormDialog
-implements OnInit {
+export class PersonnelFileFormDialog implements OnInit {
 
+  /**
+   * Formulaire
+   */
   form!: FormGroup;
 
+  /**
+   * Chargement
+   */
   loading = false;
 
+  /**
+   * Utilisateurs
+   */
   users: User[] = [];
 
+  /**
+   * Fichier selectionne
+   */
   selectedFile?: File;
 
+  /**
+   * Types de contrat
+   */
   readonly contractTypes = [
 
     'CDI',
@@ -115,8 +129,10 @@ implements OnInit {
 
   ngOnInit(): void {
 
+    // Construction du formulaire
     this.buildForm();
 
+    // Chargement des utilisateurs
     this.loadUsers();
 
     if (this.data) {
@@ -125,6 +141,9 @@ implements OnInit {
     }
   }
 
+  /**
+   * Construction du formulaire
+   */
   buildForm(): void {
 
     this.form = this.fb.group({
@@ -154,6 +173,9 @@ implements OnInit {
     });
   }
 
+  /**
+   * Chargement des utilisateurs
+   */
   loadUsers(): void {
 
     this.userService
@@ -171,6 +193,9 @@ implements OnInit {
       });
   }
 
+  /**
+   * Mise à jour du formulaire
+   */
   patchForm(): void {
 
     this.form.patchValue({
@@ -207,6 +232,10 @@ implements OnInit {
     });
   }
 
+  /**
+   * Envoi du formulaire
+   * @returns 
+   */
   submit(): void {
 
     if (this.form.invalid) {
@@ -263,10 +292,16 @@ implements OnInit {
     );
   }
 
+  /**
+   * Envoi du formulaire
+   * @param request 
+   * @returns 
+   */
   private savePersonnel(
     request: any
   ): void {
 
+    // Mise à jour si id existe
     if (this.data?.id) {
 
       this.service
@@ -304,6 +339,7 @@ implements OnInit {
       return;
     }
 
+    // Création sinon
     this.service
 
       .create(request)
@@ -334,6 +370,10 @@ implements OnInit {
       });
   }
 
+  /**
+   * Fichier selectionne
+   * @param event 
+   */
   onFileSelected(
     event: Event
   ): void {

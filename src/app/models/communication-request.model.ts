@@ -1,3 +1,6 @@
+/**
+ * Modèle de demande de communication
+ */
 export interface CommunicationRequest {
 
   title: string;

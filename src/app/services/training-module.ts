@@ -17,6 +17,10 @@ export class TrainingModuleService {
     private http: HttpClient
   ) {}
 
+  /**
+   * Récupérer tous les modules
+   * @returns 
+   */
   getModules():
     Observable<TrainingModule[]> {
 
@@ -26,6 +30,11 @@ export class TrainingModuleService {
       );
   }
 
+  /**
+   * Récupérer tous les modules d'une formation
+   * @param formationId 
+   * @returns 
+   */
   getByFormation(
     formationId: number
   ): Observable<TrainingModule[]> {
@@ -36,6 +45,11 @@ export class TrainingModuleService {
     );
   }
 
+  /**
+   * Créer un module
+   * @param request 
+   * @returns 
+   */
   create(
     request: any
   ): Observable<TrainingModule> {
@@ -46,6 +60,12 @@ export class TrainingModuleService {
     );
   }
 
+  /**
+   * Modifier un module
+   * @param id 
+   * @param request 
+   * @returns 
+   */
   update(
     id: number,
     request: any
@@ -57,6 +77,11 @@ export class TrainingModuleService {
     );
   }
 
+  /**
+   * Supprimer un module
+   * @param id 
+   * @returns 
+   */
   delete(
     id: number
   ) {

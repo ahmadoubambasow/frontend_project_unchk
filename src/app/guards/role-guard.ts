@@ -14,6 +14,8 @@ export const roleGuard: CanActivateFn = (
 
 ) => {
 
+  // Recupération des services
+
   const authService = inject(AuthService);
 
   const router = inject(Router);
@@ -22,34 +24,28 @@ export const roleGuard: CanActivateFn = (
 
   const currentUser = authService.getCurrentUser();
 
-  if (
-
-    !currentUser
-
-  ) {
+  // Vérifie si utilisateur connecté 
+  if (!currentUser) {
 
     router.navigate(['/login']);
 
     return false;
   }
 
+  // Vérifie si utilisateur autorisé
   if (!allowedRoles || allowedRoles.length === 0) {
 
     return true;
 
   }
 
-  if (
-
-    allowedRoles.includes(
-      currentUser.role
-    )
-
-  ) {
+  // Vérifie si role autorisé
+  if (allowedRoles.includes(currentUser.role)) {
 
     return true;
   }
 
+  // Sinon redirection dashboard
   router.navigate(['/dashboard']);
 
   return false;

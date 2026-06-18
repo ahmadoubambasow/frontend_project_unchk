@@ -30,9 +30,6 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormField, MatLabel } from "@angular/material/form-field";
 import { MatInputModule } from '@angular/material/input';
 
-
-
-
 @Component({
   selector: 'app-users',
 
@@ -50,11 +47,16 @@ import { MatInputModule } from '@angular/material/input';
 
   styleUrl: './utilisateurs.scss'
 })
-export class Users
-implements OnInit {
+export class Users implements OnInit {
 
+  /**
+   * Liste des utilisateurs
+   */
   users: User[] = [];
 
+  /**
+   * Indicateur de chargement
+   */
   loading = false;
 
   constructor(
@@ -68,15 +70,20 @@ implements OnInit {
     private snackBar:
       MatSnackBar,
 
-      private cdr: ChangeDetectorRef
+    private cdr: 
+      ChangeDetectorRef
 
   ) {}
 
   ngOnInit(): void {
 
+    // Chargement des utilisateurs
     this.loadUsers();
   }
 
+  /**
+   * Chargement des utilisateurs
+   */
   loadUsers(): void {
 
     this.loading = true;
@@ -100,6 +107,9 @@ implements OnInit {
       });
   }
 
+  /**
+   * Création d'un utilisateur
+   */
   createUser(): void {
 
     const dialogRef =
@@ -129,6 +139,10 @@ implements OnInit {
       });
   }
 
+  /**
+   * Modification d'un utilisateur
+   * @param user 
+   */
   editUser(
     user: User
   ): void {
@@ -157,6 +171,11 @@ implements OnInit {
       });
   }
 
+  /**
+   * Suppression d'un utilisateur
+   * @param user 
+   * @returns 
+   */
   deleteUser(
     user: User
   ): void {

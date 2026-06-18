@@ -14,6 +14,9 @@ import { MatIconModule } from '@angular/material/icon';
 })
 export class DirectionDashboard {
 
+  /**
+   * Statistiques du direction
+   */
   @Input({ required: true })
   dashboard!: DashboardStats;
 }

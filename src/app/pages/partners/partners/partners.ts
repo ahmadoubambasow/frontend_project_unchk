@@ -50,13 +50,21 @@ import { MatInputModule } from '@angular/material/input';
 
   styleUrl: './partners.scss'
 })
-export class Partners
-implements OnInit {
+export class Partners implements OnInit {
 
+  /**
+   * Liste des partenaires
+   */
   partners: Partner[] = [];
 
+  /**
+   * Liste des partenaires filtrés
+   */
   filteredPartners: Partner[] = [];
 
+  /**
+   * Indicateur de chargement
+   */
   loading = false;
 
   constructor(
@@ -69,7 +77,8 @@ implements OnInit {
 
     private router: Router,
 
-      private cdr: ChangeDetectorRef
+    private cdr: 
+      ChangeDetectorRef
 
   ) {}
 
@@ -78,6 +87,9 @@ implements OnInit {
     this.loadPartners();
   }
 
+  /**
+   * Chargement des partenaires
+   */
   loadPartners(): void {
 
     this.loading = true;
@@ -110,6 +122,10 @@ implements OnInit {
       });
   }
 
+  /**
+   * Filtre des partenaires
+   * @param event 
+   */
   applyFilter(event: Event): void {
 
     const filterValue =
@@ -123,6 +139,9 @@ implements OnInit {
   }
 
 
+  /**
+   * Ouverture de la fenêtre de création
+   */
   openCreateDialog(): void {
 
     const dialogRef =
@@ -151,6 +170,10 @@ implements OnInit {
       });
   }
 
+  /**
+   * Ouverture de la fenêtre de modification
+   * @param partner 
+   */
   openEditDialog(
     partner: Partner
   ): void {
@@ -181,6 +204,10 @@ implements OnInit {
       });
   }
 
+  /**
+   * Suppression d'un partenaire
+   * @param partner 
+   */
   deletePartner(
     partner: Partner
   ): void {
@@ -198,6 +225,10 @@ implements OnInit {
   }
 
 
+  /**
+   * Ouverture de la fenêtre de details
+   * @param partner 
+   */
   openDetails(
     partner: Partner
   ): void {

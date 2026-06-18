@@ -1,5 +1,9 @@
+/**
+ * Interface Promotion
+ */
 export interface Promotion {
-formationName: any;
+  
+  formationName: any;
 
   id: number;
 

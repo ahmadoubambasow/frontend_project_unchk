@@ -37,11 +37,16 @@ import { MatIconModule } from '@angular/material/icon';
   styleUrl:
     './personnel-file-details.scss'
 })
-export class PersonnelFileDetails
-implements OnInit {
+export class PersonnelFileDetails implements OnInit {
 
+  /**
+   * Personnel
+   */
   personnel?: PersonnelFile;
 
+  /**
+   * Loading
+   */
   loading = false;
 
   constructor(
@@ -69,6 +74,10 @@ implements OnInit {
     this.loadPersonnel(id);
   }
 
+  /**
+   * Chargement d'un personnel
+   * @param id 
+   */
   loadPersonnel(
     id: number
   ): void {
@@ -99,6 +108,12 @@ implements OnInit {
       });
   }
 
+
+  /**
+   * Verification de l'image
+   * @param path 
+   * @returns 
+   */
   isImage(
     path?: string
   ): boolean {
@@ -127,6 +142,10 @@ implements OnInit {
     );
   }
 
+  /**
+   * Ouverture du document
+   * @param filePath 
+   */
   openDocument(filePath: string): void {
 
     window.open(

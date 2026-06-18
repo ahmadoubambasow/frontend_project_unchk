@@ -70,20 +70,32 @@ import { MatIconModule } from '@angular/material/icon';
   styleUrl:
     './student-form-dialog.scss'
 })
-export class StudentFormDialog
-implements OnInit {
+export class StudentFormDialog implements OnInit {
 
+  /**
+   * Formulaire
+   */
   form!: FormGroup;
 
+  /**
+   * Chargement
+   */
   loading = false;
 
+  /**
+   * Formations
+   */
   formations: Formation[] = [];
 
+  /**
+   * Groupes
+   */
   groups: StudentGroup[] = [];
 
   constructor(
 
-    private fb: FormBuilder,
+    private fb: 
+      FormBuilder,
 
     private studentService:
       StudentService,
@@ -108,18 +120,23 @@ implements OnInit {
 
   ngOnInit(): void {
 
+    // Build form
     this.buildForm();
 
+    // Load users
     this.loadFormations();
 
+    // Load groups
     this.loadGroups();
 
+    // Patch form
     if (this.data) {
 
       this.patchForm();
     }
   }
 
+  // Build form
   buildForm(): void {
 
     this.form = this.fb.group({
@@ -165,6 +182,9 @@ implements OnInit {
     });
   }
 
+  /**
+   * Chargement des formations
+   */
   loadFormations(): void {
 
     this.formationService
@@ -183,6 +203,9 @@ implements OnInit {
       });
   }
 
+  /**
+   * Chargement des groupes
+   */
   loadGroups(): void {
 
     this.studentGroupService
@@ -201,6 +224,9 @@ implements OnInit {
       });
   }
 
+  /**
+   * Patch form
+   */
   patchForm(): void {
 
     this.form.patchValue({
@@ -234,8 +260,12 @@ implements OnInit {
     });
   }
 
+  /**
+   * Soumission
+   */
   submit(): void {
 
+    // Vérification formulaire
     if (this.form.invalid) {
 
       this.form.markAllAsTouched();
@@ -245,6 +275,7 @@ implements OnInit {
 
     this.loading = true;
 
+    // Mise à jour
     if (this.data) {
 
       this.studentService
@@ -282,6 +313,7 @@ implements OnInit {
       return;
     }
 
+    // Création
     this.studentService
 
       .create(

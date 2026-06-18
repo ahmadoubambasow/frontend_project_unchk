@@ -40,8 +40,14 @@ import { MatIcon } from "@angular/material/icon";
 export class BudgetDetails
 implements OnInit {
 
+  /**
+   * Budget
+   */
   budget?: Budget;
 
+  /**
+   * Loading
+   */
   loading = false;
 
   constructor(
@@ -59,6 +65,7 @@ implements OnInit {
 
   ngOnInit(): void {
 
+    // Récupération d'id
     const id = Number(
 
       this.route.snapshot
@@ -66,9 +73,14 @@ implements OnInit {
         .get('id')
     );
 
+    // Chargement du document
     this.loadBudget(id);
   }
 
+  /**
+   * Chargement du document
+   * @param id 
+   */
   loadBudget(
     id: number
   ): void {
@@ -99,6 +111,11 @@ implements OnInit {
       });
   }
 
+  /**
+   * Retourne le label du type de document
+   * @param type 
+   * @returns 
+   */
   getTypeLabel(
     type?: string
   ): string {
@@ -119,42 +136,53 @@ implements OnInit {
       || '-';
   }
 
+
+  /**
+   * Indique si le fichier est une image
+   * @param path 
+   * @returns 
+   */
   isImage(
-  path?: string
-): boolean {
+    path?: string
+  ): boolean {
 
-  if (!path) {
+    if (!path) {
 
-    return false;
+      return false;
+    }
+
+    const extension =
+
+      path
+        .split('.')
+        .pop()
+        ?.toLowerCase();
+
+    return [
+
+      'jpg',
+      'jpeg',
+      'png',
+      'webp'
+
+    ].includes(
+      extension || ''
+    );
   }
 
-  const extension =
 
-    path
-      .split('.')
-      .pop()
-      ?.toLowerCase();
+  /**
+   * Ouverture du document
+   * @param filePath 
+   */
+  openDocument(
+    filePath: string
+  ): void {
 
-  return [
-
-    'jpg',
-    'jpeg',
-    'png',
-    'webp'
-
-  ].includes(
-    extension || ''
-  );
-}
-
-openDocument(
-  filePath: string
-): void {
-
-  window.open(
-    `http://localhost:8080/uploads/documents/${filePath}`,
-    '_blank'
-  );
+    window.open(
+      `http://localhost:8080/uploads/documents/${filePath}`,
+      '_blank'
+    );
 
   }
 }

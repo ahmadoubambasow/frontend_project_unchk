@@ -70,18 +70,25 @@ import { MatIconModule } from '@angular/material/icon';
   styleUrl:
     './student-group-form-dialog.scss'
 })
-export class StudentGroupFormDialog
-implements OnInit {
+export class StudentGroupFormDialog implements OnInit {
 
+  /** Formulaire  */
   form!: FormGroup;
 
+  /**
+   * Indicateur de chargement
+   */
   loading = false;
 
+  /**
+   * Formations
+   */
   formations: Formation[] = [];
 
   constructor(
 
-    private fb: FormBuilder,
+    private fb: 
+      FormBuilder,
 
     private formationService:
       FormationService,
@@ -200,6 +207,7 @@ implements OnInit {
    */
   submit(): void {
 
+    // Vérification formulaire
     if (this.form.invalid) {
 
       this.form.markAllAsTouched();
@@ -209,6 +217,7 @@ implements OnInit {
 
     this.loading = true;
 
+    // Mise à jour si id existe
     if (this.data?.id) {
 
       this.studentGroupService
@@ -263,6 +272,7 @@ implements OnInit {
       return;
     }
 
+    // Création si aucun id
     this.studentGroupService
 
       .create(

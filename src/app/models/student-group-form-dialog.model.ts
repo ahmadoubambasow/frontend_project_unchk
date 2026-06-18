@@ -1,3 +1,6 @@
+/**
+ * Interface StudentGroupFormData
+ */
 export interface StudentGroupFormData {
 
   id?: number;

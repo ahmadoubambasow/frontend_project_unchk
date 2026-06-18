@@ -1,3 +1,6 @@
+/**
+ * Modèle utilisateur connecté
+ */
 export interface currentUser {
 
     fullName: string;

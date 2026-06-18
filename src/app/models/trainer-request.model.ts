@@ -1,3 +1,6 @@
+/**
+ * Modèle de demande de formateur
+ */
 export interface TrainerRequest {
 
   firstName: string;

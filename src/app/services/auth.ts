@@ -9,13 +9,19 @@ import { LoginResponse } from '../models/login-response.model';
 })
 export class AuthService {
 
+  /**
+   * Utilisateur connecté
+   */
   private currentUserSubject =
   new BehaviorSubject<LoginResponse | null>(
     this.getUser()
   );
 
-currentUser$ =
-  this.currentUserSubject.asObservable();
+  /**
+   * Observateur utilisateur connecté
+   */
+  currentUser$ =
+    this.currentUserSubject.asObservable();
 
   /**
    * URL de l'API
@@ -104,35 +110,40 @@ currentUser$ =
   }
 
 
+  /**
+   * Mise à jour utilisateur connecté
+   * @param updatedUser 
+   * @returns 
+   */
   updateCurrentUser(
-  updatedUser: any
-): void {
+    updatedUser: any
+  ): void {
 
-  const currentUser =
-    this.getCurrentUser();
+    const currentUser =
+      this.getCurrentUser();
 
-  if (!currentUser) {
-    return;
+    if (!currentUser) {
+      return;
+    }
+
+    const mergedUser = {
+
+      ...currentUser,
+
+      fullName:
+        updatedUser.fullName,
+
+      email:
+        updatedUser.email
+    };
+
+    localStorage.setItem(
+      'user',
+      JSON.stringify(mergedUser)
+    );
+
+    this.currentUserSubject.next(
+      mergedUser
+    );
   }
-
-  const mergedUser = {
-
-    ...currentUser,
-
-    fullName:
-      updatedUser.fullName,
-
-    email:
-      updatedUser.email
-  };
-
-  localStorage.setItem(
-    'user',
-    JSON.stringify(mergedUser)
-  );
-
-  this.currentUserSubject.next(
-    mergedUser
-  );
-}
 }

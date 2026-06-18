@@ -61,12 +61,21 @@ import { MatCardModule } from '@angular/material/card';
 export class AdministrativeDocuments
 implements OnInit {
 
+  /**
+   * Liste des documents
+   */
   documents:
     AdministrativeDocument[] = [];
 
+    /**
+     * Liste des documents filtrés
+     */
   filteredDocuments:
     AdministrativeDocument[] = [];
 
+    /**
+     * Indicateur de chargement
+     */
   loading = false;
 
   constructor(
@@ -83,15 +92,20 @@ implements OnInit {
     private router:
       Router,
 
-      private cdr: ChangeDetectorRef
+    private cdr: 
+      ChangeDetectorRef
 
   ) {}
 
   ngOnInit(): void {
 
+    // Chargement des documents
     this.loadDocuments();
   }
 
+  /**
+   * Chargement des documents
+   */
   loadDocuments(): void {
 
     this.loading = true;
@@ -122,6 +136,9 @@ implements OnInit {
       });
   }
 
+  /**
+   * Filtre des documents
+   */
   applyFilter(
     event: Event
   ): void {
@@ -144,6 +161,9 @@ implements OnInit {
     );
   }
 
+  /**
+   * Ouverture du formulaire de création
+   */
   openCreateDialog(): void {
 
     const dialogRef =
@@ -169,6 +189,9 @@ implements OnInit {
       });
   }
 
+  /**
+   * Ouverture du formulaire de modification
+   */
   openEditDialog(
     document: AdministrativeDocument
   ): void {
@@ -198,6 +221,9 @@ implements OnInit {
       });
   }
 
+  /**
+   * Ouverture de la fiche d'un document
+   */
   openDetails(
     document: AdministrativeDocument
   ): void {
@@ -210,6 +236,9 @@ implements OnInit {
     ]);
   }
 
+  /**
+   * Suppression d'un document
+   */
   deleteDocument(
     document: AdministrativeDocument
   ): void {
@@ -240,6 +269,9 @@ implements OnInit {
       });
   }
 
+  /**
+   * Retourne le label du type de document
+   */
   getTypeLabel(
     type: string
   ): string {

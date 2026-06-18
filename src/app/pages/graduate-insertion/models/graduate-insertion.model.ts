@@ -1,3 +1,6 @@
+/**
+ * Interface GraduateInsertion
+ */
 export interface GraduateInsertion {
 
   id: number;

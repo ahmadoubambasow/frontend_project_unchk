@@ -50,6 +50,11 @@ export class CommunicationService {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 
+  /**
+   * Upload file
+   * @param file 
+   * @returns 
+   */
   uploadFile(file: File) {
 
     const formData = new FormData();

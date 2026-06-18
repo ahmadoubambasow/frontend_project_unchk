@@ -61,11 +61,16 @@ import { MatIconModule } from '@angular/material/icon';
   styleUrl:
     './partner-form-dialog.scss'
 })
-export class PartnerFormDialog
-implements OnInit {
+export class PartnerFormDialog implements OnInit {
 
+  /**
+   * Formulaire
+   */
   form!: FormGroup;
 
+  /**
+   * Indicateur de chargement
+   */
   loading = false;
 
   constructor(
@@ -118,17 +123,22 @@ implements OnInit {
     }
   }
 
+  /**
+   * Envoi du formulaire
+   */
   submit(): void {
 
     const request =
 
       this.data
 
+      // Mise à jour si id existe
         ? this.service.update(
             this.data.id,
             this.form.value
           )
 
+      // Création sinon
         : this.service.create(
             this.form.value
           );

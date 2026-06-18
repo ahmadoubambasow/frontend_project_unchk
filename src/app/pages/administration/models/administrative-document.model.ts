@@ -1,3 +1,7 @@
+/**
+ * Modèle document administratif
+ */
+
 export interface AdministrativeDocument {
 
   id: number;

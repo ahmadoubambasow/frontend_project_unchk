@@ -1,3 +1,6 @@
+/**
+ * Interface InsertionDashboard
+ */
 export interface InsertionDashboard {
 
   partners: number;

@@ -14,6 +14,9 @@ import { MatCard, MatCardHeader, MatCardTitle, MatCardContent, MatCardModule } f
 })
 export class SecretaryDashboard {
 
+  /**
+   * Secretary dashboard data
+   */
   @Input({ required: true })
   dashboard!: DashboardStats;
 }

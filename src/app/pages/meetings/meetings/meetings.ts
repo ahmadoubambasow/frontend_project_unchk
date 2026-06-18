@@ -53,13 +53,21 @@ import { ConfirmDialog } from '../../../shared/dialogs/confirm-dialog/confirm-di
 
   styleUrl: './meetings.scss'
 })
-export class Meetings
-implements OnInit {
+export class Meetings implements OnInit {
 
+  /**
+   * Liste des rencontres
+   */
   meetings: Meeting[] = [];
 
+  /**
+   * Liste des rencontres filtrées
+   */
   filteredMeetings: Meeting[] = [];
 
+  /**
+   * Indicateur de chargement
+   */
   loading = false;
 
   constructor(
@@ -76,7 +84,8 @@ implements OnInit {
     private router:
       Router,
 
-    private cdr: ChangeDetectorRef
+    private cdr: 
+      ChangeDetectorRef
 
   ) {}
 
@@ -85,6 +94,9 @@ implements OnInit {
     this.loadMeetings();
   }
 
+  /**
+   * Chargement des rencontres
+   */
   loadMeetings(): void {
 
     this.loading = true;
@@ -115,6 +127,10 @@ implements OnInit {
       });
   }
 
+  /**
+   * Filtre des rencontres
+   * @param event 
+   */
   applyFilter(
     event: Event
   ): void {
@@ -145,6 +161,10 @@ implements OnInit {
       );
   }
 
+  /**
+   * Ouvre les details d'une rencontre
+   * @param meeting 
+   */
   openDetails(
     meeting: Meeting
   ): void {
@@ -155,6 +175,9 @@ implements OnInit {
     ]);
   }
 
+  /**
+   * Ouvre le formulaire de création d'une rencontre
+   */
   openCreateDialog(): void {
 
     const dialogRef =
@@ -180,6 +203,11 @@ implements OnInit {
       });
   }
 
+  /**
+   * Retourne le label du type de rencontre
+   * @param type 
+   * @returns 
+   */
   getTypeLabel(
     type: string
   ): string {
@@ -200,11 +228,15 @@ implements OnInit {
     }
   }
 
+  /**
+   * Ouvre le formulaire de modification d'une rencontre
+   * @param meeting 
+   */
   openEditDialog(
-  meeting: Meeting
-): void {
+    meeting: Meeting
+  ): void {
 
-  const dialogRef =
+    const dialogRef =
 
     this.dialog.open(
 
@@ -231,76 +263,80 @@ implements OnInit {
     });
 }
 
-deleteMeeting(
-  meeting: Meeting
-): void {
+/**
+ * Supprime une rencontre
+ * @param meeting 
+ */
+  deleteMeeting(
+    meeting: Meeting
+  ): void {
 
-  const dialogRef =
+    const dialogRef =
 
-    this.dialog.open(
+      this.dialog.open(
 
-      ConfirmDialog,
+        ConfirmDialog,
 
-      {
+        {
 
-        width: '450px',
+          width: '450px',
 
-        data: {
+          data: {
 
-          title: 'Suppression',
+            title: 'Suppression',
 
-          message:
+            message:
 
-            `Supprimer la réunion "${meeting.title}" ?`,
+              `Supprimer la réunion "${meeting.title}" ?`,
 
-          confirmText: 'Supprimer',
+            confirmText: 'Supprimer',
 
-          cancelText: 'Annuler'
+            cancelText: 'Annuler'
+          }
         }
-      }
-    );
+      );
 
-  dialogRef.afterClosed()
+    dialogRef.afterClosed()
 
-    .subscribe(
+      .subscribe(
 
-      confirmed => {
+        confirmed => {
 
-        if (!confirmed) {
+          if (!confirmed) {
 
-          return;
+            return;
+          }
+
+          this.meetingService
+
+            .delete(
+              meeting.id
+            )
+
+            .subscribe({
+
+              next: () => {
+
+                this.snackBar.open(
+
+                  'Réunion supprimée',
+
+                  'Fermer',
+
+                  {
+                    duration: 3000
+                  }
+                );
+
+                this.loadMeetings();
+              },
+
+              error: error => {
+
+                console.error(error);
+              }
+            });
         }
-
-        this.meetingService
-
-          .delete(
-            meeting.id
-          )
-
-          .subscribe({
-
-            next: () => {
-
-              this.snackBar.open(
-
-                'Réunion supprimée',
-
-                'Fermer',
-
-                {
-                  duration: 3000
-                }
-              );
-
-              this.loadMeetings();
-            },
-
-            error: error => {
-
-              console.error(error);
-            }
-          });
-      }
-    );
-}
+      );
+  }
 }

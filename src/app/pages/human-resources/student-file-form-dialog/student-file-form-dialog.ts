@@ -68,32 +68,54 @@ import { MatIconModule } from '@angular/material/icon';
   styleUrl:
     './student-file-form-dialog.scss'
 })
-export class StudentFileFormDialog
-implements OnInit {
+export class StudentFileFormDialog implements OnInit {
 
+  /**
+   * Formulaire
+   */
   form!: FormGroup;
 
+  /**
+   * Liste des étudiants
+   */
   students: Student[] = [];
 
+  /**
+   * Photo selectionnée
+   */
   selectedPhoto?: File;
 
+  /**
+   * Diplome selectionnée
+   */
   selectedDiploma?: File;
 
+  /**
+   * Certificat de naissance selectionnée
+   */
   selectedBirthCertificate?: File;
 
+  /**
+   * Chargement
+   */
   loading = false;
 
   constructor(
 
-    private fb: FormBuilder,
+    private fb: 
+      FormBuilder,
 
-    private service: StudentFileService,
+    private service: 
+      StudentFileService,
 
-    private studentService: StudentService,
+    private studentService: 
+      StudentService,
 
-    private snackBar: MatSnackBar,
+    private snackBar: 
+      MatSnackBar,
 
-    private cdr: ChangeDetectorRef,
+    private cdr: 
+      ChangeDetectorRef,
 
     public dialogRef:
       MatDialogRef<StudentFileFormDialog>,
@@ -106,8 +128,10 @@ implements OnInit {
 
   ngOnInit(): void {
 
+    // Construction du formulaire
     this.buildForm();
 
+    // Chargement des utilisateurs
     this.loadStudents();
 
     if (this.data) {
@@ -116,6 +140,9 @@ implements OnInit {
     }
   }
 
+  /**
+   * Construction du formulaire
+   */
   buildForm(): void {
 
     this.form = this.fb.group({
@@ -145,6 +172,9 @@ implements OnInit {
     });
   }
 
+  /**
+   * Chargement des utilisateurs
+   */
   loadStudents(): void {
 
     this.studentService
@@ -155,8 +185,6 @@ implements OnInit {
 
         next: response => {
 
-          console.log('Etudiants chargé :', response);
-
           this.students = response;
 
           this.cdr.detectChanges();
@@ -164,6 +192,10 @@ implements OnInit {
       });
   }
 
+  /**
+   * Formulaire
+   * @returns 
+   */
   patchForm(): void {
 
     if (!this.data) {
@@ -175,8 +207,12 @@ implements OnInit {
     );
   }
 
+  /**
+   * Envoi du formulaire
+   */
   submit(): void {
 
+    // Vérification formulaire
     if (this.form.invalid) {
 
       this.form.markAllAsTouched();
@@ -190,15 +226,20 @@ implements OnInit {
       ...this.form.value
     };
 
+    // Envoi du formulaire
     this.saveStudentFile(
       request
     );
   }
 
+  /**
+   * Envoi du formulaire
+   */
   saveStudentFile(
     request: any
   ): void {
 
+    // Mise à jour si id existe
     if (this.data?.id) {
 
       this.service
@@ -227,6 +268,7 @@ implements OnInit {
       return;
     }
 
+    // Création sinon
     this.service
 
       .create(request)
@@ -248,6 +290,10 @@ implements OnInit {
       });
   }
 
+  /**
+   * Photo selectionnée
+   * @param event 
+   */
   onPhotoSelected(
     event: Event
   ): void {
@@ -262,6 +308,10 @@ implements OnInit {
     }
   }
 
+  /**
+   * Diplome selectionnée
+   * @param event 
+   */
   onDiplomaSelected(
     event: Event
   ): void {
@@ -276,6 +326,10 @@ implements OnInit {
     }
   }
 
+  /**
+   * Certificat de naissance selectionnée
+   * @param event 
+   */
   onBirthCertificateSelected(
     event: Event
   ): void {

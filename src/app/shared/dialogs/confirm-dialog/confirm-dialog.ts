@@ -17,6 +17,9 @@ import {
   MatButtonModule
 } from '@angular/material/button';
 
+/**
+ * Interface de données de dialogue de confirmation
+ */
 export interface ConfirmDialogData {
 
   title: string;
@@ -56,11 +59,17 @@ export class ConfirmDialog {
       ConfirmDialogData
   ) {}
 
+  /**
+   * Fermeture de la boite de dialogue
+   */
   cancel(): void {
 
     this.dialogRef.close(false);
   }
 
+  /**
+   * Confirme la fermeture de la boite de dialogue
+   */
   confirm(): void {
 
     this.dialogRef.close(true);

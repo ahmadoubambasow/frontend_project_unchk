@@ -1,3 +1,6 @@
+/**
+ * Interface Trainer
+ */
 export interface Trainer {
 
     id: number;

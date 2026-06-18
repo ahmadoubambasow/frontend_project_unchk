@@ -67,15 +67,26 @@ import { MatIconModule } from '@angular/material/icon';
   styleUrl:
     './graduate-insertion-form-dialog.scss'
 })
-export class GraduateInsertionFormDialog
-implements OnInit {
+export class GraduateInsertionFormDialog implements OnInit {
 
+  /**
+   * Form
+   */
   form!: FormGroup;
 
+  /**
+   * Loading
+   */
   loading = false;
 
+  /**
+   * Students
+   */
   students: Student[] = [];
 
+  /**
+   * Statuses
+   */
   readonly statuses = [
 
     'SALARIED',
@@ -101,7 +112,8 @@ implements OnInit {
     private snackBar:
       MatSnackBar,
 
-    private cdr: ChangeDetectorRef,
+    private cdr: 
+      ChangeDetectorRef,
 
     public dialogRef:
       MatDialogRef<GraduateInsertionFormDialog>,
@@ -114,8 +126,10 @@ implements OnInit {
 
   ngOnInit(): void {
 
+    // Construction du formulaire
     this.buildForm();
 
+    // Chargement des étudiants
     this.loadStudents();
 
     if (this.data) {
@@ -124,6 +138,9 @@ implements OnInit {
     }
   }
 
+  /**
+   * Construction du formulaire
+   */
   buildForm(): void {
 
     this.form = this.fb.group({
@@ -150,6 +167,9 @@ implements OnInit {
     });
   }
 
+  /**
+   * Chargement des étudiants
+   */
   loadStudents(): void {
 
     this.studentService
@@ -170,6 +190,9 @@ implements OnInit {
       });
   }
 
+  /**
+   * Patch du formulaire
+   */
   patchForm(): void {
 
     this.form.patchValue({
@@ -197,8 +220,13 @@ implements OnInit {
     });
   }
 
+  /**
+   * Soumission du formulaire
+   * @returns 
+   */
   submit(): void {
 
+    // Vérification formulaire
     if (this.form.invalid) {
 
       this.form.markAllAsTouched();
@@ -208,6 +236,7 @@ implements OnInit {
 
     this.loading = true;
 
+    // Mise à jour si id existe
     if (this.data?.id) {
 
       this.insertionService
@@ -248,6 +277,7 @@ implements OnInit {
       return;
     }
 
+    // Création d'une nouvelle insertion
     this.insertionService
 
       .create(
@@ -283,6 +313,11 @@ implements OnInit {
       });
   }
 
+  /**
+   * Retourne le label du statut
+   * @param status 
+   * @returns 
+   */
   getStatusLabel(
     status: string
   ): string {

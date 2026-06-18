@@ -81,15 +81,20 @@ export class Students implements OnInit {
 
   constructor(
 
-    private studentService: StudentService,
+    private studentService: 
+      StudentService,
 
-    private dialog: MatDialog,
+    private dialog: 
+      MatDialog,
 
-    private snackBar: MatSnackBar,
+    private snackBar: 
+      MatSnackBar,
 
-    private cdr: ChangeDetectorRef,
+    private cdr: 
+      ChangeDetectorRef,
 
-    private router: Router
+    private router: 
+      Router
 
   ) {}
 
@@ -113,8 +118,6 @@ export class Students implements OnInit {
 
         next: (response) => {
 
-          console.log(response);
-
           this.students = response;
 
           this.filteredStudents = response;
@@ -123,6 +126,7 @@ export class Students implements OnInit {
 
           this.loading = false;
 
+          // Rafraîchissement
           this.cdr.detectChanges();
         },
 
@@ -165,36 +169,44 @@ export class Students implements OnInit {
 
       .trim();
 
+    
+    // Filtrage
     this.filteredStudents =
 
       this.students.filter(
 
+        // Filtre
         student =>
 
+          // Filtre sur le prénom
           student.firstName
             ?.toLowerCase()
             .includes(value)
 
           ||
 
+          // Filtre sur le nom
           student.lastName
             ?.toLowerCase()
             .includes(value)
 
           ||
 
+          // Filtre sur l'ine
           student.ine
             ?.toLowerCase()
             .includes(value)
 
           ||
 
+          // Filtre sur la formation
           student.formationName
             ?.toLowerCase()
             .includes(value)
 
           ||
 
+          // Filtre sur la promotion
           student.promotion
             ?.toLowerCase()
             .includes(value)

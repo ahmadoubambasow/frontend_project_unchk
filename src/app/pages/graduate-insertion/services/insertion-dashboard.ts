@@ -7,6 +7,9 @@ import { HttpClient } from '@angular/common/http';
 })
 export class InsertionDashboardService {
 
+  /**
+   * URL de l'API
+   */
   private apiUrl =
     'http://localhost:8080/api/insertion-dashboard';
 
@@ -14,6 +17,10 @@ export class InsertionDashboardService {
     private http: HttpClient
   ) {}
 
+  /**
+   * Récupérer le dashboard
+   * @returns 
+   */
   getDashboard() {
 
     return this.http.get<InsertionDashboard>(

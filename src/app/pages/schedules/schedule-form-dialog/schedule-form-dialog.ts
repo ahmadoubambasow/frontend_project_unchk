@@ -75,19 +75,36 @@ import { MatIconModule } from '@angular/material/icon';
   styleUrl:
     './schedule-form-dialog.scss'
 })
-export class ScheduleFormDialog
-implements OnInit {
+export class ScheduleFormDialog implements OnInit {
 
+  /**
+   * Formulaire
+   */
   form!: FormGroup;
 
+  /**
+   * Chargement
+   */
   loading = false;
 
+  /**
+   * Groupes
+   */
   groups: StudentGroup[] = [];
 
+  /**
+   * Formateurs
+   */
   trainers: User[] = [];
 
+  /**
+   * Modules
+   */
   filteredModules: TrainingModule[] = [];
 
+  /**
+   * Jours
+   */
   readonly days = [
 
     'MONDAY',
@@ -100,7 +117,8 @@ implements OnInit {
 
   constructor(
 
-    private fb: FormBuilder,
+    private fb: 
+      FormBuilder,
 
     private scheduleService:
       ScheduleService,
@@ -111,7 +129,8 @@ implements OnInit {
     private moduleService:
       TrainingModuleService,
 
-    private userService: UserService,
+    private userService: 
+      UserService,
 
     private snackBar:
       MatSnackBar,
@@ -127,15 +146,22 @@ implements OnInit {
 
   ngOnInit(): void {
 
+    // Build form
     this.buildForm();
 
+    // Load groups
     this.loadGroups();
 
+    // Load trainers
     this.loadTrainers();
 
+    // Load group listener
     this.loadGroupListener();
   }
 
+  /**
+   * Construction formulaire
+   */
   buildForm(): void {
 
     this.form = this.fb.group({
@@ -182,6 +208,9 @@ implements OnInit {
     });
   }
 
+  /**
+   * Chargement groupes
+   */
   loadGroups(): void {
 
     this.groupService
@@ -204,6 +233,9 @@ implements OnInit {
       });
   }
 
+  /**
+   * Chargement formateurs
+   */
   loadTrainers(): void {
 
     this.userService
@@ -221,6 +253,9 @@ implements OnInit {
       });
   }
 
+  /**
+   * Chargement modules
+   */
   loadGroupListener(): void {
 
     this.form
@@ -271,6 +306,10 @@ implements OnInit {
       });
   }
 
+  /**
+   * Patch formulaire
+   * @returns 
+   */
   patchForm(): void {
 
     if (!this.data) {
@@ -338,8 +377,12 @@ implements OnInit {
       });
   }
 
+  /**
+   * Soumission formulaire
+   */
   submit(): void {
 
+    // Vérification formulaire
     if (this.form.invalid) {
 
       this.form.markAllAsTouched();
@@ -351,6 +394,7 @@ implements OnInit {
 
     const request = this.form.value;
 
+    // Mise à jour si id existe
     if (this.data?.id) {
 
       this.scheduleService
@@ -391,6 +435,7 @@ implements OnInit {
       return;
     }
 
+    // Création si id n'existe pas
     this.scheduleService
 
       .create(request)

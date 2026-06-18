@@ -17,6 +17,9 @@ import { UserRequest } from '../models/user-request.model';
 })
 export class UserService {
 
+  /**
+   * URL de l'API
+   */
   private apiUrl =
     'http://localhost:8080/api/users';
 
@@ -24,6 +27,10 @@ export class UserService {
     private http: HttpClient
   ) {}
 
+  /**
+   * Récupérer tous les utilisateurs
+   * @returns 
+   */
   getUsers():
     Observable<User[]> {
 
@@ -32,6 +39,10 @@ export class UserService {
     );
   }
 
+  /**
+   * Récupérer tous les rôles
+   * @returns 
+   */
   getRoles():
     Observable<string[]> {
 
@@ -40,6 +51,11 @@ export class UserService {
     );
   }
 
+  /**
+   * Créer un utilisateur
+   * @param request 
+   * @returns 
+   */
   createUser(
     request: UserRequest
   ): Observable<User> {
@@ -50,6 +66,12 @@ export class UserService {
     );
   }
 
+  /**
+   * Modifier un utilisateur
+   * @param id 
+   * @param request 
+   * @returns 
+   */
   updateUser(
 
     id: number,
@@ -66,6 +88,11 @@ export class UserService {
     );
   }
 
+  /**
+   * Delete un utilisateur
+   * @param id 
+   * @returns 
+   */
   deleteUser(
     id: number
   ): Observable<void> {
@@ -75,6 +102,10 @@ export class UserService {
     );
   }
 
+  /**
+   * Récupérer mon profil
+   * @returns 
+   */
   getProfile(): Observable<User> {
 
     return this.http.get<User>(
@@ -82,6 +113,11 @@ export class UserService {
     );
   }
 
+  /**
+   * Modifier mon profil
+   * @param request 
+   * @returns 
+   */
   updateProfile(
     request: UserRequest
   ): Observable<User> {
@@ -92,6 +128,10 @@ export class UserService {
     );
   }
 
+  /**
+   * Récupérer tous les trainers
+   * @returns 
+   */
   getTrainers() {
 
     return this.http.get<any[]>(

@@ -19,6 +19,10 @@ export class StudentGroupService {
     private http: HttpClient
   ) {}
 
+  /**
+   * Récupérer toutes les groupes
+   * @returns 
+   */
   getGroups():
     Observable<StudentGroup[]> {
 
@@ -27,6 +31,11 @@ export class StudentGroupService {
     );
   }
 
+  /**
+   * Récupérer un groupe
+   * @param id 
+   * @returns 
+   */
   getGroupById(
     id: number
   ) {
@@ -37,6 +46,11 @@ export class StudentGroupService {
     );
   }
 
+  /**
+   * Créer un groupe
+   * @param request 
+   * @returns 
+   */
   create(
     request: any
   ): Observable<StudentGroup> {
@@ -47,6 +61,12 @@ export class StudentGroupService {
     );
   }
 
+  /**
+   * Modifier un groupe
+   * @param id 
+   * @param request 
+   * @returns 
+   */
   update(
     id: number,
     request: any
@@ -58,6 +78,11 @@ export class StudentGroupService {
     );
   }
 
+  /**
+   * Supprimer un groupe
+   * @param id 
+   * @returns 
+   */
   delete(
     id: number
   ) {

@@ -64,13 +64,21 @@ import {
 
   styleUrl: './student-groups.scss'
 })
-export class StudentGroups
-implements OnInit {
+export class StudentGroups implements OnInit {
 
+  /**
+   * Liste des groupes
+   */
   groups: StudentGroup[] = [];
 
+  /**
+   * Liste des groupes filtrés
+   */
   filteredGroups: StudentGroup[] = [];
 
+  /**
+   * Indicateur de chargement
+   */
   loading = false;
 
   constructor(
@@ -87,7 +95,8 @@ implements OnInit {
     private router:
       Router,
 
-    private cdr: ChangeDetectorRef
+    private cdr: 
+      ChangeDetectorRef
 
   ) {}
 
@@ -96,6 +105,9 @@ implements OnInit {
     this.loadGroups();
   }
 
+  /**
+   * Chargement des groupes
+   */
   loadGroups(): void {
 
     this.loading = true;
@@ -128,44 +140,52 @@ implements OnInit {
       });
   }
 
+  /**
+   * Filtre des groupes
+   * @param event 
+   */
   applyFilter(
-  event: Event
-): void {
+    event: Event
+  ): void {
 
-  const input =
+    const input =
 
-    event.target as HTMLInputElement;
+      event.target as HTMLInputElement;
 
-  const value =
+    const value =
 
-    input?.value
-      ?.toLowerCase()
-      ?.trim() || '';
+      input?.value
+        ?.toLowerCase()
+        ?.trim() || '';
 
-  this.filteredGroups =
+    this.filteredGroups =
 
-    this.groups.filter(
+      this.groups.filter(
 
-      group =>
+        group =>
 
-        group.name
-          ?.toLowerCase()
-          ?.includes(value)
+          group.name
+            ?.toLowerCase()
+            ?.includes(value)
 
-        ||
+          ||
 
-        group.promotion
-          ?.toLowerCase()
-          ?.includes(value)
+          group.promotion
+            ?.toLowerCase()
+            ?.includes(value)
 
-        ||
+          ||
 
-        group.formationName
-          ?.toLowerCase()
-          ?.includes(value)
-    );
-}
+          group.formationName
+            ?.toLowerCase()
+            ?.includes(value)
+      );
+  }
 
+  /**
+   * Ouvre les details d'un groupe
+   * @param group 
+   */
   openDetails(
     group: StudentGroup
   ): void {
@@ -176,6 +196,9 @@ implements OnInit {
     ]);
   }
 
+  /**
+   * Ouvre le formulaire de création
+   */
   openCreateDialog(): void {
 
     const dialogRef =
@@ -203,6 +226,10 @@ implements OnInit {
       });
   }
 
+  /**
+   * Ouvre le formulaire de modification
+   * @param group 
+   */
   openEditDialog(
     group: StudentGroup
   ): void {
@@ -234,6 +261,10 @@ implements OnInit {
       });
   }
 
+  /**
+   * Suppression d'un groupe
+   * @param group 
+   */
   deleteGroup(
     group: StudentGroup
   ): void {

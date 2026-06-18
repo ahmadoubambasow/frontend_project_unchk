@@ -35,11 +35,16 @@ import { PartnerService } from '../services/partner';
   styleUrl:
     './partner-details.scss'
 })
-export class PartnerDetails
-implements OnInit {
+export class PartnerDetails implements OnInit {
 
+  /**
+   * Partner
+   */
   partner?: Partner;
 
+  /**
+   * Loading
+   */
   loading = false;
 
   constructor(
@@ -67,6 +72,10 @@ implements OnInit {
     this.loadPartner(id);
   }
 
+  /**
+   * Chargement des partenaires
+   * @param id 
+   */
   loadPartner(
     id: number
   ): void {

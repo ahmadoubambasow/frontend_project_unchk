@@ -1,3 +1,6 @@
+/**
+ * Interface StudentFile
+ */
 export interface StudentFile {
 
   id: number;

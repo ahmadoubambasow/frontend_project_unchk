@@ -21,73 +21,82 @@ import { MatIcon, MatIconModule } from "@angular/material/icon";
 })
 export class NotificationsDialogComponent {
 
+  /**
+   * Notifications
+   */
   notifications: Notification[] = [];
 
   constructor(
 
-    private notificationService: NotificationService,
+    private notificationService: 
+      NotificationService,
 
-    private dialog: MatDialog
+    private dialog: 
+      MatDialog
   ) {}
 
-ngOnInit(): void {
-
-  this.notificationService
-
-    .getMyNotifications()
-
-    .subscribe({
-
-      next: (response) => {
-
-        this.notifications = response
-          .sort((a, b) =>
-
-            new Date(b.createdAt).getTime()
-
-            -
-
-            new Date(a.createdAt).getTime()
-
-          );
-      }
-    });
-}
-
-openNotification(
-  notification: Notification
-): void {
-
-  if (!notification.isRead) {
+  ngOnInit(): void {
 
     this.notificationService
 
-      .markAsRead(notification.id)
+      .getMyNotifications()
 
       .subscribe({
 
-        next: () => {
+        next: (response) => {
 
-          notification.isRead = true;
-        },
+          this.notifications = response
+            .sort((a, b) =>
 
-        error: (error) => {
+              new Date(b.createdAt).getTime()
 
-          console.error(error);
+              -
+
+              new Date(a.createdAt).getTime()
+
+            );
         }
       });
   }
 
-  this.dialog.open(
-    NotificationView,
-    {
+/**
+ * Ouverture notification
+ * @param notification 
+ */
+  openNotification(
+    notification: Notification
+  ): void {
 
-      width: '600px',
+    if (!notification.isRead) {
 
-      maxWidth: '95vw',
+      this.notificationService
 
-      data: notification
+        .markAsRead(notification.id)
+
+        .subscribe({
+
+          next: () => {
+
+            notification.isRead = true;
+          },
+
+          error: (error) => {
+
+            console.error(error);
+          }
+        });
     }
-  );
-}
+
+    this.dialog.open(
+      NotificationView,
+      {
+
+        width: '600px',
+
+        maxWidth: '95vw',
+
+        data: notification
+      }
+    );
+  }
 }

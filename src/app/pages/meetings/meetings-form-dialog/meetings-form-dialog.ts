@@ -87,15 +87,26 @@ import { MatIconModule } from '@angular/material/icon';
   styleUrl:
     './meetings-form-dialog.scss'
 })
-export class MeetingFormDialog
-implements OnInit {
+export class MeetingFormDialog implements OnInit {
 
+  /**
+   * Formulaire
+   */
   form!: FormGroup;
 
+  /**
+   * Chargement
+   */
   loading = false;
 
+  /**
+   * Groupes
+   */
   groups: StudentGroup[] = [];
 
+  /**
+   * Utilisateurs
+   */
   users: User[] = [];
 
   constructor(
@@ -129,10 +140,13 @@ implements OnInit {
 
   ngOnInit(): void {
 
+    // Construction du formulaire
     this.buildForm();
 
+    // Chargement des groupes
     this.loadGroups();
 
+    // Chargement des utilisateurs
     this.loadUsers();
 
     if (this.data) {
@@ -141,6 +155,9 @@ implements OnInit {
     }
   }
 
+  /**
+   * Construction du formulaire
+   */
   buildForm(): void {
 
     this.form = this.fb.group({
@@ -190,6 +207,9 @@ implements OnInit {
     });
   }
 
+  /**
+   * Chargement des groupes
+   */
   loadGroups(): void {
 
     this.groupService
@@ -212,6 +232,9 @@ implements OnInit {
       });
   }
 
+  /**
+   * Chargement des utilisateurs
+   */
   loadUsers(): void {
 
     this.userService
@@ -234,6 +257,9 @@ implements OnInit {
       });
   }
 
+  /**
+   * Mise à jour du formulaire
+   */
   patchForm(): void {
 
     this.form.patchValue({
@@ -273,8 +299,13 @@ implements OnInit {
     });
   }
 
+  /**
+   * Envoi du formulaire
+   * @returns 
+   */
   submit(): void {
 
+    // Vérification formulaire
     if (this.form.invalid) {
 
       this.form.markAllAsTouched();
@@ -284,6 +315,7 @@ implements OnInit {
 
     this.loading = true;
 
+    // Mise à jour d'une reunion si id existe
     if (this.data?.id) {
 
       this.meetingService
@@ -338,6 +370,7 @@ implements OnInit {
       return;
     }
 
+    // Création d'une reunion si id n'existe pas
     this.meetingService
 
       .create(
@@ -384,6 +417,9 @@ implements OnInit {
       });
   }
 
+  /**
+   * Fermeture du formulaire
+   */
   close(): void {
 
     this.dialogRef.close();

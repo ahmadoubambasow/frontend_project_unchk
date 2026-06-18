@@ -26,13 +26,21 @@ import { ScheduleService } from '../../../services/schedule';
   styleUrl:
     './schedule-calendar.scss'
 })
-export class ScheduleCalendar
-implements OnInit {
+export class ScheduleCalendar implements OnInit {
 
+  /**
+   * Séances
+   */
   schedules: Schedule[] = [];
 
+  /**
+   * Chargement
+   */
   loading = false;
 
+  /**
+   * Jours
+   */
   readonly days = [
     'MONDAY',
     'TUESDAY',
@@ -42,6 +50,9 @@ implements OnInit {
     'SATURDAY'
   ];
 
+  /**
+   * Heures
+   */
   readonly hours = [
     '08:00',
     '09:00',
@@ -61,7 +72,8 @@ implements OnInit {
     private scheduleService:
       ScheduleService,
 
-    private cdr: ChangeDetectorRef
+    private cdr: 
+      ChangeDetectorRef
 
   ) {}
 
@@ -70,6 +82,9 @@ implements OnInit {
     this.loadSchedules();
   }
 
+  /**
+   * Chargement des séances
+   */
   loadSchedules(): void {
 
     this.loading = true;
@@ -99,6 +114,9 @@ implements OnInit {
       });
   }
 
+  /**
+   * Retourne le label du jour
+   */
   getDayLabel(
     day: string
   ): string {
@@ -121,6 +139,11 @@ implements OnInit {
     return labels[day];
   }
 
+  /**
+   * Retourne les séances d'un jour
+   * @param day 
+   * @returns 
+   */
   getSchedulesByDay(
     day: string
   ): Schedule[] {
@@ -144,6 +167,11 @@ implements OnInit {
       );
   }
 
+  /**
+   * Retourne la ligne de la grille
+   * @param schedule 
+   * @returns 
+   */
   getGridRow(
     schedule: Schedule
   ): string {

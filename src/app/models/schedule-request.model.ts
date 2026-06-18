@@ -1,3 +1,6 @@
+/**
+ * Modèle de demande d'emploi du temps
+ */
 export interface ScheduleRequest {
 
   groupId: number;

@@ -132,6 +132,7 @@ export class CommunicationFormDialog implements OnInit{
 
   ) {
 
+    // Form
     this.communicationForm = 
 
       this.fb.group({
@@ -177,6 +178,7 @@ export class CommunicationFormDialog implements OnInit{
 
   ngOnInit(): void {
 
+    // Patch
     if (this.data) {
 
       this.communicationForm.patchValue(this.data);
@@ -202,25 +204,135 @@ export class CommunicationFormDialog implements OnInit{
   /**
  * Submit
  */
-submit(): void {
+  submit(): void {
 
-  if (this.communicationForm.invalid) {
+    if (this.communicationForm.invalid) {
 
-    return;
+      return;
+    }
+
+    this.loading = true;
+
+    /**
+     * UPDATE
+     */
+    if (this.data) {
+
+      this.communicationService
+
+        .updateCommunication(
+          this.data.id,
+          this.communicationForm.value
+        )
+
+        .subscribe({
+
+          next: () => {
+
+            this.loading = false;
+
+            this.snackBar.open(
+              'Communication modifiée avec succès',
+              'Fermer',
+              {
+                duration: 3000
+              }
+            );
+
+            this.dialogRef.close(true);
+          },
+
+          error: (error) => {
+
+            this.loading = false;
+
+            console.error(error);
+
+            this.snackBar.open(
+              'Une erreur est survenue',
+              'Fermer',
+              {
+                duration: 3000
+              }
+            );
+          }
+        });
+
+      return;
+    }
+
+    /**
+     * CREATE + UPLOAD
+     */
+    if (this.selectedFile) {
+
+      this.communicationService
+
+        .uploadFile(this.selectedFile)
+
+        .subscribe({
+
+          next: (url: string) => {
+
+            const payload = {
+
+              ...this.communicationForm.value,
+
+              documentName:
+                this.selectedFile?.name,
+
+              documentUrl:
+                url,
+
+              documentType:
+                this.selectedFile?.type
+            };
+
+            this.saveCommunication(
+              payload
+            );
+          },
+
+          error: (error) => {
+
+            this.loading = false;
+
+            console.error(error);
+
+            this.snackBar.open(
+              'Erreur lors du téléchargement du document',
+              'Fermer',
+              {
+                duration: 3000
+              }
+            );
+          }
+        });
+
+      return;
+    }
+
+    /**
+     * CREATE SANS DOCUMENT
+     */
+    this.saveCommunication(
+      this.communicationForm.value
+    );
   }
 
-  this.loading = true;
-
   /**
-   * UPDATE
+   * Save communication
    */
-  if (this.data) {
+  private saveCommunication(
+    payload: any
+  ): void {
+
+    console.log(payload);
 
     this.communicationService
 
-      .updateCommunication(
-        this.data.id,
-        this.communicationForm.value
+      .createCommunication(
+        payload
       )
 
       .subscribe({
@@ -230,7 +342,7 @@ submit(): void {
           this.loading = false;
 
           this.snackBar.open(
-            'Communication modifiée avec succès',
+            'Communication créée avec succès',
             'Fermer',
             {
               duration: 3000
@@ -255,115 +367,5 @@ submit(): void {
           );
         }
       });
-
-    return;
   }
-
-  /**
-   * CREATE + UPLOAD
-   */
-  if (this.selectedFile) {
-
-    this.communicationService
-
-      .uploadFile(this.selectedFile)
-
-      .subscribe({
-
-        next: (url: string) => {
-
-          const payload = {
-
-            ...this.communicationForm.value,
-
-            documentName:
-              this.selectedFile?.name,
-
-            documentUrl:
-              url,
-
-            documentType:
-              this.selectedFile?.type
-          };
-
-          this.saveCommunication(
-            payload
-          );
-        },
-
-        error: (error) => {
-
-          this.loading = false;
-
-          console.error(error);
-
-          this.snackBar.open(
-            'Erreur lors du téléchargement du document',
-            'Fermer',
-            {
-              duration: 3000
-            }
-          );
-        }
-      });
-
-    return;
-  }
-
-  /**
-   * CREATE SANS DOCUMENT
-   */
-  this.saveCommunication(
-    this.communicationForm.value
-  );
-}
-
-/**
- * Save communication
- */
-private saveCommunication(
-  payload: any
-): void {
-
-  console.log(payload);
-
-  this.communicationService
-
-    .createCommunication(
-      payload
-    )
-
-    .subscribe({
-
-      next: () => {
-
-        this.loading = false;
-
-        this.snackBar.open(
-          'Communication créée avec succès',
-          'Fermer',
-          {
-            duration: 3000
-          }
-        );
-
-        this.dialogRef.close(true);
-      },
-
-      error: (error) => {
-
-        this.loading = false;
-
-        console.error(error);
-
-        this.snackBar.open(
-          'Une erreur est survenue',
-          'Fermer',
-          {
-            duration: 3000
-          }
-        );
-      }
-    });
-}
 }

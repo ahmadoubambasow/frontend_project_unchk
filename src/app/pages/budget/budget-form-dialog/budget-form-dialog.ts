@@ -53,7 +53,7 @@ import { MatIconModule } from '@angular/material/icon';
     ReactiveFormsModule,
     MatFormFieldModule,
     MatIconModule,
-  MatInputModule,
+    MatInputModule,
     MatButtonModule,
     MatSelectModule
   ],
@@ -67,14 +67,29 @@ import { MatIconModule } from '@angular/material/icon';
 export class BudgetFormDialog
 implements OnInit {
 
+  /**
+   * Form
+   */
   form!: FormGroup;
 
+  /**
+   * Loading
+   */
   loading = false;
 
+  /**
+   * Selected file
+   */
   selectedFile?: File;
 
+  /**
+   * Variance
+   */
   variance = 0;
 
+  /**
+   * Budget types
+   */
   readonly budgetTypes = [
 
     'BUDGET_PROJECT',
@@ -106,6 +121,7 @@ implements OnInit {
 
   ngOnInit(): void {
 
+    //
     this.buildForm();
 
     if (this.data) {
@@ -116,6 +132,9 @@ implements OnInit {
     this.watchAmounts();
   }
 
+  /**
+   * Build form
+   */
   buildForm(): void {
 
     this.form = this.fb.group({
@@ -145,6 +164,9 @@ implements OnInit {
     });
   }
 
+  /**
+   * 
+   */
   patchForm(): void {
 
     this.form.patchValue({
@@ -175,6 +197,9 @@ implements OnInit {
       this.data?.variance || 0;
   }
 
+  /**
+   * Watch amounts
+   */
   watchAmounts(): void {
 
     this.form.valueChanges
@@ -198,8 +223,12 @@ implements OnInit {
       });
   }
 
+  /**
+   * Submit
+   */
   submit(): void {
 
+    // Vérification formulaire si invalid
     if (this.form.invalid) {
 
       this.form.markAllAsTouched();
@@ -209,9 +238,11 @@ implements OnInit {
 
     this.loading = true;
 
+    // Création de la requête
     const request =
       this.form.value;
 
+    // Envoi du fichier
     if (this.selectedFile) {
 
       const formData = new FormData();
@@ -221,6 +252,7 @@ implements OnInit {
         this.selectedFile
       );
 
+      // Envoi de la requête
       this.budgetService
 
         .uploadFile(formData)
@@ -253,10 +285,16 @@ implements OnInit {
     );
   }
 
+  /**
+   * Save budget
+   * @param request 
+   * @returns 
+   */
   private saveBudget(
     request: any
   ): void {
 
+    // Mise à jour si id existe
     if (this.data?.id) {
 
       this.budgetService
@@ -272,6 +310,7 @@ implements OnInit {
 
             this.loading = false;
 
+            // Notification
             this.snackBar.open(
               'Budget modifié',
               'Fermer',
@@ -294,6 +333,7 @@ implements OnInit {
       return;
     }
 
+    // Création de la requête
     this.budgetService
 
       .create(request)
@@ -304,6 +344,7 @@ implements OnInit {
 
           this.loading = false;
 
+          // Notification
           this.snackBar.open(
             'Budget créé',
             'Fermer',
@@ -324,20 +365,33 @@ implements OnInit {
       });
   }
 
+  /**
+   * On file selected
+   * @param event 
+   */
   onFileSelected(
     event: Event
   ): void {
+
+    // Valeur de l'input
     const input = event.target as HTMLInputElement;
 
+    // Mise à jour du fichier
     if (input.files?.length) {
       this.selectedFile = input.files[0];
     }
   }
 
+  /**
+   * Retourne le label du type de document
+   * @param type 
+   * @returns 
+   */
   getTypeLabel(
     type: string
   ): string {
 
+    // Labels
     const labels: Record<string,string> = {
 
       BUDGET_PROJECT:

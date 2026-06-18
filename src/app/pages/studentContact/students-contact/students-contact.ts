@@ -58,14 +58,22 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
   styleUrl:
     './students-contact.scss'
 })
-export class StudentContacts
-implements OnInit {
+export class StudentContacts implements OnInit {
 
+  /**
+   * Liste des contacts
+   */
   contacts: StudentContact[] = [];
 
+  /**
+   * Liste des contacts filtrés
+   */
   filteredContacts:
     StudentContact[] = [];
 
+    /**
+     * Indicateur de chargement
+     */
   loading = false;
 
   constructor(
@@ -82,7 +90,8 @@ implements OnInit {
     private router:
       Router,
 
-    private cdr: ChangeDetectorRef
+    private cdr: 
+      ChangeDetectorRef
 
   ) {}
 
@@ -91,6 +100,9 @@ implements OnInit {
     this.loadContacts();
   }
 
+  /**
+   * Récupérer la liste des contacts
+   */
   loadContacts(): void {
 
     this.loading = true;
@@ -123,6 +135,10 @@ implements OnInit {
       });
   }
 
+  /**
+   * Filtre des contacts
+   * @param event 
+   */
   applyFilter(
     event: Event
   ): void {
@@ -130,30 +146,38 @@ implements OnInit {
     const target = event.target as HTMLInputElement;
     const value = (target && target.value ? target.value : '').toLowerCase();
 
+    // Filtrage
     this.filteredContacts =
 
       this.contacts.filter(
 
         contact =>
 
+          // Filtre sur le Nom
           contact.studentName
             ?.toLowerCase()
             .includes(value)
 
           ||
 
+          // Filtre sur le sujet
           contact.subject
             ?.toLowerCase()
             .includes(value)
 
           ||
 
+          // Filtre sur le contact
           contact.contactType
             ?.toLowerCase()
             .includes(value)
       );
   }
 
+  /**
+   * Ouverture de la fiche de contact
+   * @param contact 
+   */
   openDetails(
     contact: StudentContact
   ): void {
@@ -167,6 +191,9 @@ implements OnInit {
     ]);
   }
 
+  /**
+   * Création d'un contact
+   */
   openCreateDialog(): void {
 
     const dialogRef =
@@ -192,6 +219,10 @@ implements OnInit {
       });
   }
 
+  /**
+   * Formulaire Mise à jour d'un contact
+   * @param contact 
+   */
   openEditDialog(
     contact: StudentContact
   ): void {
@@ -220,6 +251,10 @@ implements OnInit {
       });
   }
 
+  /**
+   * Suppression d'un contact
+   * @param contact 
+   */
   deleteContact(
     contact: StudentContact
   ): void {
@@ -250,6 +285,11 @@ implements OnInit {
       });
   }
 
+  /**
+   * Retourn le libellé du type de contact
+   * @param type 
+   * @returns 
+   */
   getTypeLabel(
     type: string
   ): string {

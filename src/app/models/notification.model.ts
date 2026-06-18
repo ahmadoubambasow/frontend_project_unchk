@@ -1,3 +1,6 @@
+/**
+ * Modèle de notification
+ */
 export interface Notification {
 
   id: number;

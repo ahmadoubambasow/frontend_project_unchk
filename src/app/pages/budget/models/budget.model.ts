@@ -1,3 +1,7 @@
+/**
+ * Modèle budget
+ */
+
 export interface Budget {
 
   id: number;

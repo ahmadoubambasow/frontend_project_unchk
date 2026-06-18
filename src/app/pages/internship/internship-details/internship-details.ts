@@ -35,11 +35,16 @@ import { InternshipService } from '../services/internship-service';
   styleUrl:
     './internship-details.scss'
 })
-export class InternshipDetails
-implements OnInit {
+export class InternshipDetails implements OnInit {
 
+  /**
+   * Stage
+   */
   internship?: Internship;
 
+  /**
+   * Chargement
+   */
   loading = false;
 
   constructor(
@@ -67,6 +72,10 @@ implements OnInit {
     this.loadInternship(id);
   }
 
+  /**
+   * Chargement d'un stage
+   * @param id 
+   */
   loadInternship(
     id: number
   ): void {
@@ -98,6 +107,11 @@ implements OnInit {
       });
   }
 
+  /**
+   * Retourne le label du statut
+   * @param status 
+   * @returns 
+   */
   getStatusLabel(
     status?: string
   ): string {

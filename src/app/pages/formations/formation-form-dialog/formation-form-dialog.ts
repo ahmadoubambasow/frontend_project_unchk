@@ -72,8 +72,7 @@ import { MatIconModule } from '@angular/material/icon';
   styleUrl:
     './formation-form-dialog.scss'
 })
-export class FormationFormDialog
-implements OnInit {
+export class FormationFormDialog implements OnInit {
 
   /**
    * Formulaire

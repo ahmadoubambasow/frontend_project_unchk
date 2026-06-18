@@ -14,6 +14,9 @@ import { MatCardModule } from '@angular/material/card';
 })
 export class StudentDashboard {
 
+  /**
+   * Statistiques du dashboard des etudiants
+   */
   @Input({ required: true })
   dashboard!: DashboardStats;
 }

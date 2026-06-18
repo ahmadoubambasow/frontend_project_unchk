@@ -1,3 +1,6 @@
+/**
+ * Modèle de communication
+ */
 export interface Communication {
 
   id: number;

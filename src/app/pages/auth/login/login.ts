@@ -40,11 +40,20 @@ export class LoginComponent {
   errorMessage = '';
 
   constructor(
-    private fb: FormBuilder,
-    private authService: AuthService,
-    private router: Router
+
+    private fb: 
+      FormBuilder,
+
+    private authService: 
+      AuthService,
+    
+    private router: 
+      Router
   ) {
 
+    /**
+     * Initialisation formulaire
+     */
     this.loginForm = this.fb.group({
       
       email: ['', [Validators.required, Validators.email]],

@@ -19,6 +19,9 @@ import {
 })
 export class PartnerService {
 
+  /**
+   * URL de l'API
+   */
   private apiUrl =
     'http://localhost:8080/api/partners';
 
@@ -26,6 +29,10 @@ export class PartnerService {
     private http: HttpClient
   ) {}
 
+  /**
+   * Récupérer tous les partenaires
+   * @returns 
+   */
   getAll(): Observable<Partner[]> {
 
     return this.http.get<Partner[]>(
@@ -33,6 +40,9 @@ export class PartnerService {
     );
   }
 
+  /**
+   * Récupérer un partenaire
+   */
   getById(
     id: number
   ): Observable<Partner> {
@@ -42,6 +52,9 @@ export class PartnerService {
     );
   }
 
+  /**
+   * Création d'un partenaire
+   */
   create(
     request: any
   ): Observable<Partner> {
@@ -52,6 +65,9 @@ export class PartnerService {
     );
   }
 
+  /**
+   * Mise à jour d'un partenaire
+   */
   update(
     id: number,
     request: any
@@ -63,6 +79,9 @@ export class PartnerService {
     );
   }
 
+  /**
+   * Suppression d'un partenaire
+   */
   delete(
     id: number
   ) {

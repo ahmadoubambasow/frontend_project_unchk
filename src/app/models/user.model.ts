@@ -1,3 +1,6 @@
+/**
+ * Interface User
+ */
 export interface User {
 
   id: number;

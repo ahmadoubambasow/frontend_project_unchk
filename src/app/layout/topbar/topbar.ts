@@ -63,15 +63,26 @@ import { NotificationsDialogComponent } from '../../shared/notifications-dialog-
 
   styleUrl: './topbar.scss',
 })
-export class Topbar
-implements OnInit, OnDestroy {
+export class Topbar implements OnInit, OnDestroy {
 
+  /**
+   * Notifications
+   */
   notifications: Notification[] = [];
 
+  /**
+   * Nombre non lues
+   */
   unreadCount = 0;
 
+  /**
+   * Abonnement
+   */
   private refreshSubscription?: Subscription;
 
+  /**
+   * Notifications recents
+   */
   get recentNotifications(): Notification[] {
 
     return this.notifications.slice(0, 3);
@@ -79,13 +90,17 @@ implements OnInit, OnDestroy {
 
   constructor(
 
-    private authService: AuthService,
+    private authService: 
+      AuthService,
 
-    private router: Router,
+    private router: 
+      Router,
 
-    private notificationService: NotificationService,
+    private notificationService: 
+      NotificationService,
 
-    private dialog: MatDialog
+    private dialog: 
+      MatDialog
 
   ) {}
 
@@ -103,6 +118,9 @@ implements OnInit, OnDestroy {
         });
   }
 
+  /**
+   * Destruction
+   */
   ngOnDestroy(): void {
 
     this.refreshSubscription?.unsubscribe();
@@ -234,6 +252,9 @@ implements OnInit, OnDestroy {
     );
   }
 
+  /**
+   * Ouvrir page notifications
+   */
   openNotificationsPage(): void {
 
     this.router.navigate([

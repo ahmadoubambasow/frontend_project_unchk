@@ -56,9 +56,11 @@ export class Communications implements OnInit {
 
   constructor(
 
-    private communicationService: CommunicationService,
+    private communicationService: 
+      CommunicationService,
 
-    private dialog: MatDialog,
+    private dialog: 
+      MatDialog,
 
     private snackBar: MatSnackBar
   ) { }

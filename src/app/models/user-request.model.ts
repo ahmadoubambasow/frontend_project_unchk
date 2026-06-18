@@ -1,3 +1,6 @@
+/**
+ * Interface UserRequest
+ */
 export interface UserRequest {
 
   fullName: string;

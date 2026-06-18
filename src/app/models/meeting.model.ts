@@ -1,3 +1,7 @@
+/**
+ * Modèle de réunion
+ */
+
 export interface Meeting {
 
   id: number;

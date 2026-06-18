@@ -19,6 +19,9 @@ import {
 })
 export class BudgetService {
 
+  /**
+   * URL de l'API
+   */
   private apiUrl =
     'http://localhost:8080/api/budgets';
 
@@ -26,6 +29,10 @@ export class BudgetService {
     private http: HttpClient
   ) {}
 
+  /**
+   * Récupère tous les budgets
+   * @returns 
+   */
   getAll():
     Observable<Budget[]> {
 
@@ -34,6 +41,11 @@ export class BudgetService {
     );
   }
 
+  /**
+   * Récupère un budget
+   * @param id 
+   * @returns 
+   */
   getById(
     id: number
   ): Observable<Budget> {
@@ -43,6 +55,11 @@ export class BudgetService {
     );
   }
 
+  /**
+   * Création d'un budget
+   * @param request 
+   * @returns 
+   */
   create(
     request: any
   ) {
@@ -53,6 +70,12 @@ export class BudgetService {
     );
   }
 
+  /**
+   * Mise à jour d'un budget
+   * @param id 
+   * @param request 
+   * @returns 
+   */
   update(
     id: number,
     request: any
@@ -64,6 +87,11 @@ export class BudgetService {
     );
   }
 
+  /**
+   * Suppression d'un budget
+   * @param id 
+   * @returns 
+   */
   delete(
     id: number
   ) {
@@ -73,6 +101,11 @@ export class BudgetService {
     );
   }
 
+  /**
+   * Chargement du fichier
+   * @param formData 
+   * @returns 
+   */
   uploadFile(
     formData: FormData
   ) {

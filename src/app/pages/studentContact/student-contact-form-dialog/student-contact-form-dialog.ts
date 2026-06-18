@@ -47,11 +47,6 @@ import { UserService } from '../../../services/user-service';
 import { StudentContact } from '../models/Student-contact.model';
 import { MatIconModule } from '@angular/material/icon';
 
-
-
-
-
-
 @Component({
   selector: 'app-student-contact-form-dialog',
 
@@ -73,17 +68,31 @@ import { MatIconModule } from '@angular/material/icon';
   styleUrl:
     './student-contact-form-dialog.scss'
 })
-export class StudentContactFormDialog
-implements OnInit {
+export class StudentContactFormDialog implements OnInit {
 
+  /**
+   * Formulaire
+   */
   form!: FormGroup;
 
+  /**
+   * Chargement
+   */
   loading = false;
 
+  /**
+   * Etudiants
+   */
   students: Student[] = [];
 
+  /**
+   * Utilisateurs
+   */
   users: User[] = [];
 
+  /**
+   * Types de contacts
+   */
   readonly contactTypes = [
 
     'PHONE',
@@ -123,18 +132,25 @@ implements OnInit {
 
   ngOnInit(): void {
 
+    // Build form
     this.buildForm();
 
+    // Load users
     this.loadStudents();
 
+    // Load users
     this.loadUsers();
 
+    // Patch form
     if (this.data) {
 
       this.patchForm();
     }
   }
 
+  /**
+   * Build form
+   */
   buildForm(): void {
 
     this.form = this.fb.group({
@@ -171,6 +187,9 @@ implements OnInit {
     });
   }
 
+  /**
+   * Load students
+   */
   loadStudents(): void {
 
     this.studentService
@@ -189,6 +208,9 @@ implements OnInit {
       });
   }
 
+  /**
+   * Load users
+   */
   loadUsers(): void {
 
     this.userService
@@ -207,6 +229,9 @@ implements OnInit {
       });
   }
 
+  /**
+   * Patch form
+   */
   patchForm(): void {
 
     this.form.patchValue({
@@ -231,8 +256,12 @@ implements OnInit {
     });
   }
 
+  /**
+   * Submit
+   */
   submit(): void {
 
+    // Vérification formulaire
     if (this.form.invalid) {
 
       this.form.markAllAsTouched();
@@ -242,6 +271,7 @@ implements OnInit {
 
     this.loading = true;
 
+    // Mise à jour si id existe
     if (this.data?.id) {
 
       this.contactService
@@ -282,6 +312,7 @@ implements OnInit {
       return;
     }
 
+    // Création si id n'existe pas
     this.contactService
 
       .create(
@@ -317,6 +348,11 @@ implements OnInit {
       });
   }
 
+  /**
+   * Retourne le label du type de document
+   * @param type 
+   * @returns 
+   */
   getTypeLabel(
     type: string
   ): string {

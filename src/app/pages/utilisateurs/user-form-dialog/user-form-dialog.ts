@@ -64,23 +64,33 @@ import { MatIconModule } from '@angular/material/icon';
 
   styleUrl: './user-form-dialog.scss'
 })
-export class UserFormDialog
-implements OnInit {
+export class UserFormDialog implements OnInit {
 
+  /**
+   * Indicateur de chargement
+   */
   loading = false;
 
+  /**
+   * Formulaire
+   */
   userForm!: FormGroup;
 
+  /**
+   * Liste des roles
+   */
   roles: Role[] = [];
 
   constructor(
 
-    private fb: FormBuilder,
+    private fb: 
+      FormBuilder,
 
     private userService:
       UserService,
 
-    private roleService: RoleService,
+    private roleService: 
+      RoleService,
 
     private snackBar:
       MatSnackBar,
@@ -94,6 +104,7 @@ implements OnInit {
 
   ) {
 
+    // Formulaire
     this.userForm =
 
       this.fb.group({
@@ -122,8 +133,10 @@ implements OnInit {
 
   ngOnInit(): void {
 
+    // Chargement des roles
     this.loadRoles();
 
+    // Patch
     if (this.data) {
 
       this.userForm.patchValue({
@@ -140,6 +153,9 @@ implements OnInit {
     }
   }
 
+  /**
+   * Chargement des roles
+   */
   loadRoles(): void {
 
     this.roleService
@@ -160,6 +176,10 @@ implements OnInit {
       });
   }
 
+  /**
+   * Envoi du formulaire
+   * @returns 
+   */
   submit(): void {
 
     if (

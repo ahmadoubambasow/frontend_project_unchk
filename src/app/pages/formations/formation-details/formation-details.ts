@@ -60,15 +60,26 @@ import { MatDivider } from "@angular/material/divider";
   styleUrl: 
     './formation-details.scss'
 })
-export class FormationDetails
-implements OnInit {
+export class FormationDetails implements OnInit {
 
+  /**
+   * Formation
+   */
   formation?: Formation;
 
+  /**
+   * Indicateur de chargement
+   */
   loading = false;
 
+  /**
+   * Formateurs
+   */
   trainers: TrainerResponse[] = [];
 
+  /**
+   * Modules
+   */
   modules: TrainingModule[] = [];
 
   constructor(
@@ -79,15 +90,20 @@ implements OnInit {
     private formationService:
       FormationService,
     
-    private formationTrainerService: FormationTrainerService,
+    private formationTrainerService: 
+      FormationTrainerService,
 
-    private trainingModuleService: TrainingModuleService,
+    private trainingModuleService: 
+      TrainingModuleService,
 
-    private dialog: MatDialog,
+    private dialog: 
+      MatDialog,
 
-    private cdr: ChangeDetectorRef,
+    private cdr: 
+      ChangeDetectorRef,
 
-    private snackBar: MatSnackBar
+    private snackBar: 
+      MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -98,16 +114,16 @@ implements OnInit {
         .get('id')
     );
 
-    console.log('ID =', id);
-
     this.loadFormation(id);
   }
 
+  /**
+   * Chargement d'une formation
+   * @param id 
+   */
   loadFormation(
     id: number
   ): void {
-
-    console.log('Début chargement');
 
     this.loading = true;
 
@@ -119,12 +135,13 @@ implements OnInit {
 
         next: (response) => {
 
-          console.log('Réponse reçue', response);
           this.formation =
             response;
-    
+
+          // Chargement des formateurs
           this.loadTrainers();
 
+          // Chargement des modules
           this.loadModules();
 
           this.loading = false;
@@ -141,13 +158,19 @@ implements OnInit {
       });
   }
 
+  /**
+   * Chargement des formateurs
+   * @returns 
+   */
   loadTrainers(): void {
 
+    // Si la formation n'existe pas
     if (!this.formation) {
 
       return;
     }
 
+    // Chargement des formateurs
     this.formationTrainerService.getFormationTrainers(this.formation.id)
       .subscribe({
 
@@ -162,13 +185,18 @@ implements OnInit {
       });
   }
 
+  /**
+   * Chargement des modules
+   */
   loadModules(): void {
 
+    // Si la formation n'existe pas
   if (!this.formation) {
 
     return;
   }
 
+  // Chargement des modules
   this.trainingModuleService
 
     .getByFormation(
@@ -187,132 +215,141 @@ implements OnInit {
 
       error: console.error
     });
-}
+  }
 
-openModuleDialog(
-  module?: TrainingModule
-): void {
 
-  const dialogRef =
+  /**
+   * Ouverture de la fenêtre de gestion des modules
+   * @param module 
+   */
+  openModuleDialog(
+    module?: TrainingModule
+  ): void {
 
-    this.dialog.open(
+    const dialogRef =
 
-      ModuleFormDialog,
+      this.dialog.open(
 
-      {
+        ModuleFormDialog,
 
-        width: '90vw',
+        {
 
-        maxWidth: '600px',
+          width: '90vw',
 
-        autoFocus: false,
+          maxWidth: '600px',
 
-        data: {
+          autoFocus: false,
 
-          formationId:
-            this.formation!.id,
+          data: {
 
-          module
+            formationId:
+              this.formation!.id,
+
+            module
+          }
         }
-      }
-    );
+      );
 
-  dialogRef.afterClosed()
+    dialogRef.afterClosed()
 
-    .subscribe(result => {
+      .subscribe(result => {
 
-      if (result) {
+        if (result) {
 
-        this.loadModules();
-      }
-    });
-}
-
-deleteModule(
-  module: TrainingModule
-): void {
-
-  const dialogRef =
-
-    this.dialog.open(
-
-      ConfirmDialog,
-
-      {
-
-        width: '450px',
-
-        data: {
-
-          title: 'Suppression',
-
-          message:
-
-            `Supprimer le module "${module.title}" ?`,
-
-          confirmText: 'Supprimer',
-
-          cancelText: 'Annuler'
+          this.loadModules();
         }
-      }
-    );
+      });
+  }
 
-  dialogRef
+  /**
+   * Suppression d'un module
+   * @param module 
+   */
+  deleteModule(
+    module: TrainingModule
+  ): void {
 
-    .afterClosed()
+    const dialogRef =
 
-    .subscribe(
+      this.dialog.open(
 
-      confirmed => {
+        ConfirmDialog,
 
-        if (!confirmed) {
+        {
 
-          return;
+          width: '450px',
+
+          data: {
+
+            title: 'Suppression',
+
+            message:
+
+              `Supprimer le module "${module.title}" ?`,
+
+            confirmText: 'Supprimer',
+
+            cancelText: 'Annuler'
+          }
         }
+      );
 
-        this.trainingModuleService
+    dialogRef
 
-          .delete(
-            module.id
-          )
+      .afterClosed()
 
-          .subscribe({
+      .subscribe(
 
-            next: () => {
+        confirmed => {
 
-              this.snackBar.open(
+          if (!confirmed) {
 
-                'Module supprimé',
+            return;
+          }
 
-                'Fermer',
+          this.trainingModuleService
 
-                {
-                  duration: 3000
-                }
-              );
+            .delete(
+              module.id
+            )
 
-              this.loadModules();
-            },
+            .subscribe({
 
-            error: (error) => {
+              next: () => {
 
-              console.error(error);
+                this.snackBar.open(
 
-              this.snackBar.open(
+                  'Module supprimé',
 
-                'Erreur lors de la suppression',
+                  'Fermer',
 
-                'Fermer',
+                  {
+                    duration: 3000
+                  }
+                );
 
-                {
-                  duration: 3000
-                }
-              );
-            }
-          });
-      }
-    );
-}
+                this.loadModules();
+              },
+
+              error: (error) => {
+
+                console.error(error);
+
+                this.snackBar.open(
+
+                  'Erreur lors de la suppression',
+
+                  'Fermer',
+
+                  {
+                    duration: 3000
+                  }
+                );
+              }
+            });
+        }
+      );
+  }
 
   /**
    * Open Assign Trainer Dialog
@@ -366,12 +403,15 @@ deleteModule(
     dialogref.afterClosed()
         .subscribe(
 
+          // Confirmer
           confirmed => {
 
+            // Si annulation
             if (!confirmed) {
               return;
             } 
 
+            // Retirer le formateur
             this.formationTrainerService.removeTrainer(this.formation!.id, trainer.id)
 
                 .subscribe({

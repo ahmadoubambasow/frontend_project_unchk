@@ -62,12 +62,24 @@ import { BudgetFormDialog } from '../budget-form-dialog/budget-form-dialog';
 export class Budgets
 implements OnInit {
 
+  /**
+   * Liste des budgets
+   */
   budgets: Budget[] = [];
 
+  /**
+   * Liste des budgets filtrer
+   */
   filteredBudgets: Budget[] = [];
 
+  /**
+   * Indicateur de chargement
+   */
   loading = false;
 
+  /**
+   * Statistiques
+   */
   totalPlanned = 0;
 
   totalExecuted = 0;
@@ -88,15 +100,20 @@ implements OnInit {
     private router:
       Router,
 
-    private cdr: ChangeDetectorRef
+    private cdr: 
+      ChangeDetectorRef
 
   ) {}
 
   ngOnInit(): void {
 
+    // Chargement des budgets
     this.loadBudgets();
   }
 
+  /**
+   * Chargement des budgets
+   */
   loadBudgets(): void {
 
     this.loading = true;
@@ -117,6 +134,7 @@ implements OnInit {
 
           this.loading = false;
 
+          // Rafraîchissement
           this.cdr.detectChanges();
         },
 
@@ -129,8 +147,12 @@ implements OnInit {
       });
   }
 
+  /**
+   * Calcul des statistiques
+   */
   calculateStats(): void {
 
+    // Calcul des statistiques de budgets
     this.totalPlanned =
 
       this.budgets.reduce(
@@ -142,6 +164,7 @@ implements OnInit {
         0
       );
 
+      
     this.totalExecuted =
 
       this.budgets.reduce(
@@ -159,30 +182,42 @@ implements OnInit {
       this.totalPlanned;
   }
 
+  /**
+   * Filtre des budgets
+   * @param event 
+   */
   applyFilter(
     event: Event
   ): void {
 
     const value = (event.target as HTMLInputElement).value.toLowerCase();
 
+    // Filtrage
     this.filteredBudgets =
 
+      // on filtre les budgets sur le titre et l'annee
       this.budgets.filter(
 
         budget =>
 
+          // Filtre sur le titre
           budget.title
             ?.toLowerCase()
             .includes(value)
 
           ||
 
+          // Filtre sur l'annee
           budget.year
             ?.toString()
             .includes(value)
       );
   }
 
+
+  /**
+   * Ouverture du formulaire de creation
+   */
   openCreateDialog(): void {
 
     const dialogRef =
@@ -208,6 +243,10 @@ implements OnInit {
       });
   }
 
+  /**
+   * Ouverture du formulaire de modification
+   * @param budget 
+   */
   openEditDialog(
     budget: Budget
   ): void {
@@ -237,6 +276,10 @@ implements OnInit {
       });
   }
 
+  /**
+   * Ouverture de la page de details
+   * @param budget 
+   */
   openDetails(
     budget: Budget
   ): void {
@@ -247,6 +290,11 @@ implements OnInit {
     ]);
   }
 
+  /**
+   * Suppression du budget
+   * @param budget 
+   * @returns 
+   */
   deleteBudget(
     budget: Budget
   ): void {
@@ -288,6 +336,11 @@ implements OnInit {
       });
   }
 
+  /**
+   * Retourne le label du type de document
+   * @param type 
+   * @returns 
+   */
   getTypeLabel(
     type: string
   ): string {

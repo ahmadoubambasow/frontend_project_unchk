@@ -1,3 +1,6 @@
+/**
+ * Interface PersonnelFile
+ */
 export interface PersonnelFile {
 
   id: number;

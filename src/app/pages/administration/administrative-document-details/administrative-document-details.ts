@@ -42,8 +42,14 @@ import { MatProgressSpinner } from "@angular/material/progress-spinner";
 export class AdministrativeDocumentDetails
 implements OnInit {
 
+  /**
+   * Le document administratif
+   */
   document?: AdministrativeDocument;
 
+  /**
+   * Indique si le document est chargé
+   */
   loading = false;
 
   constructor(
@@ -61,6 +67,7 @@ implements OnInit {
 
   ngOnInit(): void {
 
+    // Récupération d'id
     const id = Number(
 
       this.route.snapshot
@@ -68,9 +75,13 @@ implements OnInit {
         .get('id')
     );
 
+    // Chargement du document
     this.loadDocument(id);
   }
 
+  /**
+   * Chargement du document
+   */
   loadDocument(
     id: number
   ): void {
@@ -101,10 +112,14 @@ implements OnInit {
       });
   }
 
+  /**
+   * Retourne le label du type de document
+   */
   getTypeLabel(
     type?: string
   ): string {
 
+    // Cas par defaut
     switch (type) {
 
       case 'INCOMING_MAIL':
@@ -130,13 +145,16 @@ implements OnInit {
     }
   }
 
+  /**
+   * Ouverture du document
+   */
   openDocument(
-  filePath: string
-): void {
+    filePath: string
+  ): void {
 
-  window.open(
-    `http://localhost:8080/uploads/documents/${filePath}`,
-    '_blank'
-  );
-}
+    window.open(
+      `http://localhost:8080/uploads/documents/${filePath}`,
+      '_blank'
+    );
+  }
 }

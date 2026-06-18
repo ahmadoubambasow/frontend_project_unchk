@@ -1,3 +1,6 @@
+/**
+ * Modèle d'emploi du temps
+ */
 export interface Schedule {
 
   id: number;
