@@ -9,6 +9,9 @@ import { TeacherDashboard } from '../component/teacher/teacherdashboard/teacherd
 import { DashboardStats } from '../../../models/dashboard-stats.model';
 import { DashboardService } from '../../../services/dashboard';
 import { CommonModule } from '@angular/common';
+import { ReportService } from '../../../services/report-service';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-dashboard',
@@ -20,7 +23,9 @@ import { CommonModule } from '@angular/common';
     InsertionDashboard,
     SecretaryDashboard,
     StudentDashboard,
-    TeacherDashboard
+    TeacherDashboard,
+    MatButtonModule,
+    MatIconModule
 ],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.scss',
@@ -44,6 +49,9 @@ export class Dashboard implements OnInit {
 
     private dashboardService:
       DashboardService,
+
+    private reportService:
+      ReportService,
 
     private cdr: 
       ChangeDetectorRef
@@ -78,6 +86,54 @@ export class Dashboard implements OnInit {
         console.error(error);
       }
     })
+  }
+
+  /**
+   * Download PDF
+   */
+  downloadPdf() {
+
+    this.reportService.exportDashboardPdf().subscribe({
+
+      next: (blob) => {
+
+        const url = window.URL.createObjectURL(blob);
+
+        const link = document.createElement('a');
+
+        link.href = url;
+
+        link.download = 'dashboard.pdf';
+
+        link.click();
+
+        window.URL.revokeObjectURL(url);
+      }
+    });
+  }
+
+  /**
+   * Download Excel
+   */
+  downloadExcel() {
+
+    this.reportService.exportDashboardExcel().subscribe({
+
+      next: (blob) => {
+
+        const url = window.URL.createObjectURL(blob);
+
+        const link = document.createElement('a');
+
+        link.href = url;
+
+        link.download = 'dashboard.xlsx';
+
+        link.click();
+
+        window.URL.revokeObjectURL(url);
+      }
+    });
   }
 
 }

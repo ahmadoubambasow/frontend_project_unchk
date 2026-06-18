@@ -131,6 +131,33 @@
   animation: spin 1s linear infinite;
 }
 
+.header-actions {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 12px;
+
+  flex-wrap: wrap;
+}
+
+.header-actions button {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 8px;
+
+  border-radius: 10px;
+}
+
+.header-actions button mat-icon {
+
+  font-size: 20px;
+}
+
 @keyframes spin {
 
   from {

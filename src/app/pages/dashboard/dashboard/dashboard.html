@@ -35,10 +35,47 @@
 
       </div>
 
-      <div
-        class="role-badge">
+      <div 
+        class="header-actions"
+        *ngIf="
+        dashboard.dashboardType === 'ADMIN' ||
+        dashboard.dashboardType === 'DIRECTION' ||
+        dashboard.dashboardType === 'RESPONSABLE_FORMATION' ||
+        dashboard.dashboardType === 'INSERTION'
+      ">
 
-        {{ dashboard.dashboardType }}
+        <button
+          mat-stroked-button
+          color="primary"
+          (click)="downloadPdf()">
+
+          <mat-icon>
+            picture_as_pdf
+          </mat-icon>
+
+          Export PDF
+
+        </button>
+
+        <button
+          mat-stroked-button
+          color="accent"
+          (click)="downloadExcel()">
+
+          <mat-icon>
+            table_view
+          </mat-icon>
+
+          Export Excel
+
+        </button>
+
+        <div
+          class="role-badge">
+
+          {{ dashboard.dashboardType }}
+
+        </div>
 
       </div>
 
