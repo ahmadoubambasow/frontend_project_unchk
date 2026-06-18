@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Enrollment } from '../models/enrollment.model';
 import { EnrollmentRequest } from '../models/enrollment-request.model';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +13,7 @@ export class EnrollmentService {
   /**
    * URL API
    */
-  private apiUrl = 'http://localhost:8080/api/enrollments';
+  private apiUrl = environment.apiUrl + 'enrollments';
 
   constructor(
     private http: HttpClient

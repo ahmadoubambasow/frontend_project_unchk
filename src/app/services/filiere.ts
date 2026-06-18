@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Filiere } from '../models/filiere.model';
 import { FiliereRequest } from '../models/filiere-request.model';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +13,7 @@ export class FiliereService {
   /**
    * API URL
    */
-  private apiUrl = 'http://localhost:8080/api/filieres';
+  private apiUrl = environment.apiUrl + 'filieres';
 
   constructor(
     private http: HttpClient

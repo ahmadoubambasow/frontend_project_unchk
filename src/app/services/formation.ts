@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { FormationRequest } from '../models/formation-request.model';
 import { Formation } from '../models/formation.model';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +13,7 @@ export class FormationService {
   /**
    * URL backend
    */
-  private apiUrl = 'http://localhost:8080/api/formations';
+  private apiUrl = environment.apiUrl + 'formations';
 
   constructor(
     private http: HttpClient

@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { StudentGroup } from '../models/student-group.model';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +14,7 @@ export class StudentGroupService {
    * API URL
    */
   private apiUrl =
-    'http://localhost:8080/api/student-groups';
+    environment.apiUrl + 'student-groups';
 
   constructor(
     private http: HttpClient

@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { TrainingModule } from '../models/training-module.model';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +12,7 @@ export class TrainingModuleService {
   /**
    * API URL
    */
-  private apiUrl = 'http://localhost:8080/api/training-modules';
+  private apiUrl = environment.apiUrl + 'training-modules';
 
   constructor(
     private http: HttpClient

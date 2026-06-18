@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { LoginRequest } from '../models/login-request.model';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { LoginResponse } from '../models/login-response.model';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -26,7 +27,7 @@ export class AuthService {
   /**
    * URL de l'API
    */
-  private apiUrl = 'http://localhost:8080/api/auth';
+  private apiUrl = environment.apiUrl + '/auth';
 
   constructor( private http: HttpClient) {}
 

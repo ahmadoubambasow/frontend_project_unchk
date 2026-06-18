@@ -11,6 +11,7 @@ import {
 import { User } from '../models/user.model';
 
 import { UserRequest } from '../models/user-request.model';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +22,7 @@ export class UserService {
    * URL de l'API
    */
   private apiUrl =
-    'http://localhost:8080/api/users';
+    environment.apiUrl + 'users';
 
   constructor(
     private http: HttpClient

@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Communication } from '../models/communication.model';
 import { Observable } from 'rxjs';
 import { CommunicationRequest } from '../models/communication-request.model';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +13,7 @@ export class CommunicationService {
   /**
    * API URL
    */
-  private apiUrl = 'http://localhost:8080/api/communications';
+  private apiUrl = environment.apiUrl + '/communications';
 
   constructor(
     private http: HttpClient
@@ -62,7 +63,7 @@ export class CommunicationService {
     formData.append('file', file);
 
     return this.http.post(
-      'http://localhost:8080/api/files/upload',
+      environment.apiUrl + 'files/upload',
       formData,
       {
         responseType: 'text'

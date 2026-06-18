@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { TrainerSubject } from '../models/trainer-subject.model';
 import { TrainerSubjectRequest } from '../models/trainer-subject-request.model';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +12,7 @@ export class TrainerSubjectService {
   /**
    * API URL
    */
-  private apiUrl = 'http://localhost:8080/api/trainer-subjects';
+  private apiUrl = environment.apiUrl + 'trainer-subjects';
 
   constructor(
     private http: HttpClient

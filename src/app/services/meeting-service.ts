@@ -13,6 +13,7 @@ import {
 import {
   Meeting
 } from '../models/meeting.model';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +24,7 @@ export class MeetingService {
    * URL de l'API
    */
   private apiUrl =
-    'http://localhost:8080/api/meetings';
+    environment.apiUrl + 'meetings';
 
   constructor(
     private http: HttpClient

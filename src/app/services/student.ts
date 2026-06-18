@@ -12,6 +12,7 @@ import {
   Student
 } from '../models/student.model';
 import { StudentGroup } from '../models/student-group.model';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +23,7 @@ export class StudentService {
    * URL de l'api
    */
   private apiUrl =
-    'http://localhost:8080/api/students';
+    environment.apiUrl + 'students';
 
   constructor(
     private http: HttpClient

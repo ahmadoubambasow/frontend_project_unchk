@@ -17,6 +17,7 @@ import {
 import {
   ScheduleRequest
 } from '../models/schedule-request.model';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -27,7 +28,7 @@ export class ScheduleService {
    * API URL
    */
   private apiUrl =
-    'http://localhost:8080/api/schedules';
+    environment.apiUrl + 'schedules';
 
   constructor(
 

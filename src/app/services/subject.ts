@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Subject } from '../models/subject.model';
 import { SubjectRequest } from '../models/subject-request.model';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +13,7 @@ export class SubjectService {
   /**
    * API URL
    */
-  private apiUrl = 'http://localhost:8080/api/subjects';
+  private apiUrl = environment.apiUrl + 'subjects';
 
   constructor(
     private http: HttpClient
