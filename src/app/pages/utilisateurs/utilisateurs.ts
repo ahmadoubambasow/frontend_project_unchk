@@ -96,8 +96,6 @@ export class Users implements OnInit {
 
         next: (response) => {
 
-          console.log(response);
-
           this.users = response;
 
           this.loading = false;

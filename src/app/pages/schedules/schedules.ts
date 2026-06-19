@@ -40,7 +40,9 @@ import {
   ConfirmDialog
 } from '../../shared/dialogs/confirm-dialog/confirm-dialog';
 import { RouterModule } from '@angular/router';
+import { HasRoleDirective } from '../../core/directives/has-role';
 
+import { ACADEMIC_ROLES } from '../../constants/route-roles';
 @Component({
   selector: 'app-schedules',
 
@@ -50,7 +52,8 @@ import { RouterModule } from '@angular/router';
     CommonModule,
     MatButtonModule,
     MatIconModule,
-    RouterModule
+    RouterModule,
+    HasRoleDirective
   ],
 
   templateUrl:
@@ -60,6 +63,9 @@ import { RouterModule } from '@angular/router';
     './schedules.scss'
 })
 export class Schedules implements OnInit {
+
+  readonly ACADEMIC_ROLES = ACADEMIC_ROLES;
+
 
   /**
    * Liste des créneaux

@@ -73,8 +73,6 @@ export class Dashboard implements OnInit {
 
       next: (response) => {
 
-        console.log("response :", response);
-
         this.dashboard = response;
 
         this.loading = false;

@@ -7,6 +7,8 @@ export interface Student {
 
   ine: string;
 
+  userId: number;
+
   firstName: string;
 
   lastName: string;

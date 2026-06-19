@@ -69,8 +69,6 @@ export class LoginComponent {
 
     if (this.loginForm.invalid) {
 
-      console.log('Form invalid');
-
       return;
     }
 
@@ -79,7 +77,6 @@ export class LoginComponent {
 
         next: (response) => {
 
-          console.log('SUCCESS', response);
           this.authService.saveToken(response.token);
 
           this.authService.saveUser(response);
@@ -89,8 +86,6 @@ export class LoginComponent {
           },
 
           error: (error) => {
-
-            console.log('ERROR', error);
 
             this.errorMessage =
               'Email ou mot de passe incorrect';

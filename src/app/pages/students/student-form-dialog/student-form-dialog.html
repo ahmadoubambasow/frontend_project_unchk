@@ -65,27 +65,25 @@
 
           <mat-label>
 
-            Prénom
+            Étudiant
 
           </mat-label>
 
-          <input
-            matInput
-            formControlName="firstName">
+          <mat-select formControlName="userId">
 
-        </mat-form-field>
+            <mat-option
+              *ngFor="let student of students"
+              [value]="student.id">
 
-        <mat-form-field appearance="outline">
+              {{ student.fullName }}
 
-          <mat-label>
+              <span *ngIf="student.email">
+                ({{ student.email }})
+              </span>
 
-            Nom
+            </mat-option>
 
-          </mat-label>
-
-          <input
-            matInput
-            formControlName="lastName">
+          </mat-select>
 
         </mat-form-field>
 

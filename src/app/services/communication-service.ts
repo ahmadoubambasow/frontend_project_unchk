@@ -13,7 +13,7 @@ export class CommunicationService {
   /**
    * API URL
    */
-  private apiUrl = environment.apiUrl + '/communications';
+  private apiUrl = environment.apiUrl + 'communications';
 
   constructor(
     private http: HttpClient

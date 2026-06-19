@@ -48,6 +48,8 @@ import { StudentService } from '../../../services/student';
 import { FormationService } from '../../../services/formation';
 import { StudentGroupService } from '../../../services/student-group';
 import { MatIconModule } from '@angular/material/icon';
+import { User } from '../../../models/user.model';
+import { UserService } from '../../../services/user-service';
 
 @Component({
   selector: 'app-student-form-dialog',
@@ -83,6 +85,11 @@ export class StudentFormDialog implements OnInit {
   loading = false;
 
   /**
+   * Liste des étudiants
+   */
+  students: User[] = [];
+
+  /**
    * Formations
    */
   formations: Formation[] = [];
@@ -99,6 +106,9 @@ export class StudentFormDialog implements OnInit {
 
     private studentService:
       StudentService,
+
+    private userService:
+      UserService,
 
     private formationService:
       FormationService,
@@ -126,6 +136,9 @@ export class StudentFormDialog implements OnInit {
     // Load users
     this.loadFormations();
 
+    // Load students
+    this.loadStudents();
+
     // Load groups
     this.loadGroups();
 
@@ -141,12 +154,7 @@ export class StudentFormDialog implements OnInit {
 
     this.form = this.fb.group({
 
-      firstName: [
-        '',
-        Validators.required
-      ],
-
-      lastName: [
+      userId: [
         '',
         Validators.required
       ],
@@ -204,6 +212,25 @@ export class StudentFormDialog implements OnInit {
   }
 
   /**
+   * Chargement des comptes étudiant
+   */
+  loadStudents(): void {
+    
+    this.userService.getStudents().subscribe({
+
+      next: (response) => {
+
+        console.log("liste etudiants :", response)
+        this.students = response;
+      },
+      error: (error) => {
+
+        console.error(error);
+      }
+    });
+  }
+
+  /**
    * Chargement des groupes
    */
   loadGroups(): void {
@@ -231,11 +258,8 @@ export class StudentFormDialog implements OnInit {
 
     this.form.patchValue({
 
-      firstName:
-        this.data?.firstName,
-
-      lastName:
-        this.data?.lastName,
+      userId:
+        this.data?.userId,
 
       birthDate:
         this.data?.birthDate,
@@ -318,8 +342,7 @@ export class StudentFormDialog implements OnInit {
 
       .create(
         this.form.value
-      )
-
+      )      
       .subscribe({
 
         next: () => {

@@ -55,6 +55,10 @@ export class AuthService {
 
     localStorage.setItem('user', JSON.stringify(user));
 
+    if (user.role) {
+      localStorage.setItem('role', user.role);
+    }
+
     this.currentUserSubject.next(user);
   }
 
@@ -120,6 +124,8 @@ export class AuthService {
 
     localStorage.removeItem('user');
 
+    localStorage.removeItem('role');
+
     this.currentUserSubject.next(null);
   }
 
@@ -169,5 +175,18 @@ export class AuthService {
     this.currentUserSubject.next(
       mergedUser
     );
+  }
+
+  /**
+   * Role
+   */
+
+  hasAnyRole(roles: string[]): boolean {
+
+    const role = localStorage.getItem('role');
+
+    console.log('role user:', role);
+    console.log('roles auorisés:', roles);
+    return !!role && roles.includes(role);
   }
 }

@@ -138,4 +138,13 @@ export class UserService {
     return this.http.get<any[]>(
       `${this.apiUrl}/trainers`)
   }
+
+  /**
+   * Récupérer tous les étudiants
+   */
+  getStudents(): Observable<User[]> {
+
+    return this.http.get<User[]>(
+      `${this.apiUrl}/students`)
+  }
 }

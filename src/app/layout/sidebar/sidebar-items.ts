@@ -86,6 +86,7 @@ export const SIDEBAR_ITEMS: SidebarItem[] = [
     ]
   },
 
+  /*
   {
     label: 'Filières',
     icon: 'account_tree',
@@ -94,7 +95,8 @@ export const SIDEBAR_ITEMS: SidebarItem[] = [
       'ADMIN',
       'RESPONSABLE_FORMATION'
     ]
-  },
+  }, 
+  */
 
   {
     label: 'Emplois du temps',
