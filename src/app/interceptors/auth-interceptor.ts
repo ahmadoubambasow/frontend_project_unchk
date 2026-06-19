@@ -1,30 +1,45 @@
-import { HttpInterceptorFn } from '@angular/common/http';
-import { AuthService } from '../services/auth';
+import { HttpInterceptorFn, HttpErrorResponse } from '@angular/common/http';
 import { inject } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from '../services/auth';
+import { catchError, throwError } from 'rxjs';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
-  
-  const authService = inject(AuthService);
 
-  // Récupération token
+  /**
+   * Recupération des services
+   */
+
+  const authService = inject(AuthService);
+  const router = inject(Router);
+
+  // Vérifie si utilisateur connecté
   const token = authService.getToken();
 
-  // Si token existe
-  if (token) {
-    
-    // CLone requete avec header
-    const clonedRequest = req.clone({
+  // Ajout token si connecté
+  const authReq = token
+    ? req.clone({
+        setHeaders: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+    : req;
 
-      setHeaders: {
+  // Envoi requête
+  return next(authReq).pipe(
 
-        Authorization: `Bearer ${token}`
+    // Gestion erreur
+    catchError((error: HttpErrorResponse) => {
+
+      // Vérifie si erreur 401
+      if (error.status === 401) {
+
+        localStorage.clear();
+
+        router.navigate(['/login']);
       }
-    });
 
-    // Envoie requete
-    return next(clonedRequest);
-  }
-
-  // Sinon requete normale
-  return next(req);
+      return throwError(() => error);
+    })
+  );
 };

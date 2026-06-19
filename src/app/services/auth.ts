@@ -4,6 +4,7 @@ import { LoginRequest } from '../models/login-request.model';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { LoginResponse } from '../models/login-response.model';
 import { environment } from '../../environments/environment';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable({
   providedIn: 'root',
@@ -27,7 +28,12 @@ export class AuthService {
   /**
    * URL de l'API
    */
-  private apiUrl = environment.apiUrl + '/auth';
+  private apiUrl = environment.apiUrl + 'auth';
+
+  /**
+   * Helper JWT
+   */
+  private jwtHelper = new JwtHelperService();
 
   constructor( private http: HttpClient) {}
 
@@ -85,7 +91,24 @@ export class AuthService {
    */
   isLoggedIn(): boolean {
 
-    return !!this.getToken();
+    // Recupération token
+    const token = localStorage.getItem('token');
+
+    // Vérifie si token existant
+    if (!token) {
+
+      return false;
+    }
+
+    // Vérifie si token expiré
+    if (this.jwtHelper.isTokenExpired(token)) {
+      
+      localStorage.removeItem('token');
+
+      return false;
+    }
+
+    return true;
   }
 
   /**
