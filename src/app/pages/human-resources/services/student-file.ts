@@ -13,6 +13,7 @@ import {
 import {
   StudentFile
 } from '../models/student-file.model';
+import { environment } from '../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +24,7 @@ export class StudentFileService {
    * API URL
    */
   private apiUrl =
-    'http://localhost:8080/api/student-files';
+    environment.apiUrl + 'student-files';
 
   constructor(
     private http: HttpClient

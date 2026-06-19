@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { StudentContact } from '../models/Student-contact.model';
+import { environment } from '../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ export class StudentContactService {
    * URL Api
    */
   private apiUrl =
-    'http://localhost:8080/api/student-contacts';
+    environment.apiUrl + 'student-contacts';
 
   constructor(
     private http: HttpClient

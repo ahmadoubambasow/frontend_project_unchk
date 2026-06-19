@@ -13,6 +13,7 @@ import {
 import {
   Partner
 } from '../models/partner.model';
+import { environment } from '../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +24,7 @@ export class PartnerService {
    * URL de l'API
    */
   private apiUrl =
-    'http://localhost:8080/api/partners';
+    environment.apiUrl + 'partners';
 
   constructor(
     private http: HttpClient

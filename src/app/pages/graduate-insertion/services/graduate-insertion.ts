@@ -13,6 +13,7 @@ import {
 import {
   GraduateInsertion
 } from '../models/graduate-insertion.model';
+import { environment } from '../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +24,7 @@ export class GraduateInsertionService {
    * API URL
    */
   private apiUrl =
-    'http://localhost:8080/api/graduate-insertions';
+    environment.apiUrl + 'graduate-insertions';
 
   constructor(
     private http: HttpClient

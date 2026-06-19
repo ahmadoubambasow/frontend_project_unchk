@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { InsertionDashboard } from '../models/insertion-dashboard.model';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ export class InsertionDashboardService {
    * URL de l'API
    */
   private apiUrl =
-    'http://localhost:8080/api/insertion-dashboard';
+    environment.apiUrl + 'insertion-dashboard';
 
   constructor(
     private http: HttpClient

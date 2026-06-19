@@ -13,6 +13,7 @@ import {
 import {
   AdministrativeDocument
 } from '../models/administrative-document.model';
+import { environment } from '../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +24,7 @@ export class AdministrativeDocumentService {
    * URL de l'API
    */
   private apiUrl =
-    'http://localhost:8080/api/administrative-documents';
+    environment.apiUrl + 'administrative-documents';
 
   constructor(
     private http: HttpClient

@@ -13,6 +13,7 @@ import {
 import {
   Budget
 } from '../models/budget.model';
+import { environment } from '../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +24,7 @@ export class BudgetService {
    * URL de l'API
    */
   private apiUrl =
-    'http://localhost:8080/api/budgets';
+    environment.apiUrl + 'budgets';
 
   constructor(
     private http: HttpClient

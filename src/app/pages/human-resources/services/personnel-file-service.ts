@@ -13,6 +13,7 @@ import {
 import {
   PersonnelFile
 } from '../models/personnel-file.model';
+import { environment } from '../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +24,7 @@ export class PersonnelFileService {
    * URL de l'API
    */
   private apiUrl =
-    'http://localhost:8080/api/personnel-files';
+    environment.apiUrl + 'personnel-files';
 
   constructor(
     private http: HttpClient

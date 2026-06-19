@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Internship } from '../models/internship.model';
+import { environment } from '../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ export class InternshipService {
    * URL de l'API
    */
   private apiUrl =
-    'http://localhost:8080/api/internships';
+    environment.apiUrl + 'internships';
 
   constructor(
     private http: HttpClient
