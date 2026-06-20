@@ -8,7 +8,6 @@ import { Formations } from './pages/formations/formations';
 import { Trainers } from './pages/trainers/trainers';
 import { Schedules } from './pages/schedules/schedules';
 import { Promotions } from './pages/promotions/promotions';
-import { Filieres } from './pages/filieres/filieres';
 import { Communications } from './pages/communications/communications';
 import { Users } from './pages/utilisateurs/utilisateurs';
 import { FormationDetails } from './pages/formations/formation-details/formation-details';
@@ -385,14 +384,6 @@ export const routes: Routes = [
                 }
             },
 
-            {
-                path: 'filieres',
-                component: Filieres,
-                canActivate: [roleGuard],
-                data: {
-                    roles: ACADEMIC_ROLES
-                }
-            },
 
             {
                 path: 'communications',

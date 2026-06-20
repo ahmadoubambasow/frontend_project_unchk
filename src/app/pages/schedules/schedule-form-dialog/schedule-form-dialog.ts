@@ -297,6 +297,7 @@ export class ScheduleFormDialog implements OnInit {
 
             next: response => {
 
+              console.log(response);
               this.filteredModules =
                 response;
             },

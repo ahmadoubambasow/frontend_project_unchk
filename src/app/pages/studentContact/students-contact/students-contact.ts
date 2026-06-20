@@ -115,6 +115,8 @@ export class StudentContacts implements OnInit {
 
         next: response => {
 
+
+          console.log(response);
           this.contacts =
             response;
 
