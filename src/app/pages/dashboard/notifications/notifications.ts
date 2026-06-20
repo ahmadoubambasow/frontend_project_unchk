@@ -78,6 +78,7 @@ export class Notifications implements OnInit {
    */
   loadNotifications(): void {
 
+    console.log('Load notifications');
     this.loading = true;
 
     this.notificationService

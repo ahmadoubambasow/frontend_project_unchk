@@ -10,6 +10,7 @@ import { Sidebar } from '../sidebar/sidebar';
     Sidebar,
     Topbar
   ],
+  standalone: true,
   templateUrl: './main-layout.html',
   styleUrl: './main-layout.scss',
 })

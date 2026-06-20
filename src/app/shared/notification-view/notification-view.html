@@ -1,19 +1,172 @@
 <div class="notification-modal">
 
-  <h2>
-    {{ notification.title }}
-  </h2>
+  <div class="header">
 
-  <div class="date">
+    <mat-icon class="header-icon">
+      notifications
+    </mat-icon>
 
-    {{ notification.createdAt | date:'dd/MM/yyyy HH:mm' }}
+    <div>
+
+      <h2>
+        {{ notification.title }}
+      </h2>
+
+      <div class="date">
+
+        <mat-icon>
+          schedule
+        </mat-icon>
+
+        {{ notification.createdAt | date:'dd/MM/yyyy HH:mm' }}
+
+      </div>
+
+    </div>
 
   </div>
 
+  <mat-divider></mat-divider>
 
-  <div class="message">
+  <div class="section">
 
-    {{ notification.message }}
+    <h3>
+
+      <mat-icon>
+        info
+      </mat-icon>
+
+      Notification
+
+    </h3>
+
+    <p>
+
+      {{ notification.message }}
+
+    </p>
+
+  </div>
+
+  <div
+    class="section"
+    *ngIf="notification.communicationType">
+
+    <h3>
+
+      <mat-icon>
+        campaign
+      </mat-icon>
+
+      Communication
+
+    </h3>
+
+    <div class="info-grid">
+
+      <div>
+
+        <strong>Type</strong>
+
+        <span>
+
+          {{ notification.communicationType }}
+
+        </span>
+
+      </div>
+
+      <div *ngIf="notification.eventDate">
+
+        <strong>Date évènement</strong>
+
+        <span>
+
+          {{ notification.eventDate | date:'dd/MM/yyyy HH:mm' }}
+
+        </span>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <div
+    class="section"
+    *ngIf="notification.communicationDescription">
+
+    <h3>
+
+      <mat-icon>
+        description
+      </mat-icon>
+
+      Description
+
+    </h3>
+
+    <p>
+
+      {{ notification.communicationDescription }}
+
+    </p>
+
+  </div>
+
+  <div
+    class="section"
+    *ngIf="notification.communicationReport">
+
+    <h3>
+
+      <mat-icon>
+        article
+      </mat-icon>
+
+      Compte rendu
+
+    </h3>
+
+    <p>
+
+      {{ notification.communicationReport }}
+
+    </p>
+
+  </div>
+
+  <div
+    class="section"
+    *ngIf="notification.documentUrl">
+
+    <h3>
+
+      <mat-icon>
+        attach_file
+      </mat-icon>
+
+      Document joint
+
+    </h3>
+
+    <a
+
+      mat-raised-button
+
+      color="primary"
+
+      [href]="notification.documentUrl"
+
+      target="_blank">
+
+      <mat-icon>
+        download
+      </mat-icon>
+
+      Télécharger
+
+    </a>
 
   </div>
 

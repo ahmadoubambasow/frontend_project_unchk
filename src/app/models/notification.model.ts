@@ -14,4 +14,20 @@ export interface Notification {
   createdAt: string;
 
   targetUrl?: string;
+
+  communicationId?: number;
+
+  communicationTitle?: string;
+
+  communicationType?: string;
+
+  communicationDescription?: string;
+
+  communicationReport?: string;
+
+  eventDate?: string;
+
+  documentName?: string;
+
+  documentUrl?: string;
 }

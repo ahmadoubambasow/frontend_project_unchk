@@ -1,4 +1,5 @@
 import {
+  ChangeDetectorRef,
   Component,
   OnDestroy,
   OnInit
@@ -98,6 +99,9 @@ export class Topbar implements OnInit, OnDestroy {
 
     private notificationService: 
       NotificationService,
+    
+    private cdr: 
+      ChangeDetectorRef,
 
     private dialog: 
       MatDialog
@@ -150,6 +154,8 @@ export class Topbar implements OnInit, OnDestroy {
               new Date(a.createdAt).getTime()
 
             );
+
+          this.cdr.detectChanges();
 
           this.updateUnreadCount();
         },
