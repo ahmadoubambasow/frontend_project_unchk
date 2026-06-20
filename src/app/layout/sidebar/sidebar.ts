@@ -42,6 +42,7 @@ export class Sidebar implements OnInit {
    */
   showUserMenu = false;
 
+
   constructor(
 
     private authService: 

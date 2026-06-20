@@ -19,4 +19,6 @@ export interface Trainer {
 
     type: string;
 
+    roleName: string;
+
 }

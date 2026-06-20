@@ -52,15 +52,15 @@ export class CommunicationFormDialog implements OnInit{
 
     'MEETING',
 
-  'ENCOUNTER',
+    'ENCOUNTER',
 
-  'SEMINAR',
+    'SEMINAR',
 
-  'WEBINAR',
+    'WEBINAR',
 
-  'UNIVERSITY_COUNCIL',
+    'UNIVERSITY_COUNCIL',
 
-  'CIRCULAR'
+    'CIRCULAR'
   ];
 
   /**
@@ -205,6 +205,8 @@ export class CommunicationFormDialog implements OnInit{
  * Submit
  */
   submit(): void {
+
+    console.log(this.communicationForm.value.eventDate);
 
     if (this.communicationForm.invalid) {
 

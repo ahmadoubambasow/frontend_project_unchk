@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { MatTab } from '@angular/material/tabs';
 import { Communication } from '../../models/communication.model';
 import { CommonModule } from '@angular/common';
@@ -62,10 +62,17 @@ export class Communications implements OnInit {
     private dialog: 
       MatDialog,
 
-    private snackBar: MatSnackBar
+    private cdr: 
+      ChangeDetectorRef,
+
+    private snackBar: 
+      MatSnackBar
   ) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+
+    this.loadCommunications();
+  }
 
   /**
    * Chargement des communications
@@ -76,6 +83,8 @@ export class Communications implements OnInit {
       next: (response) => {
         this.dataSource.data = response;
         this.dataSource.paginator = this.paginator;
+      
+        this.cdr.detectChanges();
       },
       error: (error) => {
         console.error(error);

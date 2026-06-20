@@ -1,4 +1,5 @@
 import {
+  ChangeDetectorRef,
   Component,
   OnInit
 } from '@angular/core';
@@ -59,6 +60,9 @@ export class Notifications implements OnInit {
     private notificationService:
       NotificationService,
 
+    private cdr: 
+      ChangeDetectorRef,
+
     private dialog: 
       MatDialog
 
@@ -97,6 +101,8 @@ export class Notifications implements OnInit {
             );
 
           this.loading = false;
+
+          this.cdr.detectChanges();
         },
 
         error: (error) => {

@@ -46,9 +46,6 @@ export class Trainers implements OnInit {
    */
   displayedColumns = [
     'fullName',
-    'phone',
-    'speciality',
-    'grade',
     'type',
     'actions'
   ];

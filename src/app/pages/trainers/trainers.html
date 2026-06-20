@@ -85,7 +85,7 @@
 
           {{
             dataSource.data.filter(
-              t => t.type === 'ENSEIGNANT'
+              t => t.roleName === 'ENSEIGNANT'
             ).length
           }}
 
@@ -115,7 +115,7 @@
 
           {{
             dataSource.data.filter(
-              t => t.type === 'RESPONSABLE'
+              t => t.roleName === 'RESPONSABLE'
             ).length
           }}
 
@@ -178,7 +178,7 @@
 
               <div class="avatar">
 
-                {{ trainer.firstName?.charAt(0) }}
+                {{ trainer.fullName?.charAt(0) }}
 
               </div>
 
@@ -204,7 +204,7 @@
 
         </ng-container>
 
-        <!-- Téléphone -->
+        <!-- Téléphone 
         <ng-container matColumnDef="phone">
 
           <th mat-header-cell *matHeaderCellDef>
@@ -219,9 +219,9 @@
 
           </td>
 
-        </ng-container>
+        </ng-container> -->
 
-        <!-- Spécialité -->
+        <!-- Spécialité
         <ng-container matColumnDef="speciality">
 
           <th mat-header-cell *matHeaderCellDef>
@@ -236,9 +236,9 @@
 
           </td>
 
-        </ng-container>
+        </ng-container> -->
 
-        <!-- Grade -->
+        <!-- Grade 
         <ng-container matColumnDef="grade">
 
           <th mat-header-cell *matHeaderCellDef>
@@ -257,7 +257,7 @@
 
           </td>
 
-        </ng-container>
+        </ng-container> -->
 
         <!-- Type -->
         <ng-container matColumnDef="type">
@@ -272,7 +272,7 @@
 
             <span class="type-badge">
 
-              {{ trainer.type }}
+              {{ trainer.roleName }}
 
             </span>
 

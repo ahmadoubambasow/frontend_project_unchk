@@ -65,7 +65,8 @@ export const SIDEBAR_ITEMS: SidebarItem[] = [
       'RESPONSABLE_FORMATION'
     ]
   },
-
+  
+ /*
   {
     label: 'Formateurs',
     icon: 'co_present',
@@ -75,6 +76,7 @@ export const SIDEBAR_ITEMS: SidebarItem[] = [
       'RESPONSABLE_FORMATION'
     ]
   },
+  */
 
   {
     label: 'Promotions',

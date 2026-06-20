@@ -255,6 +255,7 @@ export const routes: Routes = [
                 }
             },
 
+            /** 
             {
                 path: 'trainers',
                 component: Trainers,
@@ -263,6 +264,7 @@ export const routes: Routes = [
                     roles: ACADEMIC_ROLES
                 }
             },
+            */
 
             {
                 path: 'schedules',
