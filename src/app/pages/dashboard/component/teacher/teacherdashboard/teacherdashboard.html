@@ -1,5 +1,5 @@
 <!-- ===================================
-     KPI
+     KPI ENSEIGNANT
 =================================== -->
 
 <div class="dashboard-grid">
@@ -14,7 +14,7 @@
 
       <h2>{{ dashboard.totalStudents }}</h2>
 
-      <p>Étudiants</p>
+      <p>Mes étudiants</p>
 
     </div>
 
@@ -28,9 +28,9 @@
 
     <div>
 
-      <h2>{{ dashboard.totalFormations }}</h2>
+      <h2>{{ dashboard.totalModules }}</h2>
 
-      <p>Formations</p>
+      <p>Mes modules</p>
 
     </div>
 
@@ -39,24 +39,39 @@
   <div class="stat-card">
 
     <div class="icon purple">
-      <mat-icon>group_work</mat-icon>
+      <mat-icon>groups</mat-icon>
     </div>
 
     <div>
 
       <h2>{{ dashboard.totalGroups }}</h2>
 
-      <p>Groupes</p>
+      <p>Mes groupes</p>
+
+    </div>
+
+  </div>
+
+  
+
+
+  <div class="stat-card">
+
+    <div class="icon orange">
+      <mat-icon>schedule</mat-icon>
+    </div>
+
+    <div>
+
+      <h2>{{ dashboard.totalSchedules }}</h2>
+
+      <p>Mes créneaux</p>
 
     </div>
 
   </div>
 
 </div>
-
-<!-- ===================================
-     ETUDIANTS PAR FORMATION
-=================================== -->
 
 <div class="stats-grid">
 
@@ -66,7 +81,7 @@
 
       <mat-card-title>
 
-        Effectif par formation
+        Mes modules
 
       </mat-card-title>
 
@@ -77,7 +92,7 @@
       <div
         class="stat-line"
         *ngFor="
-          let item of dashboard.studentsByFormation
+          let item of dashboard.teacherModules
         ">
 
         <span>
@@ -85,12 +100,6 @@
           {{ item.label }}
 
         </span>
-
-        <strong>
-
-          {{ item.value }}
-
-        </strong>
 
       </div>
 
@@ -101,10 +110,15 @@
 </div>
 
 <!-- ===================================
-     ETUDIANTS PAR GROUPE
+     MES GROUPES
 =================================== -->
 
-<div class="stats-grid">
+<div
+  class="stats-grid"
+  *ngIf="
+    dashboard.studentsByGroup &&
+    dashboard.studentsByGroup.length
+  ">
 
   <mat-card class="chart-card">
 
@@ -112,7 +126,7 @@
 
       <mat-card-title>
 
-        Effectif par groupe
+        Effectif de mes groupes
 
       </mat-card-title>
 

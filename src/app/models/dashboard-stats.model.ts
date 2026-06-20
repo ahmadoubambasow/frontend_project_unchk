@@ -83,4 +83,11 @@ export interface DashboardStats {
 
   studentGraduationYear: number;
 
+  // Infos tuteur
+  totalModules: number;
+
+  totalSchedules: number;
+
+  teacherModules: DashboardItem[];
+
 }
