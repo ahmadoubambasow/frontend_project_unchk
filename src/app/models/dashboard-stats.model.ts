@@ -70,4 +70,17 @@ export interface DashboardStats {
   documentsByType: DashboardItem[];
 
   partnersBySector: DashboardItem[];
+
+  // Profil étudiant
+
+  studentFullName: string;
+
+  studentEmail: string;
+
+  studentBirthDate: string;
+
+  studentStartYear: number;
+
+  studentGraduationYear: number;
+
 }

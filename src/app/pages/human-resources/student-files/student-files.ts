@@ -115,6 +115,7 @@ export class StudentFiles implements OnInit {
 
         next: response => {
 
+          console.log(response);
           this.studentFiles =
             response;
 

@@ -76,8 +76,7 @@
               *ngFor="let student of students"
               [value]="student.id">
 
-              {{ student.firstName }}
-              {{ student.lastName }}
+              {{ student.fullName }}
 
             </option>
 
@@ -85,6 +84,7 @@
 
         </mat-form-field>
 
+        <!--
         <mat-form-field appearance="outline">
 
           <mat-label>
@@ -98,6 +98,8 @@
             formControlName="registrationNumber">
 
         </mat-form-field>
+
+        -->
 
       </div>
 
